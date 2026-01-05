@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.primaryButton {
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: 0.025em;
+}
+
+.secondaryButton {
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s;
+}
+
+.secondaryButton:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+

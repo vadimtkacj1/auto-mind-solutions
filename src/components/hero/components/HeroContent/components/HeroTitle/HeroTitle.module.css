@@ -1,0 +1,12 @@
+.container {
+  margin-bottom: 2rem;
+  line-height: 1.05;
+  color: white;
+}
+
+.line {
+  display: block;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+

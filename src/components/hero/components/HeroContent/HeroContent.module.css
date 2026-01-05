@@ -1,0 +1,10 @@
+.container {
+  text-align: right;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    order: 2;
+  }
+}
+

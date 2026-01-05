@@ -1,0 +1,7 @@
+.container {
+  position: absolute;
+  inset: 0;
+  opacity: 0.02;
+  pointer-events: none;
+}
+

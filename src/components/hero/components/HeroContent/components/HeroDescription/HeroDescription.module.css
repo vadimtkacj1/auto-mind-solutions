@@ -1,0 +1,9 @@
+.container {
+  margin-bottom: 3rem;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 36rem;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
