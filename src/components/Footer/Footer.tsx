@@ -1,4 +1,3 @@
-
 import { Github, Heart, Instagram, Linkedin, Twitter } from 'lucide-react';
 
 type Page = 'home' | 'privacy' | 'terms';
@@ -32,22 +31,7 @@ export function Footer({ onNavigate }: FooterProps) {
   return (
     <footer className="relative overflow-hidden">
       {/* Main Footer */}
-      <div className="bg-gradient-to-br from-[var(--color-navy)] to-[var(--color-dark)] text-white py-20 px-6 lg:px-12">
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div
-            className="absolute top-0 right-[10%] w-[600px] h-[600px] rounded-full blur-[150px] opacity-10"
-            style={{
-              background: 'radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%)',
-            }}
-          />
-          <div
-            className="absolute bottom-0 left-[10%] w-[500px] h-[500px] rounded-full blur-[150px] opacity-10"
-            style={{
-              background: 'radial-gradient(circle, rgba(20, 184, 166, 0.2) 0%, transparent 70%)',
-            }}
-          />
-        </div>
+      <div className="bg-[var(--color-dark)] text-white py-20 px-6 lg:px-12">
 
         <div className="max-w-[1400px] mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
