@@ -169,7 +169,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="relative w-full py-4 rounded-xl text-white font-bold overflow-hidden transition-all duration-300 disabled:opacity-70 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] shadow-lg shadow-[var(--color-primary)]/25 hover:shadow-xl hover:shadow-[var(--color-primary)]/30"
+                  className="relative w-full py-4 rounded-xl text-white font-bold overflow-hidden transition-all duration-300 disabled:opacity-70 bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/25 hover:shadow-xl hover:shadow-[var(--color-primary)]/30"
                 >
                   <span className={`transition-opacity ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                     שלח הודעה
