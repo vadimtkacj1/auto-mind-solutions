@@ -63,7 +63,7 @@ export function Header() {
             ))}
             <a
               href="#contact"
-              className="mr-4 px-7 py-3 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] shadow-lg shadow-[var(--color-primary)]/25 hover:shadow-xl hover:shadow-[var(--color-primary)]/30 transition-all duration-300"
+              className="mr-4 px-7 py-3 rounded-full text-sm font-bold text-white bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/25 hover:shadow-xl hover:shadow-[var(--color-primary)]/30 transition-all duration-300"
             >
               בואו נדבר
             </a>
