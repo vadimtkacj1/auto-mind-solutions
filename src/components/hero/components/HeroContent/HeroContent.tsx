@@ -13,7 +13,7 @@ interface HeroContentProps {
 export function HeroContent({ opacity, scale }: HeroContentProps) {
   return (
     <motion.div
-      style={{ opacity, scale }}
+      style={{ opacity }}
       className={styles.container}
     >
       <HeroBadge />
@@ -23,4 +23,3 @@ export function HeroContent({ opacity, scale }: HeroContentProps) {
     </motion.div>
   );
 }
-
