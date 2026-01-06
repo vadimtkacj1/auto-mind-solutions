@@ -6,42 +6,42 @@ const services = [
     description:
       'ממשקים אינטואיטיביים וחוויות משתמש שמניעות המרות. עיצוב מודרני עם מחקר מעמיק על קהל היעד.',
     number: '01',
-    gradient: 'from-[var(--color-primary)] to-[var(--color-primary-dark)]',
+    color: 'bg-[var(--color-primary)]',
   },
   {
     title: 'SEO & אופטימיזציה',
     description:
       'דירוג ראשון בגוגל אינו מזל. אסטרטגיות SEO מתקדמות שמביאות תוצאות מדידות ותנועה איכותית.',
     number: '02',
-    gradient: 'from-[var(--color-accent)] to-[var(--color-accent-dark)]',
+    color: 'bg-[var(--color-accent)]',
   },
   {
     title: 'פיתוח מהיר ומתקדם',
     description:
       'טכנולוגיות חדשניות ביותר. React, Next.js, ופיתוח מותאם אישית לכל צורך עסקי.',
     number: '03',
-    gradient: 'from-[var(--color-primary)] to-[var(--color-accent)]',
+    color: 'bg-[var(--color-primary)]',
   },
   {
     title: 'אסטרטגיה דיגיטלית',
     description:
       'תכנון מקיף שמתחיל בהבנת המטרות העסקיות שלך ומסתיים בביצועים יוצאי דופן.',
     number: '04',
-    gradient: 'from-[var(--color-dark)] to-[var(--color-navy)]',
+    color: 'bg-[var(--color-dark)]',
   },
   {
     title: 'אתרים רב-לשוניים',
     description:
       'הרחבה גלובלית עם תמיכה מלאה ב-RTL, תרגומים מקצועיים וחוויה מותאמת לכל שוק.',
     number: '05',
-    gradient: 'from-[var(--color-accent)] to-[var(--color-primary)]',
+    color: 'bg-[var(--color-accent)]',
   },
   {
     title: 'אבטחה ותחזוקה',
     description:
       'הגנה מקסימלית על האתר שלך עם תחזוקה שוטפת, גיבויים אוטומטיים ועדכוני אבטחה.',
     number: '06',
-    gradient: 'from-[var(--color-primary-dark)] to-[var(--color-dark)]',
+    color: 'bg-[var(--color-dark)]',
   },
 ];
 
