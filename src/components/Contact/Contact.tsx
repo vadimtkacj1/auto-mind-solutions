@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Mail, MapPin, Phone } from 'lucide-react';
 import { Reveal } from '../ui/Reveal';
 
 export function Contact() {
