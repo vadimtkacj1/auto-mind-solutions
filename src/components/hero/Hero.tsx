@@ -1,4 +1,4 @@
-﻿import { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { HeroBackground } from './components/HeroBackground/HeroBackground';
 import { HeroGrid } from './components/HeroGrid/HeroGrid';
@@ -19,14 +19,17 @@ export function Hero() {
   const isMobile = useIsMobile();
   const reduceMotion = useReducedMotion();
 
+  // Disable scroll-driven animations on mobile for better performance
+  const shouldAnimate = !isMobile && !reduceMotion;
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 90 : 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.98]);
+  const y = shouldAnimate ? useTransform(scrollYProgress, [0, 1], [0, 150]) : 0;
+  const opacity = shouldAnimate ? useTransform(scrollYProgress, [0, 0.5], [1, 0]) : 1;
+  const scale = shouldAnimate ? useTransform(scrollYProgress, [0, 0.5], [1, 0.98]) : 1;
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
