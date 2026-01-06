@@ -19,17 +19,16 @@ export function Hero() {
   const isMobile = useIsMobile();
   const reduceMotion = useReducedMotion();
 
-  // Disable scroll-driven animations on mobile for better performance
-  const shouldAnimate = !isMobile && !reduceMotion;
-
+  // Disable expensive scroll animations for better performance
+  // Only use simple fade out, no parallax
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
   });
 
-  const y = shouldAnimate ? useTransform(scrollYProgress, [0, 1], [0, 150]) : 0;
-  const opacity = shouldAnimate ? useTransform(scrollYProgress, [0, 0.5], [1, 0]) : 1;
-  const scale = shouldAnimate ? useTransform(scrollYProgress, [0, 0.5], [1, 0.98]) : 1;
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const y = 0;
+  const scale = 1;
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
