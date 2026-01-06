@@ -55,21 +55,6 @@ export function Pricing() {
       id="pricing"
       className="py-28 lg:py-36 px-6 lg:px-12 relative overflow-hidden section-subtle"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-20 right-[10%] w-[500px] h-[500px] rounded-full blur-[150px] opacity-30"
-          style={{
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%)',
-          }}
-        />
-        <div
-          className="absolute bottom-20 left-[10%] w-[600px] h-[600px] rounded-full blur-[150px] opacity-30"
-          style={{
-            background: 'radial-gradient(circle, rgba(20, 184, 166, 0.1) 0%, transparent 70%)',
-          }}
-        />
-      </div>
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         {/* Header */}
