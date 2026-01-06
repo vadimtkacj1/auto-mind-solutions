@@ -42,7 +42,7 @@ export function Header() {
               AUTO
               <span className="text-gradient"> MIND</span>
             </span>
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] group-hover:w-full transition-all duration-300" />
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-primary)] group-hover:w-full transition-all duration-300" />
           </a>
 
           {/* Desktop Nav */}
