@@ -116,7 +116,7 @@ export function Header() {
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full px-6 py-4 rounded-xl text-white text-center mt-4 font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] shadow-lg shadow-[var(--color-primary)]/25"
+              className="block w-full px-6 py-4 rounded-xl text-white text-center mt-4 font-bold bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/25"
             >
               בואו נדבר
             </a>
