@@ -54,21 +54,21 @@ export function Contact() {
             {/* Contact Cards */}
             <div className="space-y-4">
               {[
-                { 
-                  icon: Mail,
-                  label: 'אימייל', 
+                {
+                  symbol: '✉',
+                  label: 'אימייל',
                   value: 'hello@automind.studio',
                   href: 'mailto:hello@automind.studio'
                 },
-                { 
-                  icon: Phone,
-                  label: 'טלפון', 
+                {
+                  symbol: '📞',
+                  label: 'טלפון',
                   value: '050-123-4567',
                   href: 'tel:050-123-4567'
                 },
-                { 
-                  icon: MapPin,
-                  label: 'כתובת', 
+                {
+                  symbol: '📍',
+                  label: 'כתובת',
                   value: 'תל אביב, ישראל',
                   href: '#'
                 },
@@ -78,8 +78,8 @@ export function Contact() {
                     href={item.href}
                     className="flex items-center gap-4 p-5 rounded-xl bg-[var(--color-gray-50)] border border-[var(--color-gray-200)] hover:border-[var(--color-primary)]/20 hover:bg-white hover:shadow-md transition-all duration-300 group"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all duration-300">
-                      <item.icon className="w-5 h-5" aria-hidden="true" />
+                    <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all duration-300 text-xl">
+                      {item.symbol}
                     </div>
                     <div>
                       <div className="text-sm text-[var(--color-gray-500)] font-semibold">{item.label}</div>
