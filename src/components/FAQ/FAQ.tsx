@@ -52,8 +52,8 @@ export function FAQ() {
         />
       </div>
 
-      {/* Top gradient line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/20 to-transparent" />
+      {/* Top border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-[var(--color-gray-200)]" />
 
       <div className="max-w-[900px] mx-auto relative z-10">
         {/* Header */}
