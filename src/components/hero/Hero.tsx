@@ -59,7 +59,12 @@ export function Hero() {
           <HeroContent opacity={opacity} scale={scale} />
 
           {!isMobile && (
-            <motion.div style={{ y }} className={styles.illustrationWrapper} aria-hidden="true">
+            <motion.div
+              style={{ y: shouldAnimate ? y : 0, opacity: shouldAnimate ? opacity : 1 }}
+              className={styles.illustrationWrapper}
+              aria-hidden="true"
+              initial={false}
+            >
               <Suspense fallback={<div className={styles.illustrationSkeleton} />}>
                 <LazyIsometricIllustration />
               </Suspense>
