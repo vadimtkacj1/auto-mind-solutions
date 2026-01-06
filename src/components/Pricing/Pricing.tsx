@@ -1,4 +1,3 @@
-
 import { Reveal } from '../ui/Reveal';
 
 const plans = [
@@ -93,12 +92,12 @@ export function Pricing() {
               <div
                 className={`relative flex flex-col h-full rounded-2xl transition-all duration-300 group ${
                   plan.highlighted
-                    ? 'bg-gradient-to-br from-[var(--color-navy)] to-[var(--color-dark)] p-8 lg:p-10 shadow-2xl shadow-[var(--color-primary)]/20 lg:scale-105 z-10'
+                    ? 'bg-[var(--color-dark)] p-8 lg:p-10 shadow-2xl shadow-[var(--color-primary)]/20 lg:scale-105 z-10'
                     : 'bg-white p-8 border border-[var(--color-gray-200)] card-shadow hover:card-shadow-hover'
                 }`}
               >
                 {plan.highlighted && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] shadow-lg">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full text-sm font-bold text-white bg-[var(--color-primary)] shadow-lg">
                     המומלץ ביותר
                   </div>
                 )}
