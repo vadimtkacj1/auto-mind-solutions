@@ -87,9 +87,9 @@ export function Services() {
                 {/* Gradient line at top */}
                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
-                {/* Icon */}
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 text-white shadow-lg transition-transform duration-300 group-hover:scale-110`}>
-                  <service.icon className="w-7 h-7" aria-hidden="true" />
+                {/* Number Badge */}
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 text-white shadow-lg transition-transform duration-300 group-hover:scale-110 text-lg font-black`}>
+                  {service.number}
                 </div>
 
                 <h3 className="mb-3 font-extrabold group-hover:text-[var(--color-primary)] transition-colors duration-300">
