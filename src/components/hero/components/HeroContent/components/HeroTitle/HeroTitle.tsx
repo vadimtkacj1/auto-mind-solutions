@@ -18,7 +18,7 @@ export function HeroTitle() {
         transition={{ delay: 0.45, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className={styles.line}
       >
-        <span className="text-gradient-hero">העתיד הדיגיטלי</span>
+        העתיד הדיגיטלי
       </motion.span>
       <motion.span
         initial={{ opacity: 0, y: 40 }}
@@ -31,4 +31,3 @@ export function HeroTitle() {
     </h1>
   );
 }
-

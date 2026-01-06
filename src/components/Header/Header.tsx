@@ -1,15 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const rafId = useRef<number>();
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      lastScrollY.current = window.scrollY;
+
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+
+      rafId.current = requestAnimationFrame(() => {
+        setIsScrolled(lastScrollY.current > 50);
+      });
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
   }, []);
 
   const navItems = [
@@ -23,7 +35,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'py-3 glass shadow-lg shadow-black/5'
           : 'py-5 bg-transparent'
@@ -42,7 +54,7 @@ export function Header() {
               AUTO
               <span className="text-gradient"> MIND</span>
             </span>
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] group-hover:w-full transition-all duration-300" />
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-primary)] group-hover:w-full transition-all duration-300" />
           </a>
 
           {/* Desktop Nav */}
@@ -63,7 +75,7 @@ export function Header() {
             ))}
             <a
               href="#contact"
-              className="mr-4 px-7 py-3 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] shadow-lg shadow-[var(--color-primary)]/25 hover:shadow-xl hover:shadow-[var(--color-primary)]/30 transition-all duration-300"
+              className="mr-4 px-7 py-3 rounded-full text-sm font-bold text-white bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/25 hover:shadow-xl hover:shadow-[var(--color-primary)]/30 transition-all duration-300"
             >
               בואו נדבר
             </a>
@@ -116,7 +128,7 @@ export function Header() {
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full px-6 py-4 rounded-xl text-white text-center mt-4 font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] shadow-lg shadow-[var(--color-primary)]/25"
+              className="block w-full px-6 py-4 rounded-xl text-white text-center mt-4 font-bold bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/25"
             >
               בואו נדבר
             </a>

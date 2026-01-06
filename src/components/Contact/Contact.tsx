@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Mail, MapPin, Phone } from 'lucide-react';
 import { Reveal } from '../ui/Reveal';
 
 export function Contact() {
@@ -35,8 +34,8 @@ export function Contact() {
       className="py-28 lg:py-36 px-6 lg:px-12 relative overflow-hidden bg-white"
     >
 
-      {/* Top gradient line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/20 to-transparent" />
+      {/* Top border line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-[var(--color-gray-200)]" />
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
@@ -55,21 +54,21 @@ export function Contact() {
             {/* Contact Cards */}
             <div className="space-y-4">
               {[
-                { 
-                  icon: Mail,
-                  label: 'אימייל', 
+                {
+                  symbol: '✉',
+                  label: 'אימייל',
                   value: 'hello@automind.studio',
                   href: 'mailto:hello@automind.studio'
                 },
-                { 
-                  icon: Phone,
-                  label: 'טלפון', 
+                {
+                  symbol: '📞',
+                  label: 'טלפון',
                   value: '050-123-4567',
                   href: 'tel:050-123-4567'
                 },
-                { 
-                  icon: MapPin,
-                  label: 'כתובת', 
+                {
+                  symbol: '📍',
+                  label: 'כתובת',
                   value: 'תל אביב, ישראל',
                   href: '#'
                 },
@@ -79,8 +78,8 @@ export function Contact() {
                     href={item.href}
                     className="flex items-center gap-4 p-5 rounded-xl bg-[var(--color-gray-50)] border border-[var(--color-gray-200)] hover:border-[var(--color-primary)]/20 hover:bg-white hover:shadow-md transition-all duration-300 group"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all duration-300">
-                      <item.icon className="w-5 h-5" aria-hidden="true" />
+                    <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all duration-300 text-xl">
+                      {item.symbol}
                     </div>
                     <div>
                       <div className="text-sm text-[var(--color-gray-500)] font-semibold">{item.label}</div>
@@ -170,7 +169,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="relative w-full py-4 rounded-xl text-white font-bold overflow-hidden transition-all duration-300 disabled:opacity-70 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] shadow-lg shadow-[var(--color-primary)]/25 hover:shadow-xl hover:shadow-[var(--color-primary)]/30"
+                  className="relative w-full py-4 rounded-xl text-white font-bold overflow-hidden transition-all duration-300 disabled:opacity-70 bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/25 hover:shadow-xl hover:shadow-[var(--color-primary)]/30"
                 >
                   <span className={`transition-opacity ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                     שלח הודעה

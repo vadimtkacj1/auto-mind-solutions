@@ -1,4 +1,4 @@
-﻿import { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { HeroBackground } from './components/HeroBackground/HeroBackground';
 import { HeroGrid } from './components/HeroGrid/HeroGrid';
@@ -19,14 +19,16 @@ export function Hero() {
   const isMobile = useIsMobile();
   const reduceMotion = useReducedMotion();
 
+  // Disable expensive scroll animations for better performance
+  // Only use simple fade out, no parallax
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 90 : 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.98]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const y = 0;
+  const scale = 1;
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -56,7 +58,11 @@ export function Hero() {
           <HeroContent opacity={opacity} scale={scale} />
 
           {!isMobile && (
-            <motion.div style={{ y }} className={styles.illustrationWrapper} aria-hidden="true">
+            <motion.div
+              style={{ opacity }}
+              className={styles.illustrationWrapper}
+              aria-hidden="true"
+            >
               <Suspense fallback={<div className={styles.illustrationSkeleton} />}>
                 <LazyIsometricIllustration />
               </Suspense>

@@ -1,4 +1,3 @@
-
 import { Reveal } from '../ui/Reveal';
 
 const technologies = [
@@ -69,8 +68,8 @@ export function TechStack() {
         />
       </div>
 
-      {/* Top gradient line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/20 to-transparent" />
+      {/* Top border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-[var(--color-gray-200)]" />
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         {/* Header */}
@@ -143,7 +142,7 @@ export function TechStack() {
           ].map((stat, index) => (
             <Reveal key={index} delay={0.05 * index}>
               <div className="text-center">
-                <div className="text-3xl lg:text-4xl font-extrabold text-gradient mb-2">
+                <div className="text-3xl lg:text-4xl font-extrabold text-[var(--color-primary)] mb-2">
                   {stat.value}
                 </div>
                 <div className="text-sm text-[var(--color-gray-500)] font-semibold">

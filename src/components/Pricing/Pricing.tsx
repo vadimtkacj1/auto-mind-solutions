@@ -1,4 +1,3 @@
-
 import { Reveal } from '../ui/Reveal';
 
 const plans = [
@@ -56,21 +55,6 @@ export function Pricing() {
       id="pricing"
       className="py-28 lg:py-36 px-6 lg:px-12 relative overflow-hidden section-subtle"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-20 right-[10%] w-[500px] h-[500px] rounded-full blur-[150px] opacity-30"
-          style={{
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%)',
-          }}
-        />
-        <div
-          className="absolute bottom-20 left-[10%] w-[600px] h-[600px] rounded-full blur-[150px] opacity-30"
-          style={{
-            background: 'radial-gradient(circle, rgba(20, 184, 166, 0.1) 0%, transparent 70%)',
-          }}
-        />
-      </div>
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         {/* Header */}
@@ -93,12 +77,12 @@ export function Pricing() {
               <div
                 className={`relative flex flex-col h-full rounded-2xl transition-all duration-300 group ${
                   plan.highlighted
-                    ? 'bg-gradient-to-br from-[var(--color-navy)] to-[var(--color-dark)] p-8 lg:p-10 shadow-2xl shadow-[var(--color-primary)]/20 lg:scale-105 z-10'
+                    ? 'bg-[var(--color-dark)] p-8 lg:p-10 shadow-2xl shadow-[var(--color-primary)]/20 lg:scale-105 z-10'
                     : 'bg-white p-8 border border-[var(--color-gray-200)] card-shadow hover:card-shadow-hover'
                 }`}
               >
                 {plan.highlighted && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] shadow-lg">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full text-sm font-bold text-white bg-[var(--color-primary)] shadow-lg">
                     המומלץ ביותר
                   </div>
                 )}
