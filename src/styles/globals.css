@@ -65,7 +65,7 @@
     color: var(--color-dark);
     direction: rtl;
     overflow-x: hidden;
-    font-weight: 400;
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
