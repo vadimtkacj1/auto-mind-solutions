@@ -1,5 +1,3 @@
-
-import { BarChart3, Globe2, Palette, Search, Shield, Zap } from 'lucide-react';
 import { Reveal } from '../ui/Reveal';
 
 const services = [
@@ -7,42 +5,42 @@ const services = [
     title: 'עיצוב UI/UX מתקדם',
     description:
       'ממשקים אינטואיטיביים וחוויות משתמש שמניעות המרות. עיצוב מודרני עם מחקר מעמיק על קהל היעד.',
-    icon: Palette,
+    number: '01',
     gradient: 'from-[var(--color-primary)] to-[var(--color-primary-dark)]',
   },
   {
     title: 'SEO & אופטימיזציה',
     description:
       'דירוג ראשון בגוגל אינו מזל. אסטרטגיות SEO מתקדמות שמביאות תוצאות מדידות ותנועה איכותית.',
-    icon: Search,
+    number: '02',
     gradient: 'from-[var(--color-accent)] to-[var(--color-accent-dark)]',
   },
   {
     title: 'פיתוח מהיר ומתקדם',
     description:
       'טכנולוגיות חדשניות ביותר. React, Next.js, ופיתוח מותאם אישית לכל צורך עסקי.',
-    icon: Zap,
+    number: '03',
     gradient: 'from-[var(--color-primary)] to-[var(--color-accent)]',
   },
   {
     title: 'אסטרטגיה דיגיטלית',
     description:
       'תכנון מקיף שמתחיל בהבנת המטרות העסקיות שלך ומסתיים בביצועים יוצאי דופן.',
-    icon: BarChart3,
+    number: '04',
     gradient: 'from-[var(--color-dark)] to-[var(--color-navy)]',
   },
   {
     title: 'אתרים רב-לשוניים',
     description:
       'הרחבה גלובלית עם תמיכה מלאה ב-RTL, תרגומים מקצועיים וחוויה מותאמת לכל שוק.',
-    icon: Globe2,
+    number: '05',
     gradient: 'from-[var(--color-accent)] to-[var(--color-primary)]',
   },
   {
     title: 'אבטחה ותחזוקה',
     description:
       'הגנה מקסימלית על האתר שלך עם תחזוקה שוטפת, גיבויים אוטומטיים ועדכוני אבטחה.',
-    icon: Shield,
+    number: '06',
     gradient: 'from-[var(--color-primary-dark)] to-[var(--color-dark)]',
   },
 ];
