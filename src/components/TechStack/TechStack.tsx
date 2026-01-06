@@ -1,4 +1,3 @@
-
 import { Reveal } from '../ui/Reveal';
 
 const technologies = [
@@ -143,7 +142,7 @@ export function TechStack() {
           ].map((stat, index) => (
             <Reveal key={index} delay={0.05 * index}>
               <div className="text-center">
-                <div className="text-3xl lg:text-4xl font-extrabold text-gradient mb-2">
+                <div className="text-3xl lg:text-4xl font-extrabold text-[var(--color-primary)] mb-2">
                   {stat.value}
                 </div>
                 <div className="text-sm text-[var(--color-gray-500)] font-semibold">
