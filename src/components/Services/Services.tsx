@@ -84,11 +84,11 @@ export function Services() {
           {services.map((service, index) => (
             <Reveal key={index} delay={0.05 * index}>
               <div className="group relative p-8 rounded-2xl bg-white border border-[var(--color-gray-200)] card-shadow hover:card-shadow-hover hover:border-[var(--color-primary)]/20 transition-all duration-300 cursor-pointer overflow-hidden">
-                {/* Gradient line at top */}
-                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                {/* Color line at top */}
+                <div className={`absolute top-0 left-0 right-0 h-1 ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
                 {/* Number Badge */}
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 text-white shadow-lg transition-transform duration-300 group-hover:scale-110 text-lg font-black`}>
+                <div className={`w-14 h-14 rounded-xl ${service.color} flex items-center justify-center mb-6 text-white shadow-lg transition-transform duration-300 group-hover:scale-110 text-lg font-black`}>
                   {service.number}
                 </div>
 
