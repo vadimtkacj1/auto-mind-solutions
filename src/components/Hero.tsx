@@ -1,2 +1,2 @@
 // Re-export from the new modular structure
-export { Hero } from './hero/Hero';
+export { default as Hero } from './hero/Hero';

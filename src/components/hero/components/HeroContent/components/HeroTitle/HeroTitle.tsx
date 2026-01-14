@@ -1,33 +1,109 @@
-import { motion } from 'framer-motion';
+"use client";
+
 import styles from './HeroTitle.module.css';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export function HeroTitle() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return (
+      <h1 className={styles.container}>
+        <span className={styles.line}>אוטומציה, אתר</span>
+        <span className={styles.line}>
+          <span className="text-gradient-hero">ושיווק דיגיטלי</span>
+        </span>
+        <span className={styles.line}>לעסקים בישראל</span>
+      </h1>
+    );
+  }
+
+  // Оптимизированные варианты - только GPU-ускоренные свойства
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      }
+    }
+  };
+
+  const lineVariant = {
+    hidden: { 
+      opacity: 0, 
+      y: 20,
+    },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      }
+    }
+  };
+
+  const gradientVariant = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.95,
+    },
+    show: { 
+      opacity: 1, 
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      }
+    }
+  };
+
   return (
-    <h1 className={styles.container}>
-      <motion.span
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className={styles.line}
+    <motion.h1 
+      className={styles.container}
+      variants={container}
+      initial="hidden"
+      animate="show"
+      style={{ willChange: 'transform, opacity' }}
+    >
+      <motion.span 
+        className={styles.line} 
+        variants={lineVariant}
+        style={{ willChange: 'transform, opacity' }}
       >
-        אנחנו בונים את
+        אוטומציה, אתר
       </motion.span>
-      <motion.span
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.45, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className={styles.line}
+      <motion.span 
+        className={styles.line} 
+        variants={lineVariant}
+        style={{ willChange: 'transform, opacity' }}
       >
-        העתיד הדיגיטלי
+        <motion.span 
+          className="text-gradient-hero"
+          variants={gradientVariant}
+          style={{ 
+            display: 'inline-block',
+            willChange: 'transform, opacity'
+          }}
+        >
+          ושיווק דיגיטלי
+        </motion.span>
       </motion.span>
-      <motion.span
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.55, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className={styles.line}
+      <motion.span 
+        className={styles.line} 
+        variants={lineVariant}
+        style={{ willChange: 'transform, opacity' }}
       >
-        של העסק שלך
+        לעסקים בישראל
       </motion.span>
-    </h1>
+    </motion.h1>
   );
 }
+

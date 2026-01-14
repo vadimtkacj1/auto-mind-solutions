@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import styles from './HeroButtons.module.css';
+import { handleSmoothScrollClick } from '../../../../../../utils/smoothScroll';
 
 export function HeroButtons() {
   return (
@@ -11,6 +12,7 @@ export function HeroButtons() {
     >
       <motion.a
         href="#contact"
+        onClick={handleSmoothScrollClick}
         whileHover={{ scale: 1.02, y: -2 }}
         whileTap={{ scale: 0.98 }}
         className={`${styles.primaryButton} btn-premium-cta`}
@@ -20,6 +22,7 @@ export function HeroButtons() {
 
       <motion.a
         href="#services"
+        onClick={handleSmoothScrollClick}
         whileHover={{ scale: 1.02, y: -2, borderColor: 'rgba(0, 208, 132, 0.5)' }}
         whileTap={{ scale: 0.98 }}
         className={styles.secondaryButton}

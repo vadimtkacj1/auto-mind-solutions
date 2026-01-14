@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 
 export function AccessibilityWidget() {
@@ -129,3 +130,6 @@ export function AccessibilityWidget() {
     </>
   );
 }
+
+// Default export for dynamic import compatibility
+export default AccessibilityWidget;

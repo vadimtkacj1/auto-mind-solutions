@@ -1,0 +1,64 @@
+# GitHub Actions workflow для деплоя на сервер
+# Необходимо настроить следующие секреты в Settings > Secrets and variables > Actions:
+# - SSH_PRIVATE_KEY: Приватный SSH ключ для доступа к серверу
+# - USER_SERVER: Имя пользователя на сервере
+# - IP_SERVER: IP адрес или доменное имя сервера
+# - VITE_BASE_URL: URL базового API (передается как build arg в Docker)
+
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Необходимо для получения информации о предыдущем коммите
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.IP_SERVER }} >> ~/.ssh/known_hosts || true
+
+      - name: Test SSH connection
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ${{ secrets.USER_SERVER }}@${{ secrets.IP_SERVER }} "echo Connected"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: |
+          docker build --build-arg VITE_BASE_URL="${{ secrets.VITE_BASE_URL }}" -t my-front:${{ github.sha }} .
+
+      - name: Save Docker image
+        run: |
+          docker save my-front:${{ github.sha }} | ssh -i ~/.ssh/deploy_key ${{ secrets.USER_SERVER }}@${{ secrets.IP_SERVER }} "docker load"
+
+      - name: Stop and remove old container
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ secrets.USER_SERVER }}@${{ secrets.IP_SERVER }} "docker container rm -f my-front || true"
+
+      - name: Run new container
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ secrets.USER_SERVER }}@${{ secrets.IP_SERVER }} "docker run -d --restart always --name my-front -p 80:80 my-front:${{ github.sha }}"
+
+      - name: Clean up previous image
+        if: github.event.before != '0000000000000000000000000000000000000000'
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ secrets.USER_SERVER }}@${{ secrets.IP_SERVER }} "docker image rm my-front:${{ github.event.before }} || true"
+
+      - name: Clean up SSH key
+        if: always()
+        run: |
+          rm -f ~/.ssh/deploy_key
+

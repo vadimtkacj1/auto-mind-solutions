@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Header } from './components/Header/Header';
+import Header from './components/Header/Header';
 import { Hero } from './components/Hero';
 import { Services } from './components/Services/Services';
 import { TechStack } from './components/TechStack/TechStack';
@@ -8,7 +8,7 @@ import { Contact } from './components/Contact/Contact';
 import { FAQ } from './components/FAQ/FAQ';
 import { PrivacyPolicy } from './components/PrivacyPolicy/PrivacyPolicy';
 import { Terms } from './components/Terms/Terms';
-import { CookiePopup } from './components/CookiePopup/CookiePopup';
+import CookiePopup from './components/CookiePopup/CookiePopup';
 import { Footer } from './components/Footer/Footer';
 import { AccessibilityWidget } from './components/AccessibilityWidget/AccessibilityWidget';
 import './styles/globals.css';
@@ -60,20 +60,48 @@ export default function App() {
     );
   }
 
+  // Structured data for homepage
+  const homepageStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AUTO MIND Solutions",
+    "description": "חבילת שיווק דיגיטלית מלאה לעסקים קטנים ובינוניים בישראל: אתר, אוטומציה שיווקית, פרסום ממומן ו-SEO.",
+    "url": "https://auto-mind.solutions",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://auto-mind.solutions/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "AUTO MIND Solutions",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://auto-mind.solutions/logo.png"
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[var(--color-gray-50)] text-[var(--color-dark)] leading-relaxed">
-      <Header />
-      <main>
-        <Hero />
-        <Services />
-        <TechStack />
-        <Pricing />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer onNavigate={setCurrentPage} />
-      <CookiePopup />
-      <AccessibilityWidget />
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageStructuredData) }}
+      />
+      <div className="min-h-screen bg-[var(--color-gray-50)] text-[var(--color-dark)] leading-relaxed">
+        <Header />
+        <main itemScope itemType="https://schema.org/WebPage">
+          <Hero />
+          <Services />
+          <TechStack />
+          <Pricing />
+          <FAQ />
+          <Contact />
+        </main>
+<CookiePopup onNavigate={setCurrentPage} />
+        <CookiePopup onNavigate={setCurrentPage} />
+        <AccessibilityWidget />
+      </div>
+    </>
   );
 }

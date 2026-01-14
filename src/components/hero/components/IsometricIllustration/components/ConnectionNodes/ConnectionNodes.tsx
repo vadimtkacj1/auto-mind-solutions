@@ -2,63 +2,41 @@ import { motion } from 'framer-motion';
 
 export function ConnectionNodes() {
   return (
-    <g filter="url(#glow)">
-      <motion.path
+    <motion.g
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.8 }}
+    >
+      {/* Статичные линии связи - без анимации pathLength для производительности */}
+      <path
         d="M230 350 Q280 300 330 280"
         stroke="url(#glowGradient)"
         strokeWidth="1.5"
         fill="none"
         strokeDasharray="4 4"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 2, delay: 1 }}
+        opacity="0.8"
       />
-      <motion.path
+      <path
         d="M330 310 Q365 325 400 340"
         stroke="url(#glowGradient)"
         strokeWidth="1.5"
         fill="none"
         strokeDasharray="4 4"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 2, delay: 1.2 }}
+        opacity="0.8"
       />
-      <motion.path
+      <path
         d="M230 350 Q315 360 400 340"
         stroke="rgba(0, 208, 132, 0.4)"
         strokeWidth="1"
         fill="none"
         strokeDasharray="3 3"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 2, delay: 1.4 }}
       />
 
-      <motion.circle
-        cx="230"
-        cy="350"
-        r="3"
-        fill="#00D084"
-        filter="url(#glow)"
-        animate={{
-          cx: [230, 280, 330],
-          cy: [350, 300, 280],
-        }}
-        transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-      />
-      <motion.circle
-        cx="330"
-        cy="310"
-        r="3"
-        fill="#0066FF"
-        filter="url(#glow)"
-        animate={{
-          cx: [330, 365, 400],
-          cy: [310, 325, 340],
-        }}
-        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1.5, delay: 0.5 }}
-      />
-    </g>
+      {/* Статичные точки узлов */}
+      <circle cx="230" cy="350" r="4" fill="#00D084" className="connection-dot" />
+      <circle cx="330" cy="280" r="4" fill="#0066FF" className="connection-dot" style={{ animationDelay: '0.5s' }} />
+      <circle cx="400" cy="340" r="4" fill="#00D084" className="connection-dot" style={{ animationDelay: '1s' }} />
+    </motion.g>
   );
 }
 

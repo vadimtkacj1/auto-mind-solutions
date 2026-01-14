@@ -1,9 +1,35 @@
 .container {
-  margin-bottom: 3rem;
-  color: rgba(255, 255, 255, 0.5);
-  max-width: 36rem;
-  font-size: 1.125rem;
-  line-height: 1.75;
-  font-weight: 300;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 32rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Центрируем на мобильных */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 640px) {
+  .container {
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    margin-bottom: 2.5rem;
+    font-size: 1.125rem;
+    max-width: 36rem;
+  }
 }
 

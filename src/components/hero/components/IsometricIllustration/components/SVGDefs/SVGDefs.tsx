@@ -36,7 +36,16 @@ export function SVGDefs() {
         <stop offset="100%" stopColor="rgba(0, 102, 255, 0)" />
       </linearGradient>
 
-      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      {/* Оптимизированные фильтры - уменьшен stdDeviation для производительности */}
+      <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
+        <feMerge>
+          <feMergeNode in="coloredBlur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+
+      <filter id="strongGlow" x="-30%" y="-30%" width="160%" height="160%">
         <feGaussianBlur stdDeviation="3" result="coloredBlur" />
         <feMerge>
           <feMergeNode in="coloredBlur" />
@@ -44,20 +53,9 @@ export function SVGDefs() {
         </feMerge>
       </filter>
 
-      <filter id="strongGlow" x="-100%" y="-100%" width="300%" height="300%">
-        <feGaussianBlur stdDeviation="8" result="coloredBlur" />
+      <filter id="arrowGlow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="2" result="blur1" />
         <feMerge>
-          <feMergeNode in="coloredBlur" />
-          <feMergeNode in="coloredBlur" />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
-      </filter>
-
-      <filter id="arrowGlow" x="-100%" y="-100%" width="300%" height="300%">
-        <feGaussianBlur stdDeviation="6" result="blur1" />
-        <feGaussianBlur stdDeviation="12" result="blur2" />
-        <feMerge>
-          <feMergeNode in="blur2" />
           <feMergeNode in="blur1" />
           <feMergeNode in="SourceGraphic" />
         </feMerge>
