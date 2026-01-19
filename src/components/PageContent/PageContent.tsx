@@ -13,10 +13,8 @@ import { Footer } from '../Footer/Footer';
 
 // Client-only widgets (dynamic import disables SSR)
 const CookiePopup = dynamic(
-  () => import('../CookiePopup/CookiePopup').then((mod) => mod.default || mod.CookiePopup),
-  {
-    ssr: false,
-  }
+  () => import('../CookiePopup/CookiePopup'),
+  { ssr: false }
 );
 
 const AccessibilityWidget = dynamic(

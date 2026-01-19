@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform, useSpring, useAnimationFrame } from 'framer-motion';
 import { Code2, Zap, Rocket, Globe2 } from 'lucide-react';
 

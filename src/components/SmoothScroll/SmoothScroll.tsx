@@ -13,32 +13,32 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Initialize Lenis with optimized settings
+    // Initialize Lenis with updated settings (v1.1+)
+    // Note: 'smoothTouch' and 'touchInertiaMultiplier' were removed in newer versions
     const lenis = new Lenis({
-      duration: 1,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
       infinite: false,
-      // Performance optimizations
-      syncTouch: false,
-      touchInertiaMultiplier: 35,
+      // syncTouch ensures the scroll position is synchronized on touch devices
+      syncTouch: false, 
     });
 
     lenisRef.current = lenis;
 
-    // Optimized animation frame loop
+    // Animation frame loop to update the scroll position
     function raf(time: number) {
       lenis.raf(time);
       rafRef.current = requestAnimationFrame(raf);
     }
 
+    // Start the animation loop
     rafRef.current = requestAnimationFrame(raf);
 
+    // Cleanup on component unmount
     return () => {
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
@@ -49,4 +49,3 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
 
   return <>{children}</>;
 }
-

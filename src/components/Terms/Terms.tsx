@@ -1,3 +1,7 @@
+"use client";
+
+import React from 'react';
+
 export function Terms() {
   const structuredData = {
     "@context": "https://schema.org",
@@ -275,8 +279,7 @@ export function Terms() {
           </div>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 }
