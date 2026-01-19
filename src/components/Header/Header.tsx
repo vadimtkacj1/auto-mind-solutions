@@ -1,5 +1,6 @@
-'use client'
-import { useState, useEffect, useCallback } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
 import { handleSmoothScrollClick } from '../../utils/smoothScroll';
 
 export default function Header() {
@@ -7,24 +8,34 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    // Function to update scroll state
     const handleScroll = () => {
-      // Header меняется позже - после 200px скролла
-      const offset = window.scrollY > 200;
-      if (isScrolled !== offset) setIsScrolled(offset);
+      const lenis = (window as any).lenis;
+      // Precise check for scroll position
+      const scrollY = lenis?.scroll ?? window.scrollY ?? 0;
+      
+      // We only set it to true if scroll is actually more than 10px
+      setIsScrolled(scrollY > 10);
     };
 
+    // Run immediately on mount
+    handleScroll();
+
+    // Event listeners for both standard and Lenis scroll
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isScrolled]);
+    
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.on('scroll', handleScroll);
+    }
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) setMobileMenuOpen(false);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (lenis) lenis.off('scroll', handleScroll);
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Sync body overflow with mobile menu state
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
   }, [mobileMenuOpen]);
@@ -35,116 +46,106 @@ export default function Header() {
     { label: 'טכנולוגיות', href: '#tech' },
     { label: 'מחירים', href: '#pricing' },
     { label: 'שאלות', href: '#faq' },
-    { label: 'צור קשר', href: '#contact' },
+    { label: 'צור кשר', href: '#contact' },
   ];
 
-  const closeMenu = () => setMobileMenuOpen(false);
-
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    handleSmoothScrollClick(e, 100); // Offset for fixed header
-    closeMenu();
+    handleSmoothScrollClick(e, 80); 
+    setMobileMenuOpen(false);
   };
 
   return (
     <>
-      <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || mobileMenuOpen 
-            ? 'py-3 bg-white/90 backdrop-blur-md shadow-sm border-b' 
-            : 'py-5 bg-transparent'
+      <header
+        dir="rtl"
+        data-lenis-prevent
+        className={`fixed top-0 left-0 right-0 w-full z-[9999] transition-all duration-500 ease-in-out ${
+          isScrolled || mobileMenuOpen
+            ? 'py-4 bg-[#050a15]/95 backdrop-blur-md border-b border-white/10 shadow-2xl'
+            : 'py-8 !bg-transparent border-b border-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          
           {/* Logo */}
           <a 
             href="#home" 
             onClick={handleNavClick}
-            className="z-50 flex items-baseline font-black text-2xl tracking-tighter" 
+            className="relative z-[10001] flex items-baseline font-black text-3xl tracking-tighter" 
             dir="ltr"
           >
-            <span className={isScrolled || mobileMenuOpen ? 'text-gray-900' : 'text-white'}>AUTO</span>
-            <span className="ml-1 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">MIND</span>
+            <span className="text-white">AUTO</span>
+            <span className="ml-1 text-[#3b82f6]">MIND</span>
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-10">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={handleNavClick}
-                className={`text-sm font-medium transition-colors ${
-                  isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white/90 hover:text-white'
-                }`}
+                className="text-lg font-bold text-white/80 hover:text-white transition-colors"
               >
                 {item.label}
               </a>
             ))}
+            
             <a
               href="#contact"
               onClick={handleNavClick}
-              className="px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-md"
+              className="px-8 py-3 rounded-xl text-lg font-extrabold text-white bg-[#3b82f6] hover:bg-[#2563eb] transition-all"
             >
               בואו נדבר
             </a>
           </nav>
 
-          {/* Burger Button */}
+          {/* Burger Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden z-50 p-2"
-            aria-label="תפריט"
+            className="lg:hidden relative z-[10001] p-2"
           >
-            <div className="w-6 space-y-1.5">
-              <span className={`block h-0.5 w-6 transition-transform ${mobileMenuOpen ? 'rotate-45 translate-y-2 bg-blue-600' : isScrolled ? 'bg-gray-900' : 'bg-white'}`} />
-              <span className={`block h-0.5 w-6 transition-opacity ${mobileMenuOpen ? 'opacity-0' : isScrolled ? 'bg-gray-900' : 'bg-white'}`} />
-              <span className={`block h-0.5 w-6 transition-transform ${mobileMenuOpen ? '-rotate-45 -translate-y-2 bg-blue-600' : isScrolled ? 'bg-gray-900' : 'bg-white'}`} />
+            <div className="w-8 space-y-2">
+              <span className={`block h-1 w-8 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-3' : ''}`} />
+              <span className={`block h-1 w-8 bg-white transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+              <span className={`block h-1 w-8 bg-white transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-3' : ''}`} />
             </div>
           </button>
         </div>
       </header>
 
-      {/* Mobile Sidebar (Right side for RTL) */}
+      {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 bg-black/70 backdrop-blur-md lg:hidden z-[9997] transition-opacity duration-300 ${
           mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
-        onClick={closeMenu}
+        onClick={() => setMobileMenuOpen(false)}
       />
 
+      {/* Mobile Sidebar */}
       <aside 
-        className={`fixed top-0 right-0 h-full w-[280px] bg-white z-50 transform transition-transform duration-300 ease-in-out lg:hidden shadow-2xl ${
+        dir="rtl"
+        className={`fixed top-0 right-0 h-full w-[300px] bg-[#050a15] z-[9998] transform transition-transform duration-300 ease-in-out lg:hidden border-l border-white/10 ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="p-6 flex flex-col h-full">
-          <div className="mb-10 pt-2">
-             <span className="text-2xl font-black tracking-tighter text-gray-900">AUTO</span>
-             <span className="ml-1 text-2xl font-black tracking-tighter text-blue-600">MIND</span>
+        <div className="p-10 flex flex-col h-full">
+          <div className="mb-12 flex items-baseline font-black text-3xl tracking-tighter" dir="ltr">
+             <span className="text-white">AUTO</span>
+             <span className="ml-1 text-[#3b82f6]">MIND</span>
           </div>
-          
-          <nav className="flex flex-col gap-1 text-right">
+          <nav className="flex flex-col gap-8">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={handleNavClick}
-                className="py-3 px-4 text-lg font-semibold text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all"
+                className="text-2xl font-bold text-white/90"
               >
                 {item.label}
               </a>
             ))}
           </nav>
-
-          <div className="mt-auto pt-6">
-            <a
-              href="#contact"
-              onClick={handleNavClick}
-              className="flex items-center justify-center py-4 rounded-2xl text-white font-bold bg-blue-600 shadow-lg"
-            >
-              בואו נדבר
-            </a>
-          </div>
         </div>
       </aside>
     </>

@@ -33,27 +33,20 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-gray-50)] text-[var(--color-dark)] leading-relaxed">
+    <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
       <Header />
-      <main itemScope itemType="https://schema.org/WebPage">
-        {/* Hero секция - sticky, уходит вверх при скролле */}
-        <Hero />
-        
-        {/* Контент страницы - появляется поверх Hero */}
-        <div style={{ 
-          position: 'relative', 
-          zIndex: 2,
-          marginTop: '-120vh',
-          paddingTop: '120vh',
-          paddingBottom: '150px'
-        }}>
-          <Services />
-          <TechStack />
-          <TechStats />
-          <Pricing />
-          <FAQ />
-          <Contact />
+      <main itemScope itemType="https://schema.org/WebPage" className="pt-20">
+        <div className="relative" style={{ background: '#080a0c', marginTop: '-80px' }}>
+          <Hero />
+          <div style={{ position: 'relative', zIndex: 30, marginTop: '-100px' }}>
+            <Services />
+          </div>
         </div>
+        <TechStack />
+        <TechStats />
+        <Pricing />
+        <Contact />
+        <FAQ />
       </main>
       <Footer />
       <CookiePopup onNavigate={handleNavigate} />

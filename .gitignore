@@ -38,3 +38,5 @@ next-env.d.ts
 
 # vite (old)
 .vite
+
+.claude

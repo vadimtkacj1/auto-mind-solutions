@@ -90,15 +90,15 @@ export default function App() {
       />
       <div className="min-h-screen bg-[var(--color-gray-50)] text-[var(--color-dark)] leading-relaxed">
         <Header />
-        <main itemScope itemType="https://schema.org/WebPage">
+        <main itemScope itemType="https://schema.org/WebPage" className="pt-20">
           <Hero />
           <Services />
           <TechStack />
           <Pricing />
-          <FAQ />
           <Contact />
+          <FAQ />
         </main>
-<CookiePopup onNavigate={setCurrentPage} />
+        <Footer />
         <CookiePopup onNavigate={setCurrentPage} />
         <AccessibilityWidget />
       </div>

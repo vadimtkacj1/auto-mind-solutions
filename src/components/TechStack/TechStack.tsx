@@ -1,42 +1,44 @@
 "use client";
 
 import React, { useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { Reveal } from '../ui/Reveal';
 
 const technologies = [
-  { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-  { name: 'Next.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
-  { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-  { name: 'Tailwind', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg' },
-  { name: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-  { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-  { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
-  { name: 'PostgreSQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
-  { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-  { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
-  { name: 'GraphQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' },
-  { name: 'Firebase', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
+  { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', color: 'rgba(97, 218, 251, 0.15)' },
+  { name: 'Next.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', color: 'rgba(0, 0, 0, 0.08)' },
+  { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', color: 'rgba(49, 120, 198, 0.15)' },
+  { name: 'Tailwind', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg', color: 'rgba(56, 189, 248, 0.15)' },
+  { name: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: 'rgba(104, 160, 99, 0.15)' },
+  { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'rgba(55, 115, 155, 0.15)' },
+  { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', color: 'rgba(36, 150, 237, 0.15)' },
+  { name: 'PostgreSQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', color: 'rgba(51, 103, 145, 0.15)' },
+  { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', color: 'rgba(71, 162, 72, 0.15)' },
+  { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', color: 'rgba(255, 153, 0, 0.15)' },
+  { name: 'Firebase', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg', color: 'rgba(255, 202, 40, 0.15)' },
+  { name: 'GraphQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg', color: 'rgba(225, 0, 152, 0.15)' },
 ];
 
 export function TechStack() {
-  // Duplicate the array to ensure the row is long enough to loop seamlessly
-  const scrollerItems = useMemo(() => [...technologies, ...technologies], []);
+  const scrollerItems = useMemo(() => [...technologies, ...technologies, ...technologies], []);
 
   return (
-    <section id="tech" className="py-12 sm:py-16 lg:py-24 px-4 relative overflow-hidden bg-white">
+    <section id="tech" className="py-24 sm:py-40 px-4 relative z-30 overflow-hidden bg-[#fafafa]" dir="rtl">
+      {/* Subtle Background pattern for Israeli market site */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+
       <style jsx>{`
         @keyframes scroll {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          100% { transform: translateX(-33.33%); }
         }
 
         .marquee-viewport {
           width: 100%;
           overflow: hidden;
           position: relative;
-          /* CRITICAL: Force LTR for RTL sites to ensure correct animation direction */
           direction: ltr; 
-          /* Smooth fade-out effect on the sides using CSS mask */
           mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
           -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
@@ -44,59 +46,90 @@ export function TechStack() {
         .marquee-track {
           display: flex;
           width: max-content;
-          gap: 2rem;
-          padding: 1rem 0;
-          animation: scroll 40s linear infinite;
+          gap: 4rem;
+          padding: 4rem 0;
+          animation: scroll 45s linear infinite;
           will-change: transform;
+        }
+
+        @media (min-width: 640px) {
+          .marquee-track { gap: 8rem; }
         }
 
         .marquee-track:hover {
           animation-play-state: paused;
         }
 
-        .tech-card {
-          flex-shrink: 0;
-          filter: grayscale(100%);
-          opacity: 0.6;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .tech-item {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          cursor: pointer;
         }
 
-        /* "Lifelike" behavior: restore color and scale up on hover */
-        .tech-card:hover {
-          filter: grayscale(0%);
+        /* Ambient Glow Effect - Increased intensity */
+        .glow {
+          position: absolute;
+          inset: -30px;
+          border-radius: 50%;
+          background: var(--glow-color);
+          filter: blur(40px);
+          opacity: 0;
+          transition: opacity 0.5s ease;
+          z-index: -1;
+        }
+
+        .tech-item:hover .glow {
           opacity: 1;
-          transform: translateY(-5px);
+        }
+
+        .tech-item:hover {
+          transform: translateY(-15px) scale(1.15);
         }
       `}</style>
 
-      <div className="max-w-[1400px] mx-auto relative z-10">
-        <Reveal>
-          <div className="text-center mb-10 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">הטכנולוגיות שלנו</h2>
-            <p className="max-w-2xl mx-auto text-sm sm:text-base text-gray-500">
-              מחסנית מודרנית, יציבה ומהירה — ללא פשרות על איכות ותחזוקה.
-            </p>
-          </div>
-        </Reveal>
+      <div className="max-w-7xl mx-auto relative z-10 w-full text-center">
+        <div className="mb-20 md:mb-28">
+          <Reveal>
+            <h2 className="text-6xl md:text-8xl font-black text-slate-900 leading-[1.1] tracking-tight">
+              הכלים <br /> 
+              <span className="text-blue-600">שבונים הצלחה</span>
+            </h2>
+          </Reveal>
+        </div>
 
-        {/* Marquee Container */}
         <div className="marquee-viewport">
           <div className="marquee-track">
             {scrollerItems.map((tech, index) => (
               <div
                 key={`${tech.name}-${index}`}
-                className="tech-card flex flex-col items-center justify-center 
-                           w-28 h-28 sm:w-36 sm:h-36 
-                           bg-white rounded-2xl border border-gray-100 
-                           shadow-sm hover:shadow-md hover:border-blue-500/30 
-                           hover:bg-blue-50/10 cursor-pointer"
+                className="tech-item w-32 sm:w-44 group"
+                style={{ '--glow-color': tech.color } as React.CSSProperties}
               >
-                <img
-                  src={tech.logo}
-                  alt={tech.name}
-                  className="w-10 h-10 sm:w-12 sm:h-12 object-contain mb-3"
-                />
-                <span className="text-xs sm:text-sm font-medium text-gray-500">
+                <div className="glow" />
+                
+                {/* Larger icons with floating animation */}
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ 
+                    duration: 5, 
+                    repeat: Infinity, 
+                    ease: "easeInOut",
+                    delay: index * 0.15 
+                  }}
+                  className="relative z-10"
+                >
+                  <img
+                    src={tech.logo}
+                    alt={tech.name}
+                    className="w-16 h-16 sm:w-28 sm:h-28 object-contain grayscale-[0.4] group-hover:grayscale-0 transition-all duration-500"
+                  />
+                </motion.div>
+
+                <span className="mt-8 text-[10px] sm:text-[12px] font-black text-slate-400 tracking-[0.2em] uppercase group-hover:text-slate-900 transition-colors">
                   {tech.name}
                 </span>
               </div>

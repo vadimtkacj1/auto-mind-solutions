@@ -1,4 +1,9 @@
-/* Lenis Smooth Scroll Styles */
+/* Lenis Smooth Scroll Styles - Ultra Smooth Configuration */
+
+html.lenis {
+  height: auto;
+  overflow-x: hidden;
+}
 
 html.lenis,
 html.lenis body {
@@ -21,29 +26,39 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Custom scrollbar for smooth scroll */
+/* Ultra Performance Optimization */
+.lenis {
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+  will-change: scroll-position;
+}
+
+/* Custom scrollbar for smooth scroll - Яркий дизайн */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 112, 255, 0.5);
-  border-radius: 4px;
-  transition: background 0.3s ease;
+  background: linear-gradient(180deg, #00E690, #0070FF);
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(0, 230, 144, 0.3);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 112, 255, 0.8);
+  background: linear-gradient(180deg, #1AFFAA, #4D94FF);
+  box-shadow: 0 0 15px rgba(0, 230, 144, 0.5);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 112, 255, 0.5) rgba(0, 0, 0, 0.1);
+  scrollbar-color: #0070FF rgba(255, 255, 255, 0.05);
 }
 

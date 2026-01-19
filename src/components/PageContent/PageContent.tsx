@@ -56,8 +56,8 @@ function PageContent() {
           <Services />
           <TechStack />
           <Pricing />
-          <FAQ />
           <Contact />
+          <FAQ />
         </main>
         <Footer />
         <CookiePopup />
