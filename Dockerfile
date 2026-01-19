@@ -1,40 +1,37 @@
 # --- STAGE 1: Build ---
-# Updated from 18.13.0 to 20-alpine to meet Next.js requirements
 FROM node:20-alpine AS builder
-
 WORKDIR /app
 
-# Copy dependency manifests
-COPY package*.json ./
-
 # Install dependencies
+COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the source code
+# Copy source code
 COPY . .
 
-# Declare the Build Argument (passed from GitHub Actions)
+# Build Arguments
 ARG VITE_BASE_URL
+ENV VITE_BASE_URL=${VITE_BASE_URL}
+ENV NEXT_PUBLIC_API_URL=${VITE_BASE_URL}
 
-# Fix the .env syntax: Added "=" and used a single ">" to overwrite/create
-# Note: Next.js usually requires NEXT_PUBLIC_ prefix for client-side variables, 
-# but we will keep VITE_BASE_URL if your code is configured to use it.
-RUN echo "VITE_BASE_URL=${VITE_BASE_URL}" > .env
-
-# Run the build command
+# Run the build
 RUN npm run build
 
-# --- STAGE 2: Serve with Nginx ---
-FROM nginx:1.25-alpine
+# --- STAGE 2: Runner ---
+FROM node:20-alpine AS runner
+WORKDIR /app
 
-# IMPORTANT: Next.js static export creates an "out" folder by default.
-# Your original file used "dist" (which is common for Vite, but not Next.js).
-# Ensure your next.config.js has: output: 'export'
-COPY --from=builder /app/out /usr/share/nginx/html
+ENV NODE_ENV=production
+# Force Next.js to run on port 80 internally
+ENV PORT=80
+ENV HOSTNAME="0.0.0.0"
 
-# Copy your custom Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy only necessary files for the standalone server
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# The 'standalone' mode creates a server.js file to start the app
+CMD ["node", "server.js"]

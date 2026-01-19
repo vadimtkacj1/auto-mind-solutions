@@ -1,21 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 1. Mandatory for the Dockerfile (replaces Nginx)
+  output: 'standalone', 
+  
   reactStrictMode: true,
   swcMinify: true,
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [],
-    // Optimize images
     minimumCacheTTL: 60,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  // Enable experimental features for better performance
   experimental: {
-    optimizeCss: true,
+    // 2. Set to false to fix the build error you received
+    optimizeCss: false, 
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
@@ -24,11 +25,9 @@ const nextConfig = {
       '@radix-ui/react-dropdown-menu',
     ],
   },
-  // Optimize bundle
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  // Headers for caching static assets
   async headers() {
     return [
       {
@@ -54,4 +53,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-
