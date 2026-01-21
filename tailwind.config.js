@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Heebo', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        sans: ['Noto Sans Hebrew', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
       },
       screens: {
         'xs': '375px',

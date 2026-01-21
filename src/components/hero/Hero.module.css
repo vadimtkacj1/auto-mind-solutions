@@ -1,73 +1,136 @@
-.container {
+/* Hero.module.css */
+
+.mainWrapper {
   position: relative;
+  width: 100%;
+  min-height: 100vh; /* Full viewport height */
+}
+
+.container {
+  /* THE CORE LOGIC: Sticky keeps the section fixed at the top during scroll */
+  position: sticky;
+  top: 0;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  /* Dark space background */
+  /* Dark space background with radial glow */
   background: radial-gradient(circle at 15% 50%, #0f172a 0%, #080a0c 100%);
-  margin-bottom: 0px;
-  font-family: 'Assistant', 'Heebo', sans-serif;
-  direction: rtl; /* Right-to-left support */
+  /* Lower z-index so following sections can cover it */
+  z-index: 1;
+  direction: rtl;
+  display: flex;
+  align-items: center;
 }
 
 .contentContainer {
   position: relative;
   z-index: 2;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  /* Since direction is RTL, flex-start means the Right side */
-  justify-content: flex-start;
-  padding: 0 10%;
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-}
-
-/* Secondary content section appearing after Hero */
-.demoContent {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  background: #ffffff; 
+  padding: 0 10%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000000;
-  font-size: 32px;
+  justify-content: flex-start;
+}
+
+.textBox {
+  max-width: 650px;
+  text-align: right;
+}
+
+.title {
+  font-size: clamp(34px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 25px;
+  /* Blue gradient text effect */
+  background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  color: #bfdbfe; 
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 20px;
+}
+
+.btnMain {
+  padding: 14px 38px;
+  background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btnAlt {
+  padding: 14px 38px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: #ffffff;
   font-weight: 600;
-  border-radius: 40px 40px 0 0;
-  box-shadow: 0 -30px 60px rgba(0,0,0,0.3);
-  z-index: 5;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.demoContentInner {
-  text-align: center;
-}
-
-.demoContentSubtext {
-  font-size: 18px;
-  margin-top: 20px;
-  color: #64748b;
-}
-
-/* Positioning for the scroll button */
+/* Scroll Indicator - Will be covered by the next section */
 .scrollIndicator {
   position: absolute;
-  bottom: 110px; /* Moved up as requested */
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
+  z-index: 2; 
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  background: none;
+  border: none;
 }
 
-/* Mobile Responsive Adjustments */
+.scrollText {
+  color: #06b6d4;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mouse {
+  width: 22px;
+  height: 35px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  position: relative;
+}
+
+.wheel {
+  width: 2px;
+  height: 6px;
+  background: #00E690;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+  animation: scrollAnim 1.6s infinite;
+}
+
+@keyframes scrollAnim {
+  0% { opacity: 1; top: 6px; }
+  100% { opacity: 0; top: 20px; }
+}
+
 @media (max-width: 1024px) {
-  .contentContainer {
-    justify-content: center;
-    padding: 0 20px;
-  }
+  .contentContainer { justify-content: center; }
+  .textBox { text-align: center; }
+  .buttonRow { justify-content: center; }
 }

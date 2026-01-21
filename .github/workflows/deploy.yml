@@ -1,14 +1,48 @@
-name: Deploy to Server
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  DOCKER_IMAGE: ${{ secrets.DOCKER_USERNAME }}/auto-mind-solutions
 
 jobs:
-  deploy:
+  # Build and Test
+  build:
     runs-on: ubuntu-latest
-    
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Build application
+        run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}
+
+  # Build and Push Docker Image
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,39 +50,134 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and Save Docker image
-        run: |
-          # Pass the secret as a build argument
-          docker build --build-arg VITE_BASE_URL="${{ secrets.VITE_BASE_URL }}" -t my-front:${{ github.sha }} .
-          docker save my-front:${{ github.sha }} | gzip > image.tar.gz
-
-      - name: Copy image to server
-        uses: appleboy/scp-action@v0.1.7
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
-          host: ${{ secrets.IP_SERVER }}
-          username: ${{ secrets.USER_SERVER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "image.tar.gz"
-          target: "~/"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Execute remote commands via SSH
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKER_IMAGE }}
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VITE_BASE_URL=${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}
+          cache-from: type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache
+          cache-to: type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache,mode=max
+
+  # Deploy to Server
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to server via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.IP_SERVER }}
           username: ${{ secrets.USER_SERVER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
-            gunzip -c ~/image.tar.gz | docker load
-            rm ~/image.tar.gz
-            
-            docker stop my-front || true
+            # Navigate to deployment directory
+            cd /opt/auto-mind-solutions || mkdir -p /opt/auto-mind-solutions && cd /opt/auto-mind-solutions
+
+            # Clone or pull latest code
+            if [ -d ".git" ]; then
+              git pull origin main
+            else
+              git clone git@github.com:vadimtkacj1/auto-mind-solutions.git .
+            fi
+
+            # Create .env file from secrets
+            cat > .env <<'EOF'
+            # Email Configuration
+            EMAIL_SERVER_HOST=${{ secrets.EMAIL_SERVER_HOST }}
+            EMAIL_SERVER_PORT=${{ secrets.EMAIL_SERVER_PORT }}
+            EMAIL_SERVER_USER=${{ secrets.EMAIL_SERVER_USER }}
+            EMAIL_SERVER_PASSWORD=${{ secrets.EMAIL_SERVER_PASSWORD }}
+            EMAIL_TO=${{ secrets.EMAIL_TO }}
+
+            # Next.js Configuration
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}
+            NODE_ENV=production
+            EOF
+
+            # Pull latest Docker image
+            docker pull ${{ env.DOCKER_IMAGE }}:latest
+
+            # Stop and remove old container
+            docker-compose down || docker stop my-front || true
             docker rm my-front || true
-            
-            # Map Server Port 80 to Container Port 80
-            docker run -d \
-              --restart always \
-              --name my-front \
-              -p 80:80 \
-              my-front:${{ github.sha }}
-            
-            docker image prune -a -f
+
+            # Start new container with docker-compose or docker run
+            if [ -f "docker-compose.yml" ]; then
+              docker-compose up -d
+            else
+              docker run -d \
+                --restart always \
+                --name my-front \
+                -p 80:80 \
+                --env-file .env \
+                ${{ env.DOCKER_IMAGE }}:latest
+            fi
+
+            # Clean up old images
+            docker image prune -f
+
+            # Show status
+            docker ps | grep -E "auto-mind|my-front"
+
+      - name: Verify deployment
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.IP_SERVER }}
+          username: ${{ secrets.USER_SERVER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          script: |
+            # Check if container is running
+            if docker ps | grep -qE "auto-mind|my-front"; then
+              echo "✅ Deployment successful! Container is running."
+              docker logs --tail 50 $(docker ps -q --filter "name=auto-mind|my-front" | head -1)
+            else
+              echo "❌ Deployment failed! Container is not running."
+              exit 1
+            fi
+
+  # Notify on Success/Failure
+  notify:
+    needs: [build, docker, deploy]
+    runs-on: ubuntu-latest
+    if: always() && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Send notification
+        if: success()
+        run: |
+          echo "✅ Deployment completed successfully!"
+          echo "📦 Docker image: ${{ env.DOCKER_IMAGE }}:latest"
+          echo "🌐 Application is now live!"
+
+      - name: Send failure notification
+        if: failure()
+        run: |
+          echo "❌ Deployment failed! Check the logs for details."
+          echo "🔍 Review the workflow logs to identify the issue."

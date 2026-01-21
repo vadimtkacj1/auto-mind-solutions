@@ -1,0 +1,184 @@
+.loadingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: linear-gradient(135deg, #020510 0%, #000208 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loadingOverlay.fadeOut {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.spinnerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Современный 3D спиннер */
+.spinner {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  perspective: 1000px;
+}
+
+.spinnerRing {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  animation: spinnerRotate 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.spinnerRing:nth-child(1) {
+  border-top-color: #00E690;
+  border-right-color: #00E690;
+  animation-delay: 0s;
+  filter: drop-shadow(0 0 10px rgba(0, 230, 144, 0.5));
+}
+
+.spinnerRing:nth-child(2) {
+  border-top-color: #0070FF;
+  border-left-color: #0070FF;
+  animation-delay: -0.4s;
+  animation-duration: 2.2s;
+  filter: drop-shadow(0 0 10px rgba(0, 112, 255, 0.5));
+}
+
+.spinnerRing:nth-child(3) {
+  border-bottom-color: #1AFFAA;
+  border-right-color: #1AFFAA;
+  animation-delay: -0.8s;
+  animation-duration: 1.8s;
+  filter: drop-shadow(0 0 10px rgba(26, 255, 170, 0.5));
+}
+
+.spinnerCore {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 230, 144, 0.3) 0%, rgba(0, 112, 255, 0.2) 50%, transparent 100%);
+  animation: spinnerPulse 2s ease-in-out infinite;
+}
+
+@keyframes spinnerRotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes spinnerPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Текст загрузки */
+.loadingText {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loadingLabel {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 20px rgba(0, 230, 144, 0.3);
+}
+
+.dots {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.dot {
+  display: inline-block;
+  color: #00E690;
+  font-size: 1.5rem;
+  animation: dotBounce 1.4s ease-in-out infinite;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotBounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .spinner {
+    width: 80px;
+    height: 80px;
+  }
+
+  .loadingLabel {
+    font-size: 1.125rem;
+  }
+
+  .dot {
+    font-size: 1.25rem;
+  }
+}
+
+/* Accessibility: скрываем от скринридеров */
+.loadingOverlay[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+/* Для режима пониженного движения */
+@media (prefers-reduced-motion: reduce) {
+  .spinnerRing {
+    animation-duration: 3s;
+  }
+
+  .dot {
+    animation: none;
+    opacity: 1;
+  }
+
+  .spinnerCore {
+    animation: none;
+    opacity: 0.5;
+  }
+}
