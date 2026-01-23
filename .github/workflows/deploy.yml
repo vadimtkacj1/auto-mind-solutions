@@ -81,6 +81,18 @@ jobs:
           name: docker-image
           path: /tmp
 
+      - name: Copy files to server via SSH
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.IP_SERVER }}
+          username: ${{ secrets.USER_SERVER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          source: "."
+          target: "/opt/auto-mind-solutions"
+          rm: false
+          strip_components: 0
+
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -90,14 +102,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
             # Navigate to deployment directory
-            cd /opt/auto-mind-solutions || mkdir -p /opt/auto-mind-solutions && cd /opt/auto-mind-solutions
-
-            # Clone or pull latest code
-            if [ -d ".git" ]; then
-              git pull origin main
-            else
-              git clone git@github.com:vadimtkacj1/auto-mind-solutions.git .
-            fi
+            cd /opt/auto-mind-solutions
 
             # Create .env file from secrets
             cat > .env <<'EOF'
@@ -113,14 +118,14 @@ jobs:
             NODE_ENV=production
             EOF
 
+            # Stop and remove old container
+            docker stop my-front 2>/dev/null || true
+            docker rm my-front 2>/dev/null || true
+
             # Build Docker image locally from source
             docker build -t auto-mind-solutions:latest \
               --build-arg VITE_BASE_URL="${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}" \
               .
-
-            # Stop and remove old container
-            docker-compose down || docker stop my-front || true
-            docker rm my-front || true
 
             # Start new container
             docker run -d \
@@ -134,7 +139,7 @@ jobs:
             docker image prune -f
 
             # Show status
-            docker ps | grep -E "auto-mind|my-front"
+            docker ps | grep "my-front"
 
       - name: Verify deployment
         uses: appleboy/ssh-action@v1.0.3
