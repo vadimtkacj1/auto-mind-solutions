@@ -7,10 +7,9 @@ import styles from './HeroContent.module.css';
 
 interface HeroContentProps {
   opacity: MotionValue<number>;
-  scale: MotionValue<number>;
 }
 
-export function HeroContent({ opacity, scale }: HeroContentProps) {
+export function HeroContent({ opacity }: HeroContentProps) {
   return (
     <motion.div
       style={{ opacity }}

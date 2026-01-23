@@ -59,11 +59,11 @@ export function Terms() {
               <h3 className="mb-4 text-2xl font-semibold text-[var(--color-dark)]">2. הגדרות</h3>
               <div className="bg-white p-4 rounded-lg">
                 <ul className="space-y-2 text-gray-600">
-                  <li><strong>"אנו", "שלנו", "החברה":</strong> מתייחס ל-AUTO MIND Solutions</li>
-                  <li><strong>"את/ה", "המשתמש", "הלקוח":</strong> מתייחס לכל אדם המשתמש באתר או בשירותים</li>
-                  <li><strong>"האתר":</strong> מתייחס לאתר האינטרנט של AUTO MIND Solutions</li>
-                  <li><strong>"שירותים":</strong> כל השירותים שמציעה החברה, כולל עיצוב, פיתוח, SEO, ייעוץ דיגיטלי ועוד</li>
-                  <li><strong>"תוכן":</strong> כל הטקסטים, תמונות, גרפיקה, קוד, תוכנה וחומרים אחרים באתר</li>
+                  <li><strong>&quot;אנו&quot;, &quot;שלנו&quot;, &quot;החברה&quot;:</strong> מתייחס ל-AUTO MIND Solutions</li>
+                  <li><strong>&quot;את/ה&quot;, &quot;המשתמש&quot;, &quot;הלקוח&quot;:</strong> מתייחס לכל אדם המשתמש באתר או בשירותים</li>
+                  <li><strong>&quot;האתר&quot;:</strong> מתייחס לאתר האינטרנט של AUTO MIND Solutions</li>
+                  <li><strong>&quot;שירותים&quot;:</strong> כל השירותים שמציעה החברה, כולל עיצוב, פיתוח, SEO, ייעוץ דיגיטלי ועוד</li>
+                  <li><strong>&quot;תוכן&quot;:</strong> כל הטקסטים, תמונות, גרפיקה, קוד, תוכנה וחומרים אחרים באתר</li>
                 </ul>
               </div>
             </div>
@@ -138,7 +138,7 @@ export function Terms() {
                   <li>תשלום מקדמה של 50% נדרש לפני תחילת העבודה (או סכום אחר כמוסכם)</li>
                   <li>יתרת התשלום עם השלמת הפרויקט ואישור הלקוח</li>
                   <li>תשלומים יכולים להתבצע באמצעות העברה בנקאית, כרטיס אשראי או שירותי תשלום מקוונים</li>
-                  <li>כל המחירים כוללים מע"מ כנדרש בחוק (או ללא מע"מ אם החברה פטורה)</li>
+                  <li>כל המחירים כוללים מע&quot;מ כנדרש בחוק (או ללא מע&quot;מ אם החברה פטורה)</li>
                   <li>עיכוב בתשלום עלול לגרום להשהיית העבודה או ביטול הפרויקט</li>
                 </ul>
               </div>
@@ -157,7 +157,7 @@ export function Terms() {
             <div>
               <h3 className="mb-4 text-2xl font-semibold text-[var(--color-dark)]">7. אחריות והגבלות</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                השירותים ניתנים "כמות שהם" (AS IS) ללא אחריות מפורשת או משתמעת, כולל אך לא רק: אחריות למכירות, התאמה למטרה מסוימת, אי הפרת זכויות, איכות, ביצועים או דיוק.
+                השירותים ניתנים &quot;כמות שהם&quot; (AS IS) ללא אחריות מפורשת או משתמעת, כולל אך לא רק: אחריות למכירות, התאמה למטרה מסוימת, אי הפרת זכויות, איכות, ביצועים או דיוק.
               </p>
               <div className="bg-white p-4 rounded-lg">
                 <p className="text-gray-700 font-medium mb-2">הגבלות אחריות:</p>

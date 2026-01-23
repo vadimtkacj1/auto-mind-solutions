@@ -10,7 +10,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const lenis = (window as any).lenis;
+      const lenis = (window as { lenis?: { scroll: number; on: (event: string, handler: () => void) => void; off: (event: string, handler: () => void) => void } }).lenis;
       const scrollY = lenis?.scroll ?? window.scrollY ?? 0;
       setIsScrolled(scrollY > 10);
     };
@@ -18,7 +18,7 @@ export default function Header() {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    const lenis = (window as any).lenis;
+    const lenis = (window as { lenis?: { scroll: number; on: (event: string, handler: () => void) => void; off: (event: string, handler: () => void) => void } }).lenis;
     if (lenis) {
       lenis.on('scroll', handleScroll);
     }

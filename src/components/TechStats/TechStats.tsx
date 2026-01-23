@@ -50,9 +50,9 @@ function AnimatedStat({ stat, index }: { stat: StatItem; index: number }) {
 
     const duration = 2000;
     if (!containerRef.current?.dataset.startTime) {
-        containerRef.current!.dataset.startTime = time.toString();
+        containerRef.current.dataset.startTime = time.toString();
     }
-    const elapsed = time - parseFloat(containerRef.current!.dataset.startTime!);
+    const elapsed = time - parseFloat(containerRef.current.dataset.startTime);
     const progress = Math.min(elapsed / duration, 1);
     const easeOutCubic = 1 - Math.pow(1 - progress, 3);
     const currentValue = Math.floor(easeOutCubic * numericValue);

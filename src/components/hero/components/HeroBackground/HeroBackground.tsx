@@ -1,11 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import styles from './HeroBackground.module.css';
 
-interface HeroBackgroundProps {
-  mousePosition: { x: number; y: number };
-}
-
-export function HeroBackground({ mousePosition }: HeroBackgroundProps) {
+export function HeroBackground() {
   const reduceMotion = useReducedMotion();
 
   if (reduceMotion) {

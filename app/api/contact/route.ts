@@ -88,16 +88,20 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ message: "Success" }, { status: 200 });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Log detailed error info for debugging in the server console
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorCode = error && typeof error === 'object' && 'code' in error ? (error as { code?: string }).code : undefined;
+    const errorCommand = error && typeof error === 'object' && 'command' in error ? (error as { command?: string }).command : undefined;
+    
     console.error("SMTP Error Details:", {
-      message: error.message,
-      code: error.code,
-      command: error.command,
+      message: errorMessage,
+      code: errorCode,
+      command: errorCommand,
     });
 
     return NextResponse.json(
-      { error: "Internal Server Error", details: error.message },
+      { error: "Internal Server Error", details: errorMessage },
       { status: 500 }
     );
   }

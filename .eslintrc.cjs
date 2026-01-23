@@ -22,7 +22,7 @@ module.exports = {
     // Allows constants like 'metadata' to be exported (fixes layout/page errors)
     'react-refresh/only-export-components': [
       'warn',
-      { allowConstantExport: true },
+      { allowConstantExport: true, allowExportNames: ['metadata', 'viewport', 'runtime', 'size', 'alt', 'contentType', 'badgeVariants', 'buttonVariants'] },
     ],
     
     // Form handling fix

@@ -117,6 +117,7 @@ export function TechStack() {
                 <div className="glow" />
                 
                 <div className="relative z-10">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={tech.logo}
                     alt={tech.name}

@@ -104,7 +104,7 @@ export function Contact() {
       }
       setShowSuccessPopup(true);
       setFormData({ name: '', phone: '' });
-    } catch (error) {
+    } catch {
       setErrorMessage('אירעה שגיאה בשליחת הטופס. נסו שוב');
     } finally {
       setIsSubmitting(false);
