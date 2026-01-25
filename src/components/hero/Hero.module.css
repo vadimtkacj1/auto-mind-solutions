@@ -1,25 +1,35 @@
-/* Hero.module.css */
-
+/* --- DESKTOP STYLES (Baseline) --- */
 .mainWrapper {
   position: relative;
   width: 100%;
-  min-height: 100vh; /* Full viewport height */
+  min-height: 100vh;
 }
 
 .container {
-  /* THE CORE LOGIC: Sticky keeps the section fixed at the top during scroll */
   position: sticky;
   top: 0;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  /* Dark space background with radial glow */
   background: radial-gradient(circle at 15% 50%, #0f172a 0%, #080a0c 100%);
-  /* Lower z-index so following sections can cover it */
-  z-index: 1;
-  direction: rtl;
+  z-index: 0;
+  direction: rtl; /* Support for Hebrew */
   display: flex;
   align-items: center;
+}
+
+/* Background sphere area */
+.sceneWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .contentContainer {
@@ -38,12 +48,12 @@
   text-align: right;
 }
 
+/* Vibrantly colored title */
 .title {
   font-size: clamp(34px, 5vw, 64px);
   font-weight: 800;
   line-height: 1.15;
   margin-bottom: 25px;
-  /* Blue gradient text effect */
   background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -61,9 +71,10 @@
   gap: 20px;
 }
 
+/* RESTORED: Main Blue Button Color */
 .btnMain {
   padding: 14px 38px;
-  background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%) !important;
   border: none;
   border-radius: 12px;
   color: white;
@@ -72,6 +83,12 @@
   transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.btnMain:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
+
+/* Alt Button (Transparent with border) */
 .btnAlt {
   padding: 14px 38px;
   background: rgba(255, 255, 255, 0.05);
@@ -83,54 +100,69 @@
   transition: 0.3s;
 }
 
-/* Scroll Indicator - Will be covered by the next section */
-.scrollIndicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
-.scrollText {
-  color: #06b6d4;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.mouse {
-  width: 22px;
-  height: 35px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-radius: 12px;
-  position: relative;
-}
-
-.wheel {
-  width: 2px;
-  height: 6px;
-  background: #00E690;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 6px;
-  animation: scrollAnim 1.6s infinite;
-}
-
-@keyframes scrollAnim {
-  0% { opacity: 1; top: 6px; }
-  100% { opacity: 0; top: 20px; }
-}
-
+/* --- MOBILE & TABLET (Vertical Stack Fix) --- */
 @media (max-width: 1024px) {
-  .contentContainer { justify-content: center; }
-  .textBox { text-align: center; }
-  .buttonRow { justify-content: center; }
+  .container {
+    flex-direction: column !important; /* Sphere TOP, Text BOTTOM */
+    justify-content: flex-start !important;
+    height: auto !important;
+    min-height: 100vh;
+    padding-top: 60px; /* Space for the logo/menu */
+    overflow-y: auto;
+  }
+
+  .sceneWrapper {
+    position: relative !important; /* Moves sphere into the layout flow */
+    height: 350px !important; /* Fixed height area for the 3D globe */
+    width: 100% !important;
+    order: 1; /* Force sphere to be first */
+    margin-bottom: 0;
+  }
+
+  .contentContainer {
+    order: 2; /* Force text block to be second */
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 20px !important;
+    margin-top: -30px !important; /* Bring text closer to the sphere */
+    max-width: 100%;
+  }
+
+  .textBox {
+    text-align: center !important; /* Center text alignment for mobile */
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title {
+    text-align: center !important;
+    margin-bottom: 15px;
+    font-size: clamp(28px, 8vw, 42px);
+  }
+
+  .subtitle {
+    text-align: center !important;
+    margin-bottom: 30px;
+    font-size: 1rem;
+    max-width: 90%;
+  }
+
+  .buttonRow {
+    justify-content: center;
+    flex-direction: column; /* Stack buttons vertically for easier taps */
+    width: 100%;
+    max-width: 280px;
+    gap: 12px;
+  }
+  
+  .btnMain, .btnAlt {
+    width: 100%;
+  }
+
+  /* Hide scroll indicator on small mobile heights */
+  .scrollIndicator {
+    display: none;
+  }
 }

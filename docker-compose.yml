@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   web:
-    image: ${DOCKER_IMAGE:-vadimtkacj1/auto-mind-solutions:latest}
+    image: ${DOCKER_IMAGE:-auto-mind-solutions:latest}
     container_name: auto-mind-solutions-web
-    restart: always
+    restart: unless-stopped
     ports:
       - "80:80"
     env_file:
@@ -13,12 +13,13 @@ services:
       - NODE_ENV=production
       - PORT=80
       - HOSTNAME=0.0.0.0
+      - NEXT_TELEMETRY_DISABLED=1
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80"]
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:80/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})\""]
       interval: 30s
-      timeout: 10s
+      timeout: 3s
       retries: 3
       start_period: 40s
     logging:
@@ -26,7 +27,29 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    # Resource limits for performance
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp
+    # Performance optimizations
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
 
 networks:
   app-network:
     driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1450

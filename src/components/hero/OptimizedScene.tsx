@@ -4,21 +4,17 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
- * 3D Background Component with a rotating globe and drifting particles
+ * 3D Background Component: Rotating globe and particles.
+ * Centered on mobile/tablet, positioned left on desktop.
  */
 export default function OptimizedScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number | null>(null);
   const globeRef = useRef<THREE.Mesh | null>(null);
-  const particlesRef = useRef<THREE.Points | null>(null);
 
   useEffect(() => {
-    // Отключить 3D на маленьких экранах и низкопроизводительных устройствах
+    // Basic checks to ensure environment is ready
     if (typeof window === 'undefined' || !canvasRef.current) return;
-
-    // Полное отключение на мобильных устройствах для производительности
-    const isMobile = window.innerWidth < 1024;
-    if (isMobile) return;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -27,13 +23,14 @@ export default function OptimizedScene() {
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       alpha: true,
-      antialias: false, // Оптимизация: отключение сглаживания
+      antialias: false, // Performance optimization
       powerPreference: 'high-performance'
     });
+    
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Ограничение pixelRatio
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
-    // Globe Setup
+    // Globe Setup with wireframe style
     const globeGeom = new THREE.SphereGeometry(1.8, 32, 32);
     const globeMat = new THREE.MeshBasicMaterial({
       color: 0x06b6d4,
@@ -41,65 +38,58 @@ export default function OptimizedScene() {
       transparent: true,
       opacity: 0.15
     });
+    
     const globe = new THREE.Mesh(globeGeom, globeMat);
-    globe.position.x = -3.0;
+
+    // Initial logic for placement and scale
+    const isMobile = window.innerWidth < 1024;
+    globe.position.x = isMobile ? 0 : -3.0;
+    
+    if (isMobile) {
+      // Make it smaller on mobile so it doesn't take over the screen
+      globe.scale.set(0.65, 0.65, 0.65); 
+    }
+
     globeRef.current = globe;
     scene.add(globe);
 
-    // Оптимизация: уменьшение количества частиц с 1200 до 600
-    const pointsCount = 600;
-    const posArray = new Float32Array(pointsCount * 3);
-    for (let i = 0; i < pointsCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 15;
-    }
-    const pointsGeom = new THREE.BufferGeometry();
-    pointsGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    const pointsMat = new THREE.PointsMaterial({
-      size: 0.02,
-      color: 0x00E690,
-      transparent: true,
-      opacity: 0.4
-    });
-
-    const particles = new THREE.Points(pointsGeom, pointsMat);
-    particlesRef.current = particles;
-    scene.add(particles);
-
-    // Main Animation Loop
+    // Main animation loop
     const animate = () => {
-      // Медленное вращение глобуса
-      if (globeRef.current) {
-        globeRef.current.rotation.y += 0.001;
-      }
-
-      // Плавное движение частиц
-      if (particlesRef.current) {
-        particlesRef.current.rotation.y -= 0.0005;
-        particlesRef.current.rotation.x += 0.0002;
-      }
-
+      if (globeRef.current) globeRef.current.rotation.y += 0.001;
       renderer.render(scene, camera);
       requestRef.current = requestAnimationFrame(animate);
     };
+    
     requestRef.current = requestAnimationFrame(animate);
 
+    // Dynamic resize handler
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(w, h);
+      
+      if (globeRef.current) {
+        if (w < 1024) {
+          globeRef.current.position.x = 0;
+          globeRef.current.scale.set(0.65, 0.65, 0.65);
+        } else {
+          globeRef.current.position.x = -3.0;
+          globeRef.current.scale.set(1, 1, 1);
+        }
+      }
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Memory cleanup on unmount
+    // Cleanup resources
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       globeGeom.dispose();
       globeMat.dispose();
-      pointsGeom.dispose();
-      pointsMat.dispose();
     };
   }, []);
 

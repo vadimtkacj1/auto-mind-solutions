@@ -9,18 +9,18 @@ export function AccessibilityWidget() {
   const increaseFontSize = () => {
     const newSize = Math.min(fontSize + 10, 150);
     setFontSize(newSize);
-    document.documentElement.style.fontSize = `${newSize}%`;
+    document.documentElement.style.setProperty('--accessibility-font-scale', `${newSize / 100}`);
   };
 
   const decreaseFontSize = () => {
     const newSize = Math.max(fontSize - 10, 80);
     setFontSize(newSize);
-    document.documentElement.style.fontSize = `${newSize}%`;
+    document.documentElement.style.setProperty('--accessibility-font-scale', `${newSize / 100}`);
   };
 
   const resetFontSize = () => {
     setFontSize(100);
-    document.documentElement.style.fontSize = '100%';
+    document.documentElement.style.setProperty('--accessibility-font-scale', '1');
   };
 
   const toggleContrast = () => {
@@ -35,6 +35,7 @@ export function AccessibilityWidget() {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed left-6 bottom-6 w-14 h-14 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white shadow-lg shadow-[var(--color-primary)]/30 flex items-center justify-center z-50 transition-all duration-300 hover:shadow-xl hover:shadow-[var(--color-primary)]/40"
         aria-label="נגישות"
+        style={{ contain: 'layout style paint' }}
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10"/>
@@ -53,7 +54,7 @@ export function AccessibilityWidget() {
             className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
           />
           
-          <div className="fixed left-6 bottom-24 bg-white rounded-2xl shadow-2xl shadow-black/10 p-6 z-50 border border-[var(--color-gray-200)] w-80">
+          <div className="fixed left-6 bottom-24 bg-white rounded-2xl shadow-2xl shadow-black/10 p-6 z-50 border border-[var(--color-gray-200)] w-80" style={{ contain: 'layout style paint' }}>
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <div>

@@ -31,6 +31,7 @@
   width: 100px;
   height: 100px;
   perspective: 1000px;
+  isolation: isolate;
 }
 
 .spinnerRing {
@@ -39,6 +40,7 @@
   border-radius: 50%;
   border: 3px solid transparent;
   animation: spinnerRotate 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
 }
 
 .spinnerRing:nth-child(1) {

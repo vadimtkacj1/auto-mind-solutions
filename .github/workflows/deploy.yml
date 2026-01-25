@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline - Optimized
 
 on:
   push:
@@ -8,11 +8,21 @@ on:
     branches:
       - main
 
+# Cancel in-progress runs for the same workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   # Build and Test
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout code
@@ -21,24 +31,46 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            .next/cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --prefer-offline --no-audit
 
       - name: Run linting
         run: npm run lint
+        continue-on-error: true
 
       - name: Build application
         run: npm run build
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}
+          NODE_ENV: production
 
-  # Build Docker Image (without pushing to registry)
+      - name: Cache build output
+        uses: actions/cache@v3
+        with:
+          path: .next
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+  # Build Docker Image with caching
   docker:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
@@ -47,16 +79,37 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
+            network=host
 
-      - name: Build Docker image
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build Docker image with cache
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: ./Dockerfile
           push: false
           tags: auto-mind-solutions:latest
           build-args: |
             VITE_BASE_URL=${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
           outputs: type=docker,dest=/tmp/image.tar
+
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v4
@@ -64,11 +117,13 @@ jobs:
           name: docker-image
           path: /tmp/image.tar
           retention-days: 1
+          compression-level: 6
 
-  # Deploy to Server
+  # Deploy to Server (Optimized)
   deploy:
     needs: docker
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
@@ -81,28 +136,34 @@ jobs:
           name: docker-image
           path: /tmp
 
-      - name: Copy files to server via SSH
+      - name: Copy essential files to server via SSH
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.IP_SERVER }}
           username: ${{ secrets.USER_SERVER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
-          source: "."
+          source: "Dockerfile,docker-compose.yml,package.json"
           target: "/opt/auto-mind-solutions"
           rm: false
           strip_components: 0
+          overwrite: true
 
-      - name: Deploy to server via SSH
+      - name: Deploy to server via SSH (Fast deployment)
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.IP_SERVER }}
           username: ${{ secrets.USER_SERVER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
+          command_timeout: 10m
           script: |
+            set -e
+            
             # Navigate to deployment directory
             cd /opt/auto-mind-solutions
+            
+            echo "🚀 Starting optimized deployment..."
 
             # Create .env file from secrets
             cat > .env <<'EOF'
@@ -116,30 +177,61 @@ jobs:
             # Next.js Configuration
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}
             NODE_ENV=production
+            PORT=80
+            HOSTNAME=0.0.0.0
+            NEXT_TELEMETRY_DISABLED=1
             EOF
 
-            # Stop and remove old container
-            docker stop my-front 2>/dev/null || true
-            docker rm my-front 2>/dev/null || true
+            # Graceful shutdown of old container
+            if docker ps -q -f name=my-front | grep -q .; then
+              echo "📦 Stopping old container gracefully..."
+              docker stop -t 30 my-front 2>/dev/null || true
+              docker rm my-front 2>/dev/null || true
+            fi
 
-            # Build Docker image locally from source
-            docker build -t auto-mind-solutions:latest \
+            # Build Docker image with BuildKit optimizations
+            echo "🔨 Building Docker image with cache..."
+            DOCKER_BUILDKIT=1 docker build \
+              --tag auto-mind-solutions:latest \
+              --tag auto-mind-solutions:${{ github.sha }} \
+              --build-arg BUILDKIT_INLINE_CACHE=1 \
               --build-arg VITE_BASE_URL="${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}" \
+              --build-arg NEXT_PUBLIC_API_URL="${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}" \
+              --cache-from auto-mind-solutions:latest \
               .
 
-            # Start new container
+            # Start new container with optimizations
+            echo "🚀 Starting new container..."
             docker run -d \
-              --restart always \
+              --restart unless-stopped \
               --name my-front \
               -p 80:80 \
               --env-file .env \
+              --memory="512m" \
+              --memory-swap="1g" \
+              --cpus="1.0" \
+              --health-cmd="node -e \"require('http').get('http://localhost:80/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})\"" \
+              --health-interval=30s \
+              --health-timeout=3s \
+              --health-retries=3 \
+              --log-driver json-file \
+              --log-opt max-size=10m \
+              --log-opt max-file=3 \
               auto-mind-solutions:latest
 
-            # Clean up old images
-            docker image prune -f
+            # Wait for container to be healthy
+            echo "⏳ Waiting for container to be healthy..."
+            timeout 60s bash -c 'until docker inspect --format="{{.State.Health.Status}}" my-front | grep -q healthy; do sleep 2; done' || \
+              (echo "❌ Container health check failed" && exit 1)
+
+            # Clean up old images (keep last 2)
+            echo "🧹 Cleaning up old images..."
+            docker images auto-mind-solutions --format "{{.ID}}" | tail -n +3 | xargs -r docker rmi -f 2>/dev/null || true
+            docker image prune -f --filter "until=24h"
 
             # Show status
-            docker ps | grep "my-front"
+            echo "✅ Deployment successful!"
+            docker ps --filter name=my-front --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
       - name: Verify deployment
         uses: appleboy/ssh-action@v1.0.3

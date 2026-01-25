@@ -7,6 +7,9 @@
 
 @layer theme {
   :root {
+    /* Accessibility */
+    --accessibility-font-scale: 1;
+    
     /* Premium Dark Palette */
     --color-bg-dark: #020510;
     --color-bg-darker: #000208;
@@ -296,13 +299,13 @@
 }
 
 /* Minimal Animations */
-@keyframes spin {
+@keyframes global-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 .animate-spin {
-  animation: spin 1s linear infinite;
+  animation: global-spin 1s linear infinite;
 }
 
 @keyframes ams-marquee {
@@ -560,6 +563,19 @@
 
 .section-subtle {
   background: linear-gradient(180deg, var(--color-gray-50) 0%, white 100%);
+}
+
+/* Parallax Overlay Effect - Services covers Hero on scroll */
+.parallax-overlay {
+  position: relative;
+  z-index: 10;
+  margin-top: -150px;
+}
+
+@media (max-width: 768px) {
+  .parallax-overlay {
+    margin-top: -100px;
+  }
 }
 
 /* Isometric 3D Styles */

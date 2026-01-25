@@ -5,11 +5,9 @@ const nextConfig = {
 
   // --- ADDED THESE TO BYPASS BUILD ERRORS ---
   eslint: {
-    // This allows the build to finish even with the linting warnings you received
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // This ignores the 'any' type errors and the opengraph-image async error
     ignoreBuildErrors: true,
   },
   // ------------------------------------------
@@ -17,7 +15,14 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 
-  // Оптимизация изображений для Core Web Vitals
+  // Performance optimizations
+  compress: true,
+  poweredByHeader: false,
+  
+  // Production optimizations
+  productionBrowserSourceMaps: false,
+  
+  // Modern image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [],
@@ -26,10 +31,8 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    unoptimized: false,
   },
-
-  compress: true,
-  poweredByHeader: false,
 
   experimental: {
     optimizeCss: true,
@@ -37,8 +40,10 @@ const nextConfig = {
       'lucide-react',
       'framer-motion',
       '@radix-ui/react-accordion',
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-alert-dialog',
+      '@radix-ui/react-aspect-ratio',
+      '@radix-ui/react-avatar',
+      '@radix-ui/react-slot',
       'react-icons',
       '@lottiefiles/dotlottie-react',
       'three',
@@ -47,7 +52,65 @@ const nextConfig = {
   },
 
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'],
+    } : false,
+  },
+
+  // Webpack optimizations
+  webpack: (config, { dev, isServer }) => {
+    // Production optimizations
+    if (!dev && !isServer) {
+      config.optimization = {
+        ...config.optimization,
+        moduleIds: 'deterministic',
+        runtimeChunk: 'single',
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            // Vendor chunk
+            vendor: {
+              name: 'vendor',
+              chunks: 'all',
+              test: /node_modules/,
+              priority: 20,
+            },
+            // Common chunk
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 10,
+              reuseExistingChunk: true,
+              enforce: true,
+            },
+            // Three.js separate chunk
+            three: {
+              name: 'three',
+              test: /[\\/]node_modules[\\/](three)[\\/]/,
+              priority: 30,
+              reuseExistingChunk: true,
+            },
+            // React libraries
+            react: {
+              name: 'react',
+              test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+              priority: 40,
+            },
+            // Framer Motion
+            framer: {
+              name: 'framer',
+              test: /[\\/]node_modules[\\/](framer-motion)[\\/]/,
+              priority: 35,
+            },
+          },
+        },
+      };
+    }
+    
+    return config;
   },
 
   async headers() {
@@ -62,7 +125,16 @@ const nextConfig = {
         ],
       },
       {
-        source: '/:all*(svg|jpg|jpeg|png|gif|ico|webp|avif)',
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/:all*(svg|jpg|jpeg|png|gif|ico|webp|avif|woff|woff2)',
         headers: [
           {
             key: 'Cache-Control',

@@ -10,15 +10,16 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const lenis = (window as { lenis?: { scroll: number; on: (event: string, handler: () => void) => void; off: (event: string, handler: () => void) => void } }).lenis;
+      const lenis = (window as any).lenis;
       const scrollY = lenis?.scroll ?? window.scrollY ?? 0;
-      setIsScrolled(scrollY > 10);
+      // Using a threshold of 20px for a clean state switch
+      setIsScrolled(scrollY > 20);
     };
 
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    const lenis = (window as { lenis?: { scroll: number; on: (event: string, handler: () => void) => void; off: (event: string, handler: () => void) => void } }).lenis;
+    const lenis = (window as any).lenis;
     if (lenis) {
       lenis.on('scroll', handleScroll);
     }
@@ -51,30 +52,36 @@ export default function Header() {
     <>
       <header
         dir="rtl"
-        data-lenis-prevent
-        className={`fixed top-0 left-0 right-0 w-full z-[9999] transition-all duration-500 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 w-full z-[9999] transition-all duration-300 ease-in-out border-b h-20 ${
           isScrolled || mobileMenuOpen
-            ? 'py-2 bg-[#050a15]/95 backdrop-blur-md border-b border-white/10 shadow-2xl'
-            : 'py-6 !bg-transparent border-b border-transparent' // הגדלתי py-4 ל-py-6 בשביל הלוגו הענק
+            ? 'bg-[#050a15]/95 backdrop-blur-md border-white/10 shadow-2xl'
+            : 'bg-transparent border-transparent' 
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
           
-          {/* --- MEGA LOGO SECTION --- */}
+          {/* --- LOGO SECTION --- */}
           <a
             href="#home"
             onClick={handleNavClick}
-            className="relative z-[10001] flex items-center transition-transform hover:scale-105"
+            className="relative z-[10001] flex items-center h-full"
             dir="ltr"
           >
-            <Image
-              src="/images/Aittera_2.png"
-              alt="Auto Mind Logo"
-              width={240} // הגדלה משמעותית
-              height={64}
-              priority
-              className={`transition-all duration-500 h-12 md:h-20 w-auto object-contain`} // h-12 במובייל ו-h-20 בדסקטופ
-            />
+            {/* Slightly decreased the base logo height and wrapper width.
+              The scale transition is now very subtle (95%) to prevent jitter.
+            */}
+            <div className={`transition-all duration-500 origin-left flex items-center h-12 w-[160px] md:w-[200px] ${
+              isScrolled ? 'scale-95' : 'scale-100'
+            }`}>
+              <Image
+                src="/images/AITTERRA.svg"
+                alt="Auto Mind Logo"
+                width={200}
+                height={60}
+                priority
+                className="w-full h-full object-contain"
+              />
+            </div>
           </a>
 
           {/* Desktop Navigation */}
@@ -129,14 +136,13 @@ export default function Header() {
         }`}
       >
         <div className="p-10 flex flex-col h-full">
-          {/* Logo inside Sidebar - EXTRA LARGE */}
           <div className="mb-16 flex items-center" dir="ltr">
             <Image
-              src="/images/Aittera_2.png"
+              src="/images/AITTERRA.svg"
               alt="Auto Mind Logo"
-              width={220}
-              height={60}
-              className="h-16 w-auto object-contain"
+              width={180}
+              height={50}
+              className="h-12 w-auto object-contain"
             />
           </div>
           
