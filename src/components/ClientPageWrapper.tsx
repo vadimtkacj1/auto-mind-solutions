@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
 // Dynamic imports для клиентских компонентов
@@ -11,6 +12,11 @@ const CookiePopup = dynamic(
 
 export default function ClientPageWrapper() {
   const router = useRouter();
+
+  // Add page-loaded class to body when component mounts
+  useEffect(() => {
+    document.body.classList.add('page-loaded');
+  }, []);
 
   const handleNavigate = (page: 'privacy' | 'terms') => {
     router.push(`/${page}`);

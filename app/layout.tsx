@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Noto_Sans_Hebrew } from 'next/font/google';
 import '../src/styles/globals.css';
 import SmoothScrollProvider from '../src/components/SmoothScroll/SmoothScrollProvider';
-import PageLoadingSpinner from '../src/components/PageLoadingSpinner/PageLoadingSpinner';
 
 // Оптимизация: загрузка только необходимых весов шрифтов (400, 700, 800)
 const notoSansHebrew = Noto_Sans_Hebrew({
@@ -242,7 +241,6 @@ export default function RootLayout({
         />
       </head>
       <body className={notoSansHebrew.className}>
-        <PageLoadingSpinner />
         <SmoothScrollProvider>
           {children}
         </SmoothScrollProvider>

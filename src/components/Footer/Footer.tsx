@@ -68,6 +68,47 @@ export function Footer() {
             </div>
           </div>
 
+          {/* Legal Documents Section */}
+          <div className="w-full mb-16 px-4">
+            <div className="max-w-3xl mx-auto">
+              <h4 className="text-xs font-bold tracking-[3px] text-white/40 uppercase mb-6 text-center">מסמכים משפטיים</h4>
+              <div className="flex flex-wrap justify-center gap-4">
+                <a 
+                  href="/documents/accessibility-statement.pdf" 
+                  download
+                  className="group flex items-center gap-2 px-6 py-3 rounded-lg bg-white/[0.04] border border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08] transition-all duration-300 text-white/70 hover:text-cyan-400"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="text-sm font-medium">הצהרת נגישות</span>
+                </a>
+                
+                <a 
+                  href="/documents/privacy-policy.pdf" 
+                  download
+                  className="group flex items-center gap-2 px-6 py-3 rounded-lg bg-white/[0.04] border border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08] transition-all duration-300 text-white/70 hover:text-cyan-400"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="text-sm font-medium">מדיניות פרטיות</span>
+                </a>
+                
+                <a 
+                  href="/documents/terms-of-use.pdf" 
+                  download
+                  className="group flex items-center gap-2 px-6 py-3 rounded-lg bg-white/[0.04] border border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08] transition-all duration-300 text-white/70 hover:text-cyan-400"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="text-sm font-medium">תנאי שימוש</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* Bottom Panel */}
           <div className="w-full pt-10 border-t border-white/10 flex flex-col items-center gap-8">
             {/* Copyright text slightly larger */}

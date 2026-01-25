@@ -17,7 +17,7 @@ import { WebVitals } from './web-vitals';
 import ClientPageWrapper from '../src/components/ClientPageWrapper';
 
 // Динамический импорт тяжелых компонентов - отключен SSR для быстрой загрузки
-const Hero = dynamic(() => import('../src/components/Hero').then(mod => ({ default: mod.Hero })), {
+const Hero = dynamic(() => import('../src/components/hero/Hero'), {
   ssr: false,
   loading: () => (
     <div className="h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">

@@ -59,9 +59,14 @@ export async function POST(request: NextRequest) {
     });
 
     // 4. Email template configuration
+    // Support multiple recipient emails separated by commas
+    const recipientEmails = EMAIL_TO
+      ? EMAIL_TO.split(',').map(email => email.trim()).filter(email => email)
+      : ["vadim.tkach1378@gmail.com"];
+
     const mailOptions = {
       from: `"Assistant" <${EMAIL_SERVER_USER}>`,
-      to: EMAIL_TO || "vadim.tkach1378@gmail.com",
+      to: recipientEmails.join(', '), // Send to all specified emails
       subject: `New Lead: ${name}`,
       html: `
         <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee;">

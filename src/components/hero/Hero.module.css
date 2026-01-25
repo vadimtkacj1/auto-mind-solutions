@@ -1,4 +1,4 @@
-/* --- DESKTOP STYLES (Baseline) --- */
+/* --- Desktop Layout (Default) --- */
 .mainWrapper {
   position: relative;
   width: 100%;
@@ -13,12 +13,11 @@
   overflow: hidden;
   background: radial-gradient(circle at 15% 50%, #0f172a 0%, #080a0c 100%);
   z-index: 0;
-  direction: rtl; /* Support for Hebrew */
+  direction: rtl; 
   display: flex;
   align-items: center;
 }
 
-/* Background sphere area */
 .sceneWrapper {
   position: absolute;
   top: 0;
@@ -48,7 +47,6 @@
   text-align: right;
 }
 
-/* Vibrantly colored title */
 .title {
   font-size: clamp(34px, 5vw, 64px);
   font-weight: 800;
@@ -71,7 +69,6 @@
   gap: 20px;
 }
 
-/* RESTORED: Main Blue Button Color */
 .btnMain {
   padding: 14px 38px;
   background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%) !important;
@@ -80,15 +77,8 @@
   color: white;
   font-weight: 700;
   cursor: pointer;
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btnMain:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-}
-
-/* Alt Button (Transparent with border) */
 .btnAlt {
   padding: 14px 38px;
   background: rgba(255, 255, 255, 0.05);
@@ -97,72 +87,70 @@
   color: #ffffff;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-/* --- MOBILE & TABLET (Vertical Stack Fix) --- */
+.scrollIndicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.scrollText { color: #06b6d4; font-size: 12px; font-weight: 600; }
+.mouse { width: 20px; height: 32px; border: 2px solid rgba(255, 255, 255, 0.4); border-radius: 10px; position: relative; }
+.wheel { width: 2px; height: 5px; background: #00E690; position: absolute; left: 50%; transform: translateX(-50%); top: 5px; animation: scrollAnim 1.6s infinite; }
+
+@keyframes scrollAnim { 0% { opacity: 1; top: 5px; } 100% { opacity: 0; top: 18px; } }
+
+/* --- Mobile Adaptive Styles --- */
 @media (max-width: 1024px) {
   .container {
-    flex-direction: column !important; /* Sphere TOP, Text BOTTOM */
+    flex-direction: column !important;
     justify-content: flex-start !important;
-    height: auto !important;
-    min-height: 100vh;
-    padding-top: 60px; /* Space for the logo/menu */
-    overflow-y: auto;
+    height: 100vh !important;
+    padding-top: 80px !important; 
+    overflow: visible !important; 
   }
 
   .sceneWrapper {
-    position: relative !important; /* Moves sphere into the layout flow */
-    height: 350px !important; /* Fixed height area for the 3D globe */
+    position: absolute !important; 
+    top: 0;
+    left: 0;
     width: 100% !important;
-    order: 1; /* Force sphere to be first */
-    margin-bottom: 0;
+    height: 100vh !important;
+    z-index: 1;
+    overflow: visible !important;
   }
 
   .contentContainer {
-    order: 2; /* Force text block to be second */
-    justify-content: center !important;
-    align-items: center !important;
+    order: 2;
     padding: 0 20px !important;
-    margin-top: -30px !important; /* Bring text closer to the sphere */
-    max-width: 100%;
+    width: 100%;
+    z-index: 5;
+    /* MOVED LOWER: From 28vh to 42vh */
+    margin-top: 42vh !important; 
   }
 
   .textBox {
-    text-align: center !important; /* Center text alignment for mobile */
-    max-width: 100%;
+    text-align: center !important;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center !important;
   }
 
   .title {
-    text-align: center !important;
-    margin-bottom: 15px;
-    font-size: clamp(28px, 8vw, 42px);
+    font-size: clamp(24px, 7vw, 32px) !important;
+    margin-bottom: 12px !important;
   }
 
-  .subtitle {
-    text-align: center !important;
-    margin-bottom: 30px;
-    font-size: 1rem;
-    max-width: 90%;
-  }
-
-  .buttonRow {
-    justify-content: center;
-    flex-direction: column; /* Stack buttons vertically for easier taps */
-    width: 100%;
-    max-width: 280px;
-    gap: 12px;
-  }
-  
-  .btnMain, .btnAlt {
-    width: 100%;
-  }
-
-  /* Hide scroll indicator on small mobile heights */
   .scrollIndicator {
-    display: none;
+    display: flex !important;
+    bottom: 25px !important; 
+    transform: translateX(-50%) scale(0.7);
   }
 }

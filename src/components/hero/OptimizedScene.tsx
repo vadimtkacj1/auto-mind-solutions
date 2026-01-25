@@ -3,107 +3,119 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-/**
- * 3D Background Component: Rotating globe and particles.
- * Centered on mobile/tablet, positioned left on desktop.
- */
 export default function OptimizedScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number | null>(null);
   const globeRef = useRef<THREE.Mesh | null>(null);
+  const particlesRef = useRef<THREE.Points | null>(null);
 
   useEffect(() => {
-    // Basic checks to ensure environment is ready
     if (typeof window === 'undefined' || !canvasRef.current) return;
 
+    const canvas = canvasRef.current;
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
+    
+    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    camera.position.z = 18; 
 
     const renderer = new THREE.WebGLRenderer({
-      canvas: canvasRef.current,
+      canvas: canvas,
       alpha: true,
-      antialias: false, // Performance optimization
+      antialias: true,
       powerPreference: 'high-performance'
     });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
-    // Globe Setup with wireframe style
-    const globeGeom = new THREE.SphereGeometry(1.8, 32, 32);
+    // --- Фоновые звезды ---
+    const particlesCount = 2500; 
+    const positions = new Float32Array(particlesCount * 3);
+    for (let i = 0; i < particlesCount * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 150; 
+    }
+    const particlesGeom = new THREE.BufferGeometry();
+    particlesGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    
+    const particlesMat = new THREE.PointsMaterial({
+      color: 0x00E690, 
+      size: 0.12,
+      transparent: true,
+      opacity: 0.4,
+      sizeAttenuation: true
+    });
+    const particles = new THREE.Points(particlesGeom, particlesMat);
+    particlesRef.current = particles;
+    scene.add(particles);
+
+    // --- Сфера (Глобус) ---
+    const globeGeom = new THREE.SphereGeometry(2, 32, 32);
     const globeMat = new THREE.MeshBasicMaterial({
       color: 0x06b6d4,
       wireframe: true,
       transparent: true,
-      opacity: 0.15
+      opacity: 0.12 // Сделал чуть прозрачнее, чтобы не отвлекала
     });
-    
     const globe = new THREE.Mesh(globeGeom, globeMat);
-
-    // Initial logic for placement and scale
-    const isMobile = window.innerWidth < 1024;
-    globe.position.x = isMobile ? 0 : -3.0;
-    
-    if (isMobile) {
-      // Make it smaller on mobile so it doesn't take over the screen
-      globe.scale.set(0.65, 0.65, 0.65); 
-    }
-
     globeRef.current = globe;
     scene.add(globe);
 
-    // Main animation loop
+    const updateLayout = () => {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (w === 0 || h === 0) return;
+
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+
+      if (globeRef.current) {
+        if (window.innerWidth < 1024) {
+          // Мобайл: Оставляем заметным по центру
+          globeRef.current.position.set(0, 1.5, 0); 
+          globeRef.current.scale.set(2.0, 2.0, 2.0); 
+        } else {
+          // Десктоп: Радикально левее и меньше
+          // -14 вынесет центр сферы почти к самому краю
+          globeRef.current.position.set(-14, 0, 0); 
+          globeRef.current.scale.set(1.2, 1.2, 1.2); 
+        }
+      }
+    };
+
+    updateLayout();
+
     const animate = () => {
-      if (globeRef.current) globeRef.current.rotation.y += 0.001;
+      if (globeRef.current) globeRef.current.rotation.y += 0.0015;
+      if (particlesRef.current) {
+        particlesRef.current.rotation.y -= 0.0002;
+        particlesRef.current.rotation.x += 0.0001;
+      }
+
       renderer.render(scene, camera);
       requestRef.current = requestAnimationFrame(animate);
     };
     
     requestRef.current = requestAnimationFrame(animate);
-
-    // Dynamic resize handler
-    const handleResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-      
-      if (globeRef.current) {
-        if (w < 1024) {
-          globeRef.current.position.x = 0;
-          globeRef.current.scale.set(0.65, 0.65, 0.65);
-        } else {
-          globeRef.current.position.x = -3.0;
-          globeRef.current.scale.set(1, 1, 1);
-        }
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup resources
+    window.addEventListener('resize', updateLayout);
+    
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', updateLayout);
       renderer.dispose();
       globeGeom.dispose();
       globeMat.dispose();
+      particlesGeom.dispose();
+      particlesMat.dispose();
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1,
-        pointerEvents: 'none'
+      style={{ 
+        width: '100%', 
+        height: '100%', 
+        display: 'block', 
+        pointerEvents: 'none', 
+        overflow: 'visible' 
       }}
     />
   );

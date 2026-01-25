@@ -10,15 +10,22 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Use standard scrollY or Lenis scroll value
       const lenis = (window as any).lenis;
       const scrollY = lenis?.scroll ?? window.scrollY ?? 0;
-      // Using a threshold of 20px for a clean state switch
-      setIsScrolled(scrollY > 20);
+      
+      // Threshold: only show background if scrolled more than 40px
+      // This prevents the background from flickering at the very top
+      setIsScrolled(scrollY > 40);
     };
 
+    // Run check on mount to handle page refreshes in the middle of the page
     handleScroll();
+
+    // Standard scroll listener
     window.addEventListener('scroll', handleScroll, { passive: true });
     
+    // Lenis smooth scroll listener (if present)
     const lenis = (window as any).lenis;
     if (lenis) {
       lenis.on('scroll', handleScroll);
@@ -30,6 +37,7 @@ export default function Header() {
     };
   }, []);
 
+  // Prevent body scrolling when mobile menu is active
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
   }, [mobileMenuOpen]);
@@ -52,24 +60,25 @@ export default function Header() {
     <>
       <header
         dir="rtl"
-        className={`fixed top-0 left-0 right-0 w-full z-[9999] transition-all duration-300 ease-in-out border-b h-20 ${
+        style={{
+          backgroundColor: isScrolled || mobileMenuOpen ? 'rgba(5, 10, 21, 0.95)' : 'transparent',
+        }}
+        className={`fixed top-0 left-0 right-0 w-full z-[9999] transition-all duration-500 ease-in-out h-20 flex items-center ${
           isScrolled || mobileMenuOpen
-            ? 'bg-[#050a15]/95 backdrop-blur-md border-white/10 shadow-2xl'
-            : 'bg-transparent border-transparent' 
+            ? 'backdrop-blur-md border-b border-white/10 shadow-2xl'
+            : 'border-b border-transparent shadow-none'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 w-full flex items-center justify-between">
           
-          {/* --- LOGO SECTION --- */}
+          {/* LOGO SECTION */}
           <a
             href="#home"
             onClick={handleNavClick}
-            className="relative z-[10001] flex items-center h-full"
+            className="relative z-[10001] flex items-center"
             dir="ltr"
           >
-            {/* Slightly decreased the base logo height and wrapper width.
-              The scale transition is now very subtle (95%) to prevent jitter.
-            */}
+            {/* Subtle scale transition on scroll */}
             <div className={`transition-all duration-500 origin-left flex items-center h-12 w-[160px] md:w-[200px] ${
               isScrolled ? 'scale-95' : 'scale-100'
             }`}>
@@ -84,7 +93,7 @@ export default function Header() {
             </div>
           </a>
 
-          {/* Desktop Navigation */}
+          {/* DESKTOP NAVIGATION */}
           <nav className="hidden lg:flex items-center gap-10">
             {navItems.map((item) => (
               <a
@@ -106,10 +115,11 @@ export default function Header() {
             </a>
           </nav>
 
-          {/* Mobile Hamburger Menu */}
+          {/* MOBILE TOGGLE (HAMBURGER) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden relative z-[10001] p-2"
+            aria-label="Toggle Menu"
           >
             <div className="w-9 space-y-2">
               <span className={`block h-1.5 w-9 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-3.5' : ''}`} />
@@ -120,7 +130,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile Sidebar Overlay */}
+      {/* MOBILE OVERLAY */}
       <div 
         className={`fixed inset-0 bg-black/80 backdrop-blur-md lg:hidden z-[9997] transition-opacity duration-300 ${
           mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -128,7 +138,7 @@ export default function Header() {
         onClick={() => setMobileMenuOpen(false)}
       />
 
-      {/* Mobile Sidebar Navigation */}
+      {/* MOBILE SIDEBAR */}
       <aside 
         dir="rtl"
         className={`fixed top-0 right-0 h-full w-[320px] bg-[#050a15] z-[9998] transform transition-transform duration-300 ease-in-out lg:hidden border-l border-white/10 ${

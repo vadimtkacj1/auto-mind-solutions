@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import styles from "./Hero.module.css";
 
+// Dynamic import to prevent hydration mismatch for Three.js
 const OptimizedScene = dynamic(() => import("./OptimizedScene"), {
   ssr: false,
 });
@@ -24,20 +25,24 @@ export default function Hero() {
 
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.6, 0]);
 
+  // Smooth scroll logic to the services section
   const handleScrollDown = () => {
-    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById("services");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
     <div className={styles.mainWrapper} ref={containerRef}>
       <section className={styles.container}>
         
-        {/* Sphere on top */}
+        {/* Top Visual: Globe */}
         <motion.div className={styles.sceneWrapper} style={{ opacity }}>
            {isMounted && <OptimizedScene />}
         </motion.div>
 
-        {/* Text centered below */}
+        {/* Bottom Content: Text and Buttons */}
         <motion.div className={styles.contentContainer} style={{ opacity }}>
           <div className={styles.textBox}>
             <h1 className={styles.title}>המעטפת המלאה שלך לנוכחות דיגיטלית</h1>
@@ -52,6 +57,16 @@ export default function Hero() {
           </div>
         </motion.div>
 
+        {/* Interaction: Scroll Indicator */}
+        <motion.button 
+          className={styles.scrollIndicator} 
+          onClick={handleScrollDown} 
+          style={{ opacity }}
+          aria-label="Scroll to services"
+        >
+          <div className={styles.mouse}><div className={styles.wheel}></div></div>
+          <span className={styles.scrollText}>גללו למטה</span>
+        </motion.button>
       </section>
     </div>
   );
