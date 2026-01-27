@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'AUTO MIND STUDIO - עיצוב אתרים, SEO ופיתוח דיגיטלי';
+export const alt = 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי';
 export const size = {
   width: 1200,
   height: 630,
@@ -43,7 +43,7 @@ export default async function Image() {
               textShadow: '0 4px 8px rgba(0,0,0,0.3)',
             }}
           >
-            AUTO MIND STUDIO
+            Aiterra
           </div>
           <div
             style={{

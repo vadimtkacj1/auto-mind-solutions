@@ -78,7 +78,7 @@ export function Services() {
     <section
       ref={sectionRef}
       id="services"
-      className="parallax-overlay relative bg-[#fcfcfd] overflow-hidden rounded-t-[40px] md:rounded-t-[80px] shadow-[0_-30px_60px_rgba(0,0,0,0.12)] min-h-screen pt-32 pb-32 md:pt-48 md:pb-56"
+      className="relative z-10 bg-[#fcfcfd] overflow-hidden rounded-t-[40px] md:rounded-t-[80px] shadow-[0_-30px_60px_rgba(0,0,0,0.12)] py-16 md:py-24 -mt-15 md:-mt-15"
       dir="rtl"
     >
       {/* --- ENHANCED BACKGROUND OBJECTS --- */}

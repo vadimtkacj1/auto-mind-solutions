@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
 interface CookiePopupProps {
-  onNavigate?: (page: 'privacy' | 'terms') => void;
+  onNavigate?: (page: 'home' | 'privacy' | 'terms') => void;
 }
 
 const COOKIE_CONSENT_KEY = 'cookie-consent';
@@ -59,7 +59,7 @@ const CookiePopup: React.FC<CookiePopupProps> = ({ onNavigate }) => {
             שימוש בעוגיות באתר
           </h3>
           <p className="text-gray-600 text-sm leading-relaxed">
-            האתר שלנו משתמש בעוגיות כדי לשפר את חוויית הגלישה שלך ולנתח את השימוש באתר. 
+            האתר שלנו משתמש בעוגיות כדי לשפר את חוויית הגלישה שלך ולנתח את השימוש באתר.
             בהמשך גלישה באתר או בלחיצה על מאשר/ת הכל, את/ה מסכים/ה לשימוש שלנו בעוגיות בהתאם ל
             <button
               onClick={() => onNavigate?.('privacy')}

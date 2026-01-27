@@ -59,20 +59,42 @@ const plans: PricingPlan[] = [
 // --- MAIN COMPONENT ---
 export function Pricing() {
   const containerRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  // Ленивая загрузка анимаций - только когда секция видна
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '100px' }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 50, damping: 25 });
-  const sectionOpacity = useTransform(smoothProgress, [0, 0.1], [0, 1]);
+  // Упрощенные анимации без Spring для производительности
+  const sectionOpacity = isVisible ? useTransform(scrollYProgress, [0, 0.2, 0.4], [0, 0.5, 1]) : useTransform(scrollYProgress, [0, 1], [1, 1]);
+  const sectionScale = isVisible ? useTransform(scrollYProgress, [0, 0.3, 0.5], [0.9, 0.95, 1]) : useTransform(scrollYProgress, [0, 1], [1, 1]);
+  const sectionY = isVisible ? useTransform(scrollYProgress, [0, 0.3, 0.5], [50, 20, 0]) : useTransform(scrollYProgress, [0, 1], [0, 0]);
 
   return (
-    <section 
-      ref={containerRef} 
-      id="pricing" 
-      className="relative min-h-screen lg:h-[180vh] bg-[#080a0c] overflow-visible z-10 py-16 lg:py-0"
+    <section
+      ref={containerRef}
+      id="pricing"
+      className="relative bg-[#080a0c] overflow-visible z-20 py-16 md:py-24 -mt-12 md:-mt-20"
     >
       {/* Background Layer */}
       <motion.div 
@@ -83,10 +105,13 @@ export function Pricing() {
           className="absolute inset-0" 
           style={{ background: 'radial-gradient(circle at 50% 50%, #0a1c16 0%, #080a0c 100%)' }} 
         />
-        <PricingParticles />
+        {isVisible && <PricingParticles />}
       </motion.div>
 
-      <div className="lg:sticky lg:top-0 lg:h-screen w-full flex items-center justify-center z-10 px-6 py-10">
+      <motion.div 
+        style={{ opacity: sectionOpacity, scale: sectionScale, y: sectionY }}
+        className="lg:sticky lg:top-0 lg:h-screen w-full flex items-center justify-center z-10 px-6 py-10"
+      >
         <div className="relative z-20 w-full max-w-6xl mx-auto flex flex-col items-center">
           
           {/* Header */}
@@ -168,7 +193,7 @@ export function Pricing() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -42,14 +42,14 @@ function AnimatedStat({ stat, index }: { stat: StatItem; index: number }) {
   const hasDigits = /\d/.test(stat.value);
 
   useAnimationFrame((time) => {
-    if (!isInView || !countRef.current) return;
+    if (!isInView || !countRef.current || !containerRef.current) return;
     if (!hasDigits || stat.value.includes('/')) {
       countRef.current.textContent = stat.value;
       return;
     }
 
     const duration = 2000;
-    if (!containerRef.current?.dataset.startTime) {
+    if (!containerRef.current.dataset.startTime) {
         containerRef.current.dataset.startTime = time.toString();
     }
     const elapsed = time - parseFloat(containerRef.current.dataset.startTime);
@@ -108,7 +108,7 @@ export function TechStats() {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-32 md:py-48 border-t border-gray-50 bg-white z-50 shadow-sm overflow-hidden" 
+      className="relative py-12 md:py-20 border-t border-gray-50 bg-white z-50 shadow-sm overflow-hidden" 
       dir="rtl"
     >
       {/* 1. VIBRANT BACKGROUND GLOWS */}

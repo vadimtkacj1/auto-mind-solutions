@@ -6,21 +6,21 @@ export function PrivacyPolicy() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "מדיניות פרטיות - AUTO MIND Solutions",
-    "description": "מדיניות הפרטיות של AUTO MIND Solutions. הסבר מפורט על איסוף, שימוש והגנה על מידע אישי בהתאם ל-GDPR וחוק הגנת הפרטיות הישראלי.",
-    "url": "https://auto-mind.solutions/privacy",
+    "name": "מדיניות פרטיות - Aiterra Solutions",
+    "description": "מדיניות הפרטיות של Aiterra Solutions. הסבר מפורט על איסוף, שימוש והגנה על מידע אישי בהתאם ל-GDPR וחוק הגנת הפרטיות הישראלי.",
+    "url": "https://aiterra.agency/privacy",
     "inLanguage": "he",
     "isPartOf": {
       "@type": "WebSite",
-      "name": "AUTO MIND Solutions",
-      "url": "https://auto-mind.solutions"
+      "name": "Aiterra Solutions",
+      "url": "https://aiterra.agency"
     },
     "datePublished": "2024-01-01",
     "dateModified": new Date().toISOString().split('T')[0],
     "publisher": {
       "@type": "Organization",
-      "name": "AUTO MIND Solutions",
-      "url": "https://auto-mind.solutions"
+      "name": "Aiterra Solutions",
+      "url": "https://aiterra.agency"
     }
   };
 
@@ -40,7 +40,7 @@ export function PrivacyPolicy() {
             </header>
             <div itemProp="description">
               <p className="mb-8 text-gray-600 text-xl leading-relaxed">
-                AUTO MIND Solutions מתחייבת להגן על פרטיותך ולכבד את זכויותיך. מדיניות זו מסבירה כיצד אנו אוספים, משתמשים, מגנים ומשתפים את המידע האישי שלך.
+                Aiterra Solutions מתחייבת להגן על פרטיותך ולכבד את זכויותיך. מדיניות זו מסבירה כיצד אנו אוספים, משתמשים, מגנים ומשתפים את המידע האישי שלך.
               </p>
             </div>
           
@@ -48,7 +48,7 @@ export function PrivacyPolicy() {
               <div>
                 <h3 className="mb-4 text-2xl font-semibold text-[var(--color-dark)]">1. איסוף מידע</h3>
                 <p className="text-gray-600 leading-relaxed mb-4">
-                  AUTO MIND Solutions מתחייבת להגן על פרטיותך. אנו אוספים מידע רק כאשר את/ה מזין/ה אותו באופן מרצון דרך טפסי יצירת קשר, הזמנות או הרשמה לניוזלטר.
+                  Aiterra Solutions מתחייבת להגן על פרטיותך. אנו אוספים מידע רק כאשר את/ה מזין/ה אותו באופן מרצון דרך טפסי יצירת קשר, הזמנות או הרשמה לניוזלטר.
                 </p>
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <p className="text-gray-700 font-medium mb-2">המידע שנאסף כולל:</p>
@@ -221,7 +221,7 @@ export function PrivacyPolicy() {
                   עדכון אחרון: {new Date().toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
                 <p className="text-sm text-gray-500 mt-2">
-                  AUTO MIND Solutions - כל הזכויות שמורות © {new Date().getFullYear()}
+                  Aiterra Solutions - כל הזכויות שמורות © {new Date().getFullYear()}
                 </p>
               </div>
             </div>

@@ -6,21 +6,21 @@ export function Terms() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "תנאי שימוש - AUTO MIND Solutions",
-    "description": "תנאי השימוש של AUTO MIND Solutions. כללי השימוש באתר והשירותים, זכויות וחובות המשתמשים והחברה.",
-    "url": "https://auto-mind.solutions/terms",
+    "name": "תנאי שימוש - Aiterra Solutions",
+    "description": "תנאי השימוש של Aiterra Solutions. כללי השימוש באתר והשירותים, זכויות וחובות המשתמשים והחברה.",
+    "url": "https://aiterra.agency/terms",
     "inLanguage": "he",
     "isPartOf": {
       "@type": "WebSite",
-      "name": "AUTO MIND Solutions",
-      "url": "https://auto-mind.solutions"
+      "name": "Aiterra Solutions",
+      "url": "https://aiterra.agency"
     },
     "datePublished": "2024-01-01",
     "dateModified": new Date().toISOString().split('T')[0],
     "publisher": {
       "@type": "Organization",
-      "name": "AUTO MIND Solutions",
-      "url": "https://auto-mind.solutions"
+      "name": "Aiterra Solutions",
+      "url": "https://aiterra.agency"
     }
   };
 
@@ -48,7 +48,7 @@ export function Terms() {
             <div>
               <h3 className="mb-4 text-2xl font-semibold text-[var(--color-dark)]">1. קבלת התנאים</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                בכניסה ושימוש באתר AUTO MIND Solutions, את/ה מסכים/ה לתנאי השימוש המפורטים להלן. אם אינך מסכים/ה לתנאים אלו, נא להימנע משימוש באתר.
+                בכניסה ושימוש באתר Aiterra Solutions, את/ה מסכים/ה לתנאי השימוש המפורטים להלן. אם אינך מסכים/ה לתנאים אלו, נא להימנע משימוש באתר.
               </p>
               <p className="text-gray-600 leading-relaxed">
                 תנאים אלו חלים על כל המבקרים, המשתמשים והלקוחות של האתר. השימוש באתר מותר רק לאנשים מעל גיל 18 או לקטינים בהסכמת הורה או אפוטרופוס.
@@ -59,9 +59,9 @@ export function Terms() {
               <h3 className="mb-4 text-2xl font-semibold text-[var(--color-dark)]">2. הגדרות</h3>
               <div className="bg-white p-4 rounded-lg">
                 <ul className="space-y-2 text-gray-600">
-                  <li><strong>&quot;אנו&quot;, &quot;שלנו&quot;, &quot;החברה&quot;:</strong> מתייחס ל-AUTO MIND Solutions</li>
+                  <li><strong>&quot;אנו&quot;, &quot;שלנו&quot;, &quot;החברה&quot;:</strong> מתייחס ל-Aiterra Solutions</li>
                   <li><strong>&quot;את/ה&quot;, &quot;המשתמש&quot;, &quot;הלקוח&quot;:</strong> מתייחס לכל אדם המשתמש באתר או בשירותים</li>
-                  <li><strong>&quot;האתר&quot;:</strong> מתייחס לאתר האינטרנט של AUTO MIND Solutions</li>
+                  <li><strong>&quot;האתר&quot;:</strong> מתייחס לאתר האינטרנט של Aiterra Solutions</li>
                   <li><strong>&quot;שירותים&quot;:</strong> כל השירותים שמציעה החברה, כולל עיצוב, פיתוח, SEO, ייעוץ דיגיטלי ועוד</li>
                   <li><strong>&quot;תוכן&quot;:</strong> כל הטקסטים, תמונות, גרפיקה, קוד, תוכנה וחומרים אחרים באתר</li>
                 </ul>
@@ -71,7 +71,7 @@ export function Terms() {
             <div>
               <h3 className="mb-4 text-2xl font-semibold text-[var(--color-dark)]">3. שירותים</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                AUTO MIND Solutions מספקת שירותי בניית אתרים, אוטומציה שיווקית, פרסום ממומן, SEO, ייעוץ דיגיטלי, תחזוקת אתרים ושירותים נוספים כמפורט באתר.
+                Aiterra Solutions מספקת שירותי בניית אתרים, אוטומציה שיווקית, פרסום ממומן, SEO, ייעוץ דיגיטלי, תחזוקת אתרים ושירותים נוספים כמפורט באתר.
               </p>
               <div className="bg-white p-4 rounded-lg">
                 <p className="text-gray-700 font-medium mb-2">הערות חשובות:</p>
@@ -88,7 +88,7 @@ export function Terms() {
             <div>
               <h3 className="mb-4 text-2xl font-semibold text-[var(--color-dark)]">4. קניין רוחני</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                כל התוכן באתר, כולל אך לא רק: טקסטים, גרפיקה, לוגואים, תמונות, איורים, קוד, תוכנה, בסיסי נתונים, עיצובים, סמלים, סימני מסחר, פטנטים וחומרים אחרים, הם רכושה הבלעדי של AUTO MIND STUDIO או של בעלי הזכויות הרלוונטיים ומוגנים בחוקי זכויות יוצרים, סימני מסחר וקניין רוחני אחרים.
+                כל התוכן באתר, כולל אך לא רק: טקסטים, גרפיקה, לוגואים, תמונות, איורים, קוד, תוכנה, בסיסי נתונים, עיצובים, סמלים, סימני מסחר, פטנטים וחומרים אחרים, הם רכושה הבלעדי של Aiterra או של בעלי הזכויות הרלוונטיים ומוגנים בחוקי זכויות יוצרים, סימני מסחר וקניין רוחני אחרים.
               </p>
               <div className="bg-white p-4 rounded-lg">
                 <p className="text-gray-700 font-medium mb-2">הגבלות שימוש:</p>
@@ -201,7 +201,7 @@ export function Terms() {
             <div>
               <h3 className="mb-4 text-2xl font-semibold text-[var(--color-dark)]">11. פיצוי</h3>
               <p className="text-gray-600 leading-relaxed">
-                את/ה מסכים/ה לפצות ולשחרר את AUTO MIND Solutions, עובדיה, מנהליה, שותפיה וספקיה מכל תביעות, נזקים, הפסדים, אחריות, הוצאות ועמלות (כולל עמלות עורכי דין) הנובעים משימוש באתר או בשירותים, הפרת תנאים אלו, הפרת זכויות של אחרים, או כל פעולה או מחדל שלך.
+                את/ה מסכים/ה לפצות ולשחרר את Aiterra Solutions, עובדיה, מנהליה, שותפיה וספקיה מכל תביעות, נזקים, הפסדים, אחריות, הוצאות ועמלות (כולל עמלות עורכי דין) הנובעים משימוש באתר או בשירותים, הפרת תנאים אלו, הפרת זכויות של אחרים, או כל פעולה או מחדל שלך.
               </p>
             </div>
 
@@ -270,7 +270,7 @@ export function Terms() {
                 עדכון אחרון: {new Date().toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
               <p className="text-sm text-gray-500 mt-2">
-                AUTO MIND Solutions - כל הזכויות שמורות © {new Date().getFullYear()}
+                Aiterra Solutions - כל הזכויות שמורות © {new Date().getFullYear()}
               </p>
               <p className="text-xs text-gray-400 mt-4">
                 על ידי שימוש באתר, את/ה מאשר/ת שקראת, הבנת והסכמת לתנאי השימוש ולמדיניות הפרטיות שלנו.

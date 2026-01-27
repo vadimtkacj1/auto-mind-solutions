@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'AUTO MIND STUDIO - Web Design & SEO',
-    short_name: 'AUTO MIND',
+    name: 'Aiterra - Web Design & SEO',
+    short_name: 'Aiterra',
     description: 'סוכנות עיצוב ו-SEO מובילה בישראל',
     start_url: '/',
     display: 'standalone',

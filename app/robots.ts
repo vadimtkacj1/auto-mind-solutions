@@ -25,7 +25,7 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 0,
       },
     ],
-    sitemap: 'https://auto-mind.solutions/sitemap.xml',
-    host: 'https://auto-mind.solutions',
+    sitemap: 'https://aiterra.agency/sitemap.xml',
+    host: 'https://aiterra.agency',
   };
 }

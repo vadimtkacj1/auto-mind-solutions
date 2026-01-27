@@ -22,5 +22,5 @@ Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 0
 
-Sitemap: https://auto-mind.solutions/sitemap.xml
-Host: https://auto-mind.solutions
+Sitemap: https://aiterra.agency/sitemap.xml
+Host: https://aiterra.agency

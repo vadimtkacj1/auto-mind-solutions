@@ -21,12 +21,14 @@ export default function OptimizedScene() {
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
       alpha: true,
-      antialias: true,
+      antialias: window.innerWidth > 1024, // Антиалиасинг только на десктопе
       powerPreference: 'high-performance'
     });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Ограничиваем pixelRatio
 
     // --- Фоновые звезды ---
-    const particlesCount = 2500; 
+    // Уменьшили количество частиц для быстрой загрузки
+    const particlesCount = window.innerWidth < 768 ? 500 : 1500; 
     const positions = new Float32Array(particlesCount * 3);
     for (let i = 0; i < particlesCount * 3; i++) {
       positions[i] = (Math.random() - 0.5) * 150; 
@@ -67,16 +69,19 @@ export default function OptimizedScene() {
       camera.updateProjectionMatrix();
 
       if (globeRef.current) {
-        if (window.innerWidth < 1024) {
-          // Мобайл: Оставляем заметным по центру
-          globeRef.current.position.set(0, 1.5, 0); 
-          globeRef.current.scale.set(2.0, 2.0, 2.0); 
-        } else {
-          // Десктоп: Радикально левее и меньше
-          // -14 вынесет центр сферы почти к самому краю
-          globeRef.current.position.set(-14, 0, 0); 
-          globeRef.current.scale.set(1.2, 1.2, 1.2); 
-        }
+      if (window.innerWidth < 1024) {
+        // מוביל (נשאר ללא שינוי)
+        globeRef.current.position.set(0, 1.5, 0); 
+        globeRef.current.scale.set(2.0, 2.0, 2.0); 
+      } else {
+        // דסקטופ - הערכים החדשים להגדלה:
+        
+        // מיקום: -6 יביא אותו יותר לכיוון המרכז, -10 ישאיר אותו יותר בשוליים
+        globeRef.current.position.set(-8, 0, 0); 
+        
+        // קנה מידה: הגדלנו מ-1.2 ל-4.5 (או כל מספר שתרגיש לנכון)
+        globeRef.current.scale.set(4.5, 4.5, 4.5); 
+      }
       }
     };
 

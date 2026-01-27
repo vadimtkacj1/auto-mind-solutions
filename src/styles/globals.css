@@ -124,12 +124,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Page loading state - SEO friendly */
-  body:not(.page-loaded) > *:not([aria-hidden="true"]) {
-    opacity: 0;
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
   body.page-loaded > *:not([aria-hidden="true"]) {
     opacity: 1;
   }

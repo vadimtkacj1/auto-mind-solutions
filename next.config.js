@@ -49,6 +49,8 @@ const nextConfig = {
       'three',
     ],
     webpackBuildWorker: true,
+    // Дополнительная оптимизация
+    scrollRestoration: true,
   },
 
   compiler: {
@@ -166,7 +168,7 @@ const nextConfig = {
             value: 'www.auto-mind.solutions',
           },
         ],
-        destination: 'https://auto-mind.solutions/:path*',
+        destination: 'https://aiterra.agency/:path*',
         permanent: true,
       },
     ];

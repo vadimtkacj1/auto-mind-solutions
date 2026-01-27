@@ -8,24 +8,20 @@ const Terms = dynamic(() => import('../../src/components/Terms/Terms').then(mod 
   ssr: true,
 });
 
-const AccessibilityWidget = dynamic(() => import('../../src/components/AccessibilityWidget/AccessibilityWidget').then(mod => ({ default: mod.AccessibilityWidget })), {
-  ssr: false,
-});
-
 export const metadata: Metadata = {
-  title: 'תנאי שימוש | AUTO MIND STUDIO',
-  description: 'תנאי השימוש באתר AUTO MIND STUDIO - הכללים וההתחייבויות לשימוש בשירותים שלנו.',
+  title: 'תנאי שימוש | Aiterra',
+  description: 'תנאי השימוש באתר Aiterra - הכללים וההתחייבויות לשימוש בשירותים שלנו.',
   alternates: {
-    canonical: 'https://auto-mind.solutions/terms',
+    canonical: 'https://aiterra.agency/terms',
   },
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'תנאי שימוש | AUTO MIND STUDIO',
-    description: 'תנאי השימוש באתר AUTO MIND STUDIO',
-    url: 'https://auto-mind.solutions/terms',
+    title: 'תנאי שימוש | Aiterra',
+    description: 'תנאי השימוש באתר Aiterra',
+    url: 'https://aiterra.agency/terms',
     type: 'website',
     locale: 'he_IL',
   },
@@ -43,7 +39,6 @@ export default function TermsPage() {
         </div>
       </main>
       <Footer />
-      <AccessibilityWidget />
     </div>
   );
 }

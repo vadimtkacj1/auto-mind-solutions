@@ -32,7 +32,7 @@ export function FAQ() {
   return (
     <section
       id="faq"
-      className="py-24 sm:py-32 lg:py-40 px-4 sm:px-6 lg:px-12 min-h-screen relative overflow-hidden bg-[#f8fafc]"
+      className="py-16 md:py-24 px-4 sm:px-6 lg:px-12 relative overflow-hidden bg-[#f8fafc] z-10"
     >
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none select-none opacity-40">
@@ -60,7 +60,7 @@ export function FAQ() {
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Header Section - Massive Title Implementation */}
         <Reveal>
-          <div className="text-center mb-20 sm:mb-28">
+          <div className="text-center mb-12 sm:mb-16">
             <span className="inline-block px-5 py-1.5 rounded-full bg-white border border-gray-200 text-[var(--color-primary)] text-xs sm:text-sm font-bold shadow-sm mb-8 uppercase tracking-widest">
               FAQ • Auto Mind Solutions
             </span>

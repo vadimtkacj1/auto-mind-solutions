@@ -14,7 +14,7 @@ const technologies: Technology[] = [
   { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', color: 'rgba(97, 218, 251, 0.3)' },
   { name: 'Next.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', color: 'rgba(0, 0, 0, 0.1)' },
   { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', color: 'rgba(49, 120, 198, 0.3)' },
-  { name: 'Tailwind', logo: 'https://img.jsdelivr.net/github.com/tailwindlabs.png', color: 'rgba(56, 189, 248, 0.3)' },
+  { name: 'Tailwind', logo: 'https://tailwindcss.com/_next/static/media/tailwindcss-mark.96ee6a5a.svg', color: 'rgba(56, 189, 248, 0.3)' },
   { name: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: 'rgba(51, 153, 51, 0.3)' },
   { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'rgba(55, 118, 171, 0.3)' },
   { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', color: 'rgba(36, 150, 237, 0.3)' },
@@ -29,7 +29,7 @@ export function TechStack() {
   const scrollerItems = useMemo(() => [...technologies, ...technologies, ...technologies], []);
 
   return (
-    <section id="tech" className="py-24 sm:py-40 px-4 relative z-30 overflow-hidden bg-[#fafafa]" dir="rtl">
+    <section id="tech" className="py-8 sm:py-12 px-4 relative z-30 overflow-hidden bg-[#fafafa]" dir="rtl">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
            style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
@@ -97,7 +97,7 @@ export function TechStack() {
       `}</style>
 
       <div className="max-w-7xl mx-auto relative z-10 w-full text-center">
-        <div className="mb-20 md:mb-32">
+        <div className="mb-12 md:mb-16">
           <Reveal>
             <h2 className="text-6xl md:text-9xl font-black leading-[1.1] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
               הטכנולוגיות שלנו

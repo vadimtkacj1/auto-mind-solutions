@@ -8,24 +8,20 @@ const PrivacyPolicy = dynamic(() => import('../../src/components/PrivacyPolicy/P
   ssr: true,
 });
 
-const AccessibilityWidget = dynamic(() => import('../../src/components/AccessibilityWidget/AccessibilityWidget').then(mod => ({ default: mod.AccessibilityWidget })), {
-  ssr: false,
-});
-
 export const metadata: Metadata = {
-  title: 'מדיניות פרטיות | AUTO MIND STUDIO',
-  description: 'מדיניות הפרטיות של AUTO MIND STUDIO - כל המידע על איסוף, שימוש והגנה על הנתונים האישיים שלך.',
+  title: 'מדיניות פרטיות | Aiterra',
+  description: 'מדיניות הפרטיות של Aiterra - כל המידע על איסוף, שימוש והגנה על הנתונים האישיים שלך.',
   alternates: {
-    canonical: 'https://auto-mind.solutions/privacy',
+    canonical: 'https://aiterra.agency/privacy',
   },
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'מדיניות פרטיות | AUTO MIND STUDIO',
-    description: 'מדיניות הפרטיות של AUTO MIND STUDIO',
-    url: 'https://auto-mind.solutions/privacy',
+    title: 'מדיניות פרטיות | Aiterra',
+    description: 'מדיניות הפרטיות של Aiterra',
+    url: 'https://aiterra.agency/privacy',
     type: 'website',
     locale: 'he_IL',
   },
@@ -43,7 +39,6 @@ export default function PrivacyPage() {
         </div>
       </main>
       <Footer />
-      <AccessibilityWidget />
     </div>
   );
 }

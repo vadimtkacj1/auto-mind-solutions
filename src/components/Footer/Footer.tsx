@@ -11,7 +11,7 @@ export function Footer() {
     /* CHANGE 1: Added backdrop-blur and translucency for a premium "glassmorphism" effect.
        Increased padding slightly for better spacing.
     */
-    <footer className="relative w-full overflow-hidden border-t border-white/5 bg-[#080a0c]/80 backdrop-blur-md" dir="rtl">
+    <footer className="relative w-full overflow-hidden border-t border-white/5 bg-[#080a0c]/80 backdrop-blur-md z-10" dir="rtl">
       
       {/* BACKGROUND SCENE (OptimizedScene)
           CHANGE 2: Opacity set to 90 for higher brilliance.
@@ -113,7 +113,7 @@ export function Footer() {
           <div className="w-full pt-10 border-t border-white/10 flex flex-col items-center gap-8">
             {/* Copyright text slightly larger */}
             <div className="text-[12px] text-white/30 uppercase tracking-[3px] font-semibold" dir="ltr">
-              © {currentYear} AUTO MIND SOLUTIONS
+              © {currentYear} AITERRA
             </div>
             
             {/* Origin Badge */}

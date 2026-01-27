@@ -26,10 +26,13 @@ const Hero = dynamic(() => import('../src/components/hero/Hero'), {
   ),
 });
 
+// Оптимизация: CookiePopup загружаем последним
+const CookiePopup = dynamic(() => import('../src/components/CookiePopup/CookiePopup'), { ssr: false });
+
 // SEO метаданные для главной страницы
 export const metadata: Metadata = {
-  metadataBase: new URL('https://auto-mind.solutions'),
-  title: 'AUTO MIND STUDIO - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
+  metadataBase: new URL('https://aiterra.agency'),
+  title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
   description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript. שירותי פיתוח אתרים, אוטומציה שיווקית ופרסום דיגיטלי.',
   keywords: [
     'עיצוב אתרים בישראל',
@@ -45,31 +48,31 @@ export const metadata: Metadata = {
     'web design Israel',
     'digital marketing',
   ],
-  authors: [{ name: 'AUTO MIND STUDIO' }],
-  creator: 'AUTO MIND STUDIO',
-  publisher: 'AUTO MIND STUDIO',
+  authors: [{ name: 'Aiterra' }],
+  creator: 'Aiterra',
+  publisher: 'Aiterra',
   alternates: {
-    canonical: 'https://auto-mind.solutions',
+    canonical: 'https://aiterra.agency',
   },
   openGraph: {
     type: 'website',
     locale: 'he_IL',
-    url: 'https://auto-mind.solutions',
-    siteName: 'AUTO MIND STUDIO',
-    title: 'AUTO MIND STUDIO - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
+    url: 'https://aiterra.agency',
+    siteName: 'Aiterra',
+    title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
     description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript.',
     images: [
       {
         url: '/images/Aittera_2.png',
         width: 1200,
         height: 630,
-        alt: 'AUTO MIND STUDIO - Web Design & SEO',
+        alt: 'Aiterra - Web Design & SEO',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AUTO MIND STUDIO - עיצוב אתרים, SEO ופיתוח דיגיטלי',
+    title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי',
     description: 'סוכנות עיצוב ו-SEO מובילה בישראל.',
     images: ['/images/Aittera_2.png'],
   },
@@ -90,14 +93,14 @@ export default function HomePage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'AUTO MIND STUDIO - עיצוב אתרים, SEO ופיתוח דיגיטלי',
+    name: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי',
     description: 'סוכנות עיצוב ו-SEO מובילה בישראל',
-    url: 'https://auto-mind.solutions',
+    url: 'https://aiterra.agency',
     inLanguage: 'he',
     isPartOf: {
       '@type': 'WebSite',
-      name: 'AUTO MIND STUDIO',
-      url: 'https://auto-mind.solutions',
+      name: 'Aiterra',
+      url: 'https://aiterra.agency',
     },
     about: {
       '@type': 'Service',
@@ -105,8 +108,8 @@ export default function HomePage() {
     },
     provider: {
       '@type': 'Organization',
-      name: 'AUTO MIND STUDIO',
-      url: 'https://auto-mind.solutions',
+      name: 'Aiterra',
+      url: 'https://aiterra.agency',
     },
   };
 
@@ -150,8 +153,10 @@ export default function HomePage() {
         </main>
         <Footer />
 
-        {/* Клиентские компоненты */}
-        <ClientPageWrapper />
+        {/* Клиентские компоненты - загружаются последними */}
+        <Suspense fallback={null}>
+          <CookiePopup />
+        </Suspense>
       </div>
     </>
   );

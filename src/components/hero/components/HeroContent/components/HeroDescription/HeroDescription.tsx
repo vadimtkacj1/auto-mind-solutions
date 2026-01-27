@@ -9,7 +9,7 @@ export function HeroDescription() {
       transition={{ delay: 0.65, duration: 0.8 }}
       className={styles.container}
     >
-      AUTO MIND SOLUTIONS מספקת פתרונות דיגיטליים מתקדמים בעיצוב ופיתוח אתרים,
+      AITERRA מספקת פתרונות דיגיטליים מתקדמים בעיצוב ופיתוח אתרים,
       אופטימיזציה למנועי חיפוש ואוטומציה חכמה. אנחנו הופכים רעיונות למציאות.
     </motion.p>
   );

@@ -18,51 +18,68 @@ const DotLottieReact = lazy(() =>
   import('@lottiefiles/dotlottie-react').then(mod => ({ default: mod.DotLottieReact }))
 );
 
-// --- LOTTIE CHARACTER COMPONENT (Updated: Glow removed) ---
+// --- LOTTIE CHARACTER COMPONENT (Lazy load when visible) ---
 function LottieCharacter() {
+  const [shouldLoad, setShouldLoad] = React.useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '200px' }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="relative w-full max-w-[450px] aspect-square flex items-center justify-center lg:justify-start">
-      <div className="w-full h-full drop-shadow-2xl">
-        <Suspense fallback={
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-          </div>
-        }>
-          <DotLottieReact
-            src="https://lottie.host/dfef94f3-a819-489f-aae8-074fe1969dcb/D7StZ67HU8.lottie"
-            loop
-            autoplay
-          />
-        </Suspense>
-      </div>
-      
-      {/* Я УДАЛИЛ ЭТОТ БЛОК, КОТОРЫЙ СОЗДАВАЛ ГРАДИЕНТ/СВЕЧЕНИЕ */}
-      {/* <div className="absolute inset-0 bg-blue-500/10 blur-[120px] -z-10 rounded-full" /> */}
+    <div ref={ref} className="relative w-full max-w-[450px] aspect-square flex items-center justify-center lg:justify-start">
+      {shouldLoad ? (
+        <div className="w-full h-full drop-shadow-2xl">
+          <Suspense fallback={
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            </div>
+          }>
+            <DotLottieReact
+              src="https://lottie.host/dfef94f3-a819-489f-aae8-074fe1969dcb/D7StZ67HU8.lottie"
+              loop
+              autoplay
+            />
+          </Suspense>
+        </div>
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
     </div>
   );
 }
 
-// --- ENHANCED BACKGROUND DECORATION ---
-function FloatingTechIcon({ children, x, y, speed, colorClass }: { 
+// --- SIMPLIFIED BACKGROUND DECORATION (без параллакса для производительности) ---
+function FloatingTechIcon({ children, x, y, colorClass }: { 
   children: React.ReactNode, 
   x: string, 
   y: string, 
-  speed: number,
   colorClass: string 
 }) {
-  const { scrollYProgress } = useScroll();
-  const rawY = useTransform(scrollYProgress, [0, 1], [0, speed * 250]);
-  const smoothY = useSpring(rawY, { stiffness: 50, damping: 20 });
-  
   return (
-    <motion.div 
-      style={{ y: smoothY, left: x, top: y }} 
-      className={`absolute ${colorClass} pointer-events-none z-0 opacity-40 md:opacity-50`}
+    <div 
+      style={{ left: x, top: y }} 
+      className={`absolute ${colorClass} pointer-events-none z-0 opacity-30 md:opacity-40`}
     >
-      <div className="drop-shadow-[0_0_15px_rgba(var(--glow-color),0.4)]">
-        {children}
-      </div>
-    </motion.div>
+      {children}
+    </div>
   );
 }
 
@@ -112,35 +129,35 @@ export function Contact() {
   };
 
   return (
-    <section 
-      ref={containerRef} 
-      id="contact" 
-      className="py-24 md:py-48 px-6 bg-[#F8FAFC] relative overflow-hidden" 
+    <section
+      ref={containerRef}
+      id="contact"
+      className="py-8 md:py-16 px-6 bg-[#F8FAFC] relative overflow-hidden z-10"
       dir="rtl"
     >
-      {/* Parallax Background Icons - More Expressive */}
+      {/* Static Background Icons - Лучшая производительность */}
       <div className="absolute inset-0 z-0">
-        <FloatingTechIcon x="8%" y="15%" speed={-1.2} colorClass="text-blue-500">
+        <FloatingTechIcon x="8%" y="15%" colorClass="text-blue-500">
           <Code2 size={60} strokeWidth={1.5} />
         </FloatingTechIcon>
         
-        <FloatingTechIcon x="85%" y="10%" speed={1.5} colorClass="text-indigo-500">
+        <FloatingTechIcon x="85%" y="10%" colorClass="text-indigo-500">
           <Cpu size={70} strokeWidth={1.5} />
         </FloatingTechIcon>
 
-        <FloatingTechIcon x="92%" y="65%" speed={-2} colorClass="text-emerald-500">
+        <FloatingTechIcon x="92%" y="65%" colorClass="text-emerald-500">
           <Database size={65} strokeWidth={1.5} />
         </FloatingTechIcon>
 
-        <FloatingTechIcon x="5%" y="75%" speed={2.2} colorClass="text-amber-500">
+        <FloatingTechIcon x="5%" y="75%" colorClass="text-amber-500">
           <Zap size={55} strokeWidth={1.5} />
         </FloatingTechIcon>
 
-        <FloatingTechIcon x="20%" y="45%" speed={0.8} colorClass="text-rose-400">
+        <FloatingTechIcon x="20%" y="45%" colorClass="text-rose-400">
           <Activity size={40} strokeWidth={2} />
         </FloatingTechIcon>
 
-        <FloatingTechIcon x="75%" y="85%" speed={-1} colorClass="text-sky-400">
+        <FloatingTechIcon x="75%" y="85%" colorClass="text-sky-400">
           <Cloud size={50} strokeWidth={1.5} />
         </FloatingTechIcon>
       </div>

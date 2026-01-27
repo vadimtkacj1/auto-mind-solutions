@@ -10,7 +10,6 @@ import { PrivacyPolicy } from './components/PrivacyPolicy/PrivacyPolicy';
 import { Terms } from './components/Terms/Terms';
 import CookiePopup from './components/CookiePopup/CookiePopup';
 import { Footer } from './components/Footer/Footer';
-import { AccessibilityWidget } from './components/AccessibilityWidget/AccessibilityWidget';
 import './styles/globals.css';
 
 type Page = 'home' | 'privacy' | 'terms';
@@ -34,7 +33,6 @@ export default function App() {
         >
           חזרה לעמוד הראשי
         </button>
-        <AccessibilityWidget />
       </div>
     );
   }
@@ -55,7 +53,6 @@ export default function App() {
         >
           חזרה לעמוד הראשי
         </button>
-        <AccessibilityWidget />
       </div>
     );
   }
@@ -66,10 +63,10 @@ export default function App() {
     "@type": "WebSite",
     "name": "AUTO MIND Solutions",
     "description": "חבילת שיווק דיגיטלית מלאה לעסקים קטנים ובינוניים בישראל: אתר, אוטומציה שיווקית, פרסום ממומן ו-SEO.",
-    "url": "https://auto-mind.solutions",
+    "url": "https://aiterra.agency",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://auto-mind.solutions/search?q={search_term_string}",
+      "target": "https://aiterra.agency/search?q={search_term_string}",
       "query-input": "required name=search_term_string"
     },
     "publisher": {
@@ -77,7 +74,7 @@ export default function App() {
       "name": "AUTO MIND Solutions",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://auto-mind.solutions/logo.png"
+        "url": "https://aiterra.agency/logo.png"
       }
     }
   };
@@ -100,7 +97,6 @@ export default function App() {
         </main>
         <Footer />
         <CookiePopup onNavigate={setCurrentPage} />
-        <AccessibilityWidget />
       </div>
     </>
   );

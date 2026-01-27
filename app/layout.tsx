@@ -1,7 +1,13 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_Hebrew } from 'next/font/google';
 import '../src/styles/globals.css';
-import SmoothScrollProvider from '../src/components/SmoothScroll/SmoothScrollProvider';
+import dynamic from 'next/dynamic';
+
+// Отложенная загрузка SmoothScroll - не блокирует первую загрузку
+const SmoothScrollProvider = dynamic(
+  () => import('../src/components/SmoothScroll/SmoothScrollProvider'),
+  { ssr: false }
+);
 
 // Оптимизация: загрузка только необходимых весов шрифтов (400, 700, 800)
 const notoSansHebrew = Noto_Sans_Hebrew({
@@ -12,15 +18,15 @@ const notoSansHebrew = Noto_Sans_Hebrew({
   preload: true,
 });
 
-const baseUrl = 'https://auto-mind.solutions';
+const baseUrl = 'https://aiterra.agency';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
 
   // Основные SEO теги
   title: {
-    default: 'AUTO MIND STUDIO - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
-    template: '%s | AUTO MIND STUDIO'
+    default: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
+    template: '%s | Aiterra'
   },
   description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript. שירותי פיתוח אתרים, אוטומציה שיווקית ופרסום דיגיטלי.',
 
@@ -39,9 +45,9 @@ export const metadata: Metadata = {
     'digital marketing',
   ],
 
-  authors: [{ name: 'AUTO MIND STUDIO' }],
-  creator: 'AUTO MIND STUDIO',
-  publisher: 'AUTO MIND STUDIO',
+  authors: [{ name: 'Aiterra' }],
+  creator: 'Aiterra',
+  publisher: 'Aiterra',
 
   // Канонический URL
   alternates: {
@@ -53,15 +59,15 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'he_IL',
     url: baseUrl,
-    siteName: 'AUTO MIND STUDIO',
-    title: 'AUTO MIND STUDIO - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
+    siteName: 'Aiterra',
+    title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
     description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript.',
     images: [
       {
         url: '/images/Aittera_2.png',
         width: 1200,
         height: 630,
-        alt: 'AUTO MIND STUDIO Logo',
+        alt: 'Aiterra Logo',
       },
     ],
   },
@@ -69,7 +75,7 @@ export const metadata: Metadata = {
   // Twitter Cards
   twitter: {
     card: 'summary_large_image',
-    title: 'AUTO MIND STUDIO - עיצוב אתרים, SEO ופיתוח דיגיטלי',
+    title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי',
     description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות.',
     images: ['/images/Aittera_2.png'],
     creator: '@automindstudio',
@@ -117,12 +123,12 @@ export default function RootLayout({
       // Organization
       {
         "@type": "Organization",
-        "@id": "https://auto-mind.solutions/#organization",
-        "name": "AUTO MIND STUDIO",
-        "url": "https://auto-mind.solutions",
+        "@id": "https://aiterra.agency/#organization",
+        "name": "Aiterra",
+        "url": "https://aiterra.agency",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://auto-mind.solutions/images/Aittera_2.png",
+          "url": "https://aiterra.agency/images/Aittera_2.png",
           "width": 250,
           "height": 60
         },
@@ -146,27 +152,27 @@ export default function RootLayout({
       // WebSite
       {
         "@type": "WebSite",
-        "@id": "https://auto-mind.solutions/#website",
-        "url": "https://auto-mind.solutions",
-        "name": "AUTO MIND STUDIO",
+        "@id": "https://aiterra.agency/#website",
+        "url": "https://aiterra.agency",
+        "name": "Aiterra",
         "description": "חבילת שיווק דיגיטלית מלאה לעסקים קטנים ובינוניים בישראל",
         "publisher": {
-          "@id": "https://auto-mind.solutions/#organization"
+          "@id": "https://aiterra.agency/#organization"
         },
         "inLanguage": "he",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://auto-mind.solutions/search?q={search_term_string}",
+          "target": "https://aiterra.agency/search?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       },
       // ProfessionalService
       {
         "@type": "ProfessionalService",
-        "@id": "https://auto-mind.solutions/#service",
-        "name": "AUTO MIND STUDIO",
-        "url": "https://auto-mind.solutions",
-        "image": "https://auto-mind.solutions/images/Aittera_2.png",
+        "@id": "https://aiterra.agency/#service",
+        "name": "Aiterra",
+        "url": "https://aiterra.agency",
+        "image": "https://aiterra.agency/images/Aittera_2.png",
         "priceRange": "₪₪₪",
         "address": {
           "@type": "PostalAddress",
@@ -196,13 +202,13 @@ export default function RootLayout({
       // BreadcrumbList
       {
         "@type": "BreadcrumbList",
-        "@id": "https://auto-mind.solutions/#breadcrumb",
+        "@id": "https://aiterra.agency/#breadcrumb",
         "itemListElement": [
           {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://auto-mind.solutions"
+            "item": "https://aiterra.agency"
           }
         ]
       }
@@ -216,28 +222,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-        {/* Оптимизация: загрузка Sienna Accessibility только после полной загрузки страницы */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.addEventListener('load', function() {
-                setTimeout(function() {
-                  var script = document.createElement('script');
-                  script.src = 'https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js';
-                  script.onload = function() {
-                    if (window.SiennaAccessibility) {
-                      window.SiennaAccessibility.init({
-                        language: 'he',
-                        position: 'bottom-right'
-                      });
-                    }
-                  };
-                  document.head.appendChild(script);
-                }, 2000);
-              });
-            `
-          }}
         />
       </head>
       <body className={notoSansHebrew.className}>
