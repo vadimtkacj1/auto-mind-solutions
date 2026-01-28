@@ -134,7 +134,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: docker-image
-          path: /tmp
+          path: ./artifact
 
       - name: Copy Docker image and essential files to server via SSH
         uses: appleboy/scp-action@v0.1.7
@@ -143,21 +143,10 @@ jobs:
           username: ${{ secrets.USER_SERVER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
-          source: "docker-compose.yml,.env.docker.example"
+          source: "docker-compose.yml,.env.docker.example,artifact/image.tar"
           target: "/opt/auto-mind-solutions"
           rm: false
           strip_components: 0
-          overwrite: true
-
-      - name: Upload Docker image to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.IP_SERVER }}
-          username: ${{ secrets.USER_SERVER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SERVER_PORT || 22 }}
-          source: "/tmp/image.tar"
-          target: "/tmp"
           overwrite: true
 
       - name: Deploy to server via SSH (Fast deployment)
@@ -195,11 +184,12 @@ jobs:
 
             # Load Docker image from artifact
             echo "📦 Loading Docker image from artifact..."
-            if [ -f /tmp/image.tar ]; then
-              docker load -i /tmp/image.tar
+            if [ -f artifact/image.tar ]; then
+              docker load -i artifact/image.tar
               echo "✅ Docker image loaded successfully"
             else
               echo "❌ Docker image artifact not found!"
+              ls -la artifact/ || echo "artifact directory not found"
               exit 1
             fi
 
@@ -218,7 +208,7 @@ jobs:
 
             # Clean up
             echo "🧹 Cleaning up..."
-            rm -f /tmp/image.tar
+            rm -rf artifact/
             docker image prune -f --filter "until=24h"
 
             # Show status
