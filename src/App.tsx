@@ -61,7 +61,7 @@ export default function App() {
   const homepageStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "AUTO MIND Solutions",
+    "name": "Aiterra",
     "description": "חבילת שיווק דיגיטלית מלאה לעסקים קטנים ובינוניים בישראל: אתר, אוטומציה שיווקית, פרסום ממומן ו-SEO.",
     "url": "https://aiterra.agency",
     "potentialAction": {
@@ -71,7 +71,7 @@ export default function App() {
     },
     "publisher": {
       "@type": "Organization",
-      "name": "AUTO MIND Solutions",
+      "name": "Aiterra",
       "logo": {
         "@type": "ImageObject",
         "url": "https://aiterra.agency/logo.png"

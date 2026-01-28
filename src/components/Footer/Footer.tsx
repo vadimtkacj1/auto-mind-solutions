@@ -34,7 +34,7 @@ export function Footer() {
           <div className="text-center mb-16">
             <div className="mb-6">
               <span className="text-4xl font-extrabold tracking-tight text-white uppercase">
-                AUTO <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">MIND</span>
+                AITERRA
               </span>
             </div>
             {/* Increased text size to text-lg for better readability */}

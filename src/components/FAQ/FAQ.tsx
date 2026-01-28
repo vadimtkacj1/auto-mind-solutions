@@ -62,7 +62,7 @@ export function FAQ() {
         <Reveal>
           <div className="text-center mb-12 sm:mb-16">
             <span className="inline-block px-5 py-1.5 rounded-full bg-white border border-gray-200 text-[var(--color-primary)] text-xs sm:text-sm font-bold shadow-sm mb-8 uppercase tracking-widest">
-              FAQ • Auto Mind Solutions
+              FAQ • Aiterra
             </span>
             <h2 className="mb-10 text-6xl md:text-8xl font-black text-slate-900 leading-[1.05] tracking-tight">
               יש לכם <span className="text-[var(--color-primary)]">שאלות?</span>

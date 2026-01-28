@@ -84,7 +84,7 @@ export default function Header() {
             }`}>
               <Image
                 src="/images/AITTERRA.svg"
-                alt="Auto Mind Logo"
+                alt="Aiterra Logo"
                 width={200}
                 height={60}
                 priority
@@ -149,7 +149,7 @@ export default function Header() {
           <div className="mb-16 flex items-center" dir="ltr">
             <Image
               src="/images/AITTERRA.svg"
-              alt="Auto Mind Logo"
+              alt="Aiterra Logo"
               width={180}
               height={50}
               className="h-12 w-auto object-contain"
