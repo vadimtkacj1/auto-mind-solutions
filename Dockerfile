@@ -15,8 +15,13 @@ RUN npm ci --only=production --ignore-scripts && \
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
+# Copy package files
+COPY package.json package-lock.json* ./
+
+# Install ALL dependencies (including devDependencies) for build
+RUN npm ci
+
+# Copy source code
 COPY . .
 
 # Build Arguments
@@ -26,9 +31,6 @@ ENV VITE_BASE_URL=${VITE_BASE_URL}
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-${VITE_BASE_URL}}
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-
-# Install ALL dependencies (including devDependencies) for build
-RUN npm ci
 
 # Build the application
 RUN npm run build
