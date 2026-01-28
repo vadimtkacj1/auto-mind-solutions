@@ -182,6 +182,26 @@ jobs:
             NEXT_TELEMETRY_DISABLED=1
             EOF
 
+            # Stop old containers FIRST (before loading new image)
+            echo "🛑 Stopping old containers..."
+            docker compose down --remove-orphans || true
+            
+            # Also stop any standalone containers using port 80
+            if docker ps -q -f name=my-front | grep -q .; then
+              echo "📦 Stopping old standalone container..."
+              docker stop my-front 2>/dev/null || true
+              docker rm my-front 2>/dev/null || true
+            fi
+            
+            # Check if port 80 is still occupied
+            if lsof -Pi :80 -sTCP:LISTEN -t >/dev/null 2>&1; then
+              echo "⚠️ Port 80 is still occupied, attempting to free it..."
+              lsof -Pi :80 -sTCP:LISTEN || true
+              # Force kill any process on port 80
+              fuser -k 80/tcp 2>/dev/null || true
+              sleep 2
+            fi
+
             # Load Docker image from artifact
             echo "📦 Loading Docker image from artifact..."
             if [ -f artifact/image.tar ]; then
@@ -192,10 +212,6 @@ jobs:
               ls -la artifact/ || echo "artifact directory not found"
               exit 1
             fi
-
-            # Stop old containers
-            echo "🛑 Stopping old containers..."
-            docker compose down --remove-orphans || true
 
             # Start containers using docker-compose
             echo "🚀 Starting containers with docker-compose..."
