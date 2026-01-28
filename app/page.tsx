@@ -13,9 +13,6 @@ import { Footer } from '../src/components/Footer/Footer';
 import { TechStats } from '@/src/components/TechStats/TechStats';
 import { WebVitals } from './web-vitals';
 
-// Клиентский wrapper
-import ClientPageWrapper from '../src/components/ClientPageWrapper';
-
 // Динамический импорт тяжелых компонентов - отключен SSR для быстрой загрузки
 const Hero = dynamic(() => import('../src/components/hero/Hero'), {
   ssr: false,

@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Check } from 'lucide-react';
 
 // Динамическая загрузка 3D частиц
@@ -86,9 +86,19 @@ export function Pricing() {
   });
 
   // Упрощенные анимации без Spring для производительности
-  const sectionOpacity = isVisible ? useTransform(scrollYProgress, [0, 0.2, 0.4], [0, 0.5, 1]) : useTransform(scrollYProgress, [0, 1], [1, 1]);
-  const sectionScale = isVisible ? useTransform(scrollYProgress, [0, 0.3, 0.5], [0.9, 0.95, 1]) : useTransform(scrollYProgress, [0, 1], [1, 1]);
-  const sectionY = isVisible ? useTransform(scrollYProgress, [0, 0.3, 0.5], [50, 20, 0]) : useTransform(scrollYProgress, [0, 1], [0, 0]);
+  // Use motionValue directly to avoid conditional hooks
+  const sectionOpacity = useTransform(scrollYProgress, 
+    isVisible ? [0, 0.2, 0.4] : [0, 1], 
+    isVisible ? [0, 0.5, 1] : [1, 1]
+  );
+  const sectionScale = useTransform(scrollYProgress, 
+    isVisible ? [0, 0.3, 0.5] : [0, 1], 
+    isVisible ? [0.9, 0.95, 1] : [1, 1]
+  );
+  const sectionY = useTransform(scrollYProgress, 
+    isVisible ? [0, 0.3, 0.5] : [0, 1], 
+    isVisible ? [50, 20, 0] : [0, 0]
+  );
 
   return (
     <section

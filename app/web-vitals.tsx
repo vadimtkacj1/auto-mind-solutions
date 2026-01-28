@@ -25,7 +25,7 @@ export function WebVitals() {
       if (navigator.sendBeacon) {
         navigator.sendBeacon('/api/analytics', body);
       } else {
-        fetch('/api/analytics', {
+        void fetch('/api/analytics', {
           body,
           method: 'POST',
           keepalive: true,

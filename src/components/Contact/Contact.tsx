@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, lazy, Suspense } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Phone, User, CheckCircle2, ArrowLeft, 
   Code2, Cpu, Database, Zap, Activity, Cloud 
