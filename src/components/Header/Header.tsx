@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { handleSmoothScrollClick } from '@/src/utils/smoothScroll'; 
 
 export default function Header() {
@@ -82,12 +81,9 @@ export default function Header() {
             <div className={`transition-all duration-500 origin-left flex items-center h-12 w-[160px] md:w-[200px] ${
               isScrolled ? 'scale-95' : 'scale-100'
             }`}>
-              <Image
+              <img
                 src="/images/AITTERRA.svg"
                 alt="Aiterra Logo"
-                width={200}
-                height={60}
-                priority
                 className="w-full h-full object-contain"
               />
             </div>
@@ -147,11 +143,9 @@ export default function Header() {
       >
         <div className="p-10 flex flex-col h-full">
           <div className="mb-16 flex items-center" dir="ltr">
-            <Image
+            <img
               src="/images/AITTERRA.svg"
               alt="Aiterra Logo"
-              width={180}
-              height={50}
               className="h-12 w-auto object-contain"
             />
           </div>
