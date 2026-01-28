@@ -223,6 +223,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
+        {/* Sienna Accessibility Widget */}
+        <script
+          src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js"
+          defer
+        />
       </head>
       <body className={notoSansHebrew.className}>
         <SmoothScrollProvider>

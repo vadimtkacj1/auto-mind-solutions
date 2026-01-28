@@ -95,7 +95,6 @@
     pointer-events: none;
   }
 
-  /* Fixed Header Support - Override everything */
   header {
     position: fixed !important;
     top: 0 !important;
@@ -109,7 +108,6 @@
     -webkit-backface-visibility: hidden;
   }
 
-  /* Ensure fixed positioning works with transforms */
   html, body {
     transform: none !important;
   }
@@ -128,7 +126,6 @@
     opacity: 1;
   }
 
-  /* Smooth Scroll Snap для секций */
   html {
     scroll-snap-type: y proximity;
   }
@@ -137,18 +134,15 @@
     scroll-snap-align: start;
     scroll-margin-top: 0;
     will-change: transform;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
-  /* Исключения для секций, которые не должны быть на полный экран */
   footer {
     min-height: auto !important;
   }
 
-  /* Плавные переходы для всех элементов с transform */
   [data-animate] {
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;

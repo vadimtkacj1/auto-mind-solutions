@@ -9,8 +9,7 @@
     "lint": "next lint",
     "clean": "if exist .next rmdir /s /q .next",
     "test:perf": "node scripts/test-performance.js",
-    "analyze": "cross-env ANALYZE=true next build",
-    "postbuild": "next-sitemap"
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.17.13",
