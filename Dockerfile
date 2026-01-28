@@ -50,11 +50,12 @@ ENV PORT=80
 ENV HOSTNAME="0.0.0.0"
 
 # Copy only necessary files for standalone mode
-COPY --from=builder /app/public ./public
-
-# Set correct permissions
+# IMPORTANT: Copy standalone files first, then public folder
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Copy public folder AFTER standalone to prevent overwriting
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Switch to non-root user
 USER nextjs
