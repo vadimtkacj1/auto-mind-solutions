@@ -136,17 +136,28 @@ jobs:
           name: docker-image
           path: /tmp
 
-      - name: Copy essential files to server via SSH
+      - name: Copy Docker image and essential files to server via SSH
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.IP_SERVER }}
           username: ${{ secrets.USER_SERVER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
-          source: "Dockerfile,docker-compose.yml,package.json"
+          source: "docker-compose.yml,.env.docker.example"
           target: "/opt/auto-mind-solutions"
           rm: false
           strip_components: 0
+          overwrite: true
+
+      - name: Upload Docker image to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.IP_SERVER }}
+          username: ${{ secrets.USER_SERVER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          source: "/tmp/image.tar"
+          target: "/tmp"
           overwrite: true
 
       - name: Deploy to server via SSH (Fast deployment)
@@ -182,56 +193,37 @@ jobs:
             NEXT_TELEMETRY_DISABLED=1
             EOF
 
-            # Graceful shutdown of old container
-            if docker ps -q -f name=my-front | grep -q .; then
-              echo "📦 Stopping old container gracefully..."
-              docker stop -t 30 my-front 2>/dev/null || true
-              docker rm my-front 2>/dev/null || true
+            # Load Docker image from artifact
+            echo "📦 Loading Docker image from artifact..."
+            if [ -f /tmp/image.tar ]; then
+              docker load -i /tmp/image.tar
+              echo "✅ Docker image loaded successfully"
+            else
+              echo "❌ Docker image artifact not found!"
+              exit 1
             fi
 
-            # Build Docker image with BuildKit optimizations
-            echo "🔨 Building Docker image with cache..."
-            DOCKER_BUILDKIT=1 docker build \
-              --tag auto-mind-solutions:latest \
-              --tag auto-mind-solutions:${{ github.sha }} \
-              --build-arg BUILDKIT_INLINE_CACHE=1 \
-              --build-arg VITE_BASE_URL="${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}" \
-              --build-arg NEXT_PUBLIC_API_URL="${{ secrets.NEXT_PUBLIC_API_URL || secrets.VITE_BASE_URL }}" \
-              --cache-from auto-mind-solutions:latest \
-              .
+            # Stop old containers
+            echo "🛑 Stopping old containers..."
+            docker compose down --remove-orphans || true
 
-            # Start new container with optimizations
-            echo "🚀 Starting new container..."
-            docker run -d \
-              --restart unless-stopped \
-              --name my-front \
-              -p 80:80 \
-              --env-file .env \
-              --memory="512m" \
-              --memory-swap="1g" \
-              --cpus="1.0" \
-              --health-cmd="node -e \"require('http').get('http://localhost:80/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})\"" \
-              --health-interval=30s \
-              --health-timeout=3s \
-              --health-retries=3 \
-              --log-driver json-file \
-              --log-opt max-size=10m \
-              --log-opt max-file=3 \
-              auto-mind-solutions:latest
+            # Start containers using docker-compose
+            echo "🚀 Starting containers with docker-compose..."
+            docker compose up -d
 
             # Wait for container to be healthy
             echo "⏳ Waiting for container to be healthy..."
-            timeout 60s bash -c 'until docker inspect --format="{{.State.Health.Status}}" my-front | grep -q healthy; do sleep 2; done' || \
-              (echo "❌ Container health check failed" && exit 1)
+            timeout 60s bash -c 'until docker inspect --format="{{.State.Health.Status}}" auto-mind-solutions-web | grep -q healthy; do sleep 2; done' || \
+              (echo "❌ Container health check failed" && docker compose logs && exit 1)
 
-            # Clean up old images (keep last 2)
-            echo "🧹 Cleaning up old images..."
-            docker images auto-mind-solutions --format "{{.ID}}" | tail -n +3 | xargs -r docker rmi -f 2>/dev/null || true
+            # Clean up
+            echo "🧹 Cleaning up..."
+            rm -f /tmp/image.tar
             docker image prune -f --filter "until=24h"
 
             # Show status
             echo "✅ Deployment successful!"
-            docker ps --filter name=my-front --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+            docker compose ps
 
       - name: Verify deployment
         uses: appleboy/ssh-action@v1.0.3
@@ -241,12 +233,15 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
+            cd /opt/auto-mind-solutions
             # Check if container is running
-            if docker ps | grep -q "my-front"; then
+            if docker compose ps | grep -q "auto-mind-solutions-web"; then
               echo "✅ Deployment successful! Container is running."
-              docker logs --tail 50 my-front
+              docker compose logs --tail 50
             else
               echo "❌ Deployment failed! Container is not running."
+              docker compose ps
+              docker compose logs
               exit 1
             fi
 
