@@ -15,11 +15,21 @@ export default function Home() {
     <main className="min-h-screen">
       <Header />
       <Hero />
-      <LeadFormSection />
-      <Services />
-      <RealResults />
-      <WhyUs />
-      <SocialFollow />
+      <section id="contact">
+        <LeadFormSection />
+      </section>
+      <section id="services">
+        <Services />
+      </section>
+      <section id="portfolio">
+        <RealResults />
+      </section>
+      <section id="why-us">
+        <WhyUs />
+      </section>
+      <section id="follow">
+        <SocialFollow />
+      </section>
       <LeadFormCard />
       <Footer />
     </main>

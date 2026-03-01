@@ -1,11 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,17 +17,56 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Fade in animation on mount
+    if (headerRef.current) {
+      headerRef.current.style.opacity = '0';
+      headerRef.current.style.transform = 'translateY(-20px)';
+      setTimeout(() => {
+        if (headerRef.current) {
+          headerRef.current.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+          headerRef.current.style.opacity = '1';
+          headerRef.current.style.transform = 'translateY(0)';
+        }
+      }, 100);
+    }
+  }, []);
+
   const menuItems = [
-    'השירותים שלנו',
-    'פורטפוליו',
-    'למה לבחור בנו?',
-    'עקבו אחרינו',
-    'טופס יצירת קשר',
+    { text: 'השירותים שלנו', href: '#services' },
+    { text: 'פורטפוליו', href: '#portfolio' },
+    { text: 'למה לבחור בנו?', href: '#why-us' },
+    { text: 'עקבו אחרינו', href: '#follow' },
+    { text: 'טופס יצירת קשר', href: '#contact' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+    
+    if (href.startsWith('#')) {
+      const elementId = href.substring(1);
+      const element = document.getElementById(elementId);
+      
+      if (element) {
+        const headerHeight = 80;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    } else {
+      window.location.href = href;
+    }
+  };
 
   return (
     <>
       <header
+        ref={headerRef}
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
         }`}
@@ -60,10 +100,11 @@ export default function Header() {
             {menuItems.map((item, index) => (
               <a
                 key={index}
-                href="#"
-                className="text-sm font-medium text-gray-800 hover:text-blue-600 transition"
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="text-sm font-medium text-gray-800 hover:text-blue-600 transition cursor-pointer"
               >
-                {item}
+                {item.text}
               </a>
             ))}
           </nav>
@@ -85,7 +126,7 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-white"
+          className="fixed inset-0 bg-white animate-slideInFromTop"
           style={{ zIndex: 9999 }}
           dir="rtl"
         >
@@ -117,12 +158,19 @@ export default function Header() {
           <nav className="px-6 py-8">
             <ul className="space-y-6 text-center">
               {menuItems.map((item, index) => (
-                <li key={index}>
+                <li 
+                  key={index}
+                  style={{
+                    animation: `slideInFromTop 0.4s ease-out ${index * 0.1}s both`,
+                    opacity: 0
+                  }}
+                >
                   <a
-                    href="#"
-                    className="text-lg font-medium text-gray-800 hover:text-blue-600 transition block"
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className="text-lg font-medium text-gray-800 hover:text-blue-600 transition-all hover:scale-105 block cursor-pointer"
                   >
-                    {item}
+                    {item.text}
                   </a>
                 </li>
               ))}

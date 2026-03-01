@@ -40,15 +40,21 @@ export default function SuccessModal({ isOpen, onClose, variant = 'light' }: Suc
     <div className="fixed inset-0 flex items-center justify-center px-4" style={{ zIndex: 10000 }}>
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black bg-opacity-50"
+        className="absolute inset-0 bg-black bg-opacity-50 animate-fadeIn"
         onClick={onClose}
+        style={{
+          animation: 'fadeIn 0.3s ease-out'
+        }}
       ></div>
 
       {/* Modal */}
       <div
-        className={`relative max-w-md w-full p-8 rounded-3xl shadow-2xl animate-fadeIn ${
+        className={`relative max-w-md w-full p-8 rounded-3xl shadow-2xl ${
           variant === 'light' ? 'bg-white' : 'bg-gray-900'
         }`}
+        style={{
+          animation: 'scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+        }}
       >
         {/* Close Button */}
         <button

@@ -1,17 +1,24 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { submitShortLeadForm } from "@/lib/api";
+import { submitLeadForm } from "@/lib/api";
 import SuccessModal from "./SuccessModal";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function FinalLead() {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    email: "",
+    businessType: "",
   });
+  const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const titleRef = useScrollAnimation();
+  const formRef = useScrollAnimation();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -19,9 +26,9 @@ export default function FinalLead() {
     setIsSubmitting(true);
 
     try {
-      await submitShortLeadForm(formData);
+      await submitLeadForm(formData);
       setShowSuccessModal(true);
-      setFormData({ name: "", phone: "" });
+      setFormData({ name: "", phone: "", email: "", businessType: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
       const errorMessage = error instanceof Error ? error.message : "שגיאה בשליחת הטופס. אנא נסה שוב.";
@@ -33,57 +40,136 @@ export default function FinalLead() {
 
   return (
     <section id="contact" className="py-20 bg-white">
-      <div className="container mx-auto px-4 max-w-2xl text-center">
-        <h2 className="text-4xl font-bold mb-8">
+      <div className="container mx-auto px-4 max-w-md">
+        <h2
+          ref={titleRef}
+          className="text-4xl font-bold mb-8 text-center scroll-animate fade-up"
+        >
           מוכנים לקחת את העסק לשלב הבא?
         </h2>
 
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded border border-gray-200">
-          <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="שם"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-gray-900 text-gray-900"
-              required
-            />
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          className="bg-white rounded-3xl scroll-animate scale-in delay-200"
+        >
+          <div className="space-y-6">
 
-            <input
-              type="tel"
-              placeholder="טלפון"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-gray-900 text-gray-900"
-              required
-            />
+            {/* Form Fields */}
+            <div className={`w-full max-w-[320px] mx-auto gradient-border-wrapper ${focusedField === 'name' ? 'focused' : ''}`}>
+              <input
+                type="text"
+                placeholder="שם מלא"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onFocus={() => setFocusedField('name')}
+                onBlur={() => setFocusedField(null)}
+                className="w-full text-right text-gray-700 placeholder:text-gray-400 transition-all focus:outline-none"
+                style={{
+                  height: '44px',
+                  padding: '12px 24px',
+                  borderRadius: '100px',
+                  border: focusedField === 'name' ? 'none' : '1px solid #BEC3D3',
+                }}
+                required
+              />
+            </div>
 
+            <div className={`w-full max-w-[320px] mx-auto gradient-border-wrapper ${focusedField === 'phone' ? 'focused' : ''}`}>
+              <input
+                type="tel"
+                placeholder="טלפון"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onFocus={() => setFocusedField('phone')}
+                onBlur={() => setFocusedField(null)}
+                className="w-full text-right text-gray-700 placeholder:text-gray-400 transition-all focus:outline-none"
+                style={{
+                  height: '44px',
+                  padding: '12px 24px',
+                  borderRadius: '100px',
+                  border: focusedField === 'phone' ? 'none' : '1px solid #BEC3D3',
+                }}
+                required
+              />
+            </div>
+
+            <div className={`w-full max-w-[320px] mx-auto gradient-border-wrapper ${focusedField === 'email' ? 'focused' : ''}`}>
+              <input
+                type="email"
+                placeholder="אימייל"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onFocus={() => setFocusedField('email')}
+                onBlur={() => setFocusedField(null)}
+                className="w-full text-right text-gray-700 placeholder:text-gray-400 transition-all focus:outline-none"
+                style={{
+                  height: '44px',
+                  padding: '12px 24px',
+                  borderRadius: '100px',
+                  border: focusedField === 'email' ? 'none' : '1px solid #BEC3D3',
+                }}
+                required
+              />
+            </div>
+
+            <div className={`w-full max-w-[320px] mx-auto gradient-border-wrapper ${focusedField === 'businessType' ? 'focused' : ''}`}>
+              <input
+                type="text"
+                placeholder="סוג העסק"
+                value={formData.businessType}
+                onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
+                onFocus={() => setFocusedField('businessType')}
+                onBlur={() => setFocusedField(null)}
+                className="w-full text-right text-gray-700 placeholder:text-gray-400 transition-all focus:outline-none"
+                style={{
+                  height: '44px',
+                  padding: '12px 24px',
+                  borderRadius: '100px',
+                  border: focusedField === 'businessType' ? 'none' : '1px solid #BEC3D3',
+                }}
+                required
+              />
+            </div>
+
+            {/* Error Message */}
             {error && (
-              <p className="text-sm text-red-600 text-center">
+              <div className="w-full max-w-[320px] mx-auto text-center text-red-600 text-sm">
                 {error}
-              </p>
+              </div>
             )}
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-gray-900 text-white py-4 rounded font-bold text-lg hover:bg-gray-800 transition disabled:opacity-70 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? "שולח..." : "בואו נתחיל"}
-            </button>
+            {/* Submit Button */}
+            <div className="w-full max-w-[320px] mx-auto">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full text-white text-base font-bold transition-all hover:opacity-90 hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
+                style={{
+                  borderRadius: '100px',
+                  padding: '12px 10px',
+                  gap: '10px',
+                  background: 'linear-gradient(90deg, #0066FF 0%, #2979FF 50%, #00C6FF 100%)',
+                  boxShadow: '0 4px 14px 0 rgba(0, 102, 255, 0.39)',
+                }}
+              >
+                {isSubmitting ? "שולח..." : "אני רוצה לקבוע!"}
+              </button>
+            </div>
 
-            <p className="text-sm text-gray-600">
-              שיחת ייעוץ ללא עלות
+            {/* Footer Text */}
+            <p className="text-sm text-gray-600 text-center mt-4">
+              ללא התחייבות | מענה תוך 24 שעות
             </p>
           </div>
-        </form>
 
-        {/* Success Modal */}
-        <SuccessModal
-          isOpen={showSuccessModal}
-          onClose={() => setShowSuccessModal(false)}
-          variant="light"
-        />
+          {/* Success Modal */}
+          <SuccessModal
+            isOpen={showSuccessModal}
+            onClose={() => setShowSuccessModal(false)}
+            variant="light"
+          />
+        </form>
       </div>
     </section>
   );

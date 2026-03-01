@@ -1,6 +1,50 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 export default function Footer() {
+  const footerVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1] as const
+      }
+    }
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    if (href.startsWith('#')) {
+      const elementId = href.substring(1);
+      const element = document.getElementById(elementId);
+      
+      if (element) {
+        const headerHeight = 80;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    } else {
+      window.location.href = href;
+    }
+  };
+
   return (
-    <footer className="bg-black py-12">
+    <motion.footer
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-100px' }}
+      variants={footerVariants}
+      className="bg-black py-12"
+    >
       <div className="container mx-auto px-4 max-w-lg">
         {/* Logo & Tagline */}
         <div className="text-right mb-8 pb-8 border-b border-gray-800" dir="rtl">
@@ -16,17 +60,40 @@ export default function Footer() {
           <div className="text-right" dir="rtl">
             <h4 className="text-lg font-bold mb-4 text-white">ניווט</h4>
             <nav className="flex flex-col gap-2">
-              <a href="#" className="text-white hover:text-blue-400 transition">
-                אודות
+              <a 
+                href="#contact" 
+                onClick={(e) => handleNavClick(e, '#contact')}
+                className="text-white hover:text-blue-400 transition cursor-pointer"
+              >
+                צור קשר
               </a>
-              <a href="#services" className="text-white hover:text-blue-400 transition">
+              <a 
+                href="#services" 
+                onClick={(e) => handleNavClick(e, '#services')}
+                className="text-white hover:text-blue-400 transition cursor-pointer"
+              >
                 שירותים
               </a>
-              <a href="#portfolio" className="text-white hover:text-blue-400 transition">
+              <a 
+                href="#portfolio" 
+                onClick={(e) => handleNavClick(e, '#portfolio')}
+                className="text-white hover:text-blue-400 transition cursor-pointer"
+              >
                 עבודות
               </a>
-              <a href="#" className="text-white hover:text-blue-400 transition">
-                בלוג
+              <a 
+                href="#why-us" 
+                onClick={(e) => handleNavClick(e, '#why-us')}
+                className="text-white hover:text-blue-400 transition cursor-pointer"
+              >
+                למה לבחור בנו?
+              </a>
+              <a 
+                href="#follow" 
+                onClick={(e) => handleNavClick(e, '#follow')}
+                className="text-white hover:text-blue-400 transition cursor-pointer"
+              >
+                עקבו אחרינו
               </a>
             </nav>
           </div>
@@ -49,6 +116,6 @@ export default function Footer() {
           </p>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
