@@ -1,58 +1,40 @@
 # Stage 1: Dependencies
 FROM node:20-alpine AS deps
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-
-# Install all dependencies (including devDependencies for build)
-RUN npm ci --ignore-scripts
+RUN npm ci --ignore-scripts --no-audit --prefer-offline
 
 # Stage 2: Builder
 FROM node:20-alpine AS builder
 WORKDIR /app
-
-# Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build args for environment variables
 ARG VITE_BASE_URL
 ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-${VITE_BASE_URL}} \
+    NEXT_TELEMETRY_DISABLED=1 \
+    NODE_ENV=production
 
-# Set environment variables for build
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-${VITE_BASE_URL}}
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
-
-# Build the application with standalone output
 RUN npm run build
 
 # Stage 3: Runner
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Set production environment
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=80
-ENV HOSTNAME=0.0.0.0
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1 \
+    PORT=80 \
+    HOSTNAME=0.0.0.0
 
-# Create non-root user
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
 
-# Copy necessary files from builder
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Switch to non-root user
 USER nextjs
-
-# Expose port 80
 EXPOSE 80
 
-# Start the application
 CMD ["node", "server.js"]
