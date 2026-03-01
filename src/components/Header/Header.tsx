@@ -82,7 +82,7 @@ export default function Header() {
               isScrolled ? 'scale-95' : 'scale-100'
             }`}>
               <img
-                src="/images/AITTERRA.svg"
+                src="/images/AiterraWH.svg"
                 alt="Aiterra Logo"
                 className="w-full h-full object-contain"
               />
@@ -144,7 +144,7 @@ export default function Header() {
         <div className="p-10 flex flex-col h-full">
           <div className="mb-16 flex items-center" dir="ltr">
             <img
-              src="/images/AITTERRA.svg"
+              src="/images/AiterraWH.svg"
               alt="Aiterra Logo"
               className="h-12 w-auto object-contain"
             />

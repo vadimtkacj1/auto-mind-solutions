@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 // Серверные компоненты
 import Header from '../src/components/Header/Header';
 import { Services } from '../src/components/Services/Services';
+import { WhyChooseUs } from '../src/components/WhyChooseUs/WhyChooseUs';
 import { TechStack } from '../src/components/TechStack/TechStack';
 import { Pricing } from '../src/components/Pricing/Pricing';
 import { Contact } from '../src/components/Contact/Contact';
@@ -126,6 +127,10 @@ export default function HomePage() {
 
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <Services />
+          </Suspense>
+
+          <Suspense fallback={<div className="min-h-[400px]" />}>
+            <WhyChooseUs />
           </Suspense>
 
           <Suspense fallback={<div className="min-h-[400px]" />}>

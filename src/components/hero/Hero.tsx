@@ -10,6 +10,10 @@ const OptimizedScene = dynamic(() => import("./OptimizedScene"), {
   ssr: false,
 });
 
+const SpaceBackground = dynamic(() => import("./SpaceBackground"), {
+  ssr: false,
+});
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -25,6 +29,11 @@ export default function Hero() {
 
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.6, 0]);
 
+  // Parallax: each layer moves at a different speed (stars slowest, content fastest)
+  const starsY  = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const globeY  = useTransform(scrollYProgress, [0, 1], [0, -130]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -200]);
+
   // Smooth scroll logic to the services section
   const handleScrollDown = () => {
     const target = document.getElementById("services");
@@ -36,14 +45,19 @@ export default function Hero() {
   return (
     <div className={styles.mainWrapper} ref={containerRef}>
       <section className={styles.container}>
-        
-        {/* Top Visual: Globe */}
-        <motion.div className={styles.sceneWrapper} style={{ opacity }}>
+
+        {/* Cosmic starfield background — moves slowest (far away) */}
+        <motion.div style={{ position: 'absolute', inset: 0, y: starsY }}>
+          {isMounted && <SpaceBackground />}
+        </motion.div>
+
+        {/* Top Visual: Globe — medium parallax */}
+        <motion.div className={styles.sceneWrapper} style={{ opacity, y: globeY }}>
            {isMounted && <OptimizedScene />}
         </motion.div>
 
-        {/* Bottom Content: Text and Buttons */}
-        <motion.div className={styles.contentContainer} style={{ opacity }}>
+        {/* Bottom Content: Text and Buttons — moves fastest (foreground) */}
+        <motion.div className={styles.contentContainer} style={{ opacity, y: contentY }}>
           <div className={styles.textBox}>
             <h1 className={styles.title}>המעטפת המלאה שלך לנוכחות דיגיטלית</h1>
             <p className={styles.subtitle}>

@@ -2,58 +2,43 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Reveal } from '../ui/Reveal'; 
+import { Reveal } from '../ui/Reveal';
 import {
   LayoutTemplate,
-  Workflow,
-  Target,
-  Megaphone,
-  BarChart3,
-  LifeBuoy,
+  Smartphone,
+  TrendingUp,
+  Search,
   Code2,
   MousePointer2,
   Percent,
-  TrendingUp,
   Settings2,
   Monitor
 } from 'lucide-react';
 
 const services = [
   {
-    title: 'חבילת אתר + שיווק מלא',
-    description: 'בניית אתר ממיר, חיבור לטפסי לידים ואוטומציה, קמפיינים ממומנים ו-SEO.',
+    title: 'פיתוח אתרים בהתאמה אישית',
+    description: 'בניית אתרים מודרניים עם עיצוב ייחודי, מהירות גבוהה ואופטימיזציית SEO – אתרים שמייצרים תוצאות ולקוחות.',
     icon: LayoutTemplate,
     color: '#1e40af',
   },
   {
-    title: 'אוטומציה שיווקית ומכירות',
-    description: 'הגדרת משפכי לידים, תהליכי מעקב אוטומטיים ואינטגרציות עם CRM.',
-    icon: Workflow,
+    title: 'פיתוח אפליקציות לעסקים',
+    description: 'פיתוח אפליקציות חכמות ונוחות לשימוש, המותאמות לצרכים עסקיים ותומכות בצמיחה ובהתרחבות.',
+    icon: Smartphone,
     color: '#059669',
   },
   {
-    title: 'בניית אתרי מכירה',
-    description: 'עמודי נחיתה ואתרים מהירים שמכוונים למטרה אחת — יותר לידים.',
-    icon: Target,
+    title: 'קידום ממומן ברשתות חברתיות',
+    description: 'ניהול קמפיינים בפייסבוק, אינסטגרם וטיקטוק – משלב הקריאייטיב ועד לידים ומכירות בפועל.',
+    icon: TrendingUp,
     color: '#4f46e5',
   },
   {
-    title: 'פרסום ממומן וקידום',
-    description: 'ניהול קמפיינים בגוגל וברשתות חברתיות לצד SEO חכם.',
-    icon: Megaphone,
+    title: 'קידום אורגני בגוגל (SEO)',
+    description: 'קידום אתרים בגוגל לטווח ארוך, להגדלת החשיפה, התנועה והלידים האיכותיים.',
+    icon: Search,
     color: '#2563eb',
-  },
-  {
-    title: 'דוחות ובקרה לעסקים',
-    description: 'דוחות ברורים על לידים, עלויות ותוצאות, כדי שתדעו מה עובד.',
-    icon: BarChart3,
-    color: '#0d9488',
-  },
-  {
-    title: 'ליווי שוטף וייעוץ',
-    description: 'ליווי חודשי, ניסויים A/B ושיפור תמידי על בסיס נתונים.',
-    icon: LifeBuoy,
-    color: '#475569',
   },
 ];
 
@@ -83,56 +68,49 @@ export function Services() {
     >
       {/* --- ENHANCED BACKGROUND OBJECTS --- */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
-        
+
         {/* Left Side - More Vivid Colors & Drop Shadows */}
-        <motion.div 
-          style={{ y: smoothYFast, rotate: rotateSlow }} 
+        <motion.div
+          style={{ y: smoothYFast, rotate: rotateSlow }}
           className="absolute top-[8%] left-[4%] text-blue-400/40 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]"
         >
            <Code2 size={140} strokeWidth={1.5} />
         </motion.div>
 
-        <motion.div 
-          style={{ y: ySlow }} 
+        <motion.div
+          style={{ y: ySlow }}
           className="absolute top-[40%] -left-[1%] text-slate-300/40 font-black text-[220px]"
         >
            {"{"}
         </motion.div>
 
-        <motion.div 
-          style={{ y: smoothYMedium }} 
+        <motion.div
+          style={{ y: smoothYMedium }}
           className="absolute bottom-[15%] left-[8%] text-emerald-400/40 drop-shadow-[0_0_20px_rgba(52,211,153,0.3)]"
         >
            <Percent size={110} strokeWidth={2} />
         </motion.div>
 
         {/* Right Side - Vibrant Accents */}
-        <motion.div 
-          style={{ y: smoothYMedium, rotate: -10 }} 
+        <motion.div
+          style={{ y: smoothYMedium, rotate: -10 }}
           className="absolute top-[12%] right-[4%] text-indigo-400/30 drop-shadow-[0_0_25px_rgba(129,140,248,0.2)]"
         >
            <Monitor size={160} strokeWidth={1} />
         </motion.div>
 
-        <motion.div 
-          style={{ y: smoothYFast }} 
+        <motion.div
+          style={{ y: smoothYFast }}
           className="absolute top-[45%] right-[2%] text-blue-500/40"
         >
            <MousePointer2 size={120} strokeWidth={1.5} className="drop-shadow-lg" />
         </motion.div>
 
-        <motion.div 
-          style={{ y: ySlow }} 
+        <motion.div
+          style={{ y: ySlow }}
           className="absolute bottom-[25%] -right-[1%] text-slate-300/40 font-black text-[220px]"
         >
            {"}"}
-        </motion.div>
-
-        <motion.div 
-          style={{ y: smoothYMedium, scale: 1.1 }} 
-          className="absolute bottom-[8%] right-[10%] text-blue-400/40 drop-shadow-2xl"
-        >
-           <TrendingUp size={180} strokeWidth={1} />
         </motion.div>
 
         {/* Floating Decorative Plus Signs */}
@@ -142,67 +120,67 @@ export function Services() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
-        
+
         {/* Header */}
-        <div className="mb-40 md:mb-64 max-w-4xl mx-auto text-center">
+        <div className="mb-16 md:mb-24 max-w-4xl mx-auto text-center">
           <Reveal>
             <h2 className="text-4xl md:text-7xl font-black text-slate-900 leading-tight tracking-tighter">
-              שירותים שדוחפים <br /> 
-              <span className="text-blue-600">את העסק קדימה</span>
+              השירותים <br />
+              <span className="text-blue-600">שלנו</span>
             </h2>
           </Reveal>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-40 md:gap-y-80">
-          {services.map((service, index) => (
-            <div key={index} className="group relative flex flex-col items-center md:items-start">
-              
-              {/* 3D Dynamic Number */}
-              <span
-                style={{
-                    color: service.color,
-                    textShadow: `
-                      -2px -2px 0px #ffffff,
-                      0px 0px 20px ${service.color}60,
-                      1px 1px 0px ${service.color},
-                      2px 2px 0px ${service.color},
-                      3px 3px 0px ${service.color},
-                      8px 8px 30px rgba(0,0,0,0.2)
-                    `
-                }}
-                className="absolute -top-24 md:-top-44 inset-x-0 md:inset-x-auto md:right-0 md:translate-x-1/4 text-center md:text-right text-[130px] md:text-[230px] font-black leading-none pointer-events-none transition-all duration-700 ease-out opacity-30 group-hover:opacity-100 group-hover:-translate-y-6"
-              >
-                {index + 1 < 10 ? `0${index + 1}` : index + 1}
-              </span>
+        {/* Services List - Alternating Layout */}
+        <div className="space-y-20 md:space-y-32">
+          {services.map((service, index) => {
+            const isEven = index % 2 === 0;
 
-              {/* Service Card */}
-              <div className="relative z-10 w-full flex flex-col items-center md:items-start text-center md:text-right">
-                
-                <div className="relative mb-8 md:mb-10 w-24 h-24 md:w-32 md:h-32 rounded-[2.5rem] md:rounded-[3.5rem] flex items-center justify-center bg-white shadow-2xl border border-slate-100 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 mx-auto md:mx-0">
-                  <service.icon 
-                    size={40} 
-                    style={{ color: service.color }} 
-                    className="relative z-10"
-                  />
-                  {/* Internal Glow on Hover */}
-                  <div 
-                    className="absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
-                    style={{ backgroundColor: service.color }}
-                  />
-                </div>
+            return (
+              <Reveal key={index}>
+                <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center`}>
 
-                <div className="w-full px-2 md:px-0">
-                  <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-3 md:mb-5 tracking-tight group-hover:text-blue-700 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-slate-500 text-base md:text-lg leading-relaxed font-medium max-w-[300px] md:max-w-none mx-auto md:mx-0">
-                    {service.description}
-                  </p>
+                  {/* Image/GIF Container */}
+                  <div className="w-full md:w-1/2">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-slate-100 to-slate-200"
+                    >
+                      <div className="relative">
+                        <img
+                          src="/videos/Boy working on Content Review.gif"
+                          alt={service.title}
+                          className="w-full h-auto object-contain"
+                        />
+                      </div>
+
+                      {/* Decorative Gradient Overlay */}
+                      <div
+                        className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"
+                      />
+                    </motion.div>
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="w-full md:w-1/2 text-center md:text-right">
+                    <div className="space-y-6">
+
+                      {/* Title */}
+                      <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
+                        {service.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-slate-600 text-lg md:text-xl leading-relaxed font-medium max-w-xl mx-auto md:mx-0">
+                        {service.description}
+                      </p>
+                    </div>
+                  </div>
+
                 </div>
-              </div>
-            </div>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

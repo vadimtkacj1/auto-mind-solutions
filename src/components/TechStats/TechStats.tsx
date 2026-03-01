@@ -98,12 +98,18 @@ export function TechStats() {
     offset: ["start end", "end start"]
   });
 
-  // Parallax transforms - made more dynamic
-  const yPlane = useTransform(scrollYProgress, [0, 1], [-150, 400]); 
+  // Parallax transforms - объекты изначально за экраном, летают не в центре
+  const yPlane = useTransform(scrollYProgress, [0, 1], [-600, 200]); 
   const rotatePlane = useTransform(scrollYProgress, [0, 1], [-20, 30]); 
+  const xPlane = useTransform(scrollYProgress, [0, 1], [-200, 100]);
   
-  const yBrackets = useTransform(scrollYProgress, [0, 1], [150, -300]); 
-  const yCircle = useTransform(scrollYProgress, [0, 1], [-100, 200]);
+  const yBrackets = useTransform(scrollYProgress, [0, 1], [800, -200]); 
+  const xBrackets = useTransform(scrollYProgress, [0, 1], [300, -50]);
+  const xBracketsLeft = useTransform(scrollYProgress, [0, 1], [-400, -100]);
+  const yCircle = useTransform(scrollYProgress, [0, 1], [-500, 150]);
+  const xCircle = useTransform(scrollYProgress, [0, 1], [-150, 50]);
+  const yDots = useTransform(scrollYProgress, [0, 1], [700, 100]);
+  const xDots = useTransform(scrollYProgress, [0, 1], [-300, 50]);
 
   return (
     <section 
@@ -120,45 +126,45 @@ export function TechStats() {
       {/* 2. EXPRESSIVE FLYING OBJECTS (Parallax Layer) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
           
-          {/* Paper Plane - Stronger Blue and Shadow */}
+          {/* Paper Plane - летает не в центре, изначально за экраном */}
           <motion.div 
-            style={{ y: yPlane, rotate: rotatePlane, x: '10%' }}
-            className="absolute top-[10%] left-[10%] text-blue-500/40 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+            style={{ y: yPlane, rotate: rotatePlane, x: xPlane }}
+            className="absolute top-[5%] left-[5%] text-blue-500/40 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]"
           >
             <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
             </svg>
           </motion.div>
 
-          {/* Bold Brackets { } */}
+          {/* Bold Brackets { } - не в центре, изначально за экраном */}
           <motion.div 
-            style={{ y: yBrackets }}
-            className="absolute top-[40%] right-[3%] text-blue-600/20 font-black text-[220px] leading-none select-none drop-shadow-sm"
+            style={{ y: yBrackets, x: xBrackets }}
+            className="absolute top-[20%] right-[8%] text-blue-600/20 font-black text-[220px] leading-none select-none drop-shadow-sm"
           >
             {"}"}
           </motion.div>
 
           <motion.div 
-            style={{ y: yBrackets, x: -30 }}
-            className="absolute top-[15%] left-[3%] text-indigo-600/20 font-black text-[180px] leading-none select-none drop-shadow-sm"
+            style={{ y: yBrackets, x: xBracketsLeft }}
+            className="absolute top-[10%] left-[8%] text-indigo-600/20 font-black text-[180px] leading-none select-none drop-shadow-sm"
           >
             {"{"}
           </motion.div>
 
-          {/* Dotted Circle - Thicker stroke */}
+          {/* Dotted Circle - не в центре, изначально за экраном */}
           <motion.div 
-            style={{ y: yCircle }}
-            className="absolute bottom-[10%] right-[15%] text-indigo-400/30"
+            style={{ y: yCircle, x: xCircle }}
+            className="absolute bottom-[15%] right-[20%] text-indigo-400/30"
           >
             <svg width="240" height="240" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray="6 6" />
             </svg>
           </motion.div>
 
-          {/* Vivid Decorative Dots */}
+          {/* Vivid Decorative Dots - не в центре, изначально за экраном */}
           <motion.div 
-            style={{ y: yPlane }}
-            className="absolute top-[65%] left-[25%] flex gap-4"
+            style={{ y: yDots, x: xDots }}
+            className="absolute top-[70%] left-[30%] flex gap-4"
           >
             <div className="w-4 h-4 rounded-full bg-blue-400/40 shadow-lg shadow-blue-400/20" />
             <div className="w-4 h-4 rounded-full bg-indigo-400/40 shadow-lg shadow-indigo-400/20" />

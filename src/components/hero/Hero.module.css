@@ -2,7 +2,7 @@
 .mainWrapper {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 180vh;
 }
 
 .container {
@@ -11,7 +11,12 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(circle at 15% 50%, #0f172a 0%, #080a0c 100%);
+  background:
+    radial-gradient(ellipse at 25% 35%, rgba(88, 28, 135, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, rgba(30, 58, 138, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 60% 15%, rgba(6, 182, 212, 0.07) 0%, transparent 40%),
+    radial-gradient(ellipse at 10% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 45%),
+    linear-gradient(160deg, #02000f 0%, #030514 40%, #050a1a 100%);
   z-index: 0;
   direction: rtl; 
   display: flex;
