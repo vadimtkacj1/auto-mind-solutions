@@ -1,13 +1,11 @@
-import { FOOTER_LINKS, CONTACT_INFO } from "@/lib/constants";
-
 export default function Footer() {
   return (
     <footer className="bg-black py-12">
       <div className="container mx-auto px-4 max-w-lg">
         {/* Logo & Tagline */}
-        <div className="text-center mb-8 pb-8 border-b border-gray-800">
+        <div className="text-right mb-8 pb-8 border-b border-gray-800" dir="rtl">
           <h3 className="text-2xl font-bold mb-3 text-white">AITERRA</h3>
-          <p className="text-white text-sm" dir="rtl">
+          <p className="text-white text-sm">
             בונים מערכות דיגיטל שמייצרות צמיחה אמיתית לעסקים.
           </p>
         </div>
