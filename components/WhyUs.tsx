@@ -71,6 +71,16 @@ export default function WhyUs() {
       {/* People image at the bottom - full width */}
       <div className="w-full mt-8 relative" style={{ aspectRatio: '16/9' }}>
         <Image
+          src="/images/Vector.svg"
+          alt=""
+          fill
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center bottom'
+          }}
+          className="z-0"
+        />
+        <Image
           src="/images/people.svg"
           alt="Team working together"
           fill
@@ -78,6 +88,7 @@ export default function WhyUs() {
             objectFit: 'cover',
             objectPosition: 'center center'
           }}
+          className="z-10"
         />
       </div>
     </section>

@@ -27,15 +27,8 @@ export default function Hero() {
                   alt="People working together"
                   width={400}
                   height={300}
-                  className="w-full h-auto relative z-10"
+                  className="w-full h-auto"
                   priority
-                />
-                <Image
-                  src="/images/Vector.svg"
-                  alt=""
-                  width={400}
-                  height={200}
-                  className="w-full h-auto absolute bottom-0 left-0 z-0"
                 />
               </div>
             </div>
