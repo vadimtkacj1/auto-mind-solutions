@@ -46,13 +46,13 @@ export default function SocialFollow() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-20 h-20 flex items-center justify-center rounded-full transition-colors"
+                className="w-15 h-20 flex items-center justify-center rounded-full transition-colors"
               >
                 <Image
                   src={social.icon}
                   alt={social.name}
-                  width={48}
-                  height={48}
+                  width={68}
+                  height={68}
                 />
               </a>
             ))}

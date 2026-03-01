@@ -136,7 +136,22 @@ jobs:
           name: docker-image
           path: ./artifact
 
+      - name: Test SSH connection
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.IP_SERVER }}
+          username: ${{ secrets.USER_SERVER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          script: |
+            echo "✅ SSH connection successful!"
+            echo "Server: $(hostname)"
+            echo "User: $(whoami)"
+            echo "Date: $(date)"
+
       - name: Copy Docker image and essential files to server via SSH
+        id: scp_copy
+        continue-on-error: true
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.IP_SERVER }}
@@ -148,6 +163,46 @@ jobs:
           rm: false
           strip_components: 0
           overwrite: true
+          timeout: 30s
+          command_timeout: 10m
+          debug: true
+          use_insecure_cipher: false
+
+      - name: Alternative file copy via SSH (if SCP fails)
+        if: steps.scp_copy.outcome == 'failure'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.IP_SERVER }}
+          username: ${{ secrets.USER_SERVER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          script: |
+            echo "📦 Using alternative SSH copy method..."
+            mkdir -p /opt/auto-mind-solutions/artifact
+
+      - name: Copy files using rsync (alternative method)
+        if: steps.scp_copy.outcome == 'failure'
+        env:
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          SERVER_HOST: ${{ secrets.IP_SERVER }}
+          SERVER_USER: ${{ secrets.USER_SERVER }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "Using rsync as alternative..."
+
+          # Set port with default value
+          SSH_PORT="${SERVER_PORT:-22}"
+
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # Copy files using rsync
+          rsync -avz -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p ${SSH_PORT}" \
+            docker-compose.yml .env.docker.example artifact/image.tar \
+            ${SERVER_USER}@${SERVER_HOST}:/opt/auto-mind-solutions/
+
+          rm ~/.ssh/deploy_key
 
       - name: Deploy to server via SSH (Fast deployment)
         uses: appleboy/ssh-action@v1.0.3

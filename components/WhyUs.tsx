@@ -33,8 +33,8 @@ export default function WhyUs() {
                     <Image
                       src={pillar.icon}
                       alt={pillar.title}
-                      width={80}
-                      height={80}
+                      width={120}
+                      height={120}
                       className="w-16 h-16 md:w-20 md:h-20"
                     />
                   </div>
@@ -72,12 +72,8 @@ export default function WhyUs() {
       <div className="w-full mt-8 relative" style={{ aspectRatio: '16/9' }}>
         <Image
           src="/images/Vector.svg"
-          alt=""
+          alt="vector"
           fill
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'center bottom'
-          }}
           className="z-0"
         />
         <Image

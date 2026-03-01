@@ -23,7 +23,7 @@ export default function Hero() {
             <div className="w-full md:w-[50%] flex justify-center">
               <div className="relative w-full max-w-[380px] md:max-w-none">
                 <Image
-                  src="/images/people.svg"
+                  src="/images/hero-section.png"
                   alt="People working together"
                   width={400}
                   height={300}
