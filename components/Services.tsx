@@ -165,7 +165,9 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
             src={`/images/icon${service.id}.svg`}
             alt={`icon ${service.id}`}
             fill
+            sizes="(max-width: 768px) 120px, 140px"
             style={{ objectFit: "contain" }}
+            loading="eager"
           />
         </div>
 
@@ -214,7 +216,10 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
           src={`/images/service${service.id}.svg`}
           alt={service.title}
           fill
+          sizes="(max-width: 640px) 90vw, (max-width: 768px) 320px, 600px"
           style={{ objectFit: "cover", objectPosition: "top" }}
+          loading="lazy"
+          quality={80}
         />
       </div>
     </motion.div>

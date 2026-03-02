@@ -114,7 +114,9 @@ function WhyUsItem({ pillar, index }: { pillar: any; index: number }) {
           alt={pillar.title}
           width={120}
           height={120}
+          sizes="(max-width: 768px) 64px, 80px"
           className="w-16 h-16 md:w-20 md:h-20"
+          loading="lazy"
         />
       </div>
       {/* Text on the left (for RTL) */}
@@ -146,8 +148,8 @@ function WhyUsItem({ pillar, index }: { pillar: any; index: number }) {
 
 function PeopleImage() {
   const imageVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       scale: 0.85,
       y: 40
     },
@@ -156,8 +158,8 @@ function PeopleImage() {
       scale: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        delay: 0.4,
+        duration: 0.6,
+        delay: 0.2,
         ease: [0.4, 0, 0.2, 1] as const
       }
     }
@@ -176,17 +178,23 @@ function PeopleImage() {
         src="/images/Vector.svg"
         alt="vector"
         fill
+        sizes="(max-width: 640px) 100vw, (max-width: 768px) 95vw, 600px"
         className="z-0"
+        loading="lazy"
+        quality={75}
       />
       <Image
         src="/images/people.svg"
         alt="Team working together"
         fill
+        sizes="(max-width: 640px) 100vw, (max-width: 768px) 95vw, 600px"
         style={{
           objectFit: 'cover',
           objectPosition: 'center center'
         }}
         className="z-10"
+        loading="lazy"
+        quality={80}
       />
     </motion.div>
   );

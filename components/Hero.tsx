@@ -11,9 +11,9 @@ export default function Hero() {
       x: 0,
       scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: [0.4, 0, 0.2, 1] as const,
-        delay: 0.2
+        delay: 0
       }
     }
   };
@@ -24,9 +24,10 @@ export default function Hero() {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
+        speed: 0.4,
         ease: [0.4, 0, 0.2, 1] as const,
-        delay: 0.3
+        delay: 0.1
       }
     }
   };
@@ -37,9 +38,9 @@ export default function Hero() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: [0.4, 0, 0.2, 1] as const,
-        delay: 0.4
+        delay: 0.15
       }
     }
   };
@@ -50,9 +51,9 @@ export default function Hero() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: [0.4, 0, 0.2, 1] as const,
-        delay: 0.6
+        delay: 0.25
       }
     }
   };
@@ -64,9 +65,9 @@ export default function Hero() {
       scale: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
         ease: [0.4, 0, 0.2, 1] as const,
-        delay: 0.8
+        delay: 0.35
       }
     },
     hover: {
@@ -80,52 +81,56 @@ export default function Hero() {
 
   return (
     <section
-      className="pt-20 pb-12 md:pt-32 md:pb-20 min-h-screen flex items-center rounded-bl-[40px] rounded-br-[40px]"
+      className="pt-20 pb-12 md:pt-32 md:pb-20 min-h-screen flex items-center rounded-bl-[40px] rounded-br-[40px] overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)',
       }}
     >
-      <div className="container mx-auto px-4 max-w-7xl w-full">
-        <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-8 md:gap-16">
+      <div className="container mx-auto px-4 sm:px-6 max-w-7xl w-full">
+        <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-6 sm:gap-8 md:gap-16">
+          
+          {/* Image Container */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={imageVariants}
-            className="w-full md:w-[50%] flex justify-center"
+            className="w-full md:w-[55%] flex justify-center"
           >
             <motion.div
-              className="relative w-full max-w-[380px] md:max-w-none"
+              className="relative w-full max-w-[380px] md:max-w-none aspect-[4/3] md:aspect-auto"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
               <Image
-                src="/images/hero-section.png"
+                src="/images/hero-section-opt.webp"
                 alt="People working together"
-                width={400}
-                height={300}
-                className="w-full h-auto"
+                fill
+                className="object-contain w-full h-full"
+                sizes="(max-width: 640px) 95vw, (max-width: 768px) 90vw, (max-width: 1024px) 55vw, 700px"
                 priority
+                quality={90}
+                placeholder="blur"
+                blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAoAAgA0JaQAA3AA/vuUAAA="
               />
             </motion.div>
           </motion.div>
 
+          {/* Text Content Container */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={textVariants}
-            className="w-full md:w-[48%] flex flex-col items-center md:items-start text-center md:text-left"
-            dir="rtl"
-            style={{ alignItems: 'flex-start' }}
+            className="w-full md:w-[43%] flex flex-col items-center md:items-start text-center md:text-right"
           >
             <motion.h1
               variants={titleVariants}
               initial="hidden"
               animate="visible"
-              className="text-[#1a2b4b] mb-4 md:mb-8"
+              className="text-[#1a2b4b] mb-4 md:mb-8 w-full"
               style={{
-                fontSize: 'clamp(38px, 6vw, 72px)',
+                fontSize: 'clamp(32px, 8vw, 72px)',
                 fontWeight: 900,
-                lineHeight: '1.05',
+                lineHeight: '1.1',
                 letterSpacing: '-0.02em',
               }}
             >
@@ -137,7 +142,7 @@ export default function Hero() {
               variants={paragraphVariants}
               initial="hidden"
               animate="visible"
-              className="text-base md:text-xl text-gray-700 mb-8 md:mb-10 leading-relaxed font-medium max-w-[500px]"
+              className="text-sm sm:text-base md:text-xl text-gray-700 mb-6 sm:mb-8 md:mb-10 leading-relaxed font-medium max-w-full md:max-w-[500px] px-2 sm:px-0"
             >
               משלבים בניית אתר ממיר, אסטרטגיית SEO מדויקת וקמפיינים ממוקדים שמוזנים בדאטה בזמן אמת.
               התוצאה: תנועה איכותית שנכנסת למערכת מסודרת והופכת ללידים שמייצרים מכירות.
@@ -149,7 +154,8 @@ export default function Hero() {
               animate="visible"
               whileHover="hover"
               whileTap="tap"
-              className="w-full flex justify-center md:justify-end"
+              // Центрируем кнопку на мобилке, прижимаем к правому краю на десктопе
+              className="w-full flex justify-center md:justify-start"
             >
               <motion.a
                 href="#contact"

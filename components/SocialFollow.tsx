@@ -30,8 +30,8 @@ export default function SocialFollow() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        delay: 0.2,
+        duration: 0.5,
+        delay: 0.1,
         ease: [0.4, 0, 0.2, 1] as const
       }
     }
@@ -43,7 +43,7 @@ export default function SocialFollow() {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.4
+        delayChildren: 0.2
       }
     }
   };
@@ -77,7 +77,9 @@ export default function SocialFollow() {
               src="/images/social-girl.svg"
               alt="Follow us on social media"
               fill
+              sizes="(max-width: 768px) 90vw, 448px"
               style={{ objectFit: 'contain' }}
+              loading="lazy"
             />
           </motion.div>
 
@@ -131,6 +133,8 @@ export default function SocialFollow() {
                   alt={social.name}
                   width={68}
                   height={68}
+                  sizes="68px"
+                  loading="lazy"
                 />
               </motion.a>
             ))}
