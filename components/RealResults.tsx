@@ -6,7 +6,18 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function RealResults() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const totalSlides = 4;
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Auto-scroll every 4 seconds
   useEffect(() => {
@@ -131,7 +142,11 @@ export default function RealResults() {
                 className="absolute inset-0"
               >
                 <Image
-                  src={`/images/portfolio${currentSlide + 1}.svg`}
+                  src={
+                    isMobile
+                      ? `/images/portfolio${currentSlide + 1}-opt.${currentSlide === 3 ? 'png' : 'webp'}`
+                      : `/images/portfolio${currentSlide + 1}.svg`
+                  }
                   alt={`Portfolio ${currentSlide + 1}`}
                   fill
                   style={{ objectFit: "contain" }}
