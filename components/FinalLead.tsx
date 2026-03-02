@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, RefObject } from "react";
 import { submitLeadForm } from "@/lib/api";
 import SuccessModal from "./SuccessModal";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -18,7 +18,7 @@ export default function FinalLead() {
   const [error, setError] = useState<string | null>(null);
 
   const titleRef = useScrollAnimation();
-  const formRef = useScrollAnimation();
+  const formRef: RefObject<HTMLFormElement> = useScrollAnimation<HTMLFormElement>();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

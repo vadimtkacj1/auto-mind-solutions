@@ -185,7 +185,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
 
         {/* Description */}
         <div style={{ textAlign: "center", direction: "rtl" }}>
-          {service.description.map((line, idx) => (
+          {service.description.map((line: string, idx: number) => (
             <p
               key={idx}
               style={{
