@@ -69,10 +69,15 @@ export default function RealResults() {
   };
 
   return (
-    <section className="py-16 bg-white">
+    <section
+      id="portfolio"
+      aria-labelledby="portfolio-heading"
+      className="py-16 bg-white"
+    >
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Title */}
         <motion.h2
+          id="portfolio-heading"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}

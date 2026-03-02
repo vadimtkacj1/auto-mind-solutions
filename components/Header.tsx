@@ -16,13 +16,28 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuItems = [
-    'השירותים שלנו',
-    'פורטפוליו',
-    'למה לבחור בנו?',
-    'עקבו אחרינו',
-    'טופס יצירת קשר',
+  const menuItems: Array<{ label: string; href: string }> = [
+    { label: 'השירותים שלנו', href: '#services' },
+    { label: 'פורטפוליו', href: '#portfolio' },
+    { label: 'למה לבחור בנו?', href: '#why-us' },
+    { label: 'עקבו אחרינו', href: '#follow' },
+    { label: 'טופס יצירת קשר', href: '#contact' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      const headerHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerHeight;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
     <>
@@ -60,10 +75,11 @@ export default function Header() {
             {menuItems.map((item, index) => (
               <a
                 key={index}
-                href="#"
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className="text-sm font-medium text-gray-800 hover:text-blue-600 transition"
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </nav>
@@ -119,10 +135,11 @@ export default function Header() {
               {menuItems.map((item, index) => (
                 <li key={index}>
                   <a
-                    href="#"
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
                     className="text-lg font-medium text-gray-800 hover:text-blue-600 transition block"
                   >
-                    {item}
+                    {item.label}
                   </a>
                 </li>
               ))}

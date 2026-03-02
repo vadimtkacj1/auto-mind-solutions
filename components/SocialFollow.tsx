@@ -62,7 +62,11 @@ export default function SocialFollow() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b">
+    <section
+      id="follow"
+      aria-labelledby="follow-heading"
+      className="py-20 bg-gradient-to-b"
+    >
       <div className="container mx-auto px-4">
         <div className="max-w-md mx-auto text-center">
           {/* Social Girl Image */}
@@ -91,7 +95,7 @@ export default function SocialFollow() {
             variants={textVariants}
             className="mb-8"
           >
-            <h2 className="text-2xl font-bold mb-2" dir="rtl">
+            <h2 id="follow-heading" className="text-2xl font-bold mb-2" dir="rtl">
               <span
                 className="bg-gradient-to-r from-blue-600 to-cyan-400 bg-clip-text text-transparent"
               >

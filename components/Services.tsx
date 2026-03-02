@@ -30,6 +30,7 @@ export default function Services() {
   return (
     <section
       id="services"
+      aria-labelledby="services-heading"
       className="py-10 md:py-24 rounded-[40px]"
       style={{
         background: "linear-gradient(to bottom, #F4F9FF, #E3F0FF, #CFE6FF)",
@@ -38,6 +39,7 @@ export default function Services() {
       {/* Mobile layout - original */}
       <div className="flex flex-col items-center px-5 md:hidden">
         <motion.h2
+          id="services-heading"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
@@ -69,6 +71,7 @@ export default function Services() {
       {/* Desktop layout - new */}
       <div className="hidden md:block container mx-auto px-4 max-w-7xl">
         <motion.h2
+          id="services-heading"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}

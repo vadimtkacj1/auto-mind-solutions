@@ -28,14 +28,18 @@ export default function WhyUs() {
   };
 
   return (
-    <section id="why-us"
-    className="rounded-[40px] pt-12 md:pt-16 pb-0 container mx-auto overflow-hidden"
-              style={{
-                maxWidth: "600px",
-              background: 'linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)'
-            }}>
+    <section
+      id="why-us"
+      aria-labelledby="why-us-heading"
+      className="rounded-[40px] pt-12 md:pt-16 pb-0 container mx-auto overflow-hidden"
+      style={{
+        maxWidth: "600px",
+        background: 'linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)'
+      }}
+    >
       <div className="px-4 max-w-6xl">
         <motion.h2
+          id="why-us-heading"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}

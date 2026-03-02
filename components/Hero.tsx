@@ -88,39 +88,12 @@ export default function Hero() {
     >
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl w-full">
         <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-6 sm:gap-8 md:gap-16">
-          
-          {/* Image Container */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={imageVariants}
-            className="w-full md:w-[55%] flex justify-center"
-          >
-            <motion.div
-              className="relative w-full max-w-[380px] md:max-w-none aspect-[4/3] md:aspect-auto"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Image
-                src="/images/hero-section-opt.webp"
-                alt="People working together"
-                fill
-                className="object-contain w-full h-full"
-                sizes="(max-width: 640px) 95vw, (max-width: 768px) 90vw, (max-width: 1024px) 55vw, 700px"
-                priority
-                quality={90}
-                placeholder="blur"
-                blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAoAAgA0JaQAA3AA/vuUAAA="
-              />
-            </motion.div>
-          </motion.div>
-
           {/* Text Content Container */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={textVariants}
-            className="w-full md:w-[43%] flex flex-col items-center md:items-start text-center md:text-right"
+            className="w-full md:w-[43%] flex flex-col items-center md:items-start text-center md:text-right order-2 md:order-none"
           >
             <motion.h1
               variants={titleVariants}
@@ -154,7 +127,6 @@ export default function Hero() {
               animate="visible"
               whileHover="hover"
               whileTap="tap"
-              // Центрируем кнопку на мобилке, прижимаем к правому краю на десктопе
               className="w-full flex justify-center md:justify-start"
             >
               <motion.a
@@ -194,6 +166,32 @@ export default function Hero() {
               >
                 קבל שיחת אסטרטגיה חינם
               </motion.a>
+            </motion.div>
+          </motion.div>
+
+          {/* Image Container */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={imageVariants}
+            className="w-full md:w-[55%] flex justify-center order-1 md:order-none"
+          >
+            <motion.div
+              className="relative w-full max-w-[380px] md:max-w-none aspect-[4/3]"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Image
+                src="/images/hero-section-opt.webp"
+                alt="People working together"
+                fill
+                className="object-contain w-full h-full"
+                sizes="(max-width: 640px) 95vw, (max-width: 768px) 90vw, (max-width: 1024px) 55vw, 700px"
+                priority
+                quality={90}
+                placeholder="blur"
+                blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAoAAgA0JaQAA3AA/vuUAAA="
+              />
             </motion.div>
           </motion.div>
         </div>

@@ -18,7 +18,11 @@ export default function LeadFormSection() {
   };
 
   return (
-    <section className="py-6 bg-white">
+    <section
+      id="contact"
+      aria-label="Contact Form"
+      className="py-6 bg-white"
+    >
       <motion.div
         initial="hidden"
         whileInView="visible"

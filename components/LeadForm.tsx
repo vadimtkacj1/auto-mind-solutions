@@ -143,15 +143,20 @@ export default function LeadForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full text-white text-base font-bold transition-all hover:opacity-90 hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full text-white text-base font-bold transition-all hover:opacity-90 hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             style={{
               borderRadius: '100px',
               padding: '12px 10px',
-              gap: '10px',
               background: 'linear-gradient(90deg, #0066FF 0%, #2979FF 50%, #00C6FF 100%)',
               boxShadow: '0 4px 14px 0 rgba(0, 102, 255, 0.39)',
             }}
           >
+            {isSubmitting && (
+              <span
+                className="inline-block w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin"
+                aria-hidden="true"
+              />
+            )}
             {isSubmitting ? "שולח..." : "אני רוצה לקבוע!"}
           </button>
         </div>
