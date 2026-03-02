@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function Hero() {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const imageVariants = {
     hidden: { opacity: 0, x: -80, scale: 0.9 },
     visible: {
@@ -181,16 +183,32 @@ export default function Hero() {
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
+              {/* Spinner */}
+              {!imageLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="relative w-16 h-16">
+                    <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
+                    <div
+                      className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"
+                      style={{ animationDuration: '0.8s' }}
+                    ></div>
+                  </div>
+                </div>
+              )}
+
               <Image
                 src="/images/hero-section-opt.webp"
                 alt="People working together"
                 fill
-                className="object-contain w-full h-full"
+                className={`object-contain w-full h-full transition-opacity duration-300 ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
                 sizes="(max-width: 640px) 95vw, (max-width: 768px) 90vw, (max-width: 1024px) 55vw, 700px"
                 priority
                 quality={90}
                 placeholder="blur"
                 blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAoAAgA0JaQAA3AA/vuUAAA="
+                onLoad={() => setImageLoaded(true)}
               />
             </motion.div>
           </motion.div>

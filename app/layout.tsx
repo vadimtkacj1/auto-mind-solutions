@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import ScrollAnimationProvider from "@/components/ScrollAnimationProvider";
+import PageLoader from "@/components/PageLoader";
 import "./globals.css";
 
 const assistant = localFont({
@@ -83,6 +84,7 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className={assistant.className}>
+        <PageLoader />
         <ScrollAnimationProvider />
         {children}
       </body>
