@@ -1,3 +1,90 @@
+name: CI/CD Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+        run: npm run build
+
+      - name: Validate SSH host/port reachability
+        env:
+          HOST: ${{ secrets.HOST }}
+          PORT: ${{ secrets.PORT }}
+        run: |
+          HOST_VALUE="${HOST}"
+          PORT_VALUE="${PORT:-22}"
+
+          if [ -z "${HOST_VALUE}" ]; then
+            echo "Missing required secret: HOST"
+            exit 1
+          fi
+
+          echo "Checking TCP connectivity to ${HOST_VALUE}:${PORT_VALUE}"
+          timeout 10 bash -c "until nc -z -w 3 ${HOST_VALUE} ${PORT_VALUE}; do sleep 1; done"
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          port: ${{ secrets.PORT }}
+          timeout: 60s
+          command_timeout: 25m
+          script_stop: true
+          debug: true
+          script: |
+            set -eu
+            APP_DIR="${{ secrets.APP_DIR }}"
+            BRANCH="${{ github.ref_name }}"
+
+            if [ -z "${APP_DIR}" ]; then
+              echo "Missing required secret: APP_DIR"
+              exit 1
+            fi
+
+            if [ ! -d "${APP_DIR}/.git" ]; then
+              echo "Directory ${APP_DIR} is not a git repository"
+              exit 1
+            fi
+
+            cd "${APP_DIR}"
+            git fetch --all --prune
+            git checkout "${BRANCH}"
+            git reset --hard "origin/${BRANCH}"
+
+            docker compose down --remove-orphans
+            docker compose build --pull
+            docker compose up -d
+            docker image prune -f
 name: CI/CD Pipeline - Optimized
 
 on:
