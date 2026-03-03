@@ -126,6 +126,13 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
     }
   };
 
+  const serviceImageMap: Record<number, string> = {
+    1: "/images/service1.png",
+    2: "/images/service2.png",
+    3: "/images/service3.png",
+    4: "/images/services4.png",
+  };
+
   return (
     <motion.div
       variants={cardVariants}
@@ -216,7 +223,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
         }}
       >
         <Image
-          src={`/images/service${service.id}.svg`}
+          src={serviceImageMap[service.id]}
           alt={service.title}
           fill
           sizes="(max-width: 640px) 90vw, (max-width: 768px) 320px, 600px"

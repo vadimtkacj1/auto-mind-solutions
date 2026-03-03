@@ -1,14 +1,35 @@
+import dynamic from 'next/dynamic';
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import LeadFormSection from "@/components/LeadFormSection";
-import Services from "@/components/Services";
-import RealResults from "@/components/RealResults";
-import WhyUs from "@/components/WhyUs";
-import SocialFollow from "@/components/SocialFollow";
-import LeadFormCard from "@/components/LeadFormCard";
-import SocialProof from "@/components/SocialProof";
-import FinalLead from "@/components/FinalLead";
-import Footer from "@/components/Footer";
+
+// Динамические импорты для компонентов ниже первого экрана (lazy loading)
+const LeadFormSection = dynamic(() => import("@/components/LeadFormSection"), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+const Services = dynamic(() => import("@/components/Services"), {
+  loading: () => <div className="min-h-[600px]" />,
+});
+const RealResults = dynamic(() => import("@/components/RealResults"), {
+  loading: () => <div className="min-h-[500px]" />,
+});
+const WhyUs = dynamic(() => import("@/components/WhyUs"), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+const SocialFollow = dynamic(() => import("@/components/SocialFollow"), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+const LeadFormCard = dynamic(() => import("@/components/LeadFormCard"), {
+  loading: () => <div className="min-h-[300px]" />,
+});
+const SocialProof = dynamic(() => import("@/components/SocialProof"), {
+  loading: () => <div className="min-h-[200px]" />,
+});
+const FinalLead = dynamic(() => import("@/components/FinalLead"), {
+  loading: () => <div className="min-h-[300px]" />,
+});
+const Footer = dynamic(() => import("@/components/Footer"), {
+  loading: () => <div className="min-h-[200px]" />,
+});
 
 export default function Home() {
   return (

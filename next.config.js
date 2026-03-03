@@ -2,6 +2,21 @@
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
+  
+  // Оптимизация компиляции
+  swcMinify: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
+  // Оптимизация бандлов
+  experimental: {
+    optimizePackageImports: ['framer-motion'],
+  },
+  
+  // Сжатие
+  compress: true,
+  
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [320, 420, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -12,6 +27,47 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [],
     unoptimized: false,
+  },
+  
+  // Оптимизация webpack
+  webpack: (config, { isServer }) => {
+    // Оптимизация для клиентской стороны
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        moduleIds: 'deterministic',
+        runtimeChunk: 'single',
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            // Отдельный чанк для framer-motion
+            framerMotion: {
+              name: 'framer-motion',
+              test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+              priority: 20,
+              reuseExistingChunk: true,
+            },
+            // Отдельный чанк для React
+            react: {
+              name: 'react',
+              test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+              priority: 30,
+              reuseExistingChunk: true,
+            },
+            // Общий чанк для остальных node_modules
+            vendor: {
+              name: 'vendor',
+              test: /[\\/]node_modules[\\/]/,
+              priority: 10,
+              reuseExistingChunk: true,
+            },
+          },
+        },
+      };
+    }
+    return config;
   },
 }
 
