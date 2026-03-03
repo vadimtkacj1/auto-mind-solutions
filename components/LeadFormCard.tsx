@@ -187,7 +187,7 @@ export default function LeadFormCard() {
               dir="rtl"
               style={{
                 color: "#fff",
-                fontSize: "24px",
+                fontSize: "28px",
                 fontWeight: 700,
                 textAlign: "center",
                 lineHeight: 1.4,
@@ -384,7 +384,7 @@ export default function LeadFormCard() {
                   margin: "4px 0 0",
                 }}
               >
-                שיחה ללא עלות
+                שיחת ייעוץ ללא עלות
               </motion.p>
             </motion.form>
 

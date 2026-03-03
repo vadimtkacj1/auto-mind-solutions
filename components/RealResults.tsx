@@ -8,6 +8,14 @@ export default function RealResults() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 4;
 
+  // Portfolio website URLs
+  const portfolioLinks = [
+    "https://olie6.com/?srsltid=AfmBOoplSojZjiEjDhGBLVegGqFWT1cehFUP5RgZxWBf5LXFFpXXRJ2d", // Portfolio 1
+    "http://avi-mashkanta.com/", // Portfolio 2
+    "http://ram-haim.co.il/", // Portfolio 3
+    "http://naturallyrefreshing.store/" // Portfolio 4
+  ];
+
   // Auto-scroll every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -130,13 +138,21 @@ export default function RealResults() {
                 }}
                 className="absolute inset-0"
               >
-                <Image
-                  src={`/images/portfolio${currentSlide + 1}-opt.${currentSlide === 3 ? "png" : "webp"}`}
-                  alt={`Portfolio ${currentSlide + 1}`}
-                  fill
-                  style={{ objectFit: "contain" }}
-                  priority={currentSlide === 0}
-                />
+                <a
+                  href={portfolioLinks[currentSlide]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full h-full cursor-pointer"
+                  aria-label={`Visit portfolio website ${currentSlide + 1}`}
+                >
+                  <Image
+                    src={`/images/portfolio${currentSlide + 1}.svg`}
+                    alt={`Portfolio ${currentSlide + 1}`}
+                    fill
+                    style={{ objectFit: "contain" }}
+                    priority={currentSlide === 0}
+                  />
+                </a>
               </motion.div>
             </AnimatePresence>
 
