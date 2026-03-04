@@ -29,6 +29,30 @@ const nextConfig = {
     unoptimized: false,
   },
   
+  // Headers для кеширования
+  async headers() {
+    return [
+      {
+        source: '/images/:all*(svg|jpg|jpeg|png|webp|gif)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/fonts/:all*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
+
   // Оптимизация webpack
   webpack: (config, { isServer }) => {
     // Оптимизация для клиентской стороны

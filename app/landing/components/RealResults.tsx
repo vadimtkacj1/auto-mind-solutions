@@ -11,9 +11,9 @@ export default function RealResults() {
   // Portfolio website URLs
   const portfolioLinks = [
     "https://olie6.com/?srsltid=AfmBOoplSojZjiEjDhGBLVegGqFWT1cehFUP5RgZxWBf5LXFFpXXRJ2d", // Portfolio 1
-    "http://avi-mashkanta.com/", // Portfolio 2
-    "http://ram-haim.co.il/", // Portfolio 3
-    "http://naturallyrefreshing.store/" // Portfolio 4
+    "https://avi-mashkanta.com/", // Portfolio 2
+    "https://ram-haim.co.il/", // Portfolio 3
+    "https://naturallyrefreshing.store/" // Portfolio 4
   ];
 
 
@@ -124,18 +124,26 @@ export default function RealResults() {
             aria-hidden
             className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none"
           >
-            {preloadSlides.map((i) => (
-              <Image
-                key={i}
-                src={`/images/portfolio${i + 1}.png`}
-                alt=""
-                width={768}
-                height={500}
-                quality={85}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
-                loading="eager"
-              />
-            ))}
+            {preloadSlides.map((i) => {
+              const imageMap = [
+                '/images/portfolio1-opt.webp',
+                '/images/portfolio2-opt.webp',
+                '/images/portfolio3-opt.webp',
+                '/images/portfolio4-opt.png'
+              ];
+              return (
+                <Image
+                  key={i}
+                  src={imageMap[i]}
+                  alt=""
+                  width={768}
+                  height={500}
+                  quality={85}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
+                  loading="lazy"
+                />
+              );
+            })}
           </div>
 
           <div className="relative h-96 md:h-[500px] overflow-hidden bg-white">
@@ -160,14 +168,19 @@ export default function RealResults() {
                   aria-label={`Visit portfolio website ${currentSlide + 1}`}
                 >
                   <Image
-                    src={`/images/portfolio${currentSlide + 1}.png`}
+                    src={
+                      currentSlide === 0 ? '/images/portfolio1.png' :
+                      currentSlide === 1 ? '/images/portfolio2.png' :
+                      currentSlide === 2 ? '/images/portfolio3.png' :
+                      '/images/portfolio4.png'
+                    }
                     alt={`Portfolio ${currentSlide + 1}`}
                     fill
                     style={{ objectFit: "contain" }}
-                    priority={true}
+                    priority={false}
                     quality={85}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
-                    loading="eager"
+                    loading="lazy"
                   />
                 </a>
               </motion.div>

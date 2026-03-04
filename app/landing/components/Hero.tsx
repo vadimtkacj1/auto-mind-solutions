@@ -184,33 +184,6 @@ export default function Hero() {
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Spinner - ТЕСТ */}
-              {showTestSpinner && (
-                <div
-                  className="absolute top-4 right-4 z-50 bg-white rounded-lg p-4 shadow-lg cursor-pointer"
-                  onClick={() => setShowTestSpinner(false)}
-                >
-                  <div className="relative w-16 h-16">
-                    <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
-                    <motion.div
-                      key="test-spinner"
-                      className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full"
-                      initial={{ rotate: 0 }}
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 0.8,
-                        repeat: Infinity,
-                        ease: "linear",
-                        repeatType: "loop"
-                      }}
-                      style={{ willChange: 'transform' }}
-                    />
-                  </div>
-                  <p className="text-xs text-center mt-2">
-                    {Math.random() > 0.5 ? 'Крутиться?' : 'Обертається?'}
-                  </p>
-                </div>
-              )}
 
               {/* Spinner */}
               {!imageLoaded && (
@@ -235,7 +208,7 @@ export default function Hero() {
               )}
 
               <Image
-                src="/images/hero-section.webp"
+                src="/images/hero-section-opt.webp"
                 alt="People working together"
                 fill
                 className={`object-contain w-full h-full transition-opacity duration-500 mt-10 mb-10 ${

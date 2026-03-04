@@ -13,8 +13,6 @@ export default function PageLoader() {
     const criticalImages = [
       // Hero section - самое важное изображение
       '/images/hero-section-opt.webp',
-      // Первое portfolio изображение (остальные прогреем в фоне)
-      '/images/portfolio1.png',
       // Service icons - маленькие SVG, загружаются быстро
       '/images/icon1.svg',
       '/images/icon2.svg',
@@ -49,13 +47,13 @@ export default function PageLoader() {
 
     const preloadNonCritical = () => {
       // JS chunks for dynamically imported sections (start downloading early)
-      void import('@/components/LeadFormSection');
-      void import('@/components/Services');
-      void import('@/components/RealResults');
-      void import('@/components/WhyUs');
-      void import('@/components/SocialFollow');
-      void import('@/components/LeadFormCard');
-      void import('@/components/Footer');
+      void import('@/app/landing/components/LeadFormSection');
+      void import('@/app/landing/components/Services');
+      void import('@/app/landing/components/RealResults');
+      void import('@/app/landing/components/WhyUs');
+      void import('@/app/landing/components/SocialFollow');
+      void import('@/app/landing/components/LeadFormCard');
+      void import('@/app/landing/components/Footer');
     };
 
     const scheduleIdle = (fn: () => void) => {
