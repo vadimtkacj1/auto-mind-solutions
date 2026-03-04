@@ -8,7 +8,24 @@ export default function PageLoader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const heroSrc = '/images/hero-section.svg';
+    const isMobile = window.innerWidth < 768;
+
+    // Критические изображения для загрузки
+    const criticalImages = [
+      isMobile ? '/images/hero-section.png' : '/images/hero-section.svg',
+      '/images/service1.jpg',
+      '/images/service2.jpg',
+      '/images/service3.jpg',
+      '/images/service4.jpg',
+      '/images/icon1.svg',
+      '/images/icon2.svg',
+      '/images/icon3.svg',
+      '/images/icon4.svg',
+      isMobile ? '/images/portfolio1.png' : '/images/portfolio1.jpg',
+      '/images/people.png',
+      '/images/Vector.svg',
+      '/images/social-girl.svg',
+    ];
 
     const scheduleIdle = (fn: () => void) => {
       const ric = (window as any).requestIdleCallback as undefined | ((cb: () => void) => void);
@@ -26,27 +43,37 @@ export default function PageLoader() {
       void import('@/app/landing/components/Footer');
     };
 
-    // Максимальний таймаут: якщо зображення не завантажилось за 1.5s — все одно показуємо сайт
+    // Максимальний таймаут: якщо зображення не завантажилось за 3s — все одно показуємо сайт
     const maxTimeout = setTimeout(() => {
       setProgress(100);
       setLoading(false);
       scheduleIdle(preloadNonCritical);
-    }, 1500);
+    }, 3000);
 
-    const img = new window.Image();
-    img.onload = () => {
-      clearTimeout(maxTimeout);
-      setProgress(100);
-      setLoading(false);
-      scheduleIdle(preloadNonCritical);
+    let loadedCount = 0;
+    const totalImages = criticalImages.length;
+
+    const updateProgress = () => {
+      loadedCount++;
+      const newProgress = Math.round((loadedCount / totalImages) * 100);
+      setProgress(newProgress);
+
+      if (loadedCount === totalImages) {
+        clearTimeout(maxTimeout);
+        setTimeout(() => {
+          setLoading(false);
+          scheduleIdle(preloadNonCritical);
+        }, 300); // Небольшая задержка для показа 100%
+      }
     };
-    img.onerror = () => {
-      clearTimeout(maxTimeout);
-      setProgress(100);
-      setLoading(false);
-      scheduleIdle(preloadNonCritical);
-    };
-    img.src = heroSrc;
+
+    // Загружаем все изображения параллельно
+    criticalImages.forEach((src) => {
+      const img = new window.Image();
+      img.onload = updateProgress;
+      img.onerror = updateProgress; // Даже при ошибке считаем как загруженное
+      img.src = src;
+    });
 
     return () => clearTimeout(maxTimeout);
   }, []);
