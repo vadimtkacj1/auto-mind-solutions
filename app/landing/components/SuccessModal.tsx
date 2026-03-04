@@ -25,7 +25,7 @@ export default function SuccessModal({ isOpen, onClose, variant = 'light' }: Suc
   const lightContent = {
     title: 'הפרטים התקבלו בהצלחה',
     description: 'אנחנו כבר בודקים את הבקשה שלך, נחזור אליך תוך 24 שעות עם כיוון אסטרטגי ראשוני מותאם לעסק שלך.',
-    buttonText: 'מעולה, מחזור'
+    buttonText: 'מעולה!'
   };
 
   const darkContent = {
