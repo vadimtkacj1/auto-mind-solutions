@@ -16,6 +16,11 @@ export default function RealResults() {
     "http://naturallyrefreshing.store/" // Portfolio 4
   ];
 
+
+  const preloadSlides = Array.from({ length: totalSlides }, (_, i) => i).filter(
+    (i) => i !== currentSlide
+  );
+
   // Auto-scroll every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,14 +29,6 @@ export default function RealResults() {
 
     return () => clearInterval(interval);
   }, []);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
 
   const titleVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -62,18 +59,17 @@ export default function RealResults() {
   };
 
   const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
+    enter: {
       opacity: 0
-    }),
-    center: {
-      x: 0,
-      opacity: 1
     },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 300 : -300,
-      opacity: 0
-    })
+    center: {
+      opacity: 1,
+      zIndex: 1
+    },
+    exit: {
+      opacity: 0,
+      zIndex: 0
+    }
   };
 
   return (
@@ -123,18 +119,36 @@ export default function RealResults() {
           variants={sliderVariants}
           className="relative w-full max-w-3xl mx-auto mb-8"
         >
-          <div className="relative h-96 md:h-[500px] overflow-hidden">
-            <AnimatePresence mode="wait" custom={currentSlide}>
+          {/* Hidden preloader: eagerly loads all other slide images early */}
+          <div
+            aria-hidden
+            className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none"
+          >
+            {preloadSlides.map((i) => (
+              <Image
+                key={i}
+                src={`/images/portfolio${i + 1}.png`}
+                alt=""
+                width={768}
+                height={500}
+                quality={85}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
+                loading="eager"
+              />
+            ))}
+          </div>
+
+          <div className="relative h-96 md:h-[500px] overflow-hidden bg-white">
+            <AnimatePresence initial={false}>
               <motion.div
                 key={currentSlide}
-                custom={currentSlide}
                 variants={slideVariants}
                 initial="enter"
                 animate="center"
                 exit="exit"
                 transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 }
+                  duration: 0.3,
+                  ease: "easeInOut"
                 }}
                 className="absolute inset-0"
               >
@@ -146,57 +160,18 @@ export default function RealResults() {
                   aria-label={`Visit portfolio website ${currentSlide + 1}`}
                 >
                   <Image
-                    src={`/images/portfolio${currentSlide + 1}.svg`}
+                    src={`/images/portfolio${currentSlide + 1}.png`}
                     alt={`Portfolio ${currentSlide + 1}`}
                     fill
                     style={{ objectFit: "contain" }}
-                    priority={currentSlide === 0}
+                    priority={true}
+                    quality={85}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
+                    loading="eager"
                   />
                 </a>
               </motion.div>
             </AnimatePresence>
-
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 md:p-3 rounded-full shadow-xl transition-all hover:scale-110 z-10"
-              aria-label="Previous slide"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="w-5 h-5 md:w-6 md:h-6 text-gray-700"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 19.5L8.25 12l7.5-7.5"
-                />
-              </svg>
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 md:p-3 rounded-full shadow-xl transition-all hover:scale-110 z-10"
-              aria-label="Next slide"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="w-5 h-5 md:w-6 md:h-6 text-gray-700"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </button>
           </div>
         </motion.div>
 

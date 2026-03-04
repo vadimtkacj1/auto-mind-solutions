@@ -83,13 +83,13 @@ export default function Hero() {
 
   return (
     <section
-      className="pt-12 pb-8 md:pt-32 md:pb-20 min-h-screen flex items-center rounded-bl-[40px] rounded-br-[40px] overflow-hidden"
+      className="pt-4 pb-8 md:pt-32 md:pb-20 flex items-center rounded-bl-[40px] rounded-br-[40px] overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)',
       }}
     >
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl w-full">
-        <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-4 sm:gap-6 md:gap-16">
+      <div className="container mx-auto px-1 sm:px-3 max-w-7xl w-full">
+        <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-1 sm:gap-3 md:gap-16">
           {/* Text Content Container */}
           <motion.div
             initial="hidden"
@@ -117,7 +117,7 @@ export default function Hero() {
               variants={paragraphVariants}
               initial="hidden"
               animate="visible"
-              className="text-sm sm:text-base md:text-xl text-gray-700 mb-4 sm:mb-8 md:mb-10 leading-relaxed font-medium max-w-full md:max-w-[500px] px-2 sm:px-0"
+              className="text-sm sm:text-base md:text-xl text-gray-700 mb-8 sm:mb-6 md:mb-10 leading-relaxed font-medium max-w-full md:max-w-[500px] px-2 sm:px-0"
             >
               משלבים בניית אתר ממיר, אסטרטגיית SEO מדויקת וקמפיינים ממוקדים שמוזנים בדאטה בזמן אמת.
               התוצאה: תנועה איכותית שנכנסת למערכת מסודרת והופכת ללידים שמייצרים מכירות.
@@ -129,7 +129,7 @@ export default function Hero() {
               animate="visible"
               whileHover="hover"
               whileTap="tap"
-              className="w-full flex justify-center md:justify-start"
+              className="w-full flex justify-center md:justify-start px-4 md:px-0"
             >
               <motion.a
                 href="#contact"
@@ -179,7 +179,7 @@ export default function Hero() {
             className="w-full md:w-[55%] flex justify-center order-1 md:order-none"
           >
             <motion.div
-              className="relative w-full max-w-[550px] md:max-w-none aspect-[4/3]"
+              className="relative w-full md:max-w-none aspect-square"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
@@ -197,12 +197,13 @@ export default function Hero() {
               )}
 
               <Image
-                src="/images/hero-section-opt.webp"
+                src="/images/hero-section.png"
                 alt="People working together"
                 fill
-                className={`object-contain w-full h-full transition-opacity duration-300 ${
+                className={`object-contain w-full h-full transition-opacity duration-300 mt-10 ${
                   imageLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
+                style={{ objectPosition: 'center 35%'}}
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 55vw, 700px"
                 priority
                 quality={90}

@@ -5,19 +5,86 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function PageLoader() {
   const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Проверяем, загружена ли страница
-    if (document.readyState === 'complete') {
-      setLoading(false);
-    } else {
-      window.addEventListener('load', () => {
-        // Небольшая задержка для плавности
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-      });
-    }
+    // Список только КРИТИЧЕСКИХ изображений для первого экрана
+    // Остальные изображения загружаются динамически через lazy loading
+    const criticalImages = [
+      // Hero section - самое важное изображение
+      '/images/hero-section-opt.webp',
+      // Первое portfolio изображение (остальные прогреем в фоне)
+      '/images/portfolio1.png',
+      // Service icons - маленькие SVG, загружаются быстро
+      '/images/icon1.svg',
+      '/images/icon2.svg',
+      '/images/icon3.svg',
+      '/images/icon4.svg',
+    ];
+
+    let loadedCount = 0;
+    const totalImages = criticalImages.length;
+
+    // Функция для предзагрузки изображений
+    const preloadImages = () => {
+      return Promise.all(
+        criticalImages.map((src) => {
+          return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => {
+              loadedCount++;
+              setProgress(Math.round((loadedCount / totalImages) * 100));
+              resolve(src);
+            };
+            img.onerror = () => {
+              loadedCount++;
+              setProgress(Math.round((loadedCount / totalImages) * 100));
+              resolve(src); // Продолжаем даже если изображение не загрузилось
+            };
+            img.src = src;
+          });
+        })
+      );
+    };
+
+    const preloadNonCritical = () => {
+      // JS chunks for dynamically imported sections (start downloading early)
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      void import('@/components/LeadFormSection');
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      void import('@/components/Services');
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      void import('@/components/RealResults');
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      void import('@/components/WhyUs');
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      void import('@/components/SocialFollow');
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      void import('@/components/LeadFormCard');
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      void import('@/components/Footer');
+    };
+
+    const scheduleIdle = (fn: () => void) => {
+      const ric = (window as any).requestIdleCallback as undefined | ((cb: () => void) => void);
+      if (ric) ric(fn);
+      else setTimeout(fn, 0);
+    };
+
+    // Не ждём window.load — иначе "фоновые" загрузки стартуют поздно.
+    const loadPage = async () => {
+      // Предзагружаем критические изображения
+      await preloadImages();
+
+      // Небольшая задержка для плавности
+      setTimeout(() => {
+        setLoading(false);
+        // После скрытия лоадера — прогреваем остальное в фоне максимально рано
+        scheduleIdle(preloadNonCritical);
+      }, 300);
+    };
+
+    loadPage();
   }, []);
 
   return (
@@ -84,7 +151,7 @@ export default function PageLoader() {
               />
             </div>
 
-            {/* Текст загрузки */}
+            {/* Текст загрузки с прогрессом */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -102,7 +169,7 @@ export default function PageLoader() {
                   ease: 'easeInOut',
                 }}
               >
-                טוען...
+                טוען... {progress}%
               </motion.p>
             </motion.div>
           </div>

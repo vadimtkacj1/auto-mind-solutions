@@ -31,13 +31,13 @@ export default function Services() {
     <section
       id="services"
       aria-labelledby="services-heading"
-      className="py-10 md:py-24 rounded-[40px]"
+      className="py-10 md:py-24 rounded-[40px] overflow-x-hidden"
       style={{
         background: "linear-gradient(to bottom, #F4F9FF, #E3F0FF, #CFE6FF)",
       }}
     >
       {/* Mobile layout - original */}
-      <div className="flex flex-col items-center px-5 md:hidden">
+      <div className="flex flex-col items-center md:hidden px-4">
         <motion.h2
           id="services-heading"
           initial="hidden"
@@ -50,8 +50,8 @@ export default function Services() {
           השירותים שלנו
         </motion.h2>
 
-        <motion.div 
-          className="flex flex-col gap-5 w-full items-center"
+        <motion.div
+          className="flex flex-col gap-5 w-full items-center max-w-full"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -139,20 +139,21 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-50px' }}
-      whileHover={{ 
+      whileHover={{
         scale: 1.03,
         transition: { duration: 0.3 }
       }}
       dir="rtl"
       style={{
-        width: isMobile ? "320px" : "auto",
+        width: isMobile ? "100%" : "auto",
+        maxWidth: isMobile ? "100%" : "none",
         borderRadius: "40px",
         padding: "0",
         boxShadow: "0px 4px 12px 0px #1E5EFF1A",
         backgroundColor: "#fff",
         display: "flex",
         flexDirection: "column",
-        gap: isMobile ? "22px" : "24px",
+        gap: isMobile ? "16px" : "24px",
         overflow: "hidden",
       }}
     >
@@ -161,7 +162,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
         padding: isMobile ? "24px 24px 0 24px" : "32px 32px 0 32px",
         display: "flex",
         flexDirection: "column",
-        gap: isMobile ? "22px" : "24px"
+        gap: isMobile ? "16px" : "24px"
       }}>
         {/* Icon - centered, large */}
         <div style={{
