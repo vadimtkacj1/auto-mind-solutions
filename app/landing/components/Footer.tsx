@@ -56,8 +56,8 @@ export default function Footer() {
 
         {/* Two Columns: Navigation & Contact */}
         {/* Змінено тут: flex-col для мобілок, sm:flex-row для десктопу, додано спільний dir="rtl" */}
-        <div 
-          className="flex flex-col sm:flex-row sm:justify-between gap-8 sm:gap-0 mb-8 pb-8 border-b border-gray-800" 
+        <div
+          className="flex flex-row justify-between gap-4 mb-8 pb-8 border-b border-gray-800"
           dir="rtl"
         >
           {/* Right Column - Navigation */}
