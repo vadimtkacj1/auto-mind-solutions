@@ -8,21 +8,16 @@ export default function PageLoader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const scheduleIdle = (fn: () => void) => {
-      const ric = (window as any).requestIdleCallback as undefined | ((cb: () => void) => void);
-      if (ric) ric(fn);
-      else setTimeout(fn, 0);
-    };
-
-    const preloadNonCritical = () => {
-      void import('@/app/landing/components/LeadFormSection');
-      void import('@/app/landing/components/Services');
-      void import('@/app/landing/components/RealResults');
-      void import('@/app/landing/components/WhyUs');
-      void import('@/app/landing/components/SocialFollow');
-      void import('@/app/landing/components/LeadFormCard');
-      void import('@/app/landing/components/Footer');
-    };
+    // ⚡ Запускаємо завантаження JS chunks ОДРАЗУ поки спіннер ще показується.
+    // Без цього chunk'и RealResults/Services починають качатись лише ПІСЛЯ
+    // закриття спіннера → компоненти монтуються пізно → portfolio вантажиться вже без спіннера.
+    void import('@/app/landing/components/LeadFormSection');
+    void import('@/app/landing/components/Services');
+    void import('@/app/landing/components/RealResults');
+    void import('@/app/landing/components/WhyUs');
+    void import('@/app/landing/components/SocialFollow');
+    void import('@/app/landing/components/LeadFormCard');
+    void import('@/app/landing/components/Footer');
 
     let finished = false;
 
@@ -34,19 +29,17 @@ export default function PageLoader() {
       setProgress(100);
       setTimeout(() => {
         setLoading(false);
-        scheduleIdle(preloadNonCritical);
       }, 300);
     };
 
-    // Максимальний таймаут 6s
-    const maxTimeout = setTimeout(finish, 6000);
+    // Максимальний таймаут 7s — страховка для дуже повільних з'єднань
+    const maxTimeout = setTimeout(finish, 7000);
 
-    // Час відколи усі поточні зображення стали complete
-    let stableSince = 0;
     // Скільки ms усі зображення мають бути complete перш ніж закрити спіннер.
-    // 500ms — достатньо щоб динамічні компоненти (RealResults, Services) встигли
-    // змонтуватись та додати свої <img> теги до document.images
-    const STABLE_MS = 500;
+    // 1200ms — час щоб JS chunks завантажились, компоненти змонтувались
+    // та їхні <img> теги з'явились у document.images
+    const STABLE_MS = 1200;
+    let stableSince = 0;
 
     const pollInterval = setInterval(() => {
       const images = Array.from(document.images);
@@ -65,8 +58,8 @@ export default function PageLoader() {
         // Усі поточні зображення завантажились — засікаємо час
         if (stableSince === 0) stableSince = Date.now();
 
-        // Якщо стан стабільний вже STABLE_MS — закриваємо.
-        // Це дає час динамічним компонентам змонтуватись і додати нові <img>
+        // Закриваємо тільки якщо стабільно вже STABLE_MS.
+        // Це гарантує що нові <img> від dynamic компонентів вже потрапили в DOM
         if (Date.now() - stableSince >= STABLE_MS) {
           finish();
         }
