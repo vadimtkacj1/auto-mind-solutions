@@ -8,25 +8,6 @@ export default function PageLoader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-
-    // Критические изображения для загрузки
-    const criticalImages = [
-      isMobile ? '/images/hero-section.png' : '/images/hero-section.svg',
-      '/images/service1.jpg',
-      '/images/service2.jpg',
-      '/images/service3.jpg',
-      '/images/service4.jpg',
-      '/images/icon1.svg',
-      '/images/icon2.svg',
-      '/images/icon3.svg',
-      '/images/icon4.svg',
-      isMobile ? '/images/portfolio1.png' : '/images/portfolio1.jpg',
-      '/images/people.png',
-      '/images/Vector.svg',
-      '/images/social-girl.svg',
-    ];
-
     const scheduleIdle = (fn: () => void) => {
       const ric = (window as any).requestIdleCallback as undefined | ((cb: () => void) => void);
       if (ric) ric(fn);
@@ -43,39 +24,44 @@ export default function PageLoader() {
       void import('@/app/landing/components/Footer');
     };
 
-    // Максимальний таймаут: якщо зображення не завантажилось за 3s — все одно показуємо сайт
-    const maxTimeout = setTimeout(() => {
+    let finished = false;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      clearTimeout(maxTimeout);
+      clearInterval(progressInterval);
       setProgress(100);
-      setLoading(false);
-      scheduleIdle(preloadNonCritical);
-    }, 3000);
-
-    let loadedCount = 0;
-    const totalImages = criticalImages.length;
-
-    const updateProgress = () => {
-      loadedCount++;
-      const newProgress = Math.round((loadedCount / totalImages) * 100);
-      setProgress(newProgress);
-
-      if (loadedCount === totalImages) {
-        clearTimeout(maxTimeout);
-        setTimeout(() => {
-          setLoading(false);
-          scheduleIdle(preloadNonCritical);
-        }, 300); // Небольшая задержка для показа 100%
-      }
+      setTimeout(() => {
+        setLoading(false);
+        scheduleIdle(preloadNonCritical);
+      }, 300); // Коротка затримка для показу 100%
     };
 
-    // Загружаем все изображения параллельно
-    criticalImages.forEach((src) => {
-      const img = new window.Image();
-      img.onload = updateProgress;
-      img.onerror = updateProgress; // Даже при ошибке считаем как загруженное
-      img.src = src;
-    });
+    // Максимальний таймаут 5s — якщо сторінка не завантажилась, все одно показуємо сайт
+    const maxTimeout = setTimeout(finish, 5000);
 
-    return () => clearTimeout(maxTimeout);
+    // Відстежуємо прогрес через реальні <img> елементи в DOM
+    const progressInterval = setInterval(() => {
+      const images = Array.from(document.images);
+      if (images.length === 0) return;
+      const loadedCount = images.filter((img) => img.complete).length;
+      const pct = Math.round((loadedCount / images.length) * 100);
+      setProgress(Math.min(pct, 99)); // до 99% — 100% тільки після finish()
+    }, 100);
+
+    // window.onload — браузер сам знає коли всі ресурси (включно з картинками) завантажились
+    if (document.readyState === 'complete') {
+      finish();
+    } else {
+      window.addEventListener('load', finish, { once: true });
+    }
+
+    return () => {
+      clearTimeout(maxTimeout);
+      clearInterval(progressInterval);
+      window.removeEventListener('load', finish);
+    };
   }, []);
 
   return (
