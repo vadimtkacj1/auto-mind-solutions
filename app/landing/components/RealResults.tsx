@@ -137,12 +137,12 @@ export default function RealResults() {
             className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none"
           >
             {preloadSlides.map((i) => {
-              const ext = isMobile ? 'png' : 'jpg';
+              const ext = isMobile ? '-opt.webp' : '.jpg';
               const imageMap = [
-                `/images/portfolio1.${ext}`,
-                `/images/portfolio2.${ext}`,
-                `/images/portfolio3.${ext}`,
-                `/images/portfolio4.${ext}`
+                `/images/portfolio1${ext}`,
+                `/images/portfolio2${ext}`,
+                `/images/portfolio3${ext}`,
+                `/images/portfolio4${ext}`
               ];
               return (
                 <Image

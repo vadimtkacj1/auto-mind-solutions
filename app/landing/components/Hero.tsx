@@ -2,10 +2,22 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Hero() {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile/desktop
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   const imageVariants = {
     hidden: { opacity: 0, x: -80, scale: 0.9 },
     visible: {
@@ -207,7 +219,7 @@ export default function Hero() {
               )}
 
               <Image
-                src="/images/hero-section.svg"
+                src={isMobile ? '/images/hero-section.png' : '/images/hero-section.svg'}
                 alt="People working together"
                 fill
                 className={`object-contain w-full h-full transition-opacity duration-500 mt-10 mb-10 ${
