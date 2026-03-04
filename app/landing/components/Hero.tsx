@@ -107,7 +107,7 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
             variants={textVariants}
-            className="w-full md:w-[43%] flex flex-col items-center md:items-start text-center md:text-right order-2 md:order-none"
+            className="w-full md:w-[43%] flex flex-col items-center text-center order-2 md:order-none"
           >
             <motion.h1
               variants={titleVariants}
@@ -141,7 +141,7 @@ export default function Hero() {
               animate="visible"
               whileHover="hover"
               whileTap="tap"
-              className="w-full flex justify-center md:justify-start px-4 md:px-0"
+              className="w-full flex justify-center px-4 md:px-0"
             >
               <motion.a
                 href="#contact"

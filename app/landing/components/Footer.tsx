@@ -57,11 +57,11 @@ export default function Footer() {
         {/* Two Columns: Navigation & Contact */}
         {/* Змінено тут: flex-col для мобілок, sm:flex-row для десктопу, додано спільний dir="rtl" */}
         <div
-          className="flex flex-row justify-between gap-4 mb-8 pb-8 border-b border-gray-800"
+          className="flex flex-row justify-center gap-12 mb-8 pb-8 border-b border-gray-800"
           dir="rtl"
         >
           {/* Right Column - Navigation */}
-          <div className="text-right">
+          <div className="text-center">
             <h4 className="text-lg font-bold mb-4 text-white">ניווט</h4>
             <nav className="flex flex-col gap-2">
               <a
@@ -96,7 +96,7 @@ export default function Footer() {
           </div>
 
           {/* Left Column - Contact */}
-          <div className="text-right">
+          <div className="text-center">
             <h4 className="text-lg font-bold mb-4 text-white">איך קשר</h4>
             <div className="space-y-2 text-white">
               <p>טלפון</p>
