@@ -37,7 +37,7 @@ export default function Services() {
       }}
     >
       {/* Mobile layout - original */}
-      <div className="flex flex-col items-center md:hidden px-4">
+      <div className="flex flex-col items-center md:hidden">
         <motion.h2
           id="services-heading"
           initial="hidden"

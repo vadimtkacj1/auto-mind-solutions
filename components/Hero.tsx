@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 export default function Hero() {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [showTestSpinner, setShowTestSpinner] = useState(true); // Тест: завжди показувати
   const imageVariants = {
     hidden: { opacity: 0, x: -80, scale: 0.9 },
     visible: {
@@ -183,33 +184,74 @@ export default function Hero() {
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Spinner */}
-              {!imageLoaded && (
-                <div className="absolute inset-0 flex items-center justify-center">
+              {/* Spinner - ТЕСТ */}
+              {showTestSpinner && (
+                <div
+                  className="absolute top-4 right-4 z-50 bg-white rounded-lg p-4 shadow-lg cursor-pointer"
+                  onClick={() => setShowTestSpinner(false)}
+                >
                   <div className="relative w-16 h-16">
                     <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
-                    <div
-                      className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"
-                      style={{ animationDuration: '0.8s' }}
-                    ></div>
+                    <motion.div
+                      key="test-spinner"
+                      className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full"
+                      initial={{ rotate: 0 }}
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 0.8,
+                        repeat: Infinity,
+                        ease: "linear",
+                        repeatType: "loop"
+                      }}
+                      style={{ willChange: 'transform' }}
+                    />
+                  </div>
+                  <p className="text-xs text-center mt-2">
+                    {Math.random() > 0.5 ? 'Крутиться?' : 'Обертається?'}
+                  </p>
+                </div>
+              )}
+
+              {/* Spinner */}
+              {!imageLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 bg-gradient-to-br from-blue-50 to-blue-100">
+                  <div className="relative w-16 h-16">
+                    <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
+                    <motion.div
+                      key="loading-spinner"
+                      className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full"
+                      initial={{ rotate: 0 }}
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 0.8,
+                        repeat: Infinity,
+                        ease: "linear",
+                        repeatType: "loop"
+                      }}
+                      style={{ willChange: 'transform' }}
+                    />
                   </div>
                 </div>
               )}
 
               <Image
-                src="/images/hero-section.png"
+                src="/images/hero-section.webp"
                 alt="People working together"
                 fill
-                className={`object-contain w-full h-full transition-opacity duration-300 mt-10 ${
+                className={`object-contain w-full h-full transition-opacity duration-500 mt-10 mb-10 ${
                   imageLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
                 style={{ objectPosition: 'center 35%'}}
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 55vw, 700px"
                 priority
-                quality={90}
-                placeholder="blur"
                 blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAoAAgA0JaQAA3AA/vuUAAA="
-                onLoad={() => setImageLoaded(true)}
+                onLoad={() => {
+                  setImageLoaded(true);
+                }}
+                onError={() => {
+                  console.error('Image failed to load');
+                  setImageLoaded(true);
+                }}
               />
             </motion.div>
           </motion.div>
