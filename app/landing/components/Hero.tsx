@@ -113,7 +113,7 @@ export default function Hero() {
               variants={titleVariants}
               initial="hidden"
               animate="visible"
-              className="text-[#1a2b4b] mb-3 mt-3 md:mt-16 md:mb-8 w-full"
+              className="text-[#1a2b4b] mb-3 mt-6 md:mt-16 md:mb-8 w-full"
               style={{
                 fontSize: 'clamp(32px, 8vw, 72px)',
                 fontWeight: 900,

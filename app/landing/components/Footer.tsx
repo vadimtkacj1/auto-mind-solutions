@@ -54,56 +54,39 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Two Columns: Navigation & Contact */}
-        {/* Змінено тут: flex-col для мобілок, sm:flex-row для десктопу, додано спільний dir="rtl" */}
-        <div
-          className="flex flex-row justify-center gap-12 mb-8 pb-8 border-b border-gray-800"
-          dir="rtl"
-        >
-          {/* Right Column - Navigation */}
-          <div className="text-center">
-            <h4 className="text-lg font-bold mb-4 text-white">ניווט</h4>
-            <nav className="flex flex-col gap-2">
-              <a
-                href="#hero"
-                onClick={(e) => handleNavClick(e, '#hero')}
-                className="text-white hover:text-blue-400 transition cursor-pointer"
-              >
-                אודות
-              </a>
-              <a
-                href="#services"
-                onClick={(e) => handleNavClick(e, '#services')}
-                className="text-white hover:text-blue-400 transition cursor-pointer"
-              >
-                שירותים
-              </a>
-              <a
-                href="#portfolio"
-                onClick={(e) => handleNavClick(e, '#portfolio')}
-                className="text-white hover:text-blue-400 transition cursor-pointer"
-              >
-                עבודות
-              </a>
-              <a
-                href="#blog"
-                onClick={(e) => handleNavClick(e, '#blog')}
-                className="text-white hover:text-blue-400 transition cursor-pointer"
-              >
-                בלוג
-              </a>
-            </nav>
-          </div>
-
-          {/* Left Column - Contact */}
-          <div className="text-center">
-            <h4 className="text-lg font-bold mb-4 text-white">איך קשר</h4>
-            <div className="space-y-2 text-white">
-              <p>טלפון</p>
-              <p>אימייל</p>
-              <p>כתובנה</p>
-            </div>
-          </div>
+        {/* Navigation */}
+        <div className="text-center mb-8 pb-8 border-b border-gray-800" dir="rtl">
+          <h4 className="text-lg font-bold mb-4 text-white">ניווט</h4>
+          <nav className="flex flex-col gap-2 items-center">
+            <a
+              href="#hero"
+              onClick={(e) => handleNavClick(e, '#hero')}
+              className="text-white hover:text-blue-400 transition cursor-pointer"
+            >
+              אודות
+            </a>
+            <a
+              href="#services"
+              onClick={(e) => handleNavClick(e, '#services')}
+              className="text-white hover:text-blue-400 transition cursor-pointer"
+            >
+              שירותים
+            </a>
+            <a
+              href="#portfolio"
+              onClick={(e) => handleNavClick(e, '#portfolio')}
+              className="text-white hover:text-blue-400 transition cursor-pointer"
+            >
+              עבודות
+            </a>
+            <a
+              href="#blog"
+              onClick={(e) => handleNavClick(e, '#blog')}
+              className="text-white hover:text-blue-400 transition cursor-pointer"
+            >
+              בלוג
+            </a>
+          </nav>
         </div>
 
         {/* Copyright */}
