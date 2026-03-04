@@ -176,7 +176,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
             width={68}
             height={68}
             style={{ objectFit: "contain" }}
-            loading="lazy"
+            loading="eager"
           />
         </div>
 
@@ -228,7 +228,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
           fill
           sizes="(max-width: 640px) 90vw, (max-width: 768px) 320px, 600px"
           style={{ objectFit: "cover", objectPosition: "top" }}
-          loading="lazy"
+          loading="eager"
           quality={80}
         />
       </div>

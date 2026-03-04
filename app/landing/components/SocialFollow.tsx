@@ -83,7 +83,7 @@ export default function SocialFollow() {
               fill
               sizes="(max-width: 768px) 90vw, 448px"
               style={{ objectFit: 'contain' }}
-              loading="lazy"
+              loading="eager"
             />
           </motion.div>
 
@@ -138,7 +138,7 @@ export default function SocialFollow() {
                   width={68}
                   height={68}
                   sizes="68px"
-                  loading="lazy"
+                  loading="eager"
                 />
               </motion.a>
             ))}

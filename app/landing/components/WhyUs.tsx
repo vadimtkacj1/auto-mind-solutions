@@ -120,7 +120,7 @@ function WhyUsItem({ pillar, index }: { pillar: any; index: number }) {
           height={120}
           sizes="(max-width: 768px) 64px, 80px"
           className="w-16 h-16 md:w-20 md:h-20"
-          loading="lazy"
+          loading="eager"
         />
       </div>
       {/* Text on the left (for RTL) */}
@@ -184,7 +184,7 @@ function PeopleImage() {
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 768px) 95vw, 600px"
         className="z-0"
-        loading="lazy"
+        loading="eager"
       />
       <Image
         src="/images/people.png"
@@ -196,7 +196,7 @@ function PeopleImage() {
           objectPosition: 'center center'
         }}
         className="z-10"
-        loading="lazy"
+        loading="eager"
         quality={80}
       />
     </motion.div>
