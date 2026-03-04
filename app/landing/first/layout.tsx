@@ -4,13 +4,8 @@ import Script from "next/script";
 import dynamic from "next/dynamic";
 import "../../globals.css";
 
-// Lazy load компонентов, которые не критичны для первого рендера
 const ScrollAnimationProvider = dynamic(
   () => import("@/app/landing/components/ScrollAnimationProvider"),
-  { ssr: false }
-);
-const PageLoader = dynamic(
-  () => import("@/app/landing/components/PageLoader"),
   { ssr: false }
 );
 
@@ -26,7 +21,7 @@ const assistant = localFont({
   display: "swap",
   preload: true,
   fallback: ['system-ui', 'arial'],
-  adjustFontFallback: true,
+  adjustFontFallback: 'Arial',
 });
 
 export const metadata: Metadata = {
@@ -42,43 +37,59 @@ export default function LandingLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const enablePixel = process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_ENABLE_META_PIXEL === "true";
+  const enableScrollAnimations = process.env.NEXT_PUBLIC_ENABLE_SCROLL_ANIMATIONS === "true";
+
   return (
     <>
-      {/* Resource Hints for Performance */}
-      <link rel="preconnect" href="https://connect.facebook.net" crossOrigin="anonymous" />
-      <link rel="dns-prefetch" href="https://connect.facebook.net" />
-      <link rel="preconnect" href="https://www.facebook.com" crossOrigin="anonymous" />
-      <link rel="dns-prefetch" href="https://www.facebook.com" />
-      
-      {/* Meta Pixel Code */}
-      <Script id="meta-pixel" strategy="lazyOnload">
-        {`
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '910208878320949');
-          fbq('track', 'PageView');
-        `}
-      </Script>
-      <noscript>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          height="1"
-          width="1"
-          style={{ display: "none" }}
-          src="https://www.facebook.com/tr?id=910208878320949&ev=PageView&noscript=1"
-          alt=""
-        />
-      </noscript>
+      {/* Preload critical images only */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/hero-section-opt.webp"
+        imageSrcSet="/images/hero-section-opt.webp 1x"
+        imageSizes="(max-width: 768px) 100vw, (max-width: 1024px) 55vw, 700px"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/images/logo.svg"
+        fetchPriority="high"
+      />
+
+      {/* Third-party analytics should not compete with first paint */}
+      {enablePixel && (
+        <>
+          <Script id="meta-pixel" strategy="lazyOnload">
+            {`
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '910208878320949');
+              fbq('track', 'PageView');
+            `}
+          </Script>
+          <noscript>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src="https://www.facebook.com/tr?id=910208878320949&ev=PageView&noscript=1"
+              alt=""
+            />
+          </noscript>
+        </>
+      )}
       <div className={assistant.className}>
-        <PageLoader />
-        <ScrollAnimationProvider />
         {children}
+        {enableScrollAnimations && <ScrollAnimationProvider />}
       </div>
     </>
   );

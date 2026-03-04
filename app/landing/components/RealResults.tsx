@@ -1,26 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
-export default function RealResults() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const totalSlides = 4;
-
-  // Detect mobile/desktop
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Portfolio website URLs
   const portfolioLinks = [
     "https://olie6.com/?srsltid=AfmBOoplSojZjiEjDhGBLVegGqFWT1cehFUP5RgZxWBf5LXFFpXXRJ2d", // Portfolio 1
     "https://avi-mashkanta.com/", // Portfolio 2
@@ -29,73 +11,9 @@ export default function RealResults() {
   ];
 
 
-  const preloadSlides = Array.from({ length: totalSlides }, (_, i) => i).filter(
-    (i) => i !== currentSlide
-  );
-
-  // Auto-scroll every 4 seconds - оптимизировано для производительности
-  useEffect(() => {
-    // Используем requestAnimationFrame для более плавной работы
-    let timeoutId: NodeJS.Timeout;
-    const scheduleNext = () => {
-      timeoutId = setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % totalSlides);
-        scheduleNext();
-      }, 4000);
-    };
-    scheduleNext();
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, []);
-
-  const titleVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] as const }
-    }
-  };
-
-  const descriptionVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] as const }
-    }
-  };
-
-  const sliderVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 40 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 0.7, delay: 0.4, ease: [0.4, 0, 0.2, 1] as const }
-    }
-  };
-
-  const slideVariants = {
-    enter: {
-      opacity: 0
-    },
-    center: {
-      opacity: 1,
-      zIndex: 1
-    },
-    exit: {
-      opacity: 0,
-      zIndex: 0
-    }
-  };
-
-  // Оптимизация: используем will-change для улучшения производительности анимаций
-  const slideTransition = {
-    duration: 0.3,
-    ease: "easeInOut" as const
-  };
+export default function RealResults() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = 4;
 
   return (
     <section
@@ -105,25 +23,17 @@ export default function RealResults() {
     >
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Title */}
-        <motion.h2
+        <h2
           id="portfolio-heading"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          variants={titleVariants}
           className="text-3xl md:text-4xl font-bold text-center mb-4"
           dir="rtl"
         >
           תוצאות אמיתיות, אתרים{" "}
           <span className="bg-gradient-to-r bg-clip-text text-transparent from-blue-600 to-cyan-400">אמיתיים. עסקים שצומחים.</span>
-        </motion.h2>
+        </h2>
 
         {/* Description */}
-        <motion.p
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          variants={descriptionVariants}
+        <p
           className="text-center text-gray-600 mb-8 leading-relaxed"
           dir="rtl"
           style={{ fontSize: "15px" }}
@@ -134,90 +44,47 @@ export default function RealResults() {
           אופטימיזציה.
           <br />
           כל אתר נבנה כדי לייצר צמיחה אמיתית לעסק.
-        </motion.p>
+        </p>
 
         {/* Slider */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={sliderVariants}
-          className="relative w-full max-w-3xl mx-auto mb-8"
-        >
-          {/* Hidden preloader: lazy loads other slide images */}
-          <div
-            aria-hidden
-            className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none"
-          >
-            {preloadSlides.map((i) => {
-              const ext = isMobile ? '-opt.webp' : '.jpg';
-              const imageMap = [
-                `/images/portfolio1${ext}`,
-                `/images/portfolio2${ext}`,
-                `/images/portfolio3${ext}`,
-                `/images/portfolio4${ext}`
-              ];
-              return (
-                <Image
-                  key={i}
-                  src={imageMap[i]}
-                  alt=""
-                  width={768}
-                  height={500}
-                  quality={90}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
-                  loading="lazy"
-                  fetchPriority="low"
-                />
-              );
-            })}
-          </div>
-
+        <div className="relative w-full max-w-3xl mx-auto mb-8">
           <div className="relative h-96 md:h-[500px] overflow-hidden bg-white">
-            <AnimatePresence initial={false}>
-              <motion.div
-                key={currentSlide}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={slideTransition}
-                className="absolute inset-0"
-                style={{ willChange: 'opacity' }}
+            <div className="absolute inset-0 transition-opacity duration-300">
+              <a
+                href={portfolioLinks[currentSlide]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full h-full cursor-pointer"
+                aria-label={`Visit portfolio website ${currentSlide + 1}`}
               >
-                <a
-                  href={portfolioLinks[currentSlide]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full h-full cursor-pointer"
-                  aria-label={`Visit portfolio website ${currentSlide + 1}`}
-                >
-                  <Image
-                    src={
-                      isMobile
-                        ? (currentSlide === 0 ? '/images/portfolio1.png' :
-                           currentSlide === 1 ? '/images/portfolio2.png' :
-                           currentSlide === 2 ? '/images/portfolio3.png' :
-                           '/images/portfolio4.png')
-                        : (currentSlide === 0 ? '/images/portfolio1.jpg' :
-                           currentSlide === 1 ? '/images/portfolio2.jpg' :
-                           currentSlide === 2 ? '/images/portfolio3.jpg' :
-                           '/images/portfolio4.jpg')
-                    }
-                    alt={`Portfolio ${currentSlide + 1}`}
-                    fill
-                    style={{ objectFit: "contain" }}
-                    quality={90}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
-                    loading={currentSlide === 0 ? "eager" : "lazy"}
-                    priority={currentSlide === 0}
-                    fetchPriority={currentSlide === 0 ? "high" : "low"}
-                  />
-                </a>
-              </motion.div>
-            </AnimatePresence>
+                <Image
+                  src={`/images/portfolio${currentSlide + 1}.png`}
+                  alt={`Portfolio ${currentSlide + 1}`}
+                  fill
+                  style={{ objectFit: "contain" }}
+                  quality={80}
+                  sizes="100vw"
+                  loading={currentSlide === 0 ? "eager" : "lazy"}
+                  priority={currentSlide === 0}
+                  fetchPriority={currentSlide === 0 ? "high" : "low"}
+                  className="md:hidden"
+                />
+                <Image
+                  src={`/images/portfolio${currentSlide + 1}.jpg`}
+                  alt={`Portfolio ${currentSlide + 1}`}
+                  fill
+                  style={{ objectFit: "contain" }}
+                  quality={80}
+                  sizes="768px"
+                  loading={currentSlide === 0 ? "eager" : "lazy"}
+                  priority={currentSlide === 0}
+                  fetchPriority={currentSlide === 0 ? "high" : "low"}
+                  className="hidden md:block"
+                />
+              </a>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Pagination Dots */}
         <div className="flex justify-center gap-3 mb-8">
@@ -236,13 +103,7 @@ export default function RealResults() {
         </div>
 
         {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.6, delay: 0.6, ease: [0.4, 0, 0.2, 1] as const }}
-          className="text-center"
-        >
+        <div className="text-center">
           <a
             href="#contact"
             onClick={(e) => {
@@ -263,7 +124,7 @@ export default function RealResults() {
           >
             באו ניכנס גם לכם ונציג דיגיטלי שישדרג תפיסות
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -120,7 +120,8 @@ function WhyUsItem({ pillar, index }: { pillar: any; index: number }) {
           height={120}
           sizes="(max-width: 768px) 64px, 80px"
           className="w-16 h-16 md:w-20 md:h-20"
-          loading="eager"
+          loading="lazy"
+          fetchPriority="low"
         />
       </div>
       {/* Text on the left (for RTL) */}
@@ -150,24 +151,25 @@ function WhyUsItem({ pillar, index }: { pillar: any; index: number }) {
   );
 }
 
-function PeopleImage() {
-  const imageVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.85,
-      y: 40
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        delay: 0.2,
-        ease: [0.4, 0, 0.2, 1] as const
-      }
+const imageVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.85,
+    y: 40
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay: 0.2,
+      ease: [0.4, 0, 0.2, 1] as const
     }
-  };
+  }
+};
+
+function PeopleImage() {
 
   return (
     <motion.div
@@ -182,21 +184,23 @@ function PeopleImage() {
         src="/images/Vector.svg"
         alt="vector"
         fill
-        sizes="(max-width: 640px) 100vw, (max-width: 768px) 95vw, 600px"
+        sizes="(max-width: 640px) 100vw, 600px"
         className="z-0"
-        loading="eager"
+        loading="lazy"
+        fetchPriority="low"
       />
       <Image
         src="/images/people.png"
         alt="Team working together"
         fill
-        sizes="(max-width: 640px) 100vw, (max-width: 768px) 95vw, 600px"
+        sizes="(max-width: 640px) 100vw, 600px"
         style={{
           objectFit: 'cover',
           objectPosition: 'center center'
         }}
         className="z-10"
-        loading="eager"
+        loading="lazy"
+        fetchPriority="low"
         quality={80}
       />
     </motion.div>

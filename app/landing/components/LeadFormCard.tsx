@@ -5,47 +5,7 @@ import { submitLeadForm } from "@/lib/api";
 import SuccessModal from "./SuccessModal";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function LeadFormCard() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    businessType: ""
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  // Симуляция загрузки компонента
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
-
-    try {
-      await submitLeadForm(formData);
-      setShowSuccessModal(true);
-      setFormData({ name: "", phone: "", email: "", businessType: "" });
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      const errorMessage = error instanceof Error ? error.message : "שגיאה בשליחת הטופס. אנא נסה שוב.";
-      setError(errorMessage);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
@@ -100,6 +60,39 @@ export default function LeadFormCard() {
       }
     }
   };
+  
+export default function LeadFormCard() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    businessType: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setIsSubmitting(true);
+
+    try {
+      await submitLeadForm(formData);
+      setShowSuccessModal(true);
+      setFormData({ name: "", phone: "", email: "", businessType: "" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      const errorMessage = error instanceof Error ? error.message : "שגיאה בשליחת הטופס. אנא נסה שוב.";
+      setError(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <motion.section
@@ -119,57 +112,6 @@ export default function LeadFormCard() {
       }}
     >
       <AnimatePresence mode="wait">
-        {isLoading ? (
-          <motion.div
-            key="spinner"
-            variants={spinnerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "20px",
-            }}
-          >
-            <motion.div
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
-                duration: 1,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-              style={{
-                width: "60px",
-                height: "60px",
-                border: "4px solid rgba(255, 255, 255, 0.2)",
-                borderTop: "4px solid #fff",
-                borderRadius: "50%",
-              }}
-            />
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              style={{
-                color: "#fff",
-                fontSize: "16px",
-                fontWeight: 500,
-                margin: 0,
-              }}
-              dir="rtl"
-            >
-              טוען...
-            </motion.p>
-          </motion.div>
-        ) : (
           <motion.div
             key="content"
             variants={contentVariants}
@@ -399,7 +341,6 @@ export default function LeadFormCard() {
               variant="dark"
             />
           </motion.div>
-        )}
       </AnimatePresence>
     </motion.section>
   );

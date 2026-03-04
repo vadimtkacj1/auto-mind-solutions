@@ -8,6 +8,18 @@ interface SuccessModalProps {
   variant?: 'light' | 'dark';
 }
 
+const lightContent = {
+  title: 'הפרטים התקבלו בהצלחה',
+  description: 'אנחנו כבר בודקים את הבקשה שלך, נחזור אליך תוך 24 שעות עם כיוון אסטרטגי ראשוני מותאם לעסק שלך.',
+  buttonText: 'מעולה!'
+};
+
+const darkContent = {
+  title: 'מעולה! אנחנו יוצאים לדרך',
+  description: 'נציג מהצוות יחזור אליך במהרה כדי לבנות מסלול צמיחה מותאמת לעסק שלך.',
+  buttonText: 'סגור'
+};
+
 export default function SuccessModal({ isOpen, onClose, variant = 'light' }: SuccessModalProps) {
   useEffect(() => {
     if (isOpen) {
@@ -22,17 +34,6 @@ export default function SuccessModal({ isOpen, onClose, variant = 'light' }: Suc
 
   if (!isOpen) return null;
 
-  const lightContent = {
-    title: 'הפרטים התקבלו בהצלחה',
-    description: 'אנחנו כבר בודקים את הבקשה שלך, נחזור אליך תוך 24 שעות עם כיוון אסטרטגי ראשוני מותאם לעסק שלך.',
-    buttonText: 'מעולה!'
-  };
-
-  const darkContent = {
-    title: 'מעולה! אנחנו יוצאים לדרך',
-    description: 'נציג מהצוות יחזור אליך במהרה כדי לבנות מסלול צמיחה מותאמת לעסק שלך.',
-    buttonText: 'סגור'
-  };
 
   const content = variant === 'light' ? lightContent : darkContent;
 

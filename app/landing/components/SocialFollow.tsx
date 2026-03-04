@@ -3,63 +3,64 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+const socialLinks = [
+  { name: "Instagram", icon: "/images/instagram.svg", url: "https://instagram.com" },
+  { name: "Facebook", icon: "/images/facebook.svg", url: "https://facebook.com" },
+  { name: "LinkedIn", icon: "/images/linkedin.svg", url: "https://linkedin.com" },
+  { name: "TikTok", icon: "/images/tiktok.svg", url: "https://tiktok.com" }
+];
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.8, y: 40 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.4, 0, 0.2, 1] as const
+    }
+  }
+};
+
+const textVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay: 0.1,
+      ease: [0.4, 0, 0.2, 1] as const
+    }
+  }
+};
+
+const iconContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const iconVariants = {
+  hidden: { opacity: 0, scale: 0.5, y: 20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1] as const
+    }
+  }
+};
+
 export default function SocialFollow() {
-  const socialLinks = [
-    { name: "Instagram", icon: "/images/instagram.svg", url: "https://instagram.com" },
-    { name: "Facebook", icon: "/images/facebook.svg", url: "https://facebook.com" },
-    { name: "LinkedIn", icon: "/images/linkedin.svg", url: "https://linkedin.com" },
-    { name: "TikTok", icon: "/images/tiktok.svg", url: "https://tiktok.com" }
-  ];
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.8, y: 40 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: [0.4, 0, 0.2, 1] as const
-      }
-    }
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        delay: 0.1,
-        ease: [0.4, 0, 0.2, 1] as const
-      }
-    }
-  };
-
-  const iconContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const iconVariants = {
-    hidden: { opacity: 0, scale: 0.5, y: 20 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.4, 0, 0.2, 1] as const
-      }
-    }
-  };
 
   return (
     <section
@@ -83,7 +84,8 @@ export default function SocialFollow() {
               fill
               sizes="(max-width: 768px) 90vw, 448px"
               style={{ objectFit: 'contain' }}
-              loading="eager"
+              loading="lazy"
+              fetchPriority="low"
             />
           </motion.div>
 
@@ -138,7 +140,8 @@ export default function SocialFollow() {
                   width={68}
                   height={68}
                   sizes="68px"
-                  loading="eager"
+                  loading="lazy"
+                  fetchPriority="low"
                 />
               </motion.a>
             ))}

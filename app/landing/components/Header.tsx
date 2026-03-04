@@ -3,9 +3,16 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
+const menuItems: Array<{ label: string; href: string }> = [
+  { label: 'השירותים שלנו', href: '#services' },
+  { label: 'פורטפוליו', href: '#portfolio' },
+  { label: 'למה לבחור בנו?', href: '#why-us' },
+  { label: 'עקבו אחרינו', href: '#follow' },
+  { label: 'טופס יצירת קשר', href: '#contact' },
+];
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,14 +22,6 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const menuItems: Array<{ label: string; href: string }> = [
-    { label: 'השירותים שלנו', href: '#services' },
-    { label: 'פורטפוליו', href: '#portfolio' },
-    { label: 'למה לבחור בנו?', href: '#why-us' },
-    { label: 'עקבו אחרינו', href: '#follow' },
-    { label: 'טופס יצירת קשר', href: '#contact' },
-  ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -35,12 +34,33 @@ export default function Header() {
         top: offsetPosition,
         behavior: 'smooth'
       });
-      setIsMenuOpen(false);
     }
   };
 
   return (
     <>
+      <style jsx>{`
+        #menu-toggle {
+          display: none;
+        }
+
+        #menu-toggle:checked ~ .mobile-menu {
+          display: block;
+        }
+
+        .mobile-menu {
+          display: none;
+        }
+
+        @media (min-width: 768px) {
+          .mobile-menu {
+            display: none !important;
+          }
+        }
+      `}</style>
+
+      <input type="checkbox" id="menu-toggle" />
+
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
@@ -48,9 +68,9 @@ export default function Header() {
       >
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           {/* Burger - mobile only */}
-          <button
-            onClick={() => setIsMenuOpen(true)}
-            className="md:hidden w-12 h-12 rounded-2xl border-2 border-blue-500 flex items-center justify-center hover:bg-blue-50 transition"
+          <label
+            htmlFor="menu-toggle"
+            className="md:hidden w-12 h-12 rounded-2xl border-2 border-blue-500 flex items-center justify-center hover:bg-blue-50 transition cursor-pointer"
             aria-label="Menu"
           >
             <svg
@@ -68,7 +88,7 @@ export default function Header() {
               <line x1="3" y1="6" x2="21" y2="6" />
               <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
-          </button>
+          </label>
 
           {/* Desktop nav - hidden on mobile */}
           <nav className="hidden md:flex items-center gap-8" dir="rtl">
@@ -93,60 +113,59 @@ export default function Header() {
               height={28}
               className="h-full w-auto"
               priority
+              fetchPriority="high"
             />
           </div>
         </div>
       </header>
 
       {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <div
-          className="fixed inset-0 bg-white"
-          style={{ zIndex: 9999 }}
-          dir="rtl"
-        >
-          {/* Close button - top right (RTL) */}
-          <div className="flex justify-start items-center px-6 py-4">
-            <button
-              onClick={() => setIsMenuOpen(false)}
-              className="w-12 h-12 rounded-2xl border-2 border-blue-500 flex items-center justify-center hover:bg-blue-50 transition"
-              aria-label="Close Menu"
+      <div
+        className="mobile-menu fixed inset-0 bg-white"
+        style={{ zIndex: 9999 }}
+        dir="rtl"
+      >
+        {/* Close button - top right (RTL) */}
+        <div className="flex justify-start items-center px-6 py-4">
+          <label
+            htmlFor="menu-toggle"
+            className="w-12 h-12 rounded-2xl border-2 border-blue-500 flex items-center justify-center hover:bg-blue-50 transition cursor-pointer"
+            aria-label="Close Menu"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-blue-500"
             >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-blue-500"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Menu Items */}
-          <nav className="px-6 py-8">
-            <ul className="space-y-6 text-center">
-              {menuItems.map((item, index) => (
-                <li key={index}>
-                  <a
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
-                    className="text-lg font-medium text-gray-800 hover:text-blue-600 transition block"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </label>
         </div>
-      )}
+
+        {/* Menu Items */}
+        <nav className="px-6 py-8">
+          <ul className="space-y-6 text-center">
+            {menuItems.map((item, index) => (
+              <li key={index}>
+                <a
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="text-lg font-medium text-gray-800 hover:text-blue-600 transition block"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </>
   );
 }

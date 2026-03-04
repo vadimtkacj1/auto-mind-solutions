@@ -3,19 +3,20 @@
 import LeadForm from "./LeadForm";
 import { motion } from "framer-motion";
 
-export default function LeadFormSection() {
-  const formVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: [0.4, 0, 0.2, 1] as const
-      }
+const formVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: [0.4, 0, 0.2, 1] as const
     }
-  };
+  }
+};
+
+export default function LeadFormSection() {
 
   return (
     <section

@@ -4,28 +4,29 @@ import { SERVICES } from "@/lib/constants";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function Services() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
     }
-  };
+  }
+};
 
-  const titleVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.4, 0, 0.2, 1] as const
-      }
+const titleVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.4, 0, 0.2, 1] as const
     }
-  };
+  }
+};
+
+export default function Services() {
 
   return (
     <section
@@ -173,7 +174,8 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
             width={68}
             height={68}
             style={{ objectFit: "contain" }}
-            loading="eager"
+            loading="lazy"
+            fetchPriority="low"
           />
         </div>
 
@@ -223,9 +225,10 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
           src={serviceImageMap[service.id]}
           alt={service.title}
           fill
-          sizes="(max-width: 640px) 90vw, (max-width: 768px) 320px, 600px"
+          sizes="(max-width: 640px) 90vw, 600px"
           style={{ objectFit: "cover", objectPosition: "top" }}
-          loading="eager"
+          loading="lazy"
+          fetchPriority="low"
           quality={80}
         />
       </div>
