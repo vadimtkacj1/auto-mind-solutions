@@ -1,7 +1,4 @@
-'use client';
-
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
 
 const menuItems: Array<{ label: string; href: string }> = [
   { label: 'השירותים שלנו', href: '#services' },
@@ -12,60 +9,11 @@ const menuItems: Array<{ label: string; href: string }> = [
 ];
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      const headerHeight = 80;
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerHeight;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   return (
     <>
-      <style jsx>{`
-        #menu-toggle {
-          display: none;
-        }
+      <input type="checkbox" id="menu-toggle" className="peer hidden" />
 
-        #menu-toggle:checked ~ .mobile-menu {
-          display: block;
-        }
-
-        .mobile-menu {
-          display: none;
-        }
-
-        @media (min-width: 768px) {
-          .mobile-menu {
-            display: none !important;
-          }
-        }
-      `}</style>
-
-      <input type="checkbox" id="menu-toggle" />
-
-      <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
-        }`}
-      >
+      <header className="fixed top-0 w-full z-50 bg-white/95 shadow-md backdrop-blur-sm transition-all duration-300">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           {/* Burger - mobile only */}
           <label
@@ -96,7 +44,6 @@ export default function Header() {
               <a
                 key={index}
                 href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
                 className="text-sm font-medium text-gray-800 hover:text-blue-600 transition"
               >
                 {item.label}
@@ -121,7 +68,7 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className="mobile-menu fixed inset-0 bg-white"
+        className="fixed inset-0 bg-white hidden peer-checked:block md:hidden"
         style={{ zIndex: 9999 }}
         dir="rtl"
       >
@@ -156,7 +103,6 @@ export default function Header() {
               <li key={index}>
                 <a
                   href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
                   className="text-lg font-medium text-gray-800 hover:text-blue-600 transition block"
                 >
                   {item.label}

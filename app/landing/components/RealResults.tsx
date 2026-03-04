@@ -3,13 +3,12 @@
 import Image from "next/image";
 import { useState } from "react";
 
-  const portfolioLinks = [
-    "https://olie6.com/?srsltid=AfmBOoplSojZjiEjDhGBLVegGqFWT1cehFUP5RgZxWBf5LXFFpXXRJ2d", // Portfolio 1
-    "https://avi-mashkanta.com/", // Portfolio 2
-    "https://ram-haim.co.il/", // Portfolio 3
-    "https://naturallyrefreshing.store/" // Portfolio 4
-  ];
-
+const portfolioLinks = [
+  "https://olie6.com/?srsltid=AfmBOoplSojZjiEjDhGBLVegGqFWT1cehFUP5RgZxWBf5LXFFpXXRJ2d", // Portfolio 1
+  "https://avi-mashkanta.com/", // Portfolio 2
+  "https://ram-haim.co.il/", // Portfolio 3
+  "https://naturallyrefreshing.store/" // Portfolio 4
+];
 
 export default function RealResults() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -49,6 +48,7 @@ export default function RealResults() {
         {/* Slider */}
         <div className="relative w-full max-w-3xl mx-auto mb-8">
           <div className="relative h-96 md:h-[500px] overflow-hidden bg-white">
+            {/* Current slide */}
             <div className="absolute inset-0 transition-opacity duration-300">
               <a
                 href={portfolioLinks[currentSlide]}
@@ -62,27 +62,27 @@ export default function RealResults() {
                   alt={`Portfolio ${currentSlide + 1}`}
                   fill
                   style={{ objectFit: "contain" }}
-                  quality={80}
-                  sizes="100vw"
+                  quality={90}
+                  sizes="(max-width: 768px) 100vw, 768px"
                   loading={currentSlide === 0 ? "eager" : "lazy"}
                   priority={currentSlide === 0}
                   fetchPriority={currentSlide === 0 ? "high" : "low"}
-                  className="md:hidden"
-                />
-                <Image
-                  src={`/images/portfolio${currentSlide + 1}.jpg`}
-                  alt={`Portfolio ${currentSlide + 1}`}
-                  fill
-                  style={{ objectFit: "contain" }}
-                  quality={80}
-                  sizes="768px"
-                  loading={currentSlide === 0 ? "eager" : "lazy"}
-                  priority={currentSlide === 0}
-                  fetchPriority={currentSlide === 0 ? "high" : "low"}
-                  className="hidden md:block"
                 />
               </a>
             </div>
+            {/* Preload next slide */}
+            {currentSlide < totalSlides - 1 && (
+              <div className="hidden">
+                <Image
+                  src={`/images/portfolio${currentSlide + 2}.png`}
+                  alt={`Portfolio ${currentSlide + 2}`}
+                  width={768}
+                  height={500}
+                  loading="eager"
+                  fetchPriority="low"
+                />
+              </div>
+            )}
           </div>
         </div>
 

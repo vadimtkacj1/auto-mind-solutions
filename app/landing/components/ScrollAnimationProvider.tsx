@@ -23,7 +23,6 @@ export default function ScrollAnimationProvider() {
       observerOptions
     );
 
-    // Функция для наблюдения за элементами
     const observeElements = () => {
       const elements = document.querySelectorAll('.scroll-animate:not(.animate-in-view)');
       elements.forEach((element) => {
@@ -31,7 +30,6 @@ export default function ScrollAnimationProvider() {
       });
     };
 
-    // Проверяем элементы, которые уже видны при загрузке
     const checkVisibleElements = () => {
       const elements = document.querySelectorAll('.scroll-animate:not(.animate-in-view)');
       elements.forEach((element) => {
@@ -40,7 +38,6 @@ export default function ScrollAnimationProvider() {
         const isVisible = rect.top < windowHeight * 0.8 && rect.bottom > 0;
         
         if (isVisible) {
-          // Небольшая задержка для плавности
           setTimeout(() => {
             element.classList.add('animate-in-view');
           }, 150);
@@ -50,7 +47,6 @@ export default function ScrollAnimationProvider() {
       });
     };
 
-    // Инициализация после загрузки DOM
     const init = () => {
       checkVisibleElements();
       observeElements();
@@ -63,7 +59,6 @@ export default function ScrollAnimationProvider() {
       window.addEventListener('load', init);
     }
     
-    // Также запускаем с задержками для надежности
     const timeoutId = setTimeout(init, 100);
     const timeoutId2 = setTimeout(init, 300);
     const timeoutId3 = setTimeout(init, 600);
