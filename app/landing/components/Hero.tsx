@@ -6,7 +6,6 @@ import { useState } from 'react';
 
 export default function Hero() {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [showTestSpinner, setShowTestSpinner] = useState(true); // Тест: завжди показувати
   const imageVariants = {
     hidden: { opacity: 0, x: -80, scale: 0.9 },
     visible: {
@@ -84,7 +83,7 @@ export default function Hero() {
 
   return (
     <section
-      className="pt-4 pb-8 md:pt-32 md:pb-20 flex items-center rounded-bl-[40px] rounded-br-[40px] overflow-hidden"
+      className="pt-4 pb-8 md:pb-20 flex items-center rounded-bl-[40px] rounded-br-[40px] overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)',
       }}
@@ -208,7 +207,7 @@ export default function Hero() {
               )}
 
               <Image
-                src="/images/hero-section-opt.webp"
+                src="/images/hero-section.svg"
                 alt="People working together"
                 fill
                 className={`object-contain w-full h-full transition-opacity duration-500 mt-10 mb-10 ${

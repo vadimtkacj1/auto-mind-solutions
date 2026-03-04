@@ -78,7 +78,7 @@ export default function SocialFollow() {
             className="relative w-full h-80 mb-8"
           >
             <Image
-              src="/images/social-girl-opt.webp"
+              src="/images/social-girl.svg"
               alt="Follow us on social media"
               fill
               sizes="(max-width: 768px) 90vw, 448px"

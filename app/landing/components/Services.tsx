@@ -127,10 +127,10 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
   };
 
   const serviceImageMap: Record<number, string> = {
-    1: "/images/service1.png",
-    2: "/images/service2.png",
-    3: "/images/service3.png",
-    4: "/images/services4.png",
+    1: "/images/service1.jpg",
+    2: "/images/service2.jpg",
+    3: "/images/service3.jpg",
+    4: "/images/service4.jpg",
   };
 
   return (
@@ -166,31 +166,30 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
       }}>
         {/* Icon - centered, large */}
         <div style={{
-          width: isMobile ? "120px" : "140px",
-          height: isMobile ? "120px" : "140px",
           position: "relative",
           marginLeft: "0",
           marginRight: "auto"
         }}>
           <Image
-            src={`/images/icon${service.id}.png`}
+            src={`/images/icon${service.id}.svg`}
             alt={`icon ${service.id}`}
-            fill
-            sizes="(max-width: 768px) 120px, 140px"
+            width={68}
+            height={68}
             style={{ objectFit: "contain" }}
-            loading="eager"
+            loading="lazy"
           />
         </div>
 
         {/* Title */}
         <h3
           style={{
-            fontSize: isMobile ? "20px" : "24px",
-            fontWeight: "700",
-            textAlign: "center",
+            fontSize: "22px",
+            fontWeight: "600",
+            textAlign: "right",
             margin: 0,
             color: "#111",
-            lineHeight: '120%'
+            lineHeight: '100%',
+            letterSpacing: '0%'
           }}
         >
           {service.title}
@@ -219,7 +218,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
         style={{
           position: "relative",
           width: "100%",
-          height: isMobile ? "200px" : "240px",
+          height: isMobile ? "150px" : "180px",
           marginTop: "auto",
         }}
       >

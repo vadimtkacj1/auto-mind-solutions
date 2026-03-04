@@ -8,45 +8,15 @@ export default function PageLoader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Список только КРИТИЧЕСКИХ изображений для первого экрана
-    // Остальные изображения загружаются динамически через lazy loading
-    const criticalImages = [
-      // Hero section - самое важное изображение
-      '/images/hero-section-opt.webp',
-      // Service icons - маленькие SVG, загружаются быстро
-      '/images/icon1.png',
-      '/images/icon2.png',
-      '/images/icon3.png',
-      '/images/icon4.png',
-    ];
+    const heroSrc = '/images/hero-section.svg';
 
-    let loadedCount = 0;
-    const totalImages = criticalImages.length;
-
-    // Функция для предзагрузки изображений
-    const preloadImages = () => {
-      return Promise.all(
-        criticalImages.map((src) => {
-          return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => {
-              loadedCount++;
-              setProgress(Math.round((loadedCount / totalImages) * 100));
-              resolve(src);
-            };
-            img.onerror = () => {
-              loadedCount++;
-              setProgress(Math.round((loadedCount / totalImages) * 100));
-              resolve(src); // Продолжаем даже если изображение не загрузилось
-            };
-            img.src = src;
-          });
-        })
-      );
+    const scheduleIdle = (fn: () => void) => {
+      const ric = (window as any).requestIdleCallback as undefined | ((cb: () => void) => void);
+      if (ric) ric(fn);
+      else setTimeout(fn, 0);
     };
 
     const preloadNonCritical = () => {
-      // JS chunks for dynamically imported sections (start downloading early)
       void import('@/app/landing/components/LeadFormSection');
       void import('@/app/landing/components/Services');
       void import('@/app/landing/components/RealResults');
@@ -56,26 +26,29 @@ export default function PageLoader() {
       void import('@/app/landing/components/Footer');
     };
 
-    const scheduleIdle = (fn: () => void) => {
-      const ric = (window as any).requestIdleCallback as undefined | ((cb: () => void) => void);
-      if (ric) ric(fn);
-      else setTimeout(fn, 0);
+    // Максимальний таймаут: якщо зображення не завантажилось за 1.5s — все одно показуємо сайт
+    const maxTimeout = setTimeout(() => {
+      setProgress(100);
+      setLoading(false);
+      scheduleIdle(preloadNonCritical);
+    }, 1500);
+
+    const img = new window.Image();
+    img.onload = () => {
+      clearTimeout(maxTimeout);
+      setProgress(100);
+      setLoading(false);
+      scheduleIdle(preloadNonCritical);
     };
-
-    // Не ждём window.load — иначе "фоновые" загрузки стартуют поздно.
-    const loadPage = async () => {
-      // Предзагружаем критические изображения
-      await preloadImages();
-
-      // Небольшая задержка для плавности
-      setTimeout(() => {
-        setLoading(false);
-        // После скрытия лоадера — прогреваем остальное в фоне максимально рано
-        scheduleIdle(preloadNonCritical);
-      }, 300);
+    img.onerror = () => {
+      clearTimeout(maxTimeout);
+      setProgress(100);
+      setLoading(false);
+      scheduleIdle(preloadNonCritical);
     };
+    img.src = heroSrc;
 
-    loadPage();
+    return () => clearTimeout(maxTimeout);
   }, []);
 
   return (

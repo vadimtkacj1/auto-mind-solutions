@@ -178,15 +178,14 @@ function PeopleImage() {
       className="w-full mt-8 relative"
       style={{ aspectRatio: '16/9' }}
     >
-      {/* <Image
+      <Image
         src="/images/Vector.svg"
         alt="vector"
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 768px) 95vw, 600px"
         className="z-0"
         loading="lazy"
-        quality={75}
-      /> */}
+      />
       <Image
         src="/images/people.png"
         alt="Team working together"

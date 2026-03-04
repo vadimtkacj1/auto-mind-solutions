@@ -47,10 +47,10 @@ export default function Footer() {
     >
       <div className="container mx-auto px-4 max-w-lg">
         {/* Logo & Tagline */}
-        <div className="text-right mb-8 pb-8 border-b border-gray-800" dir="rtl">
+        <div className="text-center mb-8 pb-8 border-b border-gray-800" dir="rtl">
           <h3 className="text-2xl font-bold mb-3 text-white">AITERRA</h3>
           <p className="text-white text-sm">
-            בונים מערכות דיגיטל שמייצרות צמיחה אמיתית לעסקים.
+            בונים משרדי דיגיטל שמשרתים את צמיחה אמיתית לעסקים.
           </p>
         </div>
 
@@ -64,51 +64,44 @@ export default function Footer() {
           <div className="text-right">
             <h4 className="text-lg font-bold mb-4 text-white">ניווט</h4>
             <nav className="flex flex-col gap-2">
-              <a 
-                href="#contact" 
-                onClick={(e) => handleNavClick(e, '#contact')}
+              <a
+                href="#hero"
+                onClick={(e) => handleNavClick(e, '#hero')}
                 className="text-white hover:text-blue-400 transition cursor-pointer"
               >
-                צור קשר
+                אודות
               </a>
-              <a 
-                href="#services" 
+              <a
+                href="#services"
                 onClick={(e) => handleNavClick(e, '#services')}
                 className="text-white hover:text-blue-400 transition cursor-pointer"
               >
                 שירותים
               </a>
-              <a 
-                href="#portfolio" 
+              <a
+                href="#portfolio"
                 onClick={(e) => handleNavClick(e, '#portfolio')}
                 className="text-white hover:text-blue-400 transition cursor-pointer"
               >
                 עבודות
               </a>
-              <a 
-                href="#why-us" 
-                onClick={(e) => handleNavClick(e, '#why-us')}
+              <a
+                href="#blog"
+                onClick={(e) => handleNavClick(e, '#blog')}
                 className="text-white hover:text-blue-400 transition cursor-pointer"
               >
-                למה לבחור בנו?
-              </a>
-              <a 
-                href="#follow" 
-                onClick={(e) => handleNavClick(e, '#follow')}
-                className="text-white hover:text-blue-400 transition cursor-pointer"
-              >
-                עקבו אחרינו
+                בלוג
               </a>
             </nav>
           </div>
 
           {/* Left Column - Contact */}
           <div className="text-right">
-            <h4 className="text-lg font-bold mb-4 text-white">צור קשר</h4>
+            <h4 className="text-lg font-bold mb-4 text-white">איך קשר</h4>
             <div className="space-y-2 text-white">
               <p>טלפון</p>
               <p>אימייל</p>
-              <p>כתובת</p>
+              <p>כתובנה</p>
             </div>
           </div>
         </div>

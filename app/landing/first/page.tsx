@@ -21,12 +21,6 @@ const SocialFollow = dynamic(() => import("@/app/landing/components/SocialFollow
 const LeadFormCard = dynamic(() => import("@/app/landing/components/LeadFormCard"), {
   loading: () => <div className="min-h-[300px]" />,
 });
-const SocialProof = dynamic(() => import("@/app/landing/components/SocialProof"), {
-  loading: () => <div className="min-h-[200px]" />,
-});
-const FinalLead = dynamic(() => import("@/app/landing/components/FinalLead"), {
-  loading: () => <div className="min-h-[300px]" />,
-});
 const Footer = dynamic(() => import("@/app/landing/components/Footer"), {
   loading: () => <div className="min-h-[200px]" />,
 });

@@ -48,19 +48,19 @@ export const WHY_US_PILLARS: Pillar[] = [
     id: 1,
     title: "חשיבה עסקית לפני עיצוב",
     description: "אנחנו מבינים מספרים, לא רק פיקסלים.",
-    icon: "/images/icon5.png"
+    icon: "/images/icon5.svg"
   },
   {
     id: 2,
     title: "שקיפות מלאה בדאטה",
     description: "דוחות ברורים, יעדים ברורים ותוצאות מדידות.",
-    icon: "/images/icon6.png"
+    icon: "/images/icon6.svg"
   },
   {
     id: 3,
     title: "ליווי אמיתי ולא פרויקט חד פעמי",
     description: "אנחנו שותפים לצמיחה שלכם.",
-    icon: "/images/icon7.png"
+    icon: "/images/icon7.svg"
   }
 ];
 

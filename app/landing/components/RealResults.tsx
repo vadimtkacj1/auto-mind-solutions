@@ -6,7 +6,19 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function RealResults() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const totalSlides = 4;
+
+  // Detect mobile/desktop
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Portfolio website URLs
   const portfolioLinks = [
@@ -76,7 +88,7 @@ export default function RealResults() {
     <section
       id="portfolio"
       aria-labelledby="portfolio-heading"
-      className="py-16 bg-white"
+      className="py-20 bg-white"
     >
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Title */}
@@ -90,7 +102,7 @@ export default function RealResults() {
           dir="rtl"
         >
           תוצאות אמיתיות, אתרים{" "}
-          <span className="text-blue-600">אמיתיים. עסקים שצומחים.</span>
+          <span className="bg-gradient-to-r bg-clip-text text-transparent from-blue-600 to-cyan-400">אמיתיים. עסקים שצומחים.</span>
         </motion.h2>
 
         {/* Description */}
@@ -125,11 +137,12 @@ export default function RealResults() {
             className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none"
           >
             {preloadSlides.map((i) => {
+              const ext = isMobile ? 'png' : 'jpg';
               const imageMap = [
-                '/images/portfolio1.png',
-                '/images/portfolio2.png',
-                '/images/portfolio3.png',
-                '/images/portfolio4.png'
+                `/images/portfolio1.${ext}`,
+                `/images/portfolio2.${ext}`,
+                `/images/portfolio3.${ext}`,
+                `/images/portfolio4.${ext}`
               ];
               return (
                 <Image
@@ -169,10 +182,15 @@ export default function RealResults() {
                 >
                   <Image
                     src={
-                      currentSlide === 0 ? '/images/portfolio1.png' :
-                      currentSlide === 1 ? '/images/portfolio2.png' :
-                      currentSlide === 2 ? '/images/portfolio3.png' :
-                      '/images/portfolio4.png'
+                      isMobile
+                        ? (currentSlide === 0 ? '/images/portfolio1.png' :
+                           currentSlide === 1 ? '/images/portfolio2.png' :
+                           currentSlide === 2 ? '/images/portfolio3.png' :
+                           '/images/portfolio4.png')
+                        : (currentSlide === 0 ? '/images/portfolio1.jpg' :
+                           currentSlide === 1 ? '/images/portfolio2.jpg' :
+                           currentSlide === 2 ? '/images/portfolio3.jpg' :
+                           '/images/portfolio4.jpg')
                     }
                     alt={`Portfolio ${currentSlide + 1}`}
                     fill

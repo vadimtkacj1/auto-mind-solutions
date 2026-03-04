@@ -8,33 +8,14 @@ import "../../globals.css";
 const assistant = localFont({
   src: [
     {
-      path: "../../fonts/Assistant-Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../fonts/Assistant-Medium.ttf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../fonts/Assistant-SemiBold.ttf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../../fonts/Assistant-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../fonts/Assistant-ExtraBold.ttf",
-      weight: "800",
+      path: "../../../public/fonts/Assistant-VariableFont_wght.ttf",
+      weight: "200 800",
       style: "normal",
     },
   ],
   variable: "--font-assistant",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
