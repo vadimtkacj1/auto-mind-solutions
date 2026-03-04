@@ -181,7 +181,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
         <h3
           style={{
             fontSize: "22px",
-            fontWeight: "600",
+            fontWeight: "700",
             textAlign: "center",
             margin: 0,
             color: "#111",
