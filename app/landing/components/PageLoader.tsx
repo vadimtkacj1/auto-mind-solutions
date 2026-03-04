@@ -14,10 +14,10 @@ export default function PageLoader() {
       // Hero section - самое важное изображение
       '/images/hero-section-opt.webp',
       // Service icons - маленькие SVG, загружаются быстро
-      '/images/icon1.svg',
-      '/images/icon2.svg',
-      '/images/icon3.svg',
-      '/images/icon4.svg',
+      '/images/icon1.png',
+      '/images/icon2.png',
+      '/images/icon3.png',
+      '/images/icon4.png',
     ];
 
     let loadedCount = 0;

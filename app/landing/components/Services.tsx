@@ -173,7 +173,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
           marginRight: "auto"
         }}>
           <Image
-            src={`/images/icon${service.id}.svg`}
+            src={`/images/icon${service.id}.png`}
             alt={`icon ${service.id}`}
             fill
             sizes="(max-width: 768px) 120px, 140px"

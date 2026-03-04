@@ -128,7 +128,7 @@ function WhyUsItem({ pillar, index }: { pillar: any; index: number }) {
         <h3
           className="font-bold mb-1.5"
           style={{
-            fontSize: '20px',
+            fontSize: '28px',
             lineHeight: '120%',
             letterSpacing: '-0.3px',
             color: '#1A1A1A'
@@ -178,7 +178,7 @@ function PeopleImage() {
       className="w-full mt-8 relative"
       style={{ aspectRatio: '16/9' }}
     >
-      <Image
+      {/* <Image
         src="/images/Vector.svg"
         alt="vector"
         fill
@@ -186,9 +186,9 @@ function PeopleImage() {
         className="z-0"
         loading="lazy"
         quality={75}
-      />
+      /> */}
       <Image
-        src="/images/people.svg"
+        src="/images/people.png"
         alt="Team working together"
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 768px) 95vw, 600px"

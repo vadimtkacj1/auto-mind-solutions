@@ -126,10 +126,10 @@ export default function RealResults() {
           >
             {preloadSlides.map((i) => {
               const imageMap = [
-                '/images/portfolio1-opt.webp',
-                '/images/portfolio2-opt.webp',
-                '/images/portfolio3-opt.webp',
-                '/images/portfolio4-opt.png'
+                '/images/portfolio1.png',
+                '/images/portfolio2.png',
+                '/images/portfolio3.png',
+                '/images/portfolio4.png'
               ];
               return (
                 <Image
