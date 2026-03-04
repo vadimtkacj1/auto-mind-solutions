@@ -109,10 +109,11 @@ export default function LeadFormCard() {
       variants={sectionVariants}
       style={{
         width: "100%",
+        maxWidth: "100%",
         background: "linear-gradient(5.99deg, #080A0C 16.13%, #0066FF 129.92%)",
-        padding: "40px 30px",
-        borderTopLeftRadius: "20px",
-        borderTopRightRadius: "20px",
+        padding: "20px 5%",
+        borderTopLeftRadius: "40px",
+        borderTopRightRadius: "40px",
         position: "relative",
         minHeight: "400px",
       }}
@@ -218,15 +219,15 @@ export default function LeadFormCard() {
             required
             dir="rtl"
             style={{
-              width: "320px",
-              maxWidth: "100%",
-              height: "44px",
+              width: "100%",
+              maxWidth: "600px",
+              height: "50px",
               padding: "12px 24px",
               border: "1px solid #BEC3D3",
               borderRadius: "100px",
               background: "#fff",
               color: "#1a1a2e",
-              fontSize: "15px",
+              fontSize: "16px",
               textAlign: "right",
               outline: "none",
               boxSizing: "border-box",
@@ -244,15 +245,15 @@ export default function LeadFormCard() {
                 required
                 dir="rtl"
                 style={{
-                  width: "320px",
-                  maxWidth: "100%",
-                  height: "44px",
+                  width: "100%",
+                  maxWidth: "600px",
+                  height: "50px",
                   padding: "12px 24px",
                   border: "1px solid #BEC3D3",
                   borderRadius: "100px",
                   background: "#fff",
                   color: "#1a1a2e",
-                  fontSize: "15px",
+                  fontSize: "16px",
                   textAlign: "right",
                   outline: "none",
                   boxSizing: "border-box",
@@ -270,15 +271,15 @@ export default function LeadFormCard() {
                 required
                 dir="rtl"
                 style={{
-                  width: "320px",
-                  maxWidth: "100%",
-                  height: "44px",
+                  width: "100%",
+                  maxWidth: "600px",
+                  height: "50px",
                   padding: "12px 24px",
                   border: "1px solid #BEC3D3",
                   borderRadius: "100px",
                   background: "#fff",
                   color: "#1a1a2e",
-                  fontSize: "15px",
+                  fontSize: "16px",
                   textAlign: "right",
                   outline: "none",
                   boxSizing: "border-box",
@@ -296,15 +297,15 @@ export default function LeadFormCard() {
                 required
                 dir="rtl"
                 style={{
-                  width: "320px",
-                  maxWidth: "100%",
-                  height: "44px",
+                  width: "100%",
+                  maxWidth: "600px",
+                  height: "50px",
                   padding: "12px 24px",
                   border: "1px solid #BEC3D3",
                   borderRadius: "100px",
                   background: "#fff",
                   color: "#1a1a2e",
-                  fontSize: "15px",
+                  fontSize: "16px",
                   textAlign: "right",
                   outline: "none",
                   boxSizing: "border-box",
@@ -320,13 +321,13 @@ export default function LeadFormCard() {
                 whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                 style={{
-                  width: "320px",
-                  maxWidth: "100%",
-                  height: "50px",
+                  width: "100%",
+                  maxWidth: "600px",
+                  height: "56px",
                   background: "linear-gradient(90deg, #0066FF 0%, #2979FF 50%, #00C6FF 100%)",
                   color: "#fff",
                   fontWeight: 700,
-                  fontSize: "16px",
+                  fontSize: "18px",
                   border: "none",
                   borderRadius: "100px",
                   cursor: isSubmitting ? "not-allowed" : "pointer",

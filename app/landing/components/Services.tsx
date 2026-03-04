@@ -139,10 +139,6 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-50px' }}
-      whileHover={{
-        scale: 1.03,
-        transition: { duration: 0.3 }
-      }}
       dir="rtl"
       style={{
         width: isMobile ? "100%" : "auto",
@@ -164,11 +160,12 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
         flexDirection: "column",
         gap: isMobile ? "16px" : "24px"
       }}>
-        {/* Icon - centered, large */}
+        {/* Icon - left aligned */}
         <div style={{
           position: "relative",
           marginLeft: "0",
-          marginRight: "auto"
+          marginRight: "auto",
+          marginBottom: "10px"
         }}>
           <Image
             src={`/images/icon${service.id}.svg`}
@@ -185,7 +182,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
           style={{
             fontSize: "22px",
             fontWeight: "600",
-            textAlign: "right",
+            textAlign: "center",
             margin: 0,
             color: "#111",
             lineHeight: '100%',

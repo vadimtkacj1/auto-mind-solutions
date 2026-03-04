@@ -55,7 +55,7 @@ export default function LeadForm() {
         </div>
 
         {/* Form Fields */}
-        <div className={`w-full max-w-[320px] mx-auto gradient-border-wrapper ${focusedField === 'name' ? 'focused' : ''}`}>
+        <div className={`w-[100%] max-w-[600px] mx-auto gradient-border-wrapper ${focusedField === 'name' ? 'focused' : ''}`}>
           <input
             type="text"
             placeholder="שם מלא"
@@ -65,7 +65,7 @@ export default function LeadForm() {
             onBlur={() => setFocusedField(null)}
             className="w-full text-right text-gray-700 placeholder:text-gray-400 transition-all focus:outline-none"
             style={{
-              height: '44px',
+              height: '50px',
               padding: '12px 24px',
               borderRadius: '100px',
               border: focusedField === 'name' ? 'none' : '1px solid #BEC3D3',
@@ -74,7 +74,7 @@ export default function LeadForm() {
           />
         </div>
 
-        <div className={`w-full max-w-[320px] mx-auto gradient-border-wrapper ${focusedField === 'phone' ? 'focused' : ''}`}>
+        <div className={`w-[100%] max-w-[600px] mx-auto gradient-border-wrapper ${focusedField === 'phone' ? 'focused' : ''}`}>
           <input
             type="tel"
             placeholder="טלפון"
@@ -84,7 +84,7 @@ export default function LeadForm() {
             onBlur={() => setFocusedField(null)}
             className="w-full text-right text-gray-700 placeholder:text-gray-400 transition-all focus:outline-none"
             style={{
-              height: '44px',
+              height: '50px',
               padding: '12px 24px',
               borderRadius: '100px',
               border: focusedField === 'phone' ? 'none' : '1px solid #BEC3D3',
@@ -93,7 +93,7 @@ export default function LeadForm() {
           />
         </div>
 
-        <div className={`w-full max-w-[320px] mx-auto gradient-border-wrapper ${focusedField === 'email' ? 'focused' : ''}`}>
+        <div className={`w-[100%] max-w-[600px] mx-auto gradient-border-wrapper ${focusedField === 'email' ? 'focused' : ''}`}>
           <input
             type="email"
             placeholder="אימייל"
@@ -103,7 +103,7 @@ export default function LeadForm() {
             onBlur={() => setFocusedField(null)}
             className="w-full text-right text-gray-700 placeholder:text-gray-400 transition-all focus:outline-none"
             style={{
-              height: '44px',
+              height: '50px',
               padding: '12px 24px',
               borderRadius: '100px',
               border: focusedField === 'email' ? 'none' : '1px solid #BEC3D3',
@@ -112,7 +112,7 @@ export default function LeadForm() {
           />
         </div>
 
-        <div className={`w-full max-w-[320px] mx-auto gradient-border-wrapper ${focusedField === 'businessType' ? 'focused' : ''}`}>
+        <div className={`w-[100%] max-w-[600px] mx-auto gradient-border-wrapper ${focusedField === 'businessType' ? 'focused' : ''}`}>
           <input
             type="text"
             placeholder="סוג העסק"
@@ -122,7 +122,7 @@ export default function LeadForm() {
             onBlur={() => setFocusedField(null)}
             className="w-full text-right text-gray-700 placeholder:text-gray-400 transition-all focus:outline-none"
             style={{
-              height: '44px',
+              height: '50px',
               padding: '12px 24px',
               borderRadius: '100px',
               border: focusedField === 'businessType' ? 'none' : '1px solid #BEC3D3',
@@ -133,20 +133,20 @@ export default function LeadForm() {
 
         {/* Error Message */}
         {error && (
-          <div className="w-full max-w-[320px] mx-auto text-center text-red-600 text-sm">
+          <div className="w-[100%] max-w-[600px] mx-auto text-center text-red-600 text-sm">
             {error}
           </div>
         )}
 
         {/* Submit Button */}
-        <div className="w-full max-w-[320px] mx-auto">
+        <div className="w-[100%] max-w-[600px] mx-auto">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full text-white text-base font-bold transition-all hover:opacity-90 hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full text-white text-lg font-bold transition-all hover:opacity-90 hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             style={{
               borderRadius: '100px',
-              padding: '12px 10px',
+              padding: '14px 10px',
               background: 'linear-gradient(90deg, #0066FF 0%, #2979FF 50%, #00C6FF 100%)',
               boxShadow: '0 4px 14px 0 rgba(0, 102, 255, 0.39)',
             }}
