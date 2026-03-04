@@ -177,8 +177,9 @@ export default function LeadFormCard() {
             style={{
               display: "flex",
               flexDirection: "column",
-              alignItems: "flex-start",
+              alignItems: "center",
               gap: "24px",
+              width: "100%",
             }}
           >
             {/* Title */}
@@ -189,9 +190,10 @@ export default function LeadFormCard() {
                 color: "#fff",
                 fontSize: "28px",
                 fontWeight: 700,
-                textAlign: "right",
+                textAlign: "center",
                 lineHeight: 1.4,
                 margin: 0,
+                width: "100%",
               }}
             >
               מוכנים לקחת את העסק
@@ -203,7 +205,7 @@ export default function LeadFormCard() {
             <motion.form
               variants={itemVariants}
               onSubmit={handleSubmit}
-              style={{ display: "flex", flexDirection: "column", gap: "12px", alignItems: "flex-start", width: "100%" }}
+              style={{ display: "flex", flexDirection: "column", gap: "12px", alignItems: "center", width: "100%" }}
             >
               {/* Name Input */}
               <motion.input
@@ -380,8 +382,9 @@ export default function LeadFormCard() {
                 style={{
                   color: "#fff",
                   fontSize: "13px",
-                  textAlign: "right",
+                  textAlign: "center",
                   margin: "4px 0 0",
+                  width: "100%",
                 }}
               >
                 שיחת ייעוץ ללא עלות

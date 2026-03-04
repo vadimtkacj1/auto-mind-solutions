@@ -45,7 +45,7 @@ export default function Footer() {
       variants={footerVariants}
       className="bg-black py-12"
     >
-      <div className="container mx-auto px-4 max-w-lg">
+      <div className="container mx-auto px-4 max-w-6xl">
         {/* Logo & Tagline */}
         <div className="text-center mb-8 pb-8 border-b border-gray-800" dir="rtl">
           <h3 className="text-2xl font-bold mb-3 text-white">AITERRA</h3>
