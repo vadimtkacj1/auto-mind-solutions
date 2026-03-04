@@ -1,30 +1,5 @@
-'use client';
-
 import { SERVICES } from "@/lib/constants";
 import Image from "next/image";
-import { motion } from "framer-motion";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const titleVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.4, 0, 0.2, 1] as const
-    }
-  }
-};
 
 export default function Services() {
 
@@ -39,25 +14,15 @@ export default function Services() {
     >
       {/* Mobile layout - original */}
       <div className="flex flex-col items-center md:hidden">
-        <motion.h2
+        <h2
           id="services-heading"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          variants={titleVariants}
           className="text-3xl font-bold text-center mb-5 w-full"
           dir="rtl"
         >
           השירותים שלנו
-        </motion.h2>
+        </h2>
 
-        <motion.div
-          className="flex flex-col gap-5 w-full items-center max-w-full"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-        >
+        <div className="flex flex-col gap-5 w-full items-center max-w-full">
           {SERVICES.map((service, index) => (
             <ServiceCard
               key={service.id}
@@ -66,17 +31,13 @@ export default function Services() {
               isMobile
             />
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Desktop layout - new */}
       <div className="hidden md:block container mx-auto px-4 max-w-7xl">
-        <motion.h2
+        <h2
           id="services-heading"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          variants={titleVariants}
           className="font-bold text-center mb-16"
           dir="rtl"
           style={{
@@ -86,15 +47,9 @@ export default function Services() {
           }}
         >
           השירותים שלנו
-        </motion.h2>
+        </h2>
 
-        <motion.div 
-          className="grid grid-cols-2 gap-8 max-w-6xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
+        <div className="grid grid-cols-2 gap-8 max-w-6xl mx-auto">
           {SERVICES.map((service, index) => (
             <ServiceCard
               key={service.id}
@@ -102,31 +57,13 @@ export default function Services() {
               index={index}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
 function ServiceCard({ service, index, isMobile = false }: { service: any; index: number; isMobile?: boolean }) {
-  const cardVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.85,
-      y: 40
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        delay: index * 0.15,
-        ease: [0.4, 0, 0.2, 1] as const
-      }
-    }
-  };
-
   const serviceImageMap: Record<number, string> = {
     1: "/images/service1.jpg",
     2: "/images/service2.jpg",
@@ -135,11 +72,7 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
   };
 
   return (
-    <motion.div
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-50px' }}
+    <div
       dir="rtl"
       style={{
         width: isMobile ? "100%" : "auto",
@@ -232,6 +165,6 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
           quality={80}
         />
       </div>
-    </motion.div>
+    </div>
   );
 }

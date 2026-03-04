@@ -1,32 +1,7 @@
-'use client';
-
 import Image from "next/image";
 import { WHY_US_PILLARS } from "@/lib/constants";
-import { motion } from "framer-motion";
 
 export default function WhyUs() {
-  const titleVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.4, 0, 0.2, 1] as const
-      }
-    }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
   return (
     <section
       id="why-us"
@@ -38,12 +13,8 @@ export default function WhyUs() {
       }}
     >
       <div className="px-4 max-w-6xl">
-        <motion.h2
+        <h2
           id="why-us-heading"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          variants={titleVariants}
           className="font-bold text-center mb-12"
           dir="rtl"
           style={{
@@ -53,22 +24,16 @@ export default function WhyUs() {
           }}
         >
           למה לבחור בנו?
-        </motion.h2>
+        </h2>
 
         <div className="flex justify-center">
           <div className="relative flex flex-col items-center w-full max-w-4xl">
             {/* Icons and text */}
-            <motion.div 
-              className="flex flex-col gap-4 w-full pb-6 px-4 md:px-6"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-            >
+            <div className="flex flex-col gap-4 w-full pb-6 px-4 md:px-6">
               {WHY_US_PILLARS.map((pillar, index) => (
                 <WhyUsItem key={pillar.id} pillar={pillar} index={index} />
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -80,34 +45,8 @@ export default function WhyUs() {
 }
 
 function WhyUsItem({ pillar, index }: { pillar: any; index: number }) {
-  const itemVariants = {
-    hidden: { 
-      opacity: 0, 
-      x: 60,
-      scale: 0.9
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        delay: index * 0.15,
-        ease: [0.4, 0, 0.2, 1] as const
-      }
-    }
-  };
-
   return (
-    <motion.div
-      variants={itemVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-50px' }}
-      whileHover={{ 
-        x: -5,
-        transition: { duration: 0.2 }
-      }}
+    <div
       className="flex items-center justify-start gap-4 pr-2 md:pr-6"
       dir="rtl"
     >
@@ -147,36 +86,14 @@ function WhyUsItem({ pillar, index }: { pillar: any; index: number }) {
           {pillar.description}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }
-
-const imageVariants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.85,
-    y: 40
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      delay: 0.2,
-      ease: [0.4, 0, 0.2, 1] as const
-    }
-  }
-};
 
 function PeopleImage() {
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-100px' }}
-      variants={imageVariants}
+    <div
       className="w-full mt-8 relative"
       style={{ aspectRatio: '16/9' }}
     >
@@ -203,6 +120,6 @@ function PeopleImage() {
         fetchPriority="low"
         quality={80}
       />
-    </motion.div>
+    </div>
   );
 }

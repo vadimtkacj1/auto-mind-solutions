@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
-import dynamic from "next/dynamic";
 import "../../globals.css";
-
-const ScrollAnimationProvider = dynamic(
-  () => import("@/app/landing/components/ScrollAnimationProvider"),
-  { ssr: false }
-);
 
 const assistant = localFont({
   src: [
@@ -38,7 +32,6 @@ export default function LandingLayout({
   children: React.ReactNode;
 }>) {
   const enablePixel = process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_ENABLE_META_PIXEL === "true";
-  const enableScrollAnimations = process.env.NEXT_PUBLIC_ENABLE_SCROLL_ANIMATIONS === "true";
 
   return (
     <>
@@ -89,7 +82,6 @@ export default function LandingLayout({
       )}
       <div className={assistant.className}>
         {children}
-        {enableScrollAnimations && <ScrollAnimationProvider />}
       </div>
     </>
   );

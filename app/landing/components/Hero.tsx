@@ -1,10 +1,5 @@
-'use client';
-
 import Image from 'next/image';
-import { useState } from 'react';
-
 export default function Hero() {
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <section
@@ -39,19 +34,6 @@ export default function Hero() {
             <div className="w-full flex justify-center px-4 md:px-0">
               <a
                 href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const element = document.getElementById('contact');
-                  if (element) {
-                    const headerHeight = 80;
-                    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-                    const offsetPosition = elementPosition - headerHeight;
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: 'smooth'
-                    });
-                  }
-                }}
                 className="inline-block text-center text-white w-full md:w-auto px-14 py-4 md:py-5 text-lg font-black transition-all cursor-pointer"
                 style={{
                   background: 'linear-gradient(90deg, #0066FF 0%, #2979FF 50%, #00C6FF 100%)',
@@ -66,31 +48,17 @@ export default function Hero() {
 
           <div className="w-full md:w-[55%] flex justify-center order-1 md:order-none">
             <div className="relative w-full md:max-w-none aspect-square">
-
-              {/* Минимальный placeholder для быстрого рендеринга */}
-              {!imageLoaded && (
-                <div className="absolute inset-0 flex items-center justify-center z-10 bg-gradient-to-br from-blue-50 to-blue-100 animate-pulse" />
-              )}
-
               <Image
                 src="/images/hero-section-opt.webp"
                 alt="People working together"
                 fill
-                className={`object-contain w-full h-full transition-opacity duration-500 mt-10 mb-10 ${
-                  imageLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
+                className="object-contain w-full h-full mt-10 mb-10"
                 style={{ objectPosition: 'center 35%'}}
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 55vw, 700px"
                 priority
                 fetchPriority="high"
                 quality={80}
                 blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAoAAgA0JaQAA3AA/vuUAAA="
-                onLoad={() => {
-                  setImageLoaded(true);
-                }}
-                onError={() => {
-                  setImageLoaded(true);
-                }}
               />
             </div>
           </div>
