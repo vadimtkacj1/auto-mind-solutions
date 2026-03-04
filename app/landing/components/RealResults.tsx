@@ -153,7 +153,7 @@ export default function RealResults() {
                   height={500}
                   quality={85}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
-                  loading="lazy"
+                  loading="eager"
                 />
               );
             })}
@@ -195,10 +195,9 @@ export default function RealResults() {
                     alt={`Portfolio ${currentSlide + 1}`}
                     fill
                     style={{ objectFit: "contain" }}
-                    priority={false}
                     quality={85}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
-                    loading="lazy"
+                    loading="eager"
                   />
                 </a>
               </motion.div>

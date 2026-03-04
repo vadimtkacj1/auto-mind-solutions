@@ -30,37 +30,55 @@ export default function PageLoader() {
       if (finished) return;
       finished = true;
       clearTimeout(maxTimeout);
-      clearInterval(progressInterval);
+      clearInterval(pollInterval);
       setProgress(100);
       setTimeout(() => {
         setLoading(false);
         scheduleIdle(preloadNonCritical);
-      }, 300); // Коротка затримка для показу 100%
+      }, 300);
     };
 
-    // Максимальний таймаут 5s — якщо сторінка не завантажилась, все одно показуємо сайт
-    const maxTimeout = setTimeout(finish, 5000);
+    // Максимальний таймаут 6s
+    const maxTimeout = setTimeout(finish, 6000);
 
-    // Відстежуємо прогрес через реальні <img> елементи в DOM
-    const progressInterval = setInterval(() => {
+    // Час відколи усі поточні зображення стали complete
+    let stableSince = 0;
+    // Скільки ms усі зображення мають бути complete перш ніж закрити спіннер.
+    // 500ms — достатньо щоб динамічні компоненти (RealResults, Services) встигли
+    // змонтуватись та додати свої <img> теги до document.images
+    const STABLE_MS = 500;
+
+    const pollInterval = setInterval(() => {
       const images = Array.from(document.images);
-      if (images.length === 0) return;
-      const loadedCount = images.filter((img) => img.complete).length;
-      const pct = Math.round((loadedCount / images.length) * 100);
-      setProgress(Math.min(pct, 99)); // до 99% — 100% тільки після finish()
-    }, 100);
 
-    // window.onload — браузер сам знає коли всі ресурси (включно з картинками) завантажились
-    if (document.readyState === 'complete') {
-      finish();
-    } else {
-      window.addEventListener('load', finish, { once: true });
-    }
+      // Ще немає жодного зображення — чекаємо
+      if (images.length === 0) {
+        stableSince = 0;
+        return;
+      }
+
+      const doneCount = images.filter((img) => img.complete).length;
+      const pct = Math.round((doneCount / images.length) * 100);
+      setProgress(Math.min(pct, 99));
+
+      if (doneCount === images.length) {
+        // Усі поточні зображення завантажились — засікаємо час
+        if (stableSince === 0) stableSince = Date.now();
+
+        // Якщо стан стабільний вже STABLE_MS — закриваємо.
+        // Це дає час динамічним компонентам змонтуватись і додати нові <img>
+        if (Date.now() - stableSince >= STABLE_MS) {
+          finish();
+        }
+      } else {
+        // З'явились нові незавантажені зображення — скидаємо таймер стабільності
+        stableSince = 0;
+      }
+    }, 100);
 
     return () => {
       clearTimeout(maxTimeout);
-      clearInterval(progressInterval);
-      window.removeEventListener('load', finish);
+      clearInterval(pollInterval);
     };
   }, []);
 
