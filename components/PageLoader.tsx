@@ -49,19 +49,12 @@ export default function PageLoader() {
 
     const preloadNonCritical = () => {
       // JS chunks for dynamically imported sections (start downloading early)
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       void import('@/components/LeadFormSection');
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       void import('@/components/Services');
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       void import('@/components/RealResults');
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       void import('@/components/WhyUs');
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       void import('@/components/SocialFollow');
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       void import('@/components/LeadFormCard');
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       void import('@/components/Footer');
     };
 
