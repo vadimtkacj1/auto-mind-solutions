@@ -228,12 +228,13 @@ export default function Hero() {
                 style={{ objectPosition: 'center 35%'}}
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 55vw, 700px"
                 priority
+                fetchPriority="high"
+                quality={90}
                 blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAoAAgA0JaQAA3AA/vuUAAA="
                 onLoad={() => {
                   setImageLoaded(true);
                 }}
                 onError={() => {
-                  console.error('Image failed to load');
                   setImageLoaded(true);
                 }}
               />

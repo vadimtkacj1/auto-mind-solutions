@@ -33,13 +33,20 @@ export default function RealResults() {
     (i) => i !== currentSlide
   );
 
-  // Auto-scroll every 4 seconds
+  // Auto-scroll every 4 seconds - оптимизировано для производительности
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    }, 4000);
-
-    return () => clearInterval(interval);
+    // Используем requestAnimationFrame для более плавной работы
+    let timeoutId: NodeJS.Timeout;
+    const scheduleNext = () => {
+      timeoutId = setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % totalSlides);
+        scheduleNext();
+      }, 4000);
+    };
+    scheduleNext();
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   const titleVariants = {
@@ -82,6 +89,12 @@ export default function RealResults() {
       opacity: 0,
       zIndex: 0
     }
+  };
+
+  // Оптимизация: используем will-change для улучшения производительности анимаций
+  const slideTransition = {
+    duration: 0.3,
+    ease: "easeInOut" as const
   };
 
   return (
@@ -131,7 +144,7 @@ export default function RealResults() {
           variants={sliderVariants}
           className="relative w-full max-w-3xl mx-auto mb-8"
         >
-          {/* Hidden preloader: eagerly loads all other slide images early */}
+          {/* Hidden preloader: lazy loads other slide images */}
           <div
             aria-hidden
             className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none"
@@ -151,9 +164,10 @@ export default function RealResults() {
                   alt=""
                   width={768}
                   height={500}
-                  quality={85}
+                  quality={90}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
-                  loading="eager"
+                  loading="lazy"
+                  fetchPriority="low"
                 />
               );
             })}
@@ -167,11 +181,9 @@ export default function RealResults() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{
-                  duration: 0.3,
-                  ease: "easeInOut"
-                }}
+                transition={slideTransition}
                 className="absolute inset-0"
+                style={{ willChange: 'opacity' }}
               >
                 <a
                   href={portfolioLinks[currentSlide]}
@@ -195,9 +207,11 @@ export default function RealResults() {
                     alt={`Portfolio ${currentSlide + 1}`}
                     fill
                     style={{ objectFit: "contain" }}
-                    quality={85}
+                    quality={90}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
-                    loading="eager"
+                    loading={currentSlide === 0 ? "eager" : "lazy"}
+                    priority={currentSlide === 0}
+                    fetchPriority={currentSlide === 0 ? "high" : "low"}
                   />
                 </a>
               </motion.div>

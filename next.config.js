@@ -27,6 +27,8 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [],
     unoptimized: false,
+    // Включить оптимизацию для всех изображений
+    loader: 'default',
   },
   
   // Headers для кеширования
@@ -63,6 +65,8 @@ const nextConfig = {
         runtimeChunk: 'single',
         splitChunks: {
           chunks: 'all',
+          maxInitialRequests: 25,
+          minSize: 20000,
           cacheGroups: {
             default: false,
             vendors: false,
@@ -72,6 +76,7 @@ const nextConfig = {
               test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
               priority: 20,
               reuseExistingChunk: true,
+              chunks: 'all',
             },
             // Отдельный чанк для React
             react: {
@@ -79,6 +84,7 @@ const nextConfig = {
               test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
               priority: 30,
               reuseExistingChunk: true,
+              chunks: 'all',
             },
             // Общий чанк для остальных node_modules
             vendor: {
@@ -86,6 +92,7 @@ const nextConfig = {
               test: /[\\/]node_modules[\\/]/,
               priority: 10,
               reuseExistingChunk: true,
+              chunks: 'all',
             },
           },
         },

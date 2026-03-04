@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
-import ScrollAnimationProvider from "@/app/landing/components/ScrollAnimationProvider";
-import PageLoader from "@/app/landing/components/PageLoader";
+import dynamic from "next/dynamic";
 import "../../globals.css";
+
+// Lazy load компонентов, которые не критичны для первого рендера
+const ScrollAnimationProvider = dynamic(
+  () => import("@/app/landing/components/ScrollAnimationProvider"),
+  { ssr: false }
+);
+const PageLoader = dynamic(
+  () => import("@/app/landing/components/PageLoader"),
+  { ssr: false }
+);
 
 const assistant = localFont({
   src: [
@@ -16,11 +25,16 @@ const assistant = localFont({
   variable: "--font-assistant",
   display: "swap",
   preload: true,
+  fallback: ['system-ui', 'arial'],
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
   title: "Aiterra - בניית אתרים, SEO וקמפיינים ממומנים",
   description: "יותר לידים. פחות בזבוז תקציב. משלבים בניית אתר ממיר, אסטרטגיית SEO מדויקת וקמפיינים ממוקדים.",
+  other: {
+    'mobile-web-app-capable': 'yes',
+  },
 };
 
 export default function LandingLayout({
@@ -30,6 +44,12 @@ export default function LandingLayout({
 }>) {
   return (
     <>
+      {/* Resource Hints for Performance */}
+      <link rel="preconnect" href="https://connect.facebook.net" crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href="https://connect.facebook.net" />
+      <link rel="preconnect" href="https://www.facebook.com" crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href="https://www.facebook.com" />
+      
       {/* Meta Pixel Code */}
       <Script id="meta-pixel" strategy="lazyOnload">
         {`

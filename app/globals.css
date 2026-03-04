@@ -21,6 +21,10 @@ body {
   color: var(--foreground);
   background: var(--background);
   direction: rtl;
+  /* Оптимизация производительности */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @layer utilities {
@@ -205,6 +209,24 @@ body {
 /* Smooth transitions for interactive elements */
 button, a {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Оптимизация производительности изображений */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Оптимизация для анимаций */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Оптимизация скролла */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Enhanced hover effects */
