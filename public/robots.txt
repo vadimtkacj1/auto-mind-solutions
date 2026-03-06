@@ -1,0 +1,26 @@
+# Robots.txt for auto-mind.solutions
+# Note: Next.js will use app/robots.ts to generate this dynamically
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/static/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Crawl-delay: 0
+
+Sitemap: https://aiterra.agency/sitemap.xml
+Host: https://aiterra.agency

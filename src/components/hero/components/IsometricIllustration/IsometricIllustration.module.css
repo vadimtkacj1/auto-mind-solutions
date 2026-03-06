@@ -1,0 +1,150 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===============================================
+   GPU-accelerated CSS animations
+   Намного производительнее чем Framer Motion JS
+   =============================================== */
+
+/* Плавающая анимация для блоков данных */
+.svg :global(.data-block) {
+  animation: dataBlockFloat 4s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes dataBlockFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Анимация стрелки */
+.svg :global(.arrow-float) {
+  animation: arrowFloat 5s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes arrowFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Пульсация стрелки */
+.svg :global(.arrow-pulse) {
+  animation: arrowPulse 3s ease-in-out infinite;
+  will-change: opacity;
+}
+
+@keyframes arrowPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+/* Свечение верхушки стрелки */
+.svg :global(.arrow-tip-glow) {
+  animation: tipGlow 2.5s ease-in-out infinite;
+  will-change: opacity;
+}
+
+@keyframes tipGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+/* Анимация узлов */
+.svg :global(.node-core) {
+  animation: nodePulse 2.5s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes nodePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* Кольцо вокруг узла */
+.svg :global(.node-ring) {
+  animation: ringPulse 3s ease-out infinite;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+@keyframes ringPulse {
+  0% { transform: scale(0.8); opacity: 0.4; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* Точки соединений */
+.svg :global(.connection-dot) {
+  animation: dotGlow 2s ease-in-out infinite;
+  will-change: opacity;
+}
+
+@keyframes dotGlow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* Плавающие панели */
+.svg :global(.floating-panel) {
+  animation: panelFloat 4.5s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes panelFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Каустики (световые пятна) */
+.svg :global(.caustic-spot) {
+  animation: causticPulse 4s ease-in-out infinite;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+@keyframes causticPulse {
+  0%, 100% { opacity: 0.05; transform: scale(1); }
+  50% { opacity: 0.12; transform: scale(1.08); }
+}
+
+/* Световые лучи */
+.svg :global(.light-beam) {
+  animation: beamPulse 6s ease-in-out infinite;
+  will-change: opacity;
+}
+
+@keyframes beamPulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.35; }
+}
+
+/* Уменьшение движения для пользователей с настройкой prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .svg :global(.data-block),
+  .svg :global(.arrow-float),
+  .svg :global(.arrow-pulse),
+  .svg :global(.arrow-tip-glow),
+  .svg :global(.node-core),
+  .svg :global(.node-ring),
+  .svg :global(.connection-dot),
+  .svg :global(.floating-panel),
+  .svg :global(.caustic-spot),
+  .svg :global(.light-beam) {
+    animation: none;
+  }
+}

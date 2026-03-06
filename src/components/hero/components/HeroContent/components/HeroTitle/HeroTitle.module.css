@@ -1,0 +1,32 @@
+.container {
+  margin-bottom: 1.25rem;
+  line-height: 1.15;
+  color: white;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  font-weight: 700;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (min-width: 640px) {
+  .container {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    margin-bottom: 2rem;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+  }
+}
+
+.line {
+  display: block;
+  color: rgba(255, 255, 255, 0.95);
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

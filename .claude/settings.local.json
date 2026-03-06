@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv Pricing.tsx Packages.tsx)",
+      "Bash(mv PricingParticles.tsx PackagesParticles.tsx)"
+    ]
+  }
+}

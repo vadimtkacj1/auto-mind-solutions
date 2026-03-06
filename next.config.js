@@ -38,6 +38,11 @@ const nextConfig = {
   },
 
   async headers() {
+    // Кеш только в production
+    if (process.env.NODE_ENV !== 'production') {
+      return [];
+    }
+
     return [
       {
         source: '/images/:all*(svg|jpg|jpeg|png|webp|gif|avif)',

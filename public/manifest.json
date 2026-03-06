@@ -1,0 +1,53 @@
+{
+  "name": "Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי",
+  "short_name": "Aiterra",
+  "description": "סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "dir": "rtl",
+  "lang": "he",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/images/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "business",
+    "productivity",
+    "design"
+  ],
+  "shortcuts": [
+    {
+      "name": "שירותים",
+      "short_name": "שירותים",
+      "description": "צפה בשירותים שלנו",
+      "url": "/#services",
+      "icons": []
+    },
+    {
+      "name": "מחירים",
+      "short_name": "מחירים",
+      "description": "צפה בחבילות המחירים",
+      "url": "/#packages",
+      "icons": []
+    },
+    {
+      "name": "צור קשר",
+      "short_name": "צור קשר",
+      "description": "צור קשר איתנו",
+      "url": "/#contact",
+      "icons": []
+    }
+  ]
+}

@@ -1,21 +1,169 @@
-import Link from 'next/link';
+import { Suspense } from 'react';
+import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 
-export default function MainSite() {
+// Серверные компоненты
+import { Services } from '@/src/components/Services/Services';
+import { TechStack } from '@/src/components/TechStack/TechStack';
+import { Packages } from '@/src/components/Packages/Packages';
+import { Contact } from '@/src/components/Contact/Contact';
+import { FAQ } from '@/src/components/FAQ/FAQ';
+import { Footer } from '@/src/components/Footer/Footer';
+import { TechStats } from '@/src/components/TechStats/TechStats';
+import { WebVitals } from '@/app/web-vitals';
+import { FeaturedCases } from '@/src/components/Portfolio/FeaturedCases';
+import Header from '@/src/components/Header/Header';
+
+// Динамический импорт тяжелых компонентов - отключен SSR для быстрой загрузки
+const Hero = dynamic(() => import('@/src/components/hero/Hero'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+    </div>
+  ),
+});
+
+// Оптимизация: CookiePopup загружаем последним
+const CookiePopup = dynamic(() => import('@/src/components/CookiePopup/CookiePopup'), { ssr: false });
+
+// SEO метаданные для главной страницы
+export const metadata: Metadata = {
+  metadataBase: new URL('https://aiterra.agency'),
+  title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
+  description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript. שירותי פיתוח אתרים, אוטומציה שיווקית ופרסום דיגיטלי.',
+  keywords: [
+    'עיצוב אתרים בישראל',
+    'SEO ישראל',
+    'פיתוח אתרים',
+    'שיווק דיגיטלי',
+    'בניית אתרים',
+    'אוטומציה שיווקית',
+    'פרסום ממומן',
+    'React',
+    'Next.js',
+    'TypeScript',
+    'web design Israel',
+    'digital marketing',
+  ],
+  authors: [{ name: 'Aiterra' }],
+  creator: 'Aiterra',
+  publisher: 'Aiterra',
+  alternates: {
+    canonical: 'https://aiterra.agency',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'he_IL',
+    url: 'https://aiterra.agency',
+    siteName: 'Aiterra',
+    title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
+    description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript.',
+    images: [
+      {
+        url: '/images/Aittera_2.png',
+        width: 1200,
+        height: 630,
+        alt: 'Aiterra - Web Design & SEO',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי',
+    description: 'סוכנות עיצוב ו-SEO מובילה בישראל.',
+    images: ['/images/Aittera_2.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
+
+export default function HomePage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי',
+    description: 'סוכנות עיצוב ו-SEO מובילה בישראל',
+    url: 'https://aiterra.agency',
+    inLanguage: 'he',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Aiterra',
+      url: 'https://aiterra.agency',
+    },
+    about: {
+      '@type': 'Service',
+      serviceType: ['Web Design', 'SEO', 'Digital Marketing', 'Web Development'],
+    },
+    provider: {
+      '@type': 'Organization',
+      name: 'Aiterra',
+      url: 'https://aiterra.agency',
+    },
+  };
+
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100">
-      <div className="text-center space-y-6 p-8">
-        <h1 className="text-4xl font-bold text-gray-800">
-        </h1>
-        <p className="text-xl text-gray-600">
-        </p>
-        <div className="pt-4">
-          <Link
-            href="/landing/first"
-            className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-          >
-          </Link>
-        </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <WebVitals />
+      <Header />
+      <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
+        <main id="home" itemScope itemType="https://schema.org/WebPage">
+          <Suspense fallback={<div className="h-screen" />}>
+            <Hero />
+          </Suspense>
+
+          <Suspense fallback={<div className="min-h-[400px]" />}>
+            <Services />
+          </Suspense>
+
+          <Suspense fallback={<div className="min-h-[400px]" />}>
+            <FeaturedCases limit={2} />
+          </Suspense>
+
+          {/* <Suspense fallback={<div className="min-h-[400px]" />}>
+            <WhyChooseUs />
+          </Suspense> */}
+
+          <Suspense fallback={<div className="min-h-[400px]" />}>
+            <TechStack />
+          </Suspense>
+
+          {/* <Suspense fallback={<div className="min-h-[400px]" />}>
+            <TechStats />
+          </Suspense> */}
+
+           <Suspense fallback={<div className="min-h-[400px]" />}>
+            <Packages />
+          </Suspense> 
+
+          <Suspense fallback={<div className="min-h-[400px]" />}>
+            <Contact />
+          </Suspense>
+
+          <Suspense fallback={<div className="min-h-[400px]" />}>
+            <FAQ />
+          </Suspense>
+        </main>
+        <Footer />
+
+        {/* Клиентские компоненты - загружаются последними */}
+        <Suspense fallback={null}>
+          <CookiePopup />
+        </Suspense>
       </div>
-    </main>
+    </>
   );
 }

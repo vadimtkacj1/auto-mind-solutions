@@ -1,5 +1,10 @@
 import { LeadFormData, ShortLeadFormData } from "@/types";
 
+type ApiResponse = {
+  error?: string;
+  [key: string]: unknown;
+};
+
 /**
  * Submit lead form data
  */
@@ -13,10 +18,11 @@ export async function submitLeadForm(data: LeadFormData) {
       body: JSON.stringify(data),
     });
 
-    const result = await response.json();
+    const result = (await response.json()) as ApiResponse;
 
     if (!response.ok) {
-      throw new Error(result.error || "Failed to submit form");
+      const message = typeof result.error === "string" ? result.error : "Failed to submit form";
+      throw new Error(message);
     }
 
     return result;
@@ -39,10 +45,11 @@ export async function submitShortLeadForm(data: ShortLeadFormData) {
       body: JSON.stringify(data),
     });
 
-    const result = await response.json();
+    const result = (await response.json()) as ApiResponse;
 
     if (!response.ok) {
-      throw new Error(result.error || "Failed to submit form");
+      const message = typeof result.error === "string" ? result.error : "Failed to submit form";
+      throw new Error(message);
     }
 
     return result;
