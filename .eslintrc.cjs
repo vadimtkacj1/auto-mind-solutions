@@ -17,14 +17,9 @@ module.exports = {
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
-  plugins: ['react-refresh'],
+  plugins: [],
   rules: {
-    // Allows constants like 'metadata' to be exported (fixes layout/page errors)
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true, allowExportNames: ['metadata', 'viewport', 'runtime', 'size', 'alt', 'contentType', 'badgeVariants', 'buttonVariants'] },
-    ],
-    
+
     // Form handling fix
     '@typescript-eslint/no-misused-promises': [
       'error',

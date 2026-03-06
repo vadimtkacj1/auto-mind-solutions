@@ -33,7 +33,7 @@ function AnimatedTitle({ className, accentClass }: { className: string; accentCl
     hidden:  { opacity: 0, y: 40, rotateX: -60, filter: "blur(8px)" },
     visible: {
       opacity: 1, y: 0, rotateX: 0, filter: "blur(0px)",
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
     },
   };
 
@@ -80,7 +80,7 @@ function AnimatedSubtitle({ className }: { className: string }) {
   };
   const wordVariant = {
     hidden:  { opacity: 0, y: 8 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
   };
 
   const [isMobile, setIsMobile] = useState(false);
@@ -175,7 +175,7 @@ export default function Hero() {
 
   const popIn = {
     hidden:  { opacity: 0, scale: 0.86, y: 14 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.65, ease: [0.34, 1.56, 0.64, 1], delay: 1.6 } },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.65, ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number], delay: 1.6 } },
   };
 
   return (
