@@ -100,7 +100,7 @@ function AnimatedSubtitle({ className }: { className: string }) {
       animate="visible"
       style={{
         direction: "rtl",
-        textAlign: isMobile ? "center" : "right",
+        textAlign: isMobile ? "center" : "left",
         display: "block",
       }}
     >
