@@ -107,7 +107,7 @@ export function Services({ standalone = false }: { standalone?: boolean }) {
           </Reveal>
           <Reveal>
             <p className="mt-6 text-slate-600 text-lg md:text-xl leading-relaxed font-medium">
-              אנחנו מכסים את כל מחזור החיים — אסטרטגיה, UX, פיתוח, הטמעה וצמיחה — כדי שהדיגיטל שלכם יהיה מנוע הכנסות, לא "עוד אתר".
+              אנחנו מכסים את כל מחזור החיים — אסטרטגיה, UX, פיתוח, הטמעה וצמיחה — כדי שהדיגיטל שלכם יהיה מנוע הכנסות, לא &ldquo;עוד אתר&rdquo;.
             </p>
           </Reveal>
         </div>

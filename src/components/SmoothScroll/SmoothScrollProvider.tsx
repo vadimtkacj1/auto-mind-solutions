@@ -34,7 +34,7 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
       requestAnimationFrame(raf);
 
       // Expose lenis to window for external control
-      (window as { lenis?: typeof lenis }).lenis = lenis;
+      (window as unknown as { lenis?: Lenis }).lenis = lenis;
 
       // Добавляем класс к html для стилизации
       document.documentElement.classList.add('lenis', 'lenis-smooth');
