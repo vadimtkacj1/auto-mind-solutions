@@ -42,13 +42,13 @@ export function PortfolioCarousel() {
   return (
     <div dir="rtl">
       {/* Arrow buttons - positioned at the top */}
-      <div style={{ 
-        display: 'flex', 
-        gap: 12, 
+      <div style={{
+        display: 'flex',
+        gap: 12,
         marginBottom: 24,
         justifyContent: 'flex-start',
       }}>
-        {(['left', 'right'] as const).map((dir) => {
+        {(['right', 'left'] as const).map((dir) => {
           const active = dir === 'left' ? canScrollLeft : canScrollRight;
           return (
             <button 
@@ -136,13 +136,27 @@ export function PortfolioCarousel() {
 }
 
 export function FeaturedCases({
-  title = (<>Case studies שמדברים <span style={{ color: '#a78bfa' }}>תוצאות</span></>),
-  subtitle = '2–3 פרויקטים נבחרים. תכנון, ביצועים ו-UX שמייצרים ROI — בלי מצגות ריקות.',
+  title,
+  subtitle = '',
 }: {
   title?: React.ReactNode;
   subtitle?: string;
   limit?: number;
 }) {
+  const defaultTitle = (
+    <>
+      תיק עבודות שמדבר{' '}
+      <span style={{
+        background: 'linear-gradient(110deg, #a78bfa 0%, #7c3aed 50%, #6366f1 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+      }}>
+        תוצאות
+      </span>
+    </>
+  );
+
   return (
     <section
       id="portfolio"
@@ -163,24 +177,26 @@ export function FeaturedCases({
 
       <div style={{ maxWidth: 1280, margin: '0 auto', position: 'relative' }}>
         <h2 style={{
-          fontSize: 'clamp(32px, 6.5vw, 76px)',
+          fontSize: 'clamp(24px, 4vw, 32px)',
           fontWeight: 900,
           lineHeight: 1.05,
           letterSpacing: '-0.03em',
           color: '#f1f5f9',
-          margin: '0 0 16px',
+          margin: subtitle ? '0 0 16px' : '0 0 44px',
         }}>
-          {title}
+          {title || defaultTitle}
         </h2>
 
-        <p style={{
-          fontSize: 'clamp(15px, 1.8vw, 17px)', color: '#475569', lineHeight: 1.65,
-          maxWidth: 460, margin: '0 0 44px',
-          background: 'none', backgroundColor: 'transparent',
-          padding: 0, boxShadow: 'none', WebkitTextFillColor: 'unset',
-        }}>
-          {subtitle}
-        </p>
+        {subtitle && (
+          <p style={{
+            fontSize: 'clamp(15px, 1.8vw, 17px)', color: '#475569', lineHeight: 1.65,
+            maxWidth: 460, margin: '0 0 44px',
+            background: 'none', backgroundColor: 'transparent',
+            padding: 0, boxShadow: 'none', WebkitTextFillColor: 'unset',
+          }}>
+            {subtitle}
+          </p>
+        )}
 
         {/* Carousel for all screen sizes */}
         <PortfolioCarousel />

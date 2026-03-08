@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState, useRef, lazy, Suspense } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Phone, User, CheckCircle2, ArrowLeft, 
-  Code2, Cpu, Database, Zap, Activity, Cloud 
+import {
+  Phone, User, CheckCircle2, ArrowLeft
 } from 'lucide-react';
 import {
   AlertDialog,
@@ -13,72 +12,20 @@ import {
   AlertDialogDescription,
 } from '../ui/AlertDialog/AlertDialog';
 
-// Lazy load Lottie library
-const DotLottieReact = lazy(() =>
-  import('@lottiefiles/dotlottie-react').then(mod => ({ default: mod.DotLottieReact }))
-);
-
-// --- LOTTIE CHARACTER COMPONENT (Lazy load when visible) ---
-function LottieCharacter() {
-  const [shouldLoad, setShouldLoad] = React.useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: '200px' }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
+// --- VIDEO CHARACTER COMPONENT ---
+function VideoCharacter() {
   return (
-    <div ref={ref} className="relative w-full max-w-[450px] aspect-square flex items-center justify-center lg:justify-start">
-      {shouldLoad ? (
-        <div className="w-full h-full drop-shadow-2xl">
-          <Suspense fallback={
-            <div className="w-full h-full flex items-center justify-center">
-              <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-            </div>
-          }>
-            <DotLottieReact
-              src="https://lottie.host/dfef94f3-a819-489f-aae8-074fe1969dcb/D7StZ67HU8.lottie"
-              loop
-              autoplay
-            />
-          </Suspense>
-        </div>
-      ) : (
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-        </div>
-      )}
-    </div>
-  );
-}
-
-// --- SIMPLIFIED BACKGROUND DECORATION (без параллакса для производительности) ---
-function FloatingTechIcon({ children, x, y, colorClass }: { 
-  children: React.ReactNode, 
-  x: string, 
-  y: string, 
-  colorClass: string 
-}) {
-  return (
-    <div 
-      style={{ left: x, top: y }} 
-      className={`absolute ${colorClass} pointer-events-none z-0 opacity-30 md:opacity-40`}
-    >
-      {children}
+    <div className="relative w-full max-w-[450px] aspect-square flex items-center justify-center lg:justify-start">
+      <div className="w-full h-full">
+        <video
+          src="/videos/contact.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-contain"
+        />
+      </div>
     </div>
   );
 }
@@ -132,42 +79,15 @@ export function Contact() {
     <section
       ref={containerRef}
       id="contact"
-      className="py-8 md:py-16 px-6 bg-[#F8FAFC] relative overflow-hidden z-10"
+      className="py-8 md:py-16 px-6 bg-white relative overflow-hidden z-10"
       dir="rtl"
     >
-      {/* Static Background Icons - Лучшая производительность */}
-      <div className="absolute inset-0 z-0">
-        <FloatingTechIcon x="8%" y="15%" colorClass="text-blue-500">
-          <Code2 size={60} strokeWidth={1.5} />
-        </FloatingTechIcon>
-        
-        <FloatingTechIcon x="85%" y="10%" colorClass="text-indigo-500">
-          <Cpu size={70} strokeWidth={1.5} />
-        </FloatingTechIcon>
-
-        <FloatingTechIcon x="92%" y="65%" colorClass="text-emerald-500">
-          <Database size={65} strokeWidth={1.5} />
-        </FloatingTechIcon>
-
-        <FloatingTechIcon x="5%" y="75%" colorClass="text-amber-500">
-          <Zap size={55} strokeWidth={1.5} />
-        </FloatingTechIcon>
-
-        <FloatingTechIcon x="20%" y="45%" colorClass="text-rose-400">
-          <Activity size={40} strokeWidth={2} />
-        </FloatingTechIcon>
-
-        <FloatingTechIcon x="75%" y="85%" colorClass="text-sky-400">
-          <Cloud size={50} strokeWidth={1.5} />
-        </FloatingTechIcon>
-      </div>
-
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
           
           {/* Character & Text */}
           <div className="flex flex-col items-center lg:items-start">
-            <LottieCharacter />
+            <VideoCharacter />
             <div className="mt-10 text-center lg:text-right">
               <h3 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4 tracking-tight">אנחנו כבר בדרך אליכם</h3>
               <p className="text-slate-500 text-lg sm:text-xl font-medium leading-relaxed max-w-md">
@@ -179,7 +99,7 @@ export function Contact() {
           {/* Form */}
           <div className="w-full max-w-xl mx-auto relative z-20">
             <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 mb-10 sm:mb-12 text-center lg:text-right tracking-tighter">
-              בואו נדבר <span className="text-blue-600 italic">תכלס.</span>
+              בואו נדבר <span className="text-purple-600 italic">תכלס.</span>
             </h2>
 
             <motion.form 

@@ -64,7 +64,7 @@ export function TechStack() {
       <div className="max-w-7xl mx-auto relative z-10 w-full text-center">
         <div className="mb-8 md:mb-12">
           <Reveal>
-            <h1 className="text-4xl md:text-7xl font-black leading-[1.05] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+            <h1 className="text-2xl md:text-[32px] font-black leading-[1.1] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
               הטכנולוגיות שלנו
             </h1>
           </Reveal>
@@ -75,14 +75,14 @@ export function TechStack() {
             {scrollerItems.map((tech, index) => (
               <div
                 key={`${tech.name}-${index}`}
-                className="flex flex-col items-center justify-center w-20 sm:w-28"
+                className="flex flex-col items-center justify-center w-24 sm:w-32 md:w-36"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={tech.logo}
                   alt={tech.name}
                   loading="lazy"
-                  className="w-10 h-10 sm:w-16 sm:h-16 object-contain grayscale-[0.2]"
+                  className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain grayscale-[0.2]"
                 />
                 <span className="mt-2 text-xs sm:text-sm font-bold text-slate-400 tracking-widest uppercase">
                   {tech.name}

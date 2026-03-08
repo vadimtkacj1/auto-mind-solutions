@@ -60,12 +60,12 @@ export default function Header() {
     document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
   }, [mobileMenuOpen]);
 
+  // Updated Navigation Items
   const navItems = [
-    { label: 'בית', href: '/#home' },
-    { label: 'שירותים', href: '/#services' },
-    { label: 'פורטפוליו', href: '/#portfolio' },
-    { label: 'תהליך', href: '/#tech' },
-    { label: 'תובנות', href: '/#packages' },
+    { label: 'ראשי', href: '/#home' },
+    { label: 'השירותים שלנו', href: '/#services' },
+    { label: 'עבודות שלנו', href: '/#portfolio' },
+    { label: 'חבילות', href: '/#packages' },
   ];
 
   return (
@@ -82,16 +82,12 @@ export default function Header() {
         }`}
       >
         {/* Use LTR for layout so left/right are visually stable even inside RTL page */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full flex items-center justify-between" dir="ltr">
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 w-full flex items-center justify-between" dir="ltr">
           {/* LEFT: Logo */}
           <Link href="/" className="relative z-[10001] flex items-center">
-            <div
-              className={`transition-all duration-500 origin-left flex items-center h-10 sm:h-12 w-[140px] sm:w-[160px] md:w-[200px] ${
-                isScrolled ? 'scale-95' : 'scale-100'
-              }`}
-            >
+            <div className="flex items-center h-8 sm:h-9 w-[100px] sm:w-[120px] md:w-[140px]">
               <img
-                src="/images/AiterraWH.svg"
+                src="/images/Aiterra.svg"
                 alt="Aiterra Logo"
                 className="w-full h-full object-contain"
               />

@@ -2,7 +2,6 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import styles from "./Hero.module.css";
 import { smoothScrollTo } from "@/src/utils/smoothScroll";
@@ -11,8 +10,8 @@ const OptimizedScene  = dynamic(() => import("./OptimizedScene"),  { ssr: false 
 const SpaceBackground = dynamic(() => import("./SpaceBackground"), { ssr: false });
 
 function AnimatedTitle({ className, accentClass }: { className: string; accentClass: string }) {
-  const accentWords = ["הנדסה", "דיגיטלית"];
-  const words = ["הנדסה", "דיגיטלית", "מונעת", "ביצועים"];
+  const accentWords = ["שיווק", "דיגיטלי"];
+  const words = ["שיווק", "דיגיטלי", "שמביא", "ביצועים"];
 
   const [isMobile, setIsMobile] = useState(false);
   
@@ -70,7 +69,7 @@ function AnimatedTitle({ className, accentClass }: { className: string; accentCl
 
 function AnimatedSubtitle({ className }: { className: string }) {
   const text =
-    "Aiterra משלבת פיתוח מותאם אישית עם Growth Marketing ו-SEO. אנחנו לא רק בונים אתרים — אנחנו בונים מנועי הכנסות.";
+    "החברה שלנו משלבת בניית ועיצוב אתרים, קידום אתרים, קמפיינים ממומנים. הכל במקום אחד";
 
   const words = text.split(" ");
 
@@ -121,7 +120,6 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const router = useRouter();
 
   useEffect(() => { setIsMounted(true); }, []);
 
@@ -170,7 +168,7 @@ export default function Hero() {
   };
 
   const handleSecondaryCta = () => {
-    router.push("/portfolio");
+    smoothScrollTo("#packages", 80);
   };
 
   const popIn = {
@@ -232,7 +230,7 @@ export default function Hero() {
                   animate="visible"
                 >
                   <button className={styles.btnMain} onClick={handlePrimaryCta}>קביעת שיחת אסטרטגיה</button>
-                  <button className={styles.btnAlt} onClick={handleSecondaryCta}>צפו בפורטפוליו</button>
+                  <button className={styles.btnAlt} onClick={handleSecondaryCta}>צפו בחבילות מעטפת</button>
                 </motion.div>
               </div>
             </div>
@@ -263,7 +261,7 @@ export default function Hero() {
                   animate="visible"
                 >
                   <button className={styles.btnMain} onClick={handlePrimaryCta}>קביעת שיחת אסטרטגיה</button>
-                  <button className={styles.btnAlt} onClick={handleSecondaryCta}>צפו בפורטפוליו</button>
+                  <button className={styles.btnAlt} onClick={handleSecondaryCta}>צפו בחבילות מעטפת</button>
                 </motion.div>
 
               </div>

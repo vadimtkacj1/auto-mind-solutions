@@ -33,7 +33,7 @@ const plans: PackagePlan[] = [
       '3 גרפיקות סטטיות מקצועיות למודעות',
       'עיצוב מודרני ואופטימיזציה בסיסית'
     ],
-    buttonText: 'קבל הצעת מחיר',
+    buttonText: 'קבלו הצעת מחיר',
   },
   {
     name: 'Growth Landing System',
@@ -45,7 +45,7 @@ const plans: PackagePlan[] = [
       'עיצוב ממוקד המרות',
       'פתרון שיווקי מתקדם במחיר נגיש'
     ],
-    buttonText: 'בואו נבנה את המערכת שלכם',
+    buttonText: 'קבלו הצעת מחיר',
   },
   {
     name: 'Business Presence Pro',
@@ -60,7 +60,7 @@ const plans: PackagePlan[] = [
     ],
     highlighted: true,
     badge: 'פופולרי',
-    buttonText: 'קבל הצעת מחיר',
+    buttonText: 'קבלו הצעת מחיר',
   },
   {
     name: 'Digital Commerce Elite',
@@ -74,7 +74,7 @@ const plans: PackagePlan[] = [
       'מודעות מקצועיות לרשתות חברתיות',
       'תשתית מלאה להגדלת מכירות אונליין'
     ],
-    buttonText: 'בואו נבנה את המערכת שלכם',
+    buttonText: 'קבלו הצעת מחיר',
   },
 ];
 
@@ -133,9 +133,9 @@ export function Packages() {
         style={{ opacity: sectionOpacity }} 
         className="absolute inset-0 z-0 pointer-events-none"
       >
-        <div 
-          className="absolute inset-0" 
-          style={{ background: 'radial-gradient(circle at 50% 50%, #0a1c16 0%, #080a0c 100%)' }} 
+        <div
+          className="absolute inset-0"
+          style={{ background: 'radial-gradient(circle at 50% 50%, #0a1c16 0%, #080a0c 100%)' }}
         />
         {isVisible && <PackagesParticles />}
       </motion.div>
@@ -148,7 +148,7 @@ export function Packages() {
           
           {/* Header */}
           <div className="text-center mb-10 lg:mb-16">
-            <h2 className="text-4xl lg:text-7xl font-black text-white" dir="rtl">
+            <h2 className="text-2xl md:text-[32px] font-black text-white" dir="rtl">
               החבילות <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">שלנו</span>
             </h2>
           </div>
