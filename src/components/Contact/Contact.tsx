@@ -12,7 +12,6 @@ import {
   AlertDialogDescription,
 } from '../ui/AlertDialog/AlertDialog';
 
-// --- VIDEO CHARACTER COMPONENT ---
 function VideoCharacter() {
   return (
     <div className="relative w-full max-w-[450px] aspect-square flex items-center justify-center lg:justify-start">
@@ -102,12 +101,15 @@ export function Contact() {
               בואו נדבר <span className="text-purple-600 italic">תכלס.</span>
             </h2>
 
-            <motion.form 
+            <motion.form
               onSubmit={handleSubmit}
-              initial={{ opacity: 0, y: 30 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="bg-white p-6 sm:p-10 lg:p-14 rounded-[2.5rem] sm:rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(15,23,42,0.12)] border border-slate-50 relative"
+              className="bg-white p-6 sm:p-10 lg:p-14 rounded-[2.5rem] sm:rounded-[3.5rem] border border-slate-100 relative"
+              style={{
+                boxShadow: '0 20px 60px -10px rgba(15, 23, 42, 0.25), 0 10px 30px -5px rgba(15, 23, 42, 0.15)',
+              }}
             >
               <div className="space-y-10">
                 {errorMessage && (
@@ -144,6 +146,9 @@ export function Contact() {
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       placeholder="050-0000000"
+                      maxLength={12}
+                      inputMode="tel"
+                      pattern="^0[0-9\-]{9,11}$"
                       className="w-full py-3 sm:py-4 text-xl sm:text-2xl font-bold bg-transparent outline-none text-slate-900 tabular-nums placeholder:text-slate-200"
                     />
                   </div>
@@ -152,7 +157,11 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting || !formData.name || !formData.phone}
-                  className="w-full py-5 sm:py-7 bg-slate-900 text-white rounded-[2rem] font-black text-xl sm:text-2xl hover:bg-blue-600 transition-all shadow-xl flex items-center justify-center gap-4 group disabled:opacity-50 active:scale-95"
+                  className="w-full py-5 sm:py-7 text-white rounded-[2rem] font-black text-xl sm:text-2xl hover:opacity-90 transition-all shadow-xl flex items-center justify-center gap-4 group disabled:opacity-50 active:scale-95"
+                  style={{
+                    background: '#2563eb',
+                    boxShadow: '0 4px 14px 0 rgba(37, 99, 235, 0.5)',
+                  }}
                 >
                   {isSubmitting ? (
                     <div className="w-7 h-7 border-4 border-white/20 border-t-white rounded-full animate-spin" />

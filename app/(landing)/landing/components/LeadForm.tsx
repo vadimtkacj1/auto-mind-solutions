@@ -77,11 +77,14 @@ export default function LeadForm() {
         <div className={`w-[100%] max-w-[600px] mx-auto gradient-border-wrapper ${focusedField === 'phone' ? 'focused' : ''}`}>
           <input
             type="tel"
-            placeholder="טלפון"
+            placeholder="טלפון לדוגמא: 050-1234567"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             onFocus={() => setFocusedField('phone')}
             onBlur={() => setFocusedField(null)}
+            maxLength={12}
+            inputMode="tel"
+            pattern="^0[0-9\-]{9,11}$"
             className="w-full text-right text-gray-700 placeholder:text-gray-400 transition-all focus:outline-none"
             style={{
               height: '50px',
@@ -147,8 +150,8 @@ export default function LeadForm() {
             style={{
               borderRadius: '100px',
               padding: '14px 10px',
-              background: 'linear-gradient(90deg, #0066FF 0%, #2979FF 50%, #00C6FF 100%)',
-              boxShadow: '0 4px 14px 0 rgba(0, 102, 255, 0.39)',
+              background: '#2563eb',
+              boxShadow: '0 4px 14px 0 rgba(37, 99, 235, 0.5)',
             }}
           >
             {isSubmitting && (
