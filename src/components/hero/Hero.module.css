@@ -14,6 +14,7 @@
   height: 100vh;
   height: 100svh;
   overflow: hidden;
+  overflow-x: clip;
   direction: rtl;
   display: flex;
   align-items: center;
@@ -50,6 +51,7 @@
   align-items: center;
   z-index: 1;
   pointer-events: none;
+  transform: translateX(35%) translateY(-8%) scale(1.7);
 }
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
@@ -126,9 +128,8 @@
   line-height: 1.75;
   margin-bottom: 36px;
   will-change: transform;
-  text-align: right;
+  text-align: left;
   direction: rtl;
-  unicode-bidi: plaintext;
 }
 
 .ltr {
@@ -141,7 +142,7 @@
   display: flex;
   gap: 16px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   will-change: transform;
 }
 
