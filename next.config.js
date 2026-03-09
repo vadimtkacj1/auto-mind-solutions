@@ -8,7 +8,7 @@ const nextConfig = {
   },
 
   experimental: {
-    optimizePackageImports: ['framer-motion'],
+    // optimizePackageImports: ['framer-motion'], // Temporarily disabled due to build issues
     // optimizeCss: true, // Вимкнено - потребує critters dependency
   },
 
