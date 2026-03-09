@@ -57,7 +57,7 @@ function ServiceVideo({ src, title }: { src: string; title: string }) {
 const services = [
   {
     tag: 'פיתוח ועיצוב אתרים',
-    title: 'הנדסת תוכנה ואתרים',
+    title: 'פיתוח ועיצוב אתרים',
     description: 'בניית אתרים ומערכות בהתאמה אישית מלאה, הכוללת אינטגרציות API מורכבות וארכיטקטורה סקילבילית (ניתנת להרחבה). אנו שמים דגש על ביצועים מקסימליים מהיום הראשון, כדי להבטיח חווית משתמש חלקה שעומדת בעומסי תנועה ובסטנדרטים הטכנולוגיים הגבוהים ביותר.',
     icon: Code2,
     color: '#1e40af',
@@ -65,7 +65,7 @@ const services = [
   },
   {
     tag: 'קידום אתרים (SEO)',
-    title: 'Growth Marketing & SEO',
+    title: 'קידום אתרים (SEO)',
     description: 'אנחנו דואגים שהלקוחות ימצאו אתכם בדיוק כשהם מחפשים. השירות כולל מחקר מילות מפתח מעמיק, אופטימיזציה טכנית (Technical SEO), שיפור יחס המרה (CRO) וניהול אסטרטגיית תוכן חכמה. הכל מבוסס על דאטה ויעדים עסקיים מדידים כדי להביא תנועה אורגנית איכותית.',
     icon: TrendingUp,
     color: '#4f46e5',
@@ -73,8 +73,8 @@ const services = [
   },
   {
     tag: 'קידום ממומן ואוטומציה',
-    title: 'אוטומציה עסקית וחיבור מערכות (PPC & Tech)',
-    description: 'מקסום תקציבי הפרסום שלכם באמצעות קמפיינים ממומנים מבוססי תוצאות, תוך חיבור מלא למערכות ה-CRM/ERP של העסק. אנחנו יוצרים תהליכי מכירה ודיווח אוטומטיים שהופכים תנועה ללידים ולעסקאות, ללא עבודה ידנית מיותרת ובדיוק מקסימלי.',
+    title: 'קידום ממומן ואוטומציה',
+    description: 'אוטומציה עסקית וחיבור מערכות (PPC & Tech), מקסום תקציבי הפרסום שלכם באמצעות קמפיינים ממומנים מבוססי תוצאות, תוך חיבור מלא למערכות ה-CRM/ERP של העסק. אנחנו יוצרים תהליכי מכירה ודיווח אוטומטיים שהופכים תנועה ללידים ולעסקאות, ללא עבודה ידנית מיותרת ובדיוק מקסימלי.',
     icon: Workflow,
     color: '#059669',
     video: '/videos/GIF_PPC.mp4',
@@ -132,7 +132,7 @@ export function Services({ standalone = false }: { standalone?: boolean }) {
 
                   <div className="w-full md:w-1/2 text-center">
                     <div>
-                      <h3 className="text-xl md:text-2xl font-black tracking-tight text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600">
+                      <h3 className="text-xl md:text-4xl font-black tracking-tight text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600">
                         {service.title}
                       </h3>
                       <h2 className="text-slate-600 text-base md:text-lg leading-relaxed font-medium max-w-xl mx-auto text-center">

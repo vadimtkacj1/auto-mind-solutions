@@ -47,9 +47,9 @@ function AnimatedTitle({ className, accentClass }: { className: string; accentCl
         display: "flex", 
         flexWrap: "wrap", 
         gap: isMobile ? "0.15em" : "0.28em", 
-        justifyContent: isMobile ? "center" : "flex-end",
+        justifyContent: "center",
         alignItems: "baseline",
-        textAlign: isMobile ? "center" : "right",
+        textAlign: "center",
         direction: "rtl",
       }}
     >
@@ -69,7 +69,7 @@ function AnimatedTitle({ className, accentClass }: { className: string; accentCl
 
 function AnimatedSubtitle({ className }: { className: string }) {
   const text =
-    "החברה שלנו משלבת בניית ועיצוב אתרים, קידום אתרים, קמפיינים ממומנים. הכל במקום אחד";
+    "החברה שלנו משלבת בניית ועיצוב אתרים, קידום אתרים וקמפיינים. הכל במקום אחד.";
 
   const words = text.split(" ");
 

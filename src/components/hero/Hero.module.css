@@ -126,7 +126,7 @@
   line-height: 1.75;
   margin-bottom: 36px;
   will-change: transform;
-  text-align: right;
+  text-align: center;
   direction: rtl;
   unicode-bidi: plaintext;
 }
