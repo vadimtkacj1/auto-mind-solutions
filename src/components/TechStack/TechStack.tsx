@@ -64,7 +64,7 @@ export function TechStack() {
       <div className="max-w-7xl mx-auto relative z-10 w-full text-center">
         <div className="mb-8 md:mb-12">
           <Reveal>
-            <h1 className="text-2xl md:text-[32px] font-black leading-[1.1] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+            <h1 className="text-4xl md:text-6xl font-black leading-tight tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-center">
               הטכנולוגיות שלנו
             </h1>
           </Reveal>

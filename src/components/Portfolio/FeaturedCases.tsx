@@ -151,6 +151,7 @@ export function FeaturedCases({
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
+        display: 'inline',
       }}>
         תוצאות
       </span>
@@ -175,14 +176,18 @@ export function FeaturedCases({
         <PortfolioStars />
       </div>
 
-      <div style={{ maxWidth: 1280, margin: '0 auto', position: 'relative' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', position: 'relative', textAlign: 'center' }}>
         <h2 style={{
-          fontSize: 'clamp(24px, 4vw, 32px)',
+          fontSize: 'clamp(36px, 6vw, 60px)',
           fontWeight: 900,
-          lineHeight: 1.05,
-          letterSpacing: '-0.03em',
+          lineHeight: 1.2,
+          letterSpacing: '-0.02em',
           color: '#f1f5f9',
-          margin: subtitle ? '0 0 16px' : '0 0 44px',
+          margin: subtitle ? '0 auto 16px' : '0 auto 44px',
+          textAlign: 'center',
+          width: '100%',
+          display: 'block',
+          direction: 'rtl',
         }}>
           {title || defaultTitle}
         </h2>
@@ -190,9 +195,10 @@ export function FeaturedCases({
         {subtitle && (
           <p style={{
             fontSize: 'clamp(15px, 1.8vw, 17px)', color: '#475569', lineHeight: 1.65,
-            maxWidth: 460, margin: '0 0 44px',
+            maxWidth: 460, margin: '0 auto 44px',
             background: 'none', backgroundColor: 'transparent',
             padding: 0, boxShadow: 'none', WebkitTextFillColor: 'unset',
+            textAlign: 'center',
           }}>
             {subtitle}
           </p>

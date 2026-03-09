@@ -84,14 +84,14 @@ export function WhyChooseUs() {
           {/* Text Content */}
           <div className="space-y-8">
             <Reveal>
-              <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tighter">
+              <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tighter text-center">
                 למה לבחור <br />
                 <span className="text-blue-600">בנו?</span>
               </h2>
             </Reveal>
 
             <Reveal>
-              <div className="space-y-6 text-lg md:text-xl text-slate-600 leading-relaxed">
+              <div className="space-y-6 text-lg md:text-xl text-slate-600 leading-relaxed text-center">
                 <p className="font-semibold text-slate-800">
                   כי אנחנו לא מוכרים אתר או אפליקציה בכל מחיר.
                 </p>

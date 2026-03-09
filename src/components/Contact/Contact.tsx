@@ -87,9 +87,9 @@ export function Contact() {
           {/* Character & Text */}
           <div className="flex flex-col items-center lg:items-start">
             <VideoCharacter />
-            <div className="mt-10 text-center lg:text-right">
-              <h3 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4 tracking-tight">אנחנו כבר בדרך אליכם</h3>
-              <p className="text-slate-500 text-lg sm:text-xl font-medium leading-relaxed max-w-md">
+            <div className="mt-10 text-center">
+              <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tight text-center">אנחנו כבר בדרך אליכם</h3>
+              <p className="text-slate-500 text-lg sm:text-xl font-medium leading-relaxed max-w-md mx-auto">
                 הצוות שלנו זמין עבורכם, רק מחכים לשיחה שלכם כדי להתחיל.
               </p>
             </div>
@@ -97,7 +97,7 @@ export function Contact() {
 
           {/* Form */}
           <div className="w-full max-w-xl mx-auto relative z-20">
-            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 mb-10 sm:mb-12 text-center lg:text-right tracking-tighter">
+            <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-10 sm:mb-12 text-center tracking-tighter">
               בואו נדבר <span className="text-purple-600 italic">תכלס.</span>
             </h2>
 

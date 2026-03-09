@@ -49,7 +49,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-20 sm:gap-40 mb-20 text-center">
             {/* Company Links Section */}
             <div>
-              <h4 className="text-xs font-bold tracking-[3px] text-white/40 uppercase mb-8">חברה</h4>
+              <h4 className="text-xs font-bold tracking-[3px] text-white/40 uppercase mb-8 text-center">חברה</h4>
               <ul className="space-y-5">
                 {/* Increased link size to text-base */}
                 <li><a href="/services" className="text-base text-white/60 hover:text-cyan-400 transition-colors duration-300">שירותים</a></li>
@@ -58,10 +58,10 @@ export function Footer() {
                 <li><a href="/insights" className="text-base text-white/60 hover:text-cyan-400 transition-colors duration-300">תובנות</a></li>
               </ul>
             </div>
-            
+
             {/* Legal Links Section */}
             <div>
-              <h4 className="text-xs font-bold tracking-[3px] text-white/40 uppercase mb-8">משפטי</h4>
+              <h4 className="text-xs font-bold tracking-[3px] text-white/40 uppercase mb-8 text-center">משפטי</h4>
               <ul className="space-y-5">
                 <li><a href="/terms" className="text-base text-white/60 hover:text-cyan-400 transition-colors duration-300">תנאי שימוש</a></li>
                 <li><a href="/privacy" className="text-base text-white/60 hover:text-cyan-400 transition-colors duration-300">פרטיות</a></li>

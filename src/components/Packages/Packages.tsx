@@ -148,7 +148,7 @@ export function Packages() {
           
           {/* Header */}
           <div className="text-center mb-10 lg:mb-16">
-            <h2 className="text-2xl md:text-[32px] font-black text-white" dir="rtl">
+            <h2 className="text-4xl md:text-6xl font-black text-white text-center" dir="rtl">
               החבילות <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">שלנו</span>
             </h2>
           </div>
@@ -174,12 +174,12 @@ export function Packages() {
                   </div>
                 )}
 
-                <div className="mb-8">
-                  <h3 className={`text-xl font-black mb-4 ${plan.highlighted ? 'text-emerald-400' : 'text-white'}`}>
+                <div className="mb-8 text-center">
+                  <h3 className={`text-xl font-black mb-4 text-center ${plan.highlighted ? 'text-emerald-400' : 'text-white'}`}>
                     {plan.name}
                   </h3>
 
-                  <p className="text-slate-400 text-sm leading-relaxed">
+                  <p className="text-slate-400 text-sm leading-relaxed text-center">
                     {plan.description}
                   </p>
                 </div>
