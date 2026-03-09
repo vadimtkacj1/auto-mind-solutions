@@ -42,14 +42,14 @@ function AnimatedTitle({ className, accentClass }: { className: string; accentCl
       variants={container}
       initial="hidden"
       animate="visible"
-      style={{ 
-        perspective: 800, 
-        display: "flex", 
-        flexWrap: "wrap", 
-        gap: isMobile ? "0.15em" : "0.28em", 
-        justifyContent: isMobile ? "center" : "flex-end",
+      style={{
+        perspective: 800,
+        display: "flex",
+        flexWrap: "wrap",
+        gap: isMobile ? "0.15em" : "0.28em",
+        justifyContent: "center",
         alignItems: "baseline",
-        textAlign: isMobile ? "center" : "right",
+        textAlign: "center",
         direction: "rtl",
       }}
     >
@@ -68,8 +68,7 @@ function AnimatedTitle({ className, accentClass }: { className: string; accentCl
 }
 
 function AnimatedSubtitle({ className }: { className: string }) {
-  const text =
-    "החברה שלנו משלבת בניית ועיצוב אתרים, קידום אתרים, קמפיינים ממומנים. הכל במקום אחד";
+  const text = "החברה שלנו משלבת בניית ועיצוב אתרים, קידום אתרים וקמפיינים. הכל במקום אחד.";
 
   const words = text.split(" ");
 
@@ -99,7 +98,7 @@ function AnimatedSubtitle({ className }: { className: string }) {
       animate="visible"
       style={{
         direction: "rtl",
-        textAlign: isMobile ? "center" : "left",
+        textAlign: isMobile ? "center" : "right",
         display: "block",
       }}
     >
