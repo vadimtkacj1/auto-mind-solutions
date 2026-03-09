@@ -37,10 +37,10 @@ export function PortfolioGrid({
               <span className="inline-block px-5 py-1.5 rounded-full bg-white border border-gray-200 text-[var(--color-primary)] text-xs sm:text-sm font-bold shadow-sm mb-8 uppercase tracking-widest">
                 PORTFOLIO • Aiterra
               </span>
-              <h1 className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight">
+              <h1 className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight text-center">
                 {title}
               </h1>
-              <p className="mt-5 text-slate-500 text-lg md:text-xl leading-relaxed font-medium">
+              <p className="mt-5 text-slate-500 text-lg md:text-xl leading-relaxed font-medium text-center">
                 {subtitle}
               </p>
             </div>

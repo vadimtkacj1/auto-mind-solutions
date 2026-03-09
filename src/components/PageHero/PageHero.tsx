@@ -40,11 +40,11 @@ export function PageHero({
           {badge}
         </div>
 
-        <h1 className="mt-7 text-4xl md:text-7xl font-black tracking-tight text-white leading-[1.03]">
+        <h1 className="mt-7 text-4xl md:text-7xl font-black tracking-tight text-white leading-[1.03] text-center">
           {title}
         </h1>
 
-        <p className="mt-7 text-lg md:text-2xl text-white/70 leading-relaxed font-medium max-w-4xl">
+        <p className="mt-7 text-lg md:text-2xl text-white/70 leading-relaxed font-medium max-w-4xl text-center mx-auto">
           {subtitle}
         </p>
 

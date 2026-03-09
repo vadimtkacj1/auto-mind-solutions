@@ -101,12 +101,12 @@ export function Services({ standalone = false }: { standalone?: boolean }) {
         {/* Header */}
         <div className="max-w-4xl mx-auto text-center px-4 mb-16">
           <Reveal>
-            <h1 className="text-2xl md:text-[32px] font-black text-slate-900 leading-tight tracking-tighter">
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tighter text-center">
               מערכת <span className="text-blue-600">360°</span> לצמיחה דיגיטלית
             </h1>
           </Reveal>
           <Reveal>
-            <h2 className="mt-6 text-slate-600 text-lg md:text-xl leading-relaxed font-medium">
+            <h2 className="mt-6 text-slate-600 text-lg md:text-xl leading-relaxed font-medium text-center">
               אנו מלווים אתכם בכל שלבי המחזור הדיגיטלי – מאסטרטגיה ו-UX ועד פיתוח, הטמעה וצמיחה. המטרה שלנו היא להפוך את הנכסים הדיגיטליים שלכם למנוע הכנסות עוצמתי, ולא רק ל&ldquo;עוד אתר&rdquo; ברשת.
             </h2>
           </Reveal>
@@ -119,7 +119,7 @@ export function Services({ standalone = false }: { standalone?: boolean }) {
 
             return (
               <Reveal key={index}>
-                <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center`}>
+                <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center`}>
 
                   <div className="w-full md:w-1/2">
                     <motion.div
@@ -130,12 +130,12 @@ export function Services({ standalone = false }: { standalone?: boolean }) {
                     </motion.div>
                   </div>
 
-                  <div className="w-full md:w-1/2 text-center md:text-right">
-                    <div className="space-y-6">
-                      <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+                  <div className="w-full md:w-1/2 text-center">
+                    <div>
+                      <h3 className="text-xl md:text-2xl font-black tracking-tight text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600">
                         {service.title}
                       </h3>
-                      <h2 className="text-slate-600 text-base md:text-lg leading-relaxed font-medium max-w-xl mx-auto md:mx-0">
+                      <h2 className="text-slate-600 text-base md:text-lg leading-relaxed font-medium max-w-xl mx-auto text-center">
                         {service.description}
                       </h2>
                     </div>

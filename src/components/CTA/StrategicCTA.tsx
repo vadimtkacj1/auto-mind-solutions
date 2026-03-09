@@ -28,10 +28,10 @@ export function StrategicCTA({
             <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.06] border border-white/10 px-4 py-2 text-[11px] font-black tracking-[3px] uppercase text-white/60">
               Strategic Consulting • Aiterra
             </div>
-            <h2 className="mt-6 text-4xl md:text-6xl font-black tracking-tight text-white leading-[1.05]">
+            <h2 className="mt-6 text-4xl md:text-6xl font-black tracking-tight text-white leading-[1.05] text-center">
               {title}
             </h2>
-            <p className="mt-6 text-lg md:text-xl text-white/70 leading-relaxed font-medium">
+            <p className="mt-6 text-lg md:text-xl text-white/70 leading-relaxed font-medium text-center">
               {description}
             </p>
 

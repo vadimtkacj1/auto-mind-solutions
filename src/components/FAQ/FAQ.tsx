@@ -61,7 +61,7 @@ export function FAQ() {
         {/* Header Section - Massive Title Implementation */}
         <Reveal>
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="mb-10 text-6xl md:text-8xl font-black text-slate-900 leading-[1.05] tracking-tight">
+            <h2 className="mb-10 text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tight text-center">
               יש לכם <span className="text-[var(--color-primary)]">שאלות?</span>
             </h2>
             <p className="text-xl sm:text-2xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium">
@@ -84,10 +84,10 @@ export function FAQ() {
                 >
                   <button
                     onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                    className="w-full text-right p-8 sm:p-10 outline-none"
+                    className="w-full text-center p-8 sm:p-10 outline-none"
                   >
-                    <div className="flex items-center justify-between gap-6">
-                      <span className={`text-2xl sm:text-3xl font-extrabold transition-colors ${
+                    <div className="flex items-center justify-center gap-6">
+                      <span className={`text-2xl sm:text-3xl font-extrabold transition-colors text-center ${
                         openIndex === index ? 'text-[var(--color-primary)]' : 'text-slate-800 group-hover:text-[var(--color-primary)]'
                       }`}>
                         {faq.question}
