@@ -1,23 +1,23 @@
-import { useState } from 'react';
-import Header from './components/Header/Header';
-import { Hero } from './components/Hero';
-import { Services } from './components/Services/Services';
-import { TechStack } from './components/TechStack/TechStack';
-import { Packages } from './components/Packages/Packages';
-import { Contact } from './components/Contact/Contact';
-import { FAQ } from './components/FAQ/FAQ';
-import { PrivacyPolicy } from './components/PrivacyPolicy/PrivacyPolicy';
-import { Terms } from './components/Terms/Terms';
-import CookiePopup from './components/CookiePopup/CookiePopup';
-import { Footer } from './components/Footer/Footer';
-import './styles/globals.css';
+import { useState } from "react";
+import Header from "./components/Header/Header";
+import { Hero } from "./components/Hero";
+import { Services } from "./components/Services/Services";
+import { TechStack } from "./components/TechStack/TechStack";
+import { Packages } from "./components/Packages/Packages";
+import { Contact } from "./components/Contact/Contact";
+import { FAQ } from "./components/FAQ/FAQ";
+import { PrivacyPolicy } from "./components/PrivacyPolicy/PrivacyPolicy";
+import { Terms } from "./components/Terms/Terms";
+import CookiePopup from "./components/CookiePopup/CookiePopup";
+import { Footer } from "./components/Footer/Footer";
+import "./styles/globals.css";
 
-type Page = 'home' | 'privacy' | 'terms';
+type Page = "home" | "privacy" | "terms";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentPage, setCurrentPage] = useState<Page>("home");
 
-  if (currentPage === 'privacy') {
+  if (currentPage === "privacy") {
     return (
       <div className="min-h-screen bg-[var(--color-gray-50)] text-[var(--color-dark)]">
         <Header />
@@ -28,7 +28,7 @@ export default function App() {
         </main>
         <Footer />
         <button
-          onClick={() => setCurrentPage('home')}
+          onClick={() => setCurrentPage("home")}
           className="fixed top-24 right-6 px-6 py-3 bg-[var(--color-dark)] text-white rounded-full hover:bg-[var(--color-primary)] transition-all z-50 shadow-lg"
         >
           חזרה לעמוד הראשי
@@ -37,7 +37,7 @@ export default function App() {
     );
   }
 
-  if (currentPage === 'terms') {
+  if (currentPage === "terms") {
     return (
       <div className="min-h-screen bg-[var(--color-gray-50)] text-[var(--color-dark)]">
         <Header />
@@ -48,7 +48,7 @@ export default function App() {
         </main>
         <Footer />
         <button
-          onClick={() => setCurrentPage('home')}
+          onClick={() => setCurrentPage("home")}
           className="fixed top-24 right-6 px-6 py-3 bg-[var(--color-dark)] text-white rounded-full hover:bg-[var(--color-primary)] transition-all z-50 shadow-lg"
         >
           חזרה לעמוד הראשי
@@ -61,30 +61,27 @@ export default function App() {
   const homepageStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Aiterra",
-    "description": "חבילת שיווק דיגיטלית מלאה לעסקים קטנים ובינוניים בישראל: אתר, אוטומציה שיווקית, פרסום ממומן ו-SEO.",
-    "url": "https://aiterra.agency",
-    "potentialAction": {
+    name: "Aiterra",
+    description: "חבילת שיווק דיגיטלית מלאה לעסקים קטנים ובינוניים בישראל: אתר, אוטומציה שיווקית, פרסום ממומן ו-SEO.",
+    url: "https://aiterra.agency",
+    potentialAction: {
       "@type": "SearchAction",
-      "target": "https://aiterra.agency/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
+      target: "https://aiterra.agency/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "Aiterra",
-      "logo": {
+      name: "Aiterra",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://aiterra.agency/logo.png"
-      }
-    }
+        url: "https://aiterra.agency/logo.png",
+      },
+    },
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageStructuredData) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageStructuredData) }} />
       <div className="min-h-screen bg-[var(--color-gray-50)] text-[var(--color-dark)] leading-relaxed">
         <Header />
         <main itemScope itemType="https://schema.org/WebPage" className="pt-20">

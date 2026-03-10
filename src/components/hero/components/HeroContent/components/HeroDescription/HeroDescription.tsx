@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import styles from './HeroDescription.module.css';
+import { motion } from "framer-motion";
+import styles from "./HeroDescription.module.css";
 
 export function HeroDescription() {
   return (
@@ -9,9 +9,8 @@ export function HeroDescription() {
       transition={{ delay: 0.65, duration: 0.8 }}
       className={styles.container}
     >
-      AITERRA מספקת פתרונות דיגיטליים מתקדמים בעיצוב ופיתוח אתרים,
-      אופטימיזציה למנועי חיפוש ואוטומציה חכמה. אנחנו הופכים רעיונות למציאות.
+      AITERRA מספקת פתרונות דיגיטליים מתקדמים בעיצוב ופיתוח אתרים, אופטימיזציה למנועי חיפוש ואוטומציה חכמה. אנחנו הופכים
+      רעיונות למציאות.
     </motion.p>
   );
 }
-

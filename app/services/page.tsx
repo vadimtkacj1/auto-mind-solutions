@@ -1,15 +1,15 @@
-import type { Metadata } from 'next';
-import Header from '@/src/components/Header/Header';
-import { Services } from '@/src/components/Services/Services';
-import { TechStack } from '@/src/components/TechStack/TechStack';
-import { StrategicCTA } from '@/src/components/CTA/StrategicCTA';
-import { Footer } from '@/src/components/Footer/Footer';
-import { PageHero } from '@/src/components/PageHero/PageHero';
+import type { Metadata } from "next";
+import Header from "@/src/components/Header/Header";
+import { Services } from "@/src/components/Services/Services";
+import { TechStack } from "@/src/components/TechStack/TechStack";
+import { StrategicCTA } from "@/src/components/CTA/StrategicCTA";
+import { Footer } from "@/src/components/Footer/Footer";
+import { PageHero } from "@/src/components/PageHero/PageHero";
 
 export const metadata: Metadata = {
-  title: 'Services',
-  description: 'Software engineering, growth marketing & automation — one integrated delivery.',
-  alternates: { canonical: 'https://aiterra.agency/services' },
+  title: "Services",
+  description: "Software engineering, growth marketing & automation — one integrated delivery.",
+  alternates: { canonical: "https://aiterra.agency/services" },
 };
 
 export default function ServicesPage() {
@@ -26,12 +26,12 @@ export default function ServicesPage() {
           }
           subtitle={
             <>
-              בנייה, שיווק וצמיחה צריכים לעבוד יחד. כשכל צוות עובד לבד — נוצרות דליפות בפאנל.
-              אנחנו מסנכרנים Engineering + Growth סביב KPI ברורים, עם שקיפות מלאה.
+              בנייה, שיווק וצמיחה צריכים לעבוד יחד. כשכל צוות עובד לבד — נוצרות דליפות בפאנל. אנחנו מסנכרנים Engineering
+              + Growth סביב KPI ברורים, עם שקיפות מלאה.
             </>
           }
-          primaryCta={{ label: 'קביעת שיחת אסטרטגיה', href: '/#contact' }}
-          secondaryCta={{ label: 'צפו בפורטפוליו', href: '/portfolio' }}
+          primaryCta={{ label: "קביעת שיחת אסטרטגיה", href: "/#contact" }}
+          secondaryCta={{ label: "צפו בפורטפוליו", href: "/portfolio" }}
         />
 
         <section className="px-6 py-14 md:py-20 bg-[#f8fafc]" dir="rtl">
@@ -39,16 +39,16 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
-                  title: 'Bespoke Engineering',
-                  desc: 'Custom builds, API integrations, performance & scalability.',
+                  title: "Bespoke Engineering",
+                  desc: "Custom builds, API integrations, performance & scalability.",
                 },
                 {
-                  title: 'Growth Marketing & SEO',
-                  desc: 'Technical SEO, intent-driven content, CRO & paid campaigns.',
+                  title: "Growth Marketing & SEO",
+                  desc: "Technical SEO, intent-driven content, CRO & paid campaigns.",
                 },
                 {
-                  title: 'Business Automation',
-                  desc: 'Connect site → CRM/ERP → pipeline. Less manual work, more revenue.',
+                  title: "Business Automation",
+                  desc: "Connect site → CRM/ERP → pipeline. Less manual work, more revenue.",
                 },
               ].map((c) => (
                 <div
@@ -72,5 +72,3 @@ export default function ServicesPage() {
     </div>
   );
 }
-
-

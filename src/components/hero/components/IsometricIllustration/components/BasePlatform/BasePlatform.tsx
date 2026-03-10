@@ -1,12 +1,8 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export function BasePlatform() {
   return (
-    <motion.g
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.2 }}
-    >
+    <motion.g initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }}>
       <path
         d="M150 400 L300 480 L450 400 L300 320 Z"
         fill="url(#glassGradient)"
@@ -29,4 +25,3 @@ export function BasePlatform() {
     </motion.g>
   );
 }
-

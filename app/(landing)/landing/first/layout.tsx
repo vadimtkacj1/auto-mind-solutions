@@ -12,8 +12,8 @@ const assistant = localFont({
   variable: "--font-assistant",
   display: "swap",
   preload: true,
-  fallback: ['system-ui', 'arial'],
-  adjustFontFallback: 'Arial',
+  fallback: ["system-ui", "arial"],
+  adjustFontFallback: "Arial",
 });
 
 export const metadata: Metadata = {
@@ -37,16 +37,9 @@ export default function FirstLandingLayout({
         imageSizes="(max-width: 768px) 100vw, (max-width: 1024px) 55vw, 700px"
         fetchPriority="high"
       />
-      <link
-        rel="preload"
-        as="image"
-        href="/images/logo.svg"
-        fetchPriority="high"
-      />
+      <link rel="preload" as="image" href="/images/logo.svg" fetchPriority="high" />
 
-      <div className={assistant.className}>
-        {children}
-      </div>
+      <div className={assistant.className}>{children}</div>
     </>
   );
 }

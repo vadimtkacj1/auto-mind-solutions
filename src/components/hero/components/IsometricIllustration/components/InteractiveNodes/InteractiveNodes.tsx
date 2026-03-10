@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const nodes = [
   { cx: 230, cy: 350 },
@@ -10,11 +10,7 @@ const nodes = [
 
 export function InteractiveNodes() {
   return (
-    <motion.g
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, delay: 0.5 }}
-    >
+    <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.5 }}>
       {nodes.map((node, i) => (
         <g key={i}>
           {/* Статичный внешний круг с CSS анимацией */}
@@ -43,4 +39,3 @@ export function InteractiveNodes() {
     </motion.g>
   );
 }
-

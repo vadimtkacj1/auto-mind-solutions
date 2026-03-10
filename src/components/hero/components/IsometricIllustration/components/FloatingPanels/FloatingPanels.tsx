@@ -1,16 +1,15 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export function FloatingPanels() {
   return (
-    <motion.g
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, delay: 0.7 }}
-    >
+    <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.7 }}>
       {/* Панель 1 - CSS анимация */}
-      <g className="floating-panel" style={{ animationDelay: '0s' }}>
+      <g className="floating-panel" style={{ animationDelay: "0s" }}>
         <rect
-          x="180" y="200" width="80" height="100"
+          x="180"
+          y="200"
+          width="80"
+          height="100"
           rx="4"
           fill="rgba(0, 208, 132, 0.08)"
           stroke="rgba(0, 208, 132, 0.4)"
@@ -23,9 +22,12 @@ export function FloatingPanels() {
       </g>
 
       {/* Панель 2 - CSS анимация */}
-      <g className="floating-panel" style={{ animationDelay: '0.5s' }}>
+      <g className="floating-panel" style={{ animationDelay: "0.5s" }}>
         <rect
-          x="380" y="180" width="70" height="90"
+          x="380"
+          y="180"
+          width="70"
+          height="90"
           rx="4"
           fill="rgba(0, 102, 255, 0.08)"
           stroke="rgba(0, 102, 255, 0.4)"
@@ -40,4 +42,3 @@ export function FloatingPanels() {
     </motion.g>
   );
 }
-

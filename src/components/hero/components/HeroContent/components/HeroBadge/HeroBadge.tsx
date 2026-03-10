@@ -1,4 +1,4 @@
-import styles from './HeroBadge.module.css';
+import styles from "./HeroBadge.module.css";
 
 export function HeroBadge() {
   return (
@@ -8,4 +8,3 @@ export function HeroBadge() {
     </div>
   );
 }
-

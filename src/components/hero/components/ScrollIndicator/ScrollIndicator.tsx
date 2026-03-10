@@ -1,14 +1,14 @@
-import { motion } from 'framer-motion';
-import styles from './ScrollIndicator.module.css';
+import { motion } from "framer-motion";
+import styles from "./ScrollIndicator.module.css";
 
 export function ScrollIndicator() {
   const handleScrollClick = () => {
-    const servicesSection = document.querySelector('#services');
+    const servicesSection = document.querySelector("#services");
     if (servicesSection) {
       const offsetTop = servicesSection.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
         top: offsetTop,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -20,11 +20,11 @@ export function ScrollIndicator() {
       transition={{ delay: 1.8 }}
       className={styles.container}
       onClick={handleScrollClick}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: "pointer" }}
     >
       <motion.div
         animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         className={styles.content}
       >
         <div className={styles.mouse}>
@@ -39,4 +39,3 @@ export function ScrollIndicator() {
     </motion.div>
   );
 }
-

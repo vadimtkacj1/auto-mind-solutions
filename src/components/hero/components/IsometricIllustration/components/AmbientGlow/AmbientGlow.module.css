@@ -4,7 +4,7 @@
   left: 25%;
   width: 8rem;
   height: 8rem;
-  background-color: #00D084;
+  background-color: #00d084;
   border-radius: 9999px;
   filter: blur(80px);
   opacity: 0.2;
@@ -17,7 +17,7 @@
   right: 25%;
   width: 10rem;
   height: 10rem;
-  background-color: #0066FF;
+  background-color: #0066ff;
   border-radius: 9999px;
   filter: blur(100px);
   opacity: 0.15;
@@ -25,11 +25,11 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.2;
   }
   50% {
     opacity: 0.3;
   }
 }
-

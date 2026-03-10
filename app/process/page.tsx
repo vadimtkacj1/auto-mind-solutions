@@ -1,50 +1,50 @@
-import type { Metadata } from 'next';
-import Header from '@/src/components/Header/Header';
-import { StrategicCTA } from '@/src/components/CTA/StrategicCTA';
-import { Footer } from '@/src/components/Footer/Footer';
-import { PageHero } from '@/src/components/PageHero/PageHero';
+import type { Metadata } from "next";
+import Header from "@/src/components/Header/Header";
+import { StrategicCTA } from "@/src/components/CTA/StrategicCTA";
+import { Footer } from "@/src/components/Footer/Footer";
+import { PageHero } from "@/src/components/PageHero/PageHero";
 
 export const metadata: Metadata = {
-  title: 'Process',
-  description: 'Discovery → Strategy → Agile delivery → Growth optimization.',
-  alternates: { canonical: 'https://aiterra.agency/process' },
+  title: "Process",
+  description: "Discovery → Strategy → Agile delivery → Growth optimization.",
+  alternates: { canonical: "https://aiterra.agency/process" },
 };
 
 const phases = [
   {
-    title: 'Discovery & Audit',
-    subtitle: 'הבנה עמוקה של העסק והמצב הטכנולוגי',
+    title: "Discovery & Audit",
+    subtitle: "הבנה עמוקה של העסק והמצב הטכנולוגי",
     bullets: [
-      'מטרות עסקיות, KPI, קהלי יעד ופאנל המרות',
-      'מיפוי Tech Debt / בעיות ביצועים / UX friction',
-      'המלצות חדות עם סדרי עדיפויות',
+      "מטרות עסקיות, KPI, קהלי יעד ופאנל המרות",
+      "מיפוי Tech Debt / בעיות ביצועים / UX friction",
+      "המלצות חדות עם סדרי עדיפויות",
     ],
   },
   {
-    title: 'Strategy & UX',
-    subtitle: 'תכנון שמחבר חוויית משתמש לתוצאות',
+    title: "Strategy & UX",
+    subtitle: "תכנון שמחבר חוויית משתמש לתוצאות",
     bullets: [
-      'מסע משתמש, היררכיית תוכן ו-Information Architecture',
-      'תכנון אנליטיקה ואירועים (GA4 / Pixel / CRM)',
-      'תיעדוף MVP מול שלבים מתקדמים',
+      "מסע משתמש, היררכיית תוכן ו-Information Architecture",
+      "תכנון אנליטיקה ואירועים (GA4 / Pixel / CRM)",
+      "תיעדוף MVP מול שלבים מתקדמים",
     ],
   },
   {
-    title: 'Agile Development',
-    subtitle: 'דיליברי בספרינטים עם שקיפות מלאה',
+    title: "Agile Development",
+    subtitle: "דיליברי בספרינטים עם שקיפות מלאה",
     bullets: [
-      'ספרינטים, דמו תקופתי, ודוחות התקדמות',
-      'בדיקות, QA, נגישות וביצועים',
-      'אינטגרציות: API, CRM, תשלומים, אוטומציות',
+      "ספרינטים, דמו תקופתי, ודוחות התקדמות",
+      "בדיקות, QA, נגישות וביצועים",
+      "אינטגרציות: API, CRM, תשלומים, אוטומציות",
     ],
   },
   {
-    title: 'Growth & Optimization',
-    subtitle: 'אחרי ההשקה מתחילה העבודה האמיתית',
+    title: "Growth & Optimization",
+    subtitle: "אחרי ההשקה מתחילה העבודה האמיתית",
     bullets: [
-      'ניטור, A/B, CRO ושיפורי פאנל',
-      'Technical SEO + תוכן שמביא Intent גבוה',
-      'סקייל לקמפיינים וערוצים חדשים',
+      "ניטור, A/B, CRO ושיפורי פאנל",
+      "Technical SEO + תוכן שמביא Intent גבוה",
+      "סקייל לקמפיינים וערוצים חדשים",
     ],
   },
 ];
@@ -67,8 +67,8 @@ export default function ProcessPage() {
               למנוע צמיחה אמיתי.
             </>
           }
-          primaryCta={{ label: 'קביעת שיחת אסטרטגיה', href: '/#contact' }}
-          secondaryCta={{ label: 'Capabilities Deck', href: '/capabilities' }}
+          primaryCta={{ label: "קביעת שיחת אסטרטגיה", href: "/#contact" }}
+          secondaryCta={{ label: "Capabilities Deck", href: "/capabilities" }}
         />
 
         <section className="px-6 py-16 md:py-24 bg-[#f8fafc]" dir="rtl">
@@ -87,7 +87,7 @@ export default function ProcessPage() {
                   >
                     <div
                       className="absolute -top-16 -left-16 h-48 w-48 rounded-full blur-[70px] opacity-50"
-                      style={{ background: idx % 2 === 0 ? 'rgba(0,112,255,0.18)' : 'rgba(0,230,144,0.14)' }}
+                      style={{ background: idx % 2 === 0 ? "rgba(0,112,255,0.18)" : "rgba(0,230,144,0.14)" }}
                       aria-hidden="true"
                     />
 
@@ -133,5 +133,3 @@ export default function ProcessPage() {
     </div>
   );
 }
-
-

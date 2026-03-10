@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
 
 export default function PackagesParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !canvasRef.current) return;
+    if (typeof window === "undefined" || !canvasRef.current) return;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -15,7 +15,7 @@ export default function PackagesParticles() {
       canvas: canvasRef.current,
       alpha: true,
       antialias: false, // аопптимизация: ллא אנטי אליאסינג לביצועים טובים
-      powerPreference: 'high-performance'
+      powerPreference: "high-performance",
     });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -32,14 +32,14 @@ export default function PackagesParticles() {
     }
 
     const pointsGeom = new THREE.BufferGeometry();
-    pointsGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    pointsGeom.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
 
     const pointsMat = new THREE.PointsMaterial({
       size: 0.02, // גודל נקודה מעט גדול יותר לנראות טובה
       color: 0x10b981,
       transparent: true,
       opacity: 0.25, // שקיפות עדינה כדי לא להפריע לטקסט
-      blending: THREE.AdditiveBlending // אפקט "זוהר" בחיבור בין נקודות
+      blending: THREE.AdditiveBlending, // אפקט "זוהר" בחיבור בין נקודות
     });
 
     const points = new THREE.Points(pointsGeom, pointsMat);
@@ -59,9 +59,9 @@ export default function PackagesParticles() {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationId);
       renderer.dispose();
       pointsGeom.dispose();

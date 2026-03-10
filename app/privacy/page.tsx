@@ -1,29 +1,32 @@
-import type { Metadata } from 'next';
-import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
-import Header from '../../src/components/Header/Header';
-import { Footer } from '../../src/components/Footer/Footer';
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+import Header from "../../src/components/Header/Header";
+import { Footer } from "../../src/components/Footer/Footer";
 
-const PrivacyPolicy = dynamic(() => import('../../src/components/PrivacyPolicy/PrivacyPolicy').then(mod => ({ default: mod.PrivacyPolicy })), {
-  ssr: true,
-});
+const PrivacyPolicy = dynamic(
+  () => import("../../src/components/PrivacyPolicy/PrivacyPolicy").then((mod) => ({ default: mod.PrivacyPolicy })),
+  {
+    ssr: true,
+  },
+);
 
 export const metadata: Metadata = {
-  title: 'מדיניות פרטיות | Aiterra',
-  description: 'מדיניות הפרטיות של Aiterra - כל המידע על איסוף, שימוש והגנה על הנתונים האישיים שלך.',
+  title: "מדיניות פרטיות | Aiterra",
+  description: "מדיניות הפרטיות של Aiterra - כל המידע על איסוף, שימוש והגנה על הנתונים האישיים שלך.",
   alternates: {
-    canonical: 'https://aiterra.agency/privacy',
+    canonical: "https://aiterra.agency/privacy",
   },
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'מדיניות פרטיות | Aiterra',
-    description: 'מדיניות הפרטיות של Aiterra',
-    url: 'https://aiterra.agency/privacy',
-    type: 'website',
-    locale: 'he_IL',
+    title: "מדיניות פרטיות | Aiterra",
+    description: "מדיניות הפרטיות של Aiterra",
+    url: "https://aiterra.agency/privacy",
+    type: "website",
+    locale: "he_IL",
   },
 };
 
@@ -42,4 +45,3 @@ export default function PrivacyPage() {
     </div>
   );
 }
-

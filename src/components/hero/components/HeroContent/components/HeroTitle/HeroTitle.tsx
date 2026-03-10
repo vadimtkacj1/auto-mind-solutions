@@ -1,8 +1,8 @@
 "use client";
 
-import styles from './HeroTitle.module.css';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import styles from "./HeroTitle.module.css";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export function HeroTitle() {
   const [isMounted, setIsMounted] = useState(false);
@@ -31,8 +31,8 @@ export function HeroTitle() {
       transition: {
         staggerChildren: 0.1,
         delayChildren: 0.1,
-      }
-    }
+      },
+    },
   };
 
   const lineVariant = {
@@ -46,8 +46,8 @@ export function HeroTitle() {
       transition: {
         duration: 0.5,
         ease: [0.22, 1, 0.36, 1] as const,
-      }
-    }
+      },
+    },
   };
 
   const gradientVariant = {
@@ -61,49 +61,36 @@ export function HeroTitle() {
       transition: {
         duration: 0.6,
         ease: [0.22, 1, 0.36, 1] as const,
-      }
-    }
+      },
+    },
   };
 
   return (
-    <motion.h1 
+    <motion.h1
       className={styles.container}
       variants={container}
       initial="hidden"
       animate="show"
-      style={{ willChange: 'transform, opacity' }}
+      style={{ willChange: "transform, opacity" }}
     >
-      <motion.span 
-        className={styles.line} 
-        variants={lineVariant}
-        style={{ willChange: 'transform, opacity' }}
-      >
+      <motion.span className={styles.line} variants={lineVariant} style={{ willChange: "transform, opacity" }}>
         אוטומציה, אתר
       </motion.span>
-      <motion.span 
-        className={styles.line} 
-        variants={lineVariant}
-        style={{ willChange: 'transform, opacity' }}
-      >
-        <motion.span 
+      <motion.span className={styles.line} variants={lineVariant} style={{ willChange: "transform, opacity" }}>
+        <motion.span
           className="text-gradient-hero"
           variants={gradientVariant}
-          style={{ 
-            display: 'inline-block',
-            willChange: 'transform, opacity'
+          style={{
+            display: "inline-block",
+            willChange: "transform, opacity",
           }}
         >
           ושיווק דיגיטלי
         </motion.span>
       </motion.span>
-      <motion.span 
-        className={styles.line} 
-        variants={lineVariant}
-        style={{ willChange: 'transform, opacity' }}
-      >
+      <motion.span className={styles.line} variants={lineVariant} style={{ willChange: "transform, opacity" }}>
         לעסקים בישראל
       </motion.span>
     </motion.h1>
   );
 }
-

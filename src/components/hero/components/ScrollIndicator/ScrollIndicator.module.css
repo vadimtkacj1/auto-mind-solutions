@@ -33,7 +33,7 @@
 .dot {
   width: 0.375rem;
   height: 0.375rem;
-  background: linear-gradient(to bottom, #00D084, #0066FF);
+  background: linear-gradient(to bottom, #00d084, #0066ff);
   border-radius: 9999px;
 }
 
@@ -44,4 +44,3 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-

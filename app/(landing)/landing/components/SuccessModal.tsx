@@ -1,41 +1,40 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 interface SuccessModalProps {
   isOpen: boolean;
   onClose: () => void;
-  variant?: 'light' | 'dark';
+  variant?: "light" | "dark";
 }
 
 const lightContent = {
-  title: 'הפרטים התקבלו בהצלחה',
-  description: 'אנחנו כבר בודקים את הבקשה שלך, נחזור אליך תוך 24 שעות עם כיוון אסטרטגי ראשוני מותאם לעסק שלך.',
-  buttonText: 'מעולה!'
+  title: "הפרטים התקבלו בהצלחה",
+  description: "אנחנו כבר בודקים את הבקשה שלך, נחזור אליך תוך 24 שעות עם כיוון אסטרטגי ראשוני מותאם לעסק שלך.",
+  buttonText: "מעולה!",
 };
 
 const darkContent = {
-  title: 'מעולה! אנחנו יוצאים לדרך',
-  description: 'נציג מהצוות יחזור אליך במהרה כדי לבנות מסלול צמיחה מותאמת לעסק שלך.',
-  buttonText: 'סגור'
+  title: "מעולה! אנחנו יוצאים לדרך",
+  description: "נציג מהצוות יחזור אליך במהרה כדי לבנות מסלול צמיחה מותאמת לעסק שלך.",
+  buttonText: "סגור",
 };
 
-export default function SuccessModal({ isOpen, onClose, variant = 'light' }: SuccessModalProps) {
+export default function SuccessModal({ isOpen, onClose, variant = "light" }: SuccessModalProps) {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
   if (!isOpen) return null;
 
-
-  const content = variant === 'light' ? lightContent : darkContent;
+  const content = variant === "light" ? lightContent : darkContent;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center px-4" style={{ zIndex: 10000 }}>
@@ -44,26 +43,26 @@ export default function SuccessModal({ isOpen, onClose, variant = 'light' }: Suc
         className="absolute inset-0 bg-black bg-opacity-50 animate-fadeIn"
         onClick={onClose}
         style={{
-          animation: 'fadeIn 0.3s ease-out'
+          animation: "fadeIn 0.3s ease-out",
         }}
       ></div>
 
       {/* Modal */}
       <div
         className={`relative max-w-md w-full p-8 rounded-3xl shadow-2xl ${
-          variant === 'light' ? 'bg-white' : 'bg-gray-900'
+          variant === "light" ? "bg-white" : "bg-gray-900"
         }`}
         style={{
-          animation: 'scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+          animation: "scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
           className={`absolute top-4 left-4 w-10 h-10 rounded-xl border-2 flex items-center justify-center transition ${
-            variant === 'light'
-              ? 'border-blue-500 text-blue-500 hover:bg-blue-50'
-              : 'border-blue-400 text-blue-400 hover:bg-gray-800'
+            variant === "light"
+              ? "border-blue-500 text-blue-500 hover:bg-blue-50"
+              : "border-blue-400 text-blue-400 hover:bg-gray-800"
           }`}
           aria-label="Close"
         >
@@ -84,18 +83,10 @@ export default function SuccessModal({ isOpen, onClose, variant = 'light' }: Suc
 
         {/* Content */}
         <div className="text-center mt-4">
-          <h2
-            className={`text-2xl font-extrabold mb-4 ${
-              variant === 'light' ? 'text-gray-900' : 'text-white'
-            }`}
-          >
+          <h2 className={`text-2xl font-extrabold mb-4 ${variant === "light" ? "text-gray-900" : "text-white"}`}>
             {content.title}
           </h2>
-          <p
-            className={`text-base mb-8 leading-relaxed ${
-              variant === 'light' ? 'text-gray-700' : 'text-gray-300'
-            }`}
-          >
+          <p className={`text-base mb-8 leading-relaxed ${variant === "light" ? "text-gray-700" : "text-gray-300"}`}>
             {content.description}
           </p>
 
@@ -104,8 +95,8 @@ export default function SuccessModal({ isOpen, onClose, variant = 'light' }: Suc
             onClick={onClose}
             className="w-full py-3 px-6 text-white text-base font-bold rounded-full transition-all hover:opacity-90 hover:scale-105"
             style={{
-              background: 'linear-gradient(90deg, #0EA5E9 0%, #2563EB 100%)',
-              boxShadow: '0 4px 14px 0 rgba(37, 99, 235, 0.39)'
+              background: "linear-gradient(90deg, #0EA5E9 0%, #2563EB 100%)",
+              boxShadow: "0 4px 14px 0 rgba(37, 99, 235, 0.39)",
             }}
           >
             {content.buttonText}

@@ -1,11 +1,10 @@
-import Image from 'next/image';
+import Image from "next/image";
 export default function Hero() {
-
   return (
     <section
       className="pt-4 pb-8 md:pb-20 flex items-center rounded-bl-[40px] rounded-br-[40px] overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)',
+        background: "linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)",
       }}
     >
       <div className="container mx-auto px-1 sm:px-3 max-w-7xl w-full">
@@ -14,21 +13,20 @@ export default function Hero() {
             <h1
               className="text-[#1a2b4b] mb-3 mt-6 md:mt-16 md:mb-8 w-full"
               style={{
-                fontSize: 'clamp(32px, 8vw, 72px)',
+                fontSize: "clamp(32px, 8vw, 72px)",
                 fontWeight: 900,
-                lineHeight: '1.1',
-                letterSpacing: '-0.02em',
+                lineHeight: "1.1",
+                letterSpacing: "-0.02em",
               }}
             >
-              יותר לידים.<br />
+              יותר לידים.
+              <br />
               פחות בזבוז תקציב.
             </h1>
 
-            <p
-              className="text-sm sm:text-base md:text-xl text-gray-700 mb-8 sm:mb-6 md:mb-10 leading-relaxed font-medium max-w-full md:max-w-[500px] px-2 sm:px-0"
-            >
-              משלבים בניית אתר ממיר, אסטרטגיית SEO מדויקת וקמפיינים ממוקדים שמוזנים בדאטה בזמן אמת.
-              התוצאה: תנועה איכותית שנכנסת למערכת מסודרת והופכת ללידים שמייצרים מכירות.
+            <p className="text-sm sm:text-base md:text-xl text-gray-700 mb-8 sm:mb-6 md:mb-10 leading-relaxed font-medium max-w-full md:max-w-[500px] px-2 sm:px-0">
+              משלבים בניית אתר ממיר, אסטרטגיית SEO מדויקת וקמפיינים ממוקדים שמוזנים בדאטה בזמן אמת. התוצאה: תנועה
+              איכותית שנכנסת למערכת מסודרת והופכת ללידים שמייצרים מכירות.
             </p>
 
             <div className="w-full flex justify-center px-4 md:px-0">
@@ -36,9 +34,9 @@ export default function Hero() {
                 href="#contact"
                 className="inline-block text-center text-white w-full md:w-auto px-14 py-4 md:py-5 text-lg font-black transition-all cursor-pointer"
                 style={{
-                  background: 'linear-gradient(90deg, #0066FF 0%, #2979FF 50%, #00C6FF 100%)',
-                  boxShadow: '0 10px 25px -5px rgba(0, 102, 255, 0.4)',
-                  borderRadius: '20px',
+                  background: "linear-gradient(90deg, #0066FF 0%, #2979FF 50%, #00C6FF 100%)",
+                  boxShadow: "0 10px 25px -5px rgba(0, 102, 255, 0.4)",
+                  borderRadius: "20px",
                 }}
               >
                 קבל שיחת אסטרטגיה חינם
@@ -53,7 +51,7 @@ export default function Hero() {
                 alt="People working together"
                 fill
                 className="object-contain w-full h-full mt-10 mb-10"
-                style={{ objectPosition: 'center 35%'}}
+                style={{ objectPosition: "center 35%" }}
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 55vw, 700px"
                 priority
                 fetchPriority="high"

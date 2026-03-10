@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import Lenis from 'lenis';
+import { useEffect } from "react";
+import Lenis from "lenis";
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -15,8 +15,8 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
       const lenis = new Lenis({
         duration: 0.8,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
+        orientation: "vertical",
+        gestureOrientation: "vertical",
         smoothWheel: true,
         wheelMultiplier: 1.0,
         touchMultiplier: 1.5,
@@ -37,18 +37,18 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
       (window as unknown as { lenis?: Lenis }).lenis = lenis;
 
       // Добавляем класс к html для стилизации
-      document.documentElement.classList.add('lenis', 'lenis-smooth');
+      document.documentElement.classList.add("lenis", "lenis-smooth");
 
       return () => {
         lenis.destroy();
-        document.documentElement.classList.remove('lenis', 'lenis-smooth');
+        document.documentElement.classList.remove("lenis", "lenis-smooth");
       };
     };
 
     // Инициализировать после полной загрузки страницы или после задержки
     let cleanup: (() => void) | undefined;
 
-    if (document.readyState === 'complete') {
+    if (document.readyState === "complete") {
       // Страница уже загружена, добавить небольшую задержку
       const timeoutId = setTimeout(() => {
         cleanup = initLenis();
@@ -64,10 +64,10 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
         cleanup = initLenis();
       };
 
-      window.addEventListener('load', handleLoad);
+      window.addEventListener("load", handleLoad);
 
       return () => {
-        window.removeEventListener('load', handleLoad);
+        window.removeEventListener("load", handleLoad);
         cleanup?.();
       };
     }

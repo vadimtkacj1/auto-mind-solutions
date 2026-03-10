@@ -1,8 +1,8 @@
 import { SERVICES } from "@/lib/constants";
 import Image from "next/image";
+import type { Service } from "@/types";
 
 export default function Services() {
-
   return (
     <section
       id="services"
@@ -14,22 +14,13 @@ export default function Services() {
     >
       {/* Mobile layout - original */}
       <div className="flex flex-col items-center md:hidden">
-        <h2
-          id="services-heading"
-          className="text-3xl font-bold text-center mb-5 w-full"
-          dir="rtl"
-        >
+        <h2 id="services-heading" className="text-3xl font-bold text-center mb-5 w-full" dir="rtl">
           השירותים שלנו
         </h2>
 
         <div className="flex flex-col gap-5 w-full items-center max-w-full">
-          {SERVICES.map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              index={index}
-              isMobile
-            />
+          {SERVICES.map((service) => (
+            <ServiceCard key={service.id} service={service} isMobile />
           ))}
         </div>
       </div>
@@ -41,21 +32,17 @@ export default function Services() {
           className="font-bold text-center mb-16"
           dir="rtl"
           style={{
-            fontSize: '48px',
-            lineHeight: '120%',
-            letterSpacing: '-0.5px'
+            fontSize: "48px",
+            lineHeight: "120%",
+            letterSpacing: "-0.5px",
           }}
         >
           השירותים שלנו
         </h2>
 
         <div className="grid grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {SERVICES.map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              index={index}
-            />
+          {SERVICES.map((service) => (
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
       </div>
@@ -63,7 +50,7 @@ export default function Services() {
   );
 }
 
-function ServiceCard({ service, index, isMobile = false }: { service: any; index: number; isMobile?: boolean }) {
+function ServiceCard({ service, isMobile = false }: { service: Service; isMobile?: boolean }) {
   const serviceImageMap: Record<number, string> = {
     1: "/images/service1.jpg",
     2: "/images/service2.jpg",
@@ -88,19 +75,23 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
       }}
     >
       {/* Top content area with padding */}
-      <div style={{
-        padding: isMobile ? "24px 24px 0 24px" : "32px 32px 0 32px",
-        display: "flex",
-        flexDirection: "column",
-        gap: isMobile ? "16px" : "24px"
-      }}>
+      <div
+        style={{
+          padding: isMobile ? "24px 24px 0 24px" : "32px 32px 0 32px",
+          display: "flex",
+          flexDirection: "column",
+          gap: isMobile ? "16px" : "24px",
+        }}
+      >
         {/* Icon - left aligned */}
-        <div style={{
-          position: "relative",
-          marginLeft: "0",
-          marginRight: "auto",
-          marginBottom: "10px"
-        }}>
+        <div
+          style={{
+            position: "relative",
+            marginLeft: "0",
+            marginRight: "auto",
+            marginBottom: "10px",
+          }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`/images/icon${service.id}.svg`}
@@ -122,8 +113,8 @@ function ServiceCard({ service, index, isMobile = false }: { service: any; index
             textAlign: "center",
             margin: 0,
             color: "#111",
-            lineHeight: '100%',
-            letterSpacing: '0%'
+            lineHeight: "100%",
+            letterSpacing: "0%",
           }}
         >
           {service.title}

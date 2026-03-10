@@ -1,12 +1,8 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export function SecondaryArrows() {
   return (
-    <motion.g
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 1.2 }}
-    >
+    <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.2 }}>
       <motion.path
         d="M180 220 L195 195 L190 195 L190 225 L170 225 L170 195 L165 195 Z"
         fill="url(#arrowGlassGradient)"
@@ -26,4 +22,3 @@ export function SecondaryArrows() {
     </motion.g>
   );
 }
-

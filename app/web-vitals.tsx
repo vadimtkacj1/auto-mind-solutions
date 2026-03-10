@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useReportWebVitals } from 'next/web-vitals';
+import { useEffect } from "react";
+import { useReportWebVitals } from "next/web-vitals";
 
 export function WebVitals() {
   useReportWebVitals((metric) => {
     // Log to console in development
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       console.log(metric);
     }
 
     // Send to analytics in production
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === "production") {
       const body = JSON.stringify({
         name: metric.name,
         value: metric.value,
@@ -23,11 +23,11 @@ export function WebVitals() {
 
       // Send to your analytics endpoint
       if (navigator.sendBeacon) {
-        navigator.sendBeacon('/api/analytics', body);
+        navigator.sendBeacon("/api/analytics", body);
       } else {
-        void fetch('/api/analytics', {
+        void fetch("/api/analytics", {
           body,
-          method: 'POST',
+          method: "POST",
           keepalive: true,
         });
       }
@@ -37,16 +37,13 @@ export function WebVitals() {
   // Preload critical resources
   useEffect(() => {
     // Preconnect to external domains
-    const preconnectLinks = [
-      'https://fonts.googleapis.com',
-      'https://fonts.gstatic.com',
-    ];
+    const preconnectLinks = ["https://fonts.googleapis.com", "https://fonts.gstatic.com"];
 
     preconnectLinks.forEach((href) => {
-      const link = document.createElement('link');
-      link.rel = 'preconnect';
+      const link = document.createElement("link");
+      link.rel = "preconnect";
       link.href = href;
-      link.crossOrigin = 'anonymous';
+      link.crossOrigin = "anonymous";
       document.head.appendChild(link);
     });
   }, []);

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, ReactNode } from 'react';
+import { useEffect, useRef, ReactNode } from "react";
 
 interface ParallaxSectionProps {
   children: ReactNode;
@@ -9,12 +9,7 @@ interface ParallaxSectionProps {
   id?: string;
 }
 
-export default function ParallaxSection({
-  children,
-  speed = 0.5,
-  className = '',
-  id
-}: ParallaxSectionProps) {
+export default function ParallaxSection({ children, speed = 0.5, className = "", id }: ParallaxSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -30,10 +25,10 @@ export default function ParallaxSection({
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Initial call
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [speed]);
 
   return (
@@ -42,8 +37,8 @@ export default function ParallaxSection({
       className={className}
       id={id}
       style={{
-        willChange: 'transform',
-        transition: 'transform 0.1s ease-out'
+        willChange: "transform",
+        transition: "transform 0.1s ease-out",
       }}
     >
       {children}

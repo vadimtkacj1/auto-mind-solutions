@@ -7,45 +7,31 @@ const portfolioLinks = [
   "https://olie6.com/?srsltid=AfmBOoplSojZjiEjDhGBLVegGqFWT1cehFUP5RgZxWBf5LXFFpXXRJ2d", // Portfolio 1
   "https://avi-mashkanta.com/", // Portfolio 2
   "https://ram-haim.co.il/", // Portfolio 3
-  "https://naturallyrefreshing.store/" // Portfolio 4
+  "https://naturallyrefreshing.store/", // Portfolio 4
 ];
 
 export default function RealResults() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 4;
   const currentSrc = `/images/portfolio${currentSlide + 1}-opt.webp`;
-  const nextSrc =
-    currentSlide < totalSlides - 1
-      ? `/images/portfolio${currentSlide + 2}-opt.webp`
-      : null;
+  const nextSrc = currentSlide < totalSlides - 1 ? `/images/portfolio${currentSlide + 2}-opt.webp` : null;
 
   return (
-    <section
-      id="portfolio"
-      aria-labelledby="portfolio-heading"
-      className="py-20 bg-white"
-    >
+    <section id="portfolio" aria-labelledby="portfolio-heading" className="py-20 bg-white">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Title */}
-        <h2
-          id="portfolio-heading"
-          className="text-3xl md:text-4xl font-bold text-center mb-4"
-          dir="rtl"
-        >
+        <h2 id="portfolio-heading" className="text-3xl md:text-4xl font-bold text-center mb-4" dir="rtl">
           תוצאות אמיתיות, אתרים{" "}
-          <span className="bg-gradient-to-r bg-clip-text text-transparent from-blue-600 to-cyan-400">אמיתיים. עסקים שצומחים.</span>
+          <span className="bg-gradient-to-r bg-clip-text text-transparent from-blue-600 to-cyan-400">
+            אמיתיים. עסקים שצומחים.
+          </span>
         </h2>
 
         {/* Description */}
-        <p
-          className="text-center text-gray-600 mb-8 leading-relaxed"
-          dir="rtl"
-          style={{ fontSize: "15px" }}
-        >
+        <p className="text-center text-gray-600 mb-8 leading-relaxed" dir="rtl" style={{ fontSize: "15px" }}>
           מאחורי כל פרויקט עומד צוות של מפתחים, מעצבים ואנשי שיווק שחושבים תוצאות.
           <br />
-          אנחנו עובדים בתהליך מסודר: אפיון ← אסטרטגיה ← עיצוב ← פיתוח ← השקה ←
-          אופטימיזציה.
+          אנחנו עובדים בתהליך מסודר: אפיון ← אסטרטגיה ← עיצוב ← פיתוח ← השקה ← אופטימיזציה.
           <br />
           כל אתר נבנה כדי לייצר צמיחה אמיתית לעסק.
         </p>
@@ -100,9 +86,7 @@ export default function RealResults() {
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`rounded-full transition-all duration-300 ${
-                currentSlide === index
-                  ? "w-8 h-3 bg-blue-600"
-                  : "w-3 h-3 bg-gray-300 hover:bg-gray-400"
+                currentSlide === index ? "w-8 h-3 bg-blue-600" : "w-3 h-3 bg-gray-300 hover:bg-gray-400"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -115,14 +99,14 @@ export default function RealResults() {
             href="#contact"
             onClick={(e) => {
               e.preventDefault();
-              const element = document.getElementById('contact');
+              const element = document.getElementById("contact");
               if (element) {
                 const headerHeight = 80;
                 const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
                 const offsetPosition = elementPosition - headerHeight;
                 window.scrollTo({
                   top: offsetPosition,
-                  behavior: 'smooth'
+                  behavior: "smooth",
                 });
               }
             }}

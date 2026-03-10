@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 type IsometricGrowthProps = {
   className?: string;
@@ -18,7 +18,7 @@ export function IsometricGrowth({ className }: IsometricGrowthProps) {
         className="w-full h-auto"
         initial={false}
         animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
         <defs>
           <linearGradient id="amsCta" x1="0" y1="0" x2="1" y2="1">
@@ -85,24 +85,12 @@ export function IsometricGrowth({ className }: IsometricGrowthProps) {
 
         {/* Ambient beams */}
         <g filter="url(#volumetric)" opacity="0.9">
-          <path
-            d="M505 82 C560 160 625 210 710 250 C615 232 540 198 476 146 Z"
-            fill="url(#amsCta)"
-            opacity="0.22"
-          />
-          <path
-            d="M462 128 C520 206 580 256 670 300 C570 280 505 250 430 186 Z"
-            fill="url(#amsCta)"
-            opacity="0.16"
-          />
+          <path d="M505 82 C560 160 625 210 710 250 C615 232 540 198 476 146 Z" fill="url(#amsCta)" opacity="0.22" />
+          <path d="M462 128 C520 206 580 256 670 300 C570 280 505 250 430 186 Z" fill="url(#amsCta)" opacity="0.16" />
         </g>
 
         {/* Hex grid field */}
-        <path
-          d="M250 120 L690 340 L510 520 L90 300 Z"
-          fill="url(#hexGrid)"
-          opacity="0.9"
-        />
+        <path d="M250 120 L690 340 L510 520 L90 300 Z" fill="url(#hexGrid)" opacity="0.9" />
 
         {/* Isometric platform */}
         <g filter="url(#softGlow)">
@@ -153,17 +141,13 @@ export function IsometricGrowth({ className }: IsometricGrowthProps) {
                 strokeWidth="1"
               />
               <path
-                d={`M ${b.x} ${b.y} L ${b.x + 34} ${b.y + 16} L ${b.x + 34} ${
-                  b.y + b.h + 34
-                } L ${b.x} ${b.y + b.h} Z`}
+                d={`M ${b.x} ${b.y} L ${b.x + 34} ${b.y + 16} L ${b.x + 34} ${b.y + b.h + 34} L ${b.x} ${b.y + b.h} Z`}
                 fill="rgba(0,208,132,0.06)"
                 stroke="rgba(0,208,132,0.14)"
                 strokeWidth="1"
               />
               <path
-                d={`M ${b.x + 34} ${b.y + 16} L ${b.x + b.w + 34} ${
-                  b.y - 18
-                }`}
+                d={`M ${b.x + 34} ${b.y + 16} L ${b.x + b.w + 34} ${b.y - 18}`}
                 stroke="url(#edgeGlow)"
                 strokeWidth="2"
                 strokeOpacity="0.6"
@@ -202,8 +186,8 @@ export function IsometricGrowth({ className }: IsometricGrowthProps) {
         <motion.g
           initial={false}
           animate={{ y: [0, -8, 0], rotate: [0, -1.2, 0] }}
-          transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ transformOrigin: '520px 230px' }}
+          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+          style={{ transformOrigin: "520px 230px" }}
           filter="url(#softGlow)"
         >
           <path
@@ -213,18 +197,8 @@ export function IsometricGrowth({ className }: IsometricGrowthProps) {
             strokeWidth="2.2"
             opacity="0.98"
           />
-          <path
-            d="M468 336 L540 264 L584 300"
-            stroke="rgba(255,255,255,0.5)"
-            strokeWidth="2"
-            opacity="0.55"
-          />
-          <path
-            d="M600 120 L586 164 L620 190"
-            stroke="rgba(255,255,255,0.55)"
-            strokeWidth="2"
-            opacity="0.55"
-          />
+          <path d="M468 336 L540 264 L584 300" stroke="rgba(255,255,255,0.5)" strokeWidth="2" opacity="0.55" />
+          <path d="M600 120 L586 164 L620 190" stroke="rgba(255,255,255,0.55)" strokeWidth="2" opacity="0.55" />
         </motion.g>
 
         {/* Foreground sparkles */}
@@ -245,11 +219,3 @@ export function IsometricGrowth({ className }: IsometricGrowthProps) {
     </motion.div>
   );
 }
-
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from "react";
 
 type PageLoaderProps = {
   assets?: string[];
@@ -28,8 +28,8 @@ export default function PageLoader({ assets = [], maxWaitMs = 20000 }: PageLoade
 
     const prevHtmlOverflow = document.documentElement.style.overflow;
     const prevBodyOverflow = document.body.style.overflow;
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
 
     const restoreOverflow = () => {
       document.documentElement.style.overflow = prevHtmlOverflow;
@@ -71,7 +71,7 @@ export default function PageLoader({ assets = [], maxWaitMs = 20000 }: PageLoade
           uniqueAssets.map(async (url) => {
             await preloadImage(url);
             if (!cancelled) tick();
-          })
+          }),
         ),
         new Promise<void>((resolve) => setTimeout(resolve, maxWaitMs)),
       ]);
@@ -99,23 +99,21 @@ export default function PageLoader({ assets = [], maxWaitMs = 20000 }: PageLoade
     <div
       className="fixed inset-0 z-[9999] flex items-center justify-center"
       style={{
-        background: 'linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)',
+        background: "linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)",
         opacity: loading ? 1 : 0,
-        transition: 'opacity 0.15s ease-out',
+        transition: "opacity 0.15s ease-out",
       }}
     >
       <div className="flex flex-col items-center gap-4">
         {/* Простой CSS спиннер */}
         <div className="relative w-16 h-16">
           <div className="absolute inset-0 border-4 border-blue-200 rounded-full animate-pulse" />
-          <div 
+          <div
             className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"
-            style={{ animationDuration: '0.8s' }}
+            style={{ animationDuration: "0.8s" }}
           />
         </div>
-        <p className="text-lg font-bold text-[#1a2b4b]">
-          טוען... {progress}%
-        </p>
+        <p className="text-lg font-bold text-[#1a2b4b]">טוען... {progress}%</p>
       </div>
     </div>
   );

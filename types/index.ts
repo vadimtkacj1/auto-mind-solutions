@@ -11,6 +11,11 @@ export interface ShortLeadFormData {
   phone: string;
 }
 
+export interface ContactFormData {
+  name: string;
+  phone: string;
+}
+
 // Service type
 export interface Service {
   id: number;

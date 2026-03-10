@@ -27,7 +27,7 @@
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 9999px;
-  background-color: #00D084;
+  background-color: #00d084;
 }
 
 @media (min-width: 640px) {
@@ -49,4 +49,3 @@
     font-size: 0.875rem;
   }
 }
-

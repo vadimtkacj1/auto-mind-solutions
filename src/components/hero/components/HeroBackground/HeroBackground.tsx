@@ -1,5 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion';
-import styles from './HeroBackground.module.css';
+import { motion, useReducedMotion } from "framer-motion";
+import styles from "./HeroBackground.module.css";
 
 export function HeroBackground() {
   const reduceMotion = useReducedMotion();
@@ -10,19 +10,20 @@ export function HeroBackground() {
         <div
           className={styles.orb1}
           style={{
-            background: 'radial-gradient(circle, rgba(0, 208, 132, 0.1) 0%, transparent 70%)',
+            background: "radial-gradient(circle, rgba(0, 208, 132, 0.1) 0%, transparent 70%)",
           }}
         />
         <div
           className={styles.orb2}
           style={{
-            background: 'radial-gradient(circle, rgba(0, 102, 255, 0.08) 0%, transparent 70%)',
+            background: "radial-gradient(circle, rgba(0, 102, 255, 0.08) 0%, transparent 70%)",
           }}
         />
         <div
           className={styles.orb3}
           style={{
-            background: 'conic-gradient(from 0deg, rgba(0, 208, 132, 0.15), rgba(0, 102, 255, 0.15), rgba(0, 208, 132, 0.15))',
+            background:
+              "conic-gradient(from 0deg, rgba(0, 208, 132, 0.15), rgba(0, 102, 255, 0.15), rgba(0, 208, 132, 0.15))",
           }}
         />
       </div>
@@ -39,11 +40,11 @@ export function HeroBackground() {
         transition={{
           duration: 14,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
         className={styles.orb1}
         style={{
-          background: 'radial-gradient(circle, rgba(0, 208, 132, 0.12) 0%, transparent 70%)',
+          background: "radial-gradient(circle, rgba(0, 208, 132, 0.12) 0%, transparent 70%)",
         }}
       />
       <motion.div
@@ -54,11 +55,11 @@ export function HeroBackground() {
         transition={{
           duration: 16,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
         className={styles.orb2}
         style={{
-          background: 'radial-gradient(circle, rgba(0, 102, 255, 0.1) 0%, transparent 70%)',
+          background: "radial-gradient(circle, rgba(0, 102, 255, 0.1) 0%, transparent 70%)",
         }}
       />
       <motion.div
@@ -68,11 +69,12 @@ export function HeroBackground() {
         transition={{
           duration: 18,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
         className={styles.orb3}
         style={{
-          background: 'conic-gradient(from 0deg, rgba(0, 208, 132, 0.15), rgba(0, 102, 255, 0.15), rgba(0, 208, 132, 0.15))',
+          background:
+            "conic-gradient(from 0deg, rgba(0, 208, 132, 0.15), rgba(0, 102, 255, 0.15), rgba(0, 208, 132, 0.15))",
         }}
       />
     </div>

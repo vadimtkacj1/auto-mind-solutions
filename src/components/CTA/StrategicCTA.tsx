@@ -1,10 +1,10 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export function StrategicCTA({
-  title = 'מוכנים להעלות את הבשלות הדיגיטלית שלכם?',
-  description = 'בואו נבדוק יחד איפה הכסף “נוזל” בפאנל, איפה הטכנולוגיה מעכבת, ואיך הופכים דיגיטל למנוע הכנסות.',
-  primaryCta = { label: 'קביעת שיחת אסטרטגיה', href: '/#contact' },
-  secondaryCta = { label: 'Capabilities Deck', href: '/capabilities' },
+  title = "מוכנים להעלות את הבשלות הדיגיטלית שלכם?",
+  description = "בואו נבדוק יחד איפה הכסף “נוזל” בפאנל, איפה הטכנולוגיה מעכבת, ואיך הופכים דיגיטל למנוע הכנסות.",
+  primaryCta = { label: "קביעת שיחת אסטרטגיה", href: "/#contact" },
+  secondaryCta = { label: "Capabilities Deck", href: "/capabilities" },
 }: {
   title?: string;
   description?: string;
@@ -17,7 +17,7 @@ export function StrategicCTA({
         className="absolute inset-0 opacity-60"
         style={{
           background:
-            'radial-gradient(circle at 20% 10%, rgba(59,130,246,0.25), transparent 55%), radial-gradient(circle at 80% 70%, rgba(16,185,129,0.18), transparent 55%)',
+            "radial-gradient(circle at 20% 10%, rgba(59,130,246,0.25), transparent 55%), radial-gradient(circle at 80% 70%, rgba(16,185,129,0.18), transparent 55%)",
         }}
         aria-hidden="true"
       />
@@ -28,12 +28,8 @@ export function StrategicCTA({
             <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.06] border border-white/10 px-4 py-2 text-[11px] font-black tracking-[3px] uppercase text-white/60">
               Strategic Consulting • Aiterra
             </div>
-            <h2 className="mt-6 text-4xl md:text-6xl font-black tracking-tight text-white leading-[1.05]">
-              {title}
-            </h2>
-            <p className="mt-6 text-lg md:text-xl text-white/70 leading-relaxed font-medium">
-              {description}
-            </p>
+            <h2 className="mt-6 text-4xl md:text-6xl font-black tracking-tight text-white leading-[1.05]">{title}</h2>
+            <p className="mt-6 text-lg md:text-xl text-white/70 leading-relaxed font-medium">{description}</p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Link
@@ -55,6 +51,3 @@ export function StrategicCTA({
     </section>
   );
 }
-
-
-

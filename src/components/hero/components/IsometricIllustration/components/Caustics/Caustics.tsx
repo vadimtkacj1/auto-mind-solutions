@@ -22,4 +22,3 @@ export function Caustics() {
     </g>
   );
 }
-

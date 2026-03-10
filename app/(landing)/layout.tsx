@@ -1,24 +1,24 @@
-import type { Metadata } from 'next';
-import { Noto_Sans_Hebrew } from 'next/font/google';
-import './landing/landing.css';
+import type { Metadata } from "next";
+import { Noto_Sans_Hebrew } from "next/font/google";
+import "./landing/landing.css";
 
 const notoSansHebrew = Noto_Sans_Hebrew({
-  subsets: ['hebrew', 'latin'],
-  weight: ['400', '700', '800'],
-  display: 'swap',
-  variable: '--font-noto-sans-hebrew',
+  subsets: ["hebrew", "latin"],
+  weight: ["400", "700", "800"],
+  display: "swap",
+  variable: "--font-noto-sans-hebrew",
   preload: true,
 });
 
-const baseUrl = 'https://aiterra.agency';
+const baseUrl = "https://aiterra.agency";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Aiterra - בניית אתרים, SEO וקמפיינים ממומנים',
-    template: '%s | Aiterra'
+    default: "Aiterra - בניית אתרים, SEO וקמפיינים ממומנים",
+    template: "%s | Aiterra",
   },
-  description: 'יותר לידים. פחות בזבוז תקציב. משלבים בניית אתר ממיר, אסטרטגיית SEO מדויקת וקמפיינים ממוקדים.',
+  description: "יותר לידים. פחות בזבוז תקציב. משלבים בניית אתר ממיר, אסטרטגיית SEO מדויקת וקמפיינים ממוקדים.",
 
   robots: {
     index: true,
@@ -26,15 +26,11 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: '/favicon.ico',
+    icon: "/favicon.ico",
   },
 };
 
-export default function LandingRootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function LandingRootLayout({ children }: { children: React.ReactNode }) {
   const enablePixel = process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_ENABLE_META_PIXEL === "true";
 
   return (
@@ -60,6 +56,7 @@ export default function LandingRootLayout({
               }}
             />
             <noscript>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 height="1"
                 width="1"
