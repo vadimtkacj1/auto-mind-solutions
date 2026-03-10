@@ -9,7 +9,6 @@ const nextConfig = {
 
   experimental: {
     optimizePackageImports: ["framer-motion"],
-    // optimizeCss: true, // Вимкнено - потребує critters dependency
   },
 
   compress: true,

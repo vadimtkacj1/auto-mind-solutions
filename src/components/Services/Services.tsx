@@ -81,7 +81,7 @@ export function Services({ standalone = false }: { standalone?: boolean }) {
         {/* Header */}
         <div className="max-w-4xl mx-auto text-center px-4 mb-16">
           <Reveal>
-            <h1 className="text-2xl md:text-[32px] font-black text-slate-900 leading-tight tracking-tighter">
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tighter text-center">
               מערכת <span className="text-blue-600">360°</span> לצמיחה דיגיטלית
             </h1>
           </Reveal>
