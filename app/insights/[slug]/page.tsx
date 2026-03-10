@@ -175,7 +175,7 @@ export default function ArticlePage({ params }: Props) {
                 ))}
 
                 <div className="mt-12 pt-8 border-t border-gray-200">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Summary</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{article.content.titleConclusion}</h2>
                   <p className="text-lg text-gray-700 leading-relaxed">{article.content.conclusion}</p>
                 </div>
               </div>
