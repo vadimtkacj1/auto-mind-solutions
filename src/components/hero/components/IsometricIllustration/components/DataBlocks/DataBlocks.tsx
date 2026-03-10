@@ -1,14 +1,10 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export function DataBlocks() {
   return (
-    <motion.g
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.4 }}
-    >
+    <motion.g initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}>
       {/* Block 1 - Left - CSS анимация вместо JS */}
-      <g className="data-block" style={{ animationDelay: '0s' }}>
+      <g className="data-block" style={{ animationDelay: "0s" }}>
         <path
           d="M170 350 L230 320 L290 350 L230 380 Z"
           fill="url(#glassGradient)"
@@ -31,7 +27,7 @@ export function DataBlocks() {
       </g>
 
       {/* Block 2 - Center Back */}
-      <g className="data-block" style={{ animationDelay: '0.3s' }}>
+      <g className="data-block" style={{ animationDelay: "0.3s" }}>
         <path
           d="M270 280 L330 250 L390 280 L330 310 Z"
           fill="url(#glassGradient)"
@@ -56,7 +52,7 @@ export function DataBlocks() {
       </g>
 
       {/* Block 3 - Right */}
-      <g className="data-block" style={{ animationDelay: '0.6s' }}>
+      <g className="data-block" style={{ animationDelay: "0.6s" }}>
         <path
           d="M340 340 L400 310 L460 340 L400 370 Z"
           fill="url(#glassGradient)"
@@ -79,4 +75,3 @@ export function DataBlocks() {
     </motion.g>
   );
 }
-

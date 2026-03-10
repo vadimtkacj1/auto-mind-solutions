@@ -25,8 +25,13 @@
 }
 
 @keyframes dataBlockFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 /* Анимация стрелки */
@@ -37,8 +42,13 @@
 }
 
 @keyframes arrowFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 /* Пульсация стрелки */
@@ -48,8 +58,13 @@
 }
 
 @keyframes arrowPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* Свечение верхушки стрелки */
@@ -59,8 +74,13 @@
 }
 
 @keyframes tipGlow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.7; }
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 /* Анимация узлов */
@@ -71,8 +91,13 @@
 }
 
 @keyframes nodePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
 }
 
 /* Кольцо вокруг узла */
@@ -83,8 +108,14 @@
 }
 
 @keyframes ringPulse {
-  0% { transform: scale(0.8); opacity: 0.4; }
-  100% { transform: scale(1.3); opacity: 0; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
 }
 
 /* Точки соединений */
@@ -94,8 +125,13 @@
 }
 
 @keyframes dotGlow {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* Плавающие панели */
@@ -106,8 +142,13 @@
 }
 
 @keyframes panelFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 /* Каустики (световые пятна) */
@@ -118,8 +159,15 @@
 }
 
 @keyframes causticPulse {
-  0%, 100% { opacity: 0.05; transform: scale(1); }
-  50% { opacity: 0.12; transform: scale(1.08); }
+  0%,
+  100% {
+    opacity: 0.05;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.12;
+    transform: scale(1.08);
+  }
 }
 
 /* Световые лучи */
@@ -129,8 +177,13 @@
 }
 
 @keyframes beamPulse {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 0.35; }
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.35;
+  }
 }
 
 /* Уменьшение движения для пользователей с настройкой prefers-reduced-motion */

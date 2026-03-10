@@ -1,14 +1,14 @@
-import type { Metadata } from 'next';
-import { Suspense } from 'react';
-import Header from '@/src/components/Header/Header';
-import { PortfolioGrid } from '@/src/components/Portfolio/PortfolioGrid';
-import { Footer } from '@/src/components/Footer/Footer';
-import { StrategicCTA } from '@/src/components/CTA/StrategicCTA';
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import Header from "@/src/components/Header/Header";
+import { PortfolioGrid } from "@/src/components/Portfolio/PortfolioGrid";
+import { Footer } from "@/src/components/Footer/Footer";
+import { StrategicCTA } from "@/src/components/CTA/StrategicCTA";
 
 export const metadata: Metadata = {
-  title: 'Portfolio',
-  description: 'Portfolio projects by Aiterra',
-  alternates: { canonical: 'https://aiterra.agency/portfolio' },
+  title: "Portfolio",
+  description: "Portfolio projects by Aiterra",
+  alternates: { canonical: "https://aiterra.agency/portfolio" },
 };
 
 export default function PortfolioPage() {
@@ -25,5 +25,3 @@ export default function PortfolioPage() {
     </div>
   );
 }
-
-

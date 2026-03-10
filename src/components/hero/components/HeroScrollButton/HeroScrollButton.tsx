@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import styles from './HeroScrollButton.module.css';
+import { useState } from "react";
+import styles from "./HeroScrollButton.module.css";
 
 export function HeroScrollButton() {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const handleScroll = () => {
     setIsScrolling(true);
-    
+
     // Smooth scroll with animation
     window.scrollTo({
       top: window.innerHeight,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
 
     setTimeout(() => {
@@ -23,14 +23,14 @@ export function HeroScrollButton() {
       <button
         onClick={handleScroll}
         disabled={isScrolling}
-        className={`${styles.scrollButton} ${isScrolling ? styles.disabled : ''}`}
+        className={`${styles.scrollButton} ${isScrolling ? styles.disabled : ""}`}
       >
         <svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
           fill="none"
-          className={`${styles.scrollButtonIcon} ${isScrolling ? styles.scrolling : ''}`}
+          className={`${styles.scrollButtonIcon} ${isScrolling ? styles.scrolling : ""}`}
         >
           <path
             d="M12 5V19M12 19L5 12M12 19L19 12"
@@ -41,10 +41,7 @@ export function HeroScrollButton() {
           />
         </svg>
       </button>
-      <div className={styles.scrollText}>
-        SCROLL
-      </div>
+      <div className={styles.scrollText}>SCROLL</div>
     </>
   );
 }
-

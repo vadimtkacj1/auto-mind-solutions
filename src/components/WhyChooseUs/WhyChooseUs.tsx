@@ -1,50 +1,18 @@
-'use client';
+"use client";
 
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Reveal } from '../ui/Reveal';
-import {
-  CheckCircle2,
-  Target,
-  TrendingUp,
-  MessageSquare,
-  Lightbulb,
-  Shield
-} from 'lucide-react';
-
-const features = [
-  {
-    icon: MessageSquare,
-    title: 'שיחת אפיון מעמיקה',
-    description: 'לפני כל פרויקט, אנחנו מתחילים בשיחה שמטרתה להבין את הצרכים האמיתיים של העסק.',
-    color: '#1e40af',
-  },
-  {
-    icon: Target,
-    title: 'בחינת יתרונות עסקיים',
-    description: 'אנחנו בוחנים את החזר ההשקעה והערך האמיתי שהפתרון הדיגיטלי יכול לייצר.',
-    color: '#059669',
-  },
-  {
-    icon: Lightbulb,
-    title: 'פתרונות חכמים ומדויקים',
-    description: 'אם פיתוח לא נדרש, נציע פתרון חלופי שמתאים בדיוק לצרכים שלך.',
-    color: '#4f46e5',
-  },
-  {
-    icon: Shield,
-    title: 'שקיפות מלאה',
-    description: 'לא מוכרים בכל מחיר - רק כשיש תרומה ברורה לעסק אנחנו ממליצים להתקדם.',
-    color: '#2563eb',
-  },
-];
+import { useRef, useState } from "react";
+import Image from "next/image";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { Reveal } from "../ui/Reveal";
+import { CheckCircle2, TrendingUp } from "lucide-react";
 
 export function WhyChooseUs() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [imageFailed, setImageFailed] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   const yFast = useTransform(scrollYProgress, [0, 1], [-200, 300]);
@@ -61,26 +29,18 @@ export function WhyChooseUs() {
     >
       {/* Background Decorations */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
-        <motion.div
-          style={{ y: smoothYFast }}
-          className="absolute top-[10%] left-[5%] text-blue-400/20"
-        >
+        <motion.div style={{ y: smoothYFast }} className="absolute top-[10%] left-[5%] text-blue-400/20">
           <CheckCircle2 size={120} strokeWidth={1.5} />
         </motion.div>
 
-        <motion.div
-          style={{ y: ySlow }}
-          className="absolute bottom-[10%] right-[5%] text-emerald-400/20"
-        >
+        <motion.div style={{ y: ySlow }} className="absolute bottom-[10%] right-[5%] text-emerald-400/20">
           <TrendingUp size={140} strokeWidth={1.5} />
         </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center mb-16 md:mb-24">
-
           {/* Text Content */}
           <div className="space-y-8">
             <Reveal>
@@ -91,21 +51,19 @@ export function WhyChooseUs() {
             </Reveal>
 
             <Reveal>
-              <div className="space-y-6 text-lg md:text-xl text-slate-600 leading-relaxed text-center">
-                <p className="font-semibold text-slate-800">
-                  כי אנחנו לא מוכרים אתר או אפליקציה בכל מחיר.
-                </p>
+              <div className="space-y-6 text-lg md:text-xl text-slate-600 leading-relaxed">
+                <p className="font-semibold text-slate-800">כי אנחנו לא מוכרים אתר או אפליקציה בכל מחיר.</p>
 
                 <p>
-                  לא כל עסק באמת צריך פיתוח, ולכן לפני כל פרויקט אנחנו מתחילים בשיחת אפיון מעמיקה שמטרתה להבין האם ואיך פתרון דיגיטלי ישרת את העסק.
+                  לא כל עסק באמת צריך פיתוח, ולכן לפני כל פרויקט אנחנו מתחילים בשיחת אפיון מעמיקה שמטרתה להבין האם ואיך
+                  פתרון דיגיטלי ישרת את העסק.
                 </p>
 
-                <p>
-                  אנחנו בוחנים את היתרונות העסקיים, החזר ההשקעה והערך האמיתי שהאתר או האפליקציה יכולים לייצר.
-                </p>
+                <p>אנחנו בוחנים את היתרונות העסקיים, החזר ההשקעה והערך האמיתי שהאתר או האפליקציה יכולים לייצר.</p>
 
                 <p className="font-semibold text-slate-800">
-                  רק כשיש לכך תרומה ברורה, נמליץ להתקדם, ואם לא, נציע פתרון מדויק וחכם יותר שמתאים לצרכים האמיתיים של העסק.
+                  רק כשיש לכך תרומה ברורה, נמליץ להתקדם, ואם לא, נציע פתרון מדויק וחכם יותר שמתאים לצרכים האמיתיים של
+                  העסק.
                 </p>
               </div>
             </Reveal>
@@ -118,16 +76,18 @@ export function WhyChooseUs() {
               className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-50 to-slate-100"
             >
               <div className="relative">
-                <img
-                  src="/images/why-choose-us.jpg"
-                  alt="למה לבחור בנו"
-                  className="w-full h-auto object-cover"
-                  onError={(e) => {
-                    // Fallback gradient if image doesn't exist
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement!.classList.add('min-h-[400px]', 'flex', 'items-center', 'justify-center');
-                  }}
-                />
+                {!imageFailed ? (
+                  <Image
+                    src="/images/why-choose-us.jpg"
+                    alt="למה לבחור בנו"
+                    width={1200}
+                    height={800}
+                    className="w-full h-auto object-cover"
+                    onError={() => setImageFailed(true)}
+                  />
+                ) : (
+                  <div className="min-h-[400px] flex items-center justify-center" />
+                )}
 
                 {/* Decorative Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-600/10 to-transparent pointer-events-none" />

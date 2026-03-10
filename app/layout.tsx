@@ -1,56 +1,54 @@
-import type { Metadata } from 'next';
-import { Noto_Sans_Hebrew } from 'next/font/google';
-import '../src/styles/globals.css';
-import dynamic from 'next/dynamic';
-import Script from 'next/script';
-import { HashScrollHandler } from '@/src/components/HashScrollHandler';
-import { BodyClassController } from '@/src/components/BodyClassController';
+import type { Metadata } from "next";
+import { Noto_Sans_Hebrew } from "next/font/google";
+import "../src/styles/globals.css";
+import dynamic from "next/dynamic";
+import Script from "next/script";
+import { HashScrollHandler } from "@/src/components/HashScrollHandler";
+import { BodyClassController } from "@/src/components/BodyClassController";
 
-// Отложенная загрузка SmoothScroll - не блокирует первую загрузку
-const SmoothScrollProvider = dynamic(
-  () => import('../src/components/SmoothScroll/SmoothScrollProvider'),
-  { ssr: false }
-);
+const SmoothScrollProvider = dynamic(() => import("../src/components/SmoothScroll/SmoothScrollProvider"), {
+  ssr: false,
+});
 
-// Оптимизация: загрузка только необходимых весов шрифтов (400, 700, 800)
 const notoSansHebrew = Noto_Sans_Hebrew({
-  subsets: ['hebrew', 'latin'],
-  weight: ['400', '700', '800'],
-  display: 'swap',
-  variable: '--font-noto-sans-hebrew',
+  subsets: ["hebrew", "latin"],
+  weight: ["400", "700", "800"],
+  display: "swap",
+  variable: "--font-noto-sans-hebrew",
   preload: true,
 });
 
-const baseUrl = 'https://aiterra.agency';
+const baseUrl = "https://aiterra.agency";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
 
   // Основные SEO теги
   title: {
-    default: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
-    template: '%s | Aiterra'
+    default: "Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל",
+    template: "%s | Aiterra",
   },
-  description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript. שירותי פיתוח אתרים, אוטומציה שיווקית ופרסום דיגיטלי.',
+  description:
+    "סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript. שירותי פיתוח אתרים, אוטומציה שיווקית ופרסום דיגיטלי.",
 
   keywords: [
-    'עיצוב אתרים',
-    'SEO',
-    'פיתוח דיגיטלי',
-    'שיווק דיגיטלי',
-    'React',
-    'Next.js',
-    'TypeScript',
-    'אוטומציה שיווקית',
-    'פרסום ממומן',
-    'בניית אתרים בישראל',
-    'web development Israel',
-    'digital marketing',
+    "עיצוב אתרים",
+    "SEO",
+    "פיתוח דיגיטלי",
+    "שיווק דיגיטלי",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "אוטומציה שיווקית",
+    "פרסום ממומן",
+    "בניית אתרים בישראל",
+    "web development Israel",
+    "digital marketing",
   ],
 
-  authors: [{ name: 'Aiterra' }],
-  creator: 'Aiterra',
-  publisher: 'Aiterra',
+  authors: [{ name: "Aiterra" }],
+  creator: "Aiterra",
+  publisher: "Aiterra",
 
   // Канонический URL
   alternates: {
@@ -59,29 +57,29 @@ export const metadata: Metadata = {
 
   // Open Graph (Facebook, LinkedIn)
   openGraph: {
-    type: 'website',
-    locale: 'he_IL',
+    type: "website",
+    locale: "he_IL",
     url: baseUrl,
-    siteName: 'Aiterra',
-    title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל',
-    description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript.',
+    siteName: "Aiterra",
+    title: "Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל",
+    description: "סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript.",
     images: [
       {
-        url: '/images/Aittera_2.png',
+        url: "/images/Aittera_2.png",
         width: 1200,
         height: 630,
-        alt: 'Aiterra Logo',
+        alt: "Aiterra Logo",
       },
     ],
   },
 
   // Twitter Cards
   twitter: {
-    card: 'summary_large_image',
-    title: 'Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי',
-    description: 'סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות.',
-    images: ['/images/Aittera_2.png'],
-    creator: '@automindstudio',
+    card: "summary_large_image",
+    title: "Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי",
+    description: "סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות.",
+    images: ["/images/Aittera_2.png"],
+    creator: "@automindstudio",
   },
 
   // Robots
@@ -91,126 +89,117 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
 
   // Verification tags (добавьте свои)
   verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
   },
 
   // Manifest для PWA
-  manifest: '/manifest.json',
+  manifest: "/manifest.json",
 
   // Icons
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Organization",
         "@id": "https://aiterra.agency/#organization",
-        "name": "Aiterra",
-        "url": "https://aiterra.agency",
-        "logo": {
+        name: "Aiterra",
+        url: "https://aiterra.agency",
+        logo: {
           "@type": "ImageObject",
-          "url": "https://aiterra.agency/images/Aittera_2.png",
-          "width": 250,
-          "height": 60
+          url: "https://aiterra.agency/images/Aittera_2.png",
+          width: 250,
+          height: 60,
         },
-        "description": "סוכנות עיצוב ו-SEO מובילה בישראל",
-        "address": {
+        description: "סוכנות עיצוב ו-SEO מובילה בישראל",
+        address: {
           "@type": "PostalAddress",
-          "addressCountry": "IL",
-          "addressLocality": "Israel"
+          addressCountry: "IL",
+          addressLocality: "Israel",
         },
-        "contactPoint": {
+        contactPoint: {
           "@type": "ContactPoint",
-          "contactType": "customer support",
-          "availableLanguage": ["he", "en"]
+          contactType: "customer support",
+          availableLanguage: ["he", "en"],
         },
-        "sameAs": [
+        sameAs: [
           "https://facebook.com/automindstudio",
           "https://twitter.com/automindstudio",
-          "https://linkedin.com/company/automindstudio"
-        ]
+          "https://linkedin.com/company/automindstudio",
+        ],
       },
       {
         "@type": "WebSite",
         "@id": "https://aiterra.agency/#website",
-        "url": "https://aiterra.agency",
-        "name": "Aiterra",
-        "description": "חבילת שיווק דיגיטלית מלאה לעסקים קטנים ובינוניים בישראל",
-        "publisher": {
-          "@id": "https://aiterra.agency/#organization"
+        url: "https://aiterra.agency",
+        name: "Aiterra",
+        description: "חבילת שיווק דיגיטלית מלאה לעסקים קטנים ובינוניים בישראל",
+        publisher: {
+          "@id": "https://aiterra.agency/#organization",
         },
-        "inLanguage": "he",
-        "potentialAction": {
+        inLanguage: "he",
+        potentialAction: {
           "@type": "SearchAction",
-          "target": "https://aiterra.agency/search?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
+          target: "https://aiterra.agency/search?q={search_term_string}",
+          "query-input": "required name=search_term_string",
+        },
       },
       {
         "@type": "ProfessionalService",
         "@id": "https://aiterra.agency/#service",
-        "name": "Aiterra",
-        "url": "https://aiterra.agency",
-        "image": "https://aiterra.agency/images/Aittera_2.png",
-        "priceRange": "₪₪₪",
-        "address": {
+        name: "Aiterra",
+        url: "https://aiterra.agency",
+        image: "https://aiterra.agency/images/Aittera_2.png",
+        priceRange: "₪₪₪",
+        address: {
           "@type": "PostalAddress",
-          "addressCountry": "IL"
+          addressCountry: "IL",
         },
-        "geo": {
+        geo: {
           "@type": "GeoCoordinates",
-          "latitude": 31.0461,
-          "longitude": 34.8516
+          latitude: 31.0461,
+          longitude: 34.8516,
         },
-        "aggregateRating": {
+        aggregateRating: {
           "@type": "AggregateRating",
-          "ratingValue": "5",
-          "reviewCount": "48"
+          ratingValue: "5",
+          reviewCount: "48",
         },
-        "areaServed": {
+        areaServed: {
           "@type": "Country",
-          "name": "Israel"
+          name: "Israel",
         },
-        "serviceType": [
-          "Web Design",
-          "SEO",
-          "Digital Marketing",
-          "Web Development"
-        ]
+        serviceType: ["Web Design", "SEO", "Digital Marketing", "Web Development"],
       },
       {
         "@type": "BreadcrumbList",
         "@id": "https://aiterra.agency/#breadcrumb",
-        "itemListElement": [
+        itemListElement: [
           {
             "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://aiterra.agency"
-          }
-        ]
-      }
-    ]
+            position: 1,
+            name: "Home",
+            item: "https://aiterra.agency",
+          },
+        ],
+      },
+    ],
   };
 
   const enablePixel = process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_ENABLE_META_PIXEL === "true";
@@ -219,14 +208,8 @@ export default function RootLayout({
     <html lang="he" dir="rtl" className="site-main">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-        <script
-          src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js"
-          defer
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <script src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js" defer />
         {enablePixel && (
           <>
             <Script id="meta-pixel" strategy="lazyOnload">

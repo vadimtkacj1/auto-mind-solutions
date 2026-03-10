@@ -8,7 +8,7 @@ export function LightBeams() {
         strokeWidth="80"
         strokeLinecap="round"
         className="light-beam"
-        style={{ animationDelay: '0s' }}
+        style={{ animationDelay: "0s" }}
       />
       <path
         d="M200 550 L500 150"
@@ -16,9 +16,8 @@ export function LightBeams() {
         strokeWidth="60"
         strokeLinecap="round"
         className="light-beam"
-        style={{ animationDelay: '2s' }}
+        style={{ animationDelay: "2s" }}
       />
     </g>
   );
 }
-

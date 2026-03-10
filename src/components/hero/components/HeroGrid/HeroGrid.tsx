@@ -1,4 +1,4 @@
-import styles from './HeroGrid.module.css';
+import styles from "./HeroGrid.module.css";
 
 export function HeroGrid() {
   return (
@@ -7,9 +7,8 @@ export function HeroGrid() {
       style={{
         backgroundImage: `linear-gradient(rgba(0, 208, 132, 0.3) 1px, transparent 1px),
                          linear-gradient(90deg, rgba(0, 208, 132, 0.3) 1px, transparent 1px)`,
-        backgroundSize: '80px 80px',
+        backgroundSize: "80px 80px",
       }}
     />
   );
 }
-

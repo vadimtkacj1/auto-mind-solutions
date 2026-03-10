@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
@@ -32,7 +32,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -261,10 +261,10 @@ jobs:
           command_timeout: 15m
           script: |
             set -e
-            
+
             # Navigate to deployment directory
             cd /opt/auto-mind-solutions
-            
+
             echo "🚀 Starting optimized deployment..."
 
             # Check if .env exists, create only if missing
@@ -292,14 +292,14 @@ jobs:
             # Stop old containers FIRST (before loading new image)
             echo "🛑 Stopping old containers..."
             docker compose down --remove-orphans || true
-            
+
             # Also stop any standalone containers using port 80
             if docker ps -q -f name=my-front | grep -q .; then
               echo "📦 Stopping old standalone container..."
               docker stop my-front 2>/dev/null || true
               docker rm my-front 2>/dev/null || true
             fi
-            
+
             # Check if port 80 is still occupied
             if lsof -Pi :80 -sTCP:LISTEN -t >/dev/null 2>&1; then
               echo "⚠️ Port 80 is still occupied, attempting to free it..."

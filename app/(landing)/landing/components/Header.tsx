@@ -1,11 +1,11 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 const menuItems: Array<{ label: string; href: string }> = [
-  { label: 'השירותים שלנו', href: '#services' },
-  { label: 'פורטפוליו', href: '#portfolio' },
-  { label: 'למה לבחור בנו?', href: '#why-us' },
-  { label: 'עקבו אחרינו', href: '#follow' },
-  { label: 'טופס יצירת קשר', href: '#contact' },
+  { label: "השירותים שלנו", href: "#services" },
+  { label: "פורטפוליו", href: "#portfolio" },
+  { label: "למה לבחור בנו?", href: "#why-us" },
+  { label: "עקבו אחרינו", href: "#follow" },
+  { label: "טופס יצירת קשר", href: "#contact" },
 ];
 
 export default function Header() {
@@ -67,11 +67,7 @@ export default function Header() {
       </header>
 
       {/* Mobile Menu Overlay */}
-      <div
-        className="fixed inset-0 bg-white hidden peer-checked:block md:hidden"
-        style={{ zIndex: 9999 }}
-        dir="rtl"
-      >
+      <div className="fixed inset-0 bg-white hidden peer-checked:block md:hidden" style={{ zIndex: 9999 }} dir="rtl">
         {/* Close button - top right (RTL) */}
         <div className="flex justify-start items-center px-6 py-4">
           <label
@@ -101,10 +97,7 @@ export default function Header() {
           <ul className="space-y-6 text-center">
             {menuItems.map((item, index) => (
               <li key={index}>
-                <a
-                  href={item.href}
-                  className="text-lg font-medium text-gray-800 hover:text-blue-600 transition block"
-                >
+                <a href={item.href} className="text-lg font-medium text-gray-800 hover:text-blue-600 transition block">
                   {item.label}
                 </a>
               </li>

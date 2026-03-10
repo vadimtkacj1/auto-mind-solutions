@@ -1,4 +1,4 @@
-import styles from './CornerDecorations.module.css';
+import styles from "./CornerDecorations.module.css";
 
 export function CornerDecorations() {
   return (
@@ -14,4 +14,3 @@ export function CornerDecorations() {
     </>
   );
 }
-

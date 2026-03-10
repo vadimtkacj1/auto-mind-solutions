@@ -1,42 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import type { CSSProperties } from "react";
-import { submitLeadForm } from "@/lib/api";
+import { useLeadForm } from "@/hooks/useLeadForm";
 import SuccessModal from "./SuccessModal";
 
 export default function LeadFormCard() {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    businessType: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
-
-    try {
-      await submitLeadForm(formData);
-      setShowSuccessModal(true);
-      setFormData({ name: "", phone: "", email: "", businessType: "" });
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "שגיאה בשליחת הטופס. אנא נסה שוב.";
-      setError(errorMessage);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const { formData, handleInputChange, handleSubmit, isSubmitting, showSuccessModal, closeSuccessModal, error } =
+    useLeadForm();
 
   return (
     <section
@@ -86,7 +56,7 @@ export default function LeadFormCard() {
             name="name"
             placeholder="שם מלא"
             value={formData.name}
-            onChange={handleChange}
+            onChange={handleInputChange}
             required
             dir="rtl"
             style={inputStyle}
@@ -96,7 +66,7 @@ export default function LeadFormCard() {
             name="phone"
             placeholder="טלפון"
             value={formData.phone}
-            onChange={handleChange}
+            onChange={handleInputChange}
             required
             dir="rtl"
             style={inputStyle}
@@ -106,7 +76,7 @@ export default function LeadFormCard() {
             name="email"
             placeholder="אימייל"
             value={formData.email}
-            onChange={handleChange}
+            onChange={handleInputChange}
             required
             dir="rtl"
             style={inputStyle}
@@ -116,7 +86,7 @@ export default function LeadFormCard() {
             name="businessType"
             placeholder="סוג העסק"
             value={formData.businessType}
-            onChange={handleChange}
+            onChange={handleInputChange}
             required
             dir="rtl"
             style={inputStyle}
@@ -177,11 +147,7 @@ export default function LeadFormCard() {
           </p>
         </form>
 
-        <SuccessModal
-          isOpen={showSuccessModal}
-          onClose={() => setShowSuccessModal(false)}
-          variant="dark"
-        />
+        <SuccessModal isOpen={showSuccessModal} onClose={closeSuccessModal} variant="dark" />
       </div>
     </section>
   );
@@ -201,4 +167,3 @@ const inputStyle: CSSProperties = {
   outline: "none",
   boxSizing: "border-box",
 };
-

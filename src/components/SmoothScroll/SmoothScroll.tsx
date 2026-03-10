@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
-import Lenis from 'lenis';
-import 'lenis/dist/lenis.css';
+import { useEffect, useRef } from "react";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
 
 interface SmoothScrollProps {
   children: React.ReactNode;
@@ -18,13 +18,13 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      orientation: "vertical",
+      gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
       infinite: false,
       // syncTouch ensures the scroll position is synchronized on touch devices
-      syncTouch: false, 
+      syncTouch: false,
     });
 
     lenisRef.current = lenis;

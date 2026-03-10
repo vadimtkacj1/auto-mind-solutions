@@ -1,10 +1,10 @@
 "use client";
 
-import type { PropsWithChildren } from 'react';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import type { PropsWithChildren } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
-type AnimationType = 'fade' | 'slide' | 'scale' | 'blur' | 'rotate';
+type AnimationType = "fade" | "slide" | "scale" | "blur" | "rotate";
 
 type RevealProps = PropsWithChildren<{
   /** Delay in seconds */
@@ -20,18 +20,18 @@ type RevealProps = PropsWithChildren<{
   once?: boolean;
 }>;
 
-export function Reveal({ 
-  children, 
-  delay = 0, 
-  y = 18, 
+export function Reveal({
+  children,
+  delay = 0,
+  y = 18,
   x = 0,
   className,
   duration = 0.65,
-  animation = 'fade',
+  animation = "fade",
   scale = 0.95,
   rotate = 0,
   blur = 0,
-  once = true
+  once = true,
 }: RevealProps) {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -47,27 +47,27 @@ export function Reveal({
 
   const getAnimationVariants = () => {
     switch (animation) {
-      case 'fade':
+      case "fade":
         return {
           initial: { opacity: 0, y, x },
           animate: { opacity: 1, y: 0, x: 0 },
         };
-      case 'slide':
+      case "slide":
         return {
           initial: { opacity: 0, x: x || -50, y },
           animate: { opacity: 1, x: 0, y: 0 },
         };
-      case 'scale':
+      case "scale":
         return {
           initial: { opacity: 0, scale, y, x },
           animate: { opacity: 1, scale: 1, y: 0, x: 0 },
         };
-      case 'blur':
+      case "blur":
         return {
           initial: { opacity: 0, filter: `blur(${blur || 10}px)`, y, x },
-          animate: { opacity: 1, filter: 'blur(0px)', y: 0, x: 0 },
+          animate: { opacity: 1, filter: "blur(0px)", y: 0, x: 0 },
         };
-      case 'rotate':
+      case "rotate":
         return {
           initial: { opacity: 0, rotate: rotate || -10, y, x },
           animate: { opacity: 1, rotate: 0, y: 0, x: 0 },
@@ -98,5 +98,3 @@ export function Reveal({
     </motion.div>
   );
 }
-
-

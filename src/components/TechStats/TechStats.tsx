@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useRef } from 'react';
-import { motion, useInView, useScroll, useTransform, useSpring, useAnimationFrame } from 'framer-motion';
-import { Code2, Zap, Rocket, Globe2 } from 'lucide-react';
+import React, { useRef } from "react";
+import { motion, useInView, useScroll, useTransform, useSpring, useAnimationFrame } from "framer-motion";
+import { Code2, Zap, Rocket, Globe2 } from "lucide-react";
 
 // --- TYPES ---
 interface StatItem {
@@ -13,10 +13,10 @@ interface StatItem {
 
 // --- DATA ---
 const statsData: StatItem[] = [
-  { value: '360°', label: 'פתרון דיגיטלי מלא', icon: <Globe2 size={80} strokeWidth={1.2} /> },
-  { value: '100%', label: 'אסטרטגיה מותאמת אישית', icon: <Code2 size={80} strokeWidth={1.2} /> },
-  { value: '10', label: 'ימים לאתר באוויר', icon: <Rocket size={80} strokeWidth={1.2} /> },
-  { value: '24/7', label: 'זמינות ותמיכה', icon: <Zap size={80} strokeWidth={1.2} /> },
+  { value: "360°", label: "פתרון דיגיטלי מלא", icon: <Globe2 size={80} strokeWidth={1.2} /> },
+  { value: "100%", label: "אסטרטגיה מותאמת אישית", icon: <Code2 size={80} strokeWidth={1.2} /> },
+  { value: "10", label: "ימים לאתר באוויר", icon: <Rocket size={80} strokeWidth={1.2} /> },
+  { value: "24/7", label: "זמינות ותמיכה", icon: <Zap size={80} strokeWidth={1.2} /> },
 ];
 
 // --- SUB-COMPONENTS ---
@@ -28,29 +28,26 @@ function AnimatedStat({ stat, index }: { stat: StatItem; index: number }) {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
-  
-  const yOffset = useSpring(
-    useTransform(scrollYProgress, [0, 1], [40, -40]),
-    { stiffness: 50, damping: 20 }
-  );
 
-  const numericValue = parseInt(stat.value.replace(/\D/g, '')) || 0;
-  const prefix = stat.value.match(/^[^\d]*/)?.[0] || '';
-  const suffix = stat.value.match(/[^\d]*$/)?.[0] || '';
+  const yOffset = useSpring(useTransform(scrollYProgress, [0, 1], [40, -40]), { stiffness: 50, damping: 20 });
+
+  const numericValue = parseInt(stat.value.replace(/\D/g, "")) || 0;
+  const prefix = stat.value.match(/^[^\d]*/)?.[0] || "";
+  const suffix = stat.value.match(/[^\d]*$/)?.[0] || "";
   const hasDigits = /\d/.test(stat.value);
 
   useAnimationFrame((time) => {
     if (!isInView || !countRef.current || !containerRef.current) return;
-    if (!hasDigits || stat.value.includes('/')) {
+    if (!hasDigits || stat.value.includes("/")) {
       countRef.current.textContent = stat.value;
       return;
     }
 
     const duration = 2000;
     if (!containerRef.current.dataset.startTime) {
-        containerRef.current.dataset.startTime = time.toString();
+      containerRef.current.dataset.startTime = time.toString();
     }
     const elapsed = time - parseFloat(containerRef.current.dataset.startTime);
     const progress = Math.min(elapsed / duration, 1);
@@ -62,7 +59,7 @@ function AnimatedStat({ stat, index }: { stat: StatItem; index: number }) {
   return (
     <motion.div
       ref={containerRef}
-      style={{ y: yOffset }} 
+      style={{ y: yOffset }}
       className="flex flex-col items-center text-center w-full will-change-transform relative z-10"
     >
       <motion.div
@@ -92,18 +89,18 @@ function AnimatedStat({ stat, index }: { stat: StatItem; index: number }) {
 
 export function TechStats() {
   const sectionRef = useRef<HTMLElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   // Parallax transforms - объекты изначально за экраном, летают не в центре
-  const yPlane = useTransform(scrollYProgress, [0, 1], [-600, 200]); 
-  const rotatePlane = useTransform(scrollYProgress, [0, 1], [-20, 30]); 
+  const yPlane = useTransform(scrollYProgress, [0, 1], [-600, 200]);
+  const rotatePlane = useTransform(scrollYProgress, [0, 1], [-20, 30]);
   const xPlane = useTransform(scrollYProgress, [0, 1], [-200, 100]);
-  
-  const yBrackets = useTransform(scrollYProgress, [0, 1], [800, -200]); 
+
+  const yBrackets = useTransform(scrollYProgress, [0, 1], [800, -200]);
   const xBrackets = useTransform(scrollYProgress, [0, 1], [300, -50]);
   const xBracketsLeft = useTransform(scrollYProgress, [0, 1], [-400, -100]);
   const yCircle = useTransform(scrollYProgress, [0, 1], [-500, 150]);
@@ -112,64 +109,66 @@ export function TechStats() {
   const xDots = useTransform(scrollYProgress, [0, 1], [-300, 50]);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="relative py-12 md:py-20 border-t border-gray-50 bg-white z-50 shadow-sm overflow-hidden" 
+      className="relative py-12 md:py-20 border-t border-gray-50 bg-white z-50 shadow-sm overflow-hidden"
       dir="rtl"
     >
       {/* 1. VIBRANT BACKGROUND GLOWS */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none opacity-60 z-0">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-[140px]" />
-          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-100/50 rounded-full blur-[140px]" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-100/50 rounded-full blur-[140px]" />
       </div>
 
       {/* 2. EXPRESSIVE FLYING OBJECTS (Parallax Layer) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-          
-          {/* Paper Plane - летает не в центре, изначально за экраном */}
-          <motion.div 
-            style={{ y: yPlane, rotate: rotatePlane, x: xPlane }}
-            className="absolute top-[5%] left-[5%] text-blue-500/40 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+        {/* Paper Plane - летает не в центре, изначально за экраном */}
+        <motion.div
+          style={{ y: yPlane, rotate: rotatePlane, x: xPlane }}
+          className="absolute top-[5%] left-[5%] text-blue-500/40 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+        >
+          <svg
+            width="140"
+            height="140"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-            </svg>
-          </motion.div>
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+          </svg>
+        </motion.div>
 
-          {/* Bold Brackets { } - не в центре, изначально за экраном */}
-          <motion.div 
-            style={{ y: yBrackets, x: xBrackets }}
-            className="absolute top-[20%] right-[8%] text-blue-600/20 font-black text-[220px] leading-none select-none drop-shadow-sm"
-          >
-            {"}"}
-          </motion.div>
+        {/* Bold Brackets { } - не в центре, изначально за экраном */}
+        <motion.div
+          style={{ y: yBrackets, x: xBrackets }}
+          className="absolute top-[20%] right-[8%] text-blue-600/20 font-black text-[220px] leading-none select-none drop-shadow-sm"
+        >
+          {"}"}
+        </motion.div>
 
-          <motion.div 
-            style={{ y: yBrackets, x: xBracketsLeft }}
-            className="absolute top-[10%] left-[8%] text-indigo-600/20 font-black text-[180px] leading-none select-none drop-shadow-sm"
-          >
-            {"{"}
-          </motion.div>
+        <motion.div
+          style={{ y: yBrackets, x: xBracketsLeft }}
+          className="absolute top-[10%] left-[8%] text-indigo-600/20 font-black text-[180px] leading-none select-none drop-shadow-sm"
+        >
+          {"{"}
+        </motion.div>
 
-          {/* Dotted Circle - не в центре, изначально за экраном */}
-          <motion.div 
-            style={{ y: yCircle, x: xCircle }}
-            className="absolute bottom-[15%] right-[20%] text-indigo-400/30"
-          >
-            <svg width="240" height="240" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray="6 6" />
-            </svg>
-          </motion.div>
+        {/* Dotted Circle - не в центре, изначально за экраном */}
+        <motion.div style={{ y: yCircle, x: xCircle }} className="absolute bottom-[15%] right-[20%] text-indigo-400/30">
+          <svg width="240" height="240" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray="6 6" />
+          </svg>
+        </motion.div>
 
-          {/* Vivid Decorative Dots - не в центре, изначально за экраном */}
-          <motion.div 
-            style={{ y: yDots, x: xDots }}
-            className="absolute top-[70%] left-[30%] flex gap-4"
-          >
-            <div className="w-4 h-4 rounded-full bg-blue-400/40 shadow-lg shadow-blue-400/20" />
-            <div className="w-4 h-4 rounded-full bg-indigo-400/40 shadow-lg shadow-indigo-400/20" />
-            <div className="w-4 h-4 rounded-full bg-sky-400/40 shadow-lg shadow-sky-400/20" />
-          </motion.div>
+        {/* Vivid Decorative Dots - не в центре, изначально за экраном */}
+        <motion.div style={{ y: yDots, x: xDots }} className="absolute top-[70%] left-[30%] flex gap-4">
+          <div className="w-4 h-4 rounded-full bg-blue-400/40 shadow-lg shadow-blue-400/20" />
+          <div className="w-4 h-4 rounded-full bg-indigo-400/40 shadow-lg shadow-indigo-400/20" />
+          <div className="w-4 h-4 rounded-full bg-sky-400/40 shadow-lg shadow-sky-400/20" />
+        </motion.div>
       </div>
 
       {/* 3. CONTENT (Top Layer) */}

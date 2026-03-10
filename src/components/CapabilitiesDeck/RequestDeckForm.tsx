@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState } from "react";
 
 type FormState = {
   name: string;
@@ -10,21 +10,21 @@ type FormState = {
 };
 
 function isValidIsraeliPhone(phone: string) {
-  const cleanPhone = phone.replace(/[\s\-()]/g, '');
+  const cleanPhone = phone.replace(/[\s\-()]/g, "");
   const phoneRegex = /^(\+?972|0)?([5]\d{8})$/;
   return phoneRegex.test(cleanPhone);
 }
 
 export function RequestDeckForm() {
   const [form, setForm] = useState<FormState>({
-    name: '',
-    phone: '',
-    email: '',
-    businessType: '',
+    name: "",
+    phone: "",
+    email: "",
+    businessType: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
 
   const canSubmit = useMemo(() => {
     if (!form.name.trim() || form.name.trim().length < 2) return false;
@@ -36,16 +36,16 @@ export function RequestDeckForm() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setSuccess(false);
 
     if (!canSubmit) return;
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name,
           phone: form.phone,
@@ -56,14 +56,14 @@ export function RequestDeckForm() {
 
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(data?.error || 'אירעה שגיאה. נסו שוב מאוחר יותר');
+        setError(data?.error || "אירעה שגיאה. נסו שוב מאוחר יותר");
         return;
       }
 
       setSuccess(true);
-      setForm({ name: '', phone: '', email: '', businessType: '' });
+      setForm({ name: "", phone: "", email: "", businessType: "" });
     } catch {
-      setError('אירעה שגיאה בשליחה. נסו שוב');
+      setError("אירעה שגיאה בשליחה. נסו שוב");
     } finally {
       setIsSubmitting(false);
     }
@@ -72,9 +72,7 @@ export function RequestDeckForm() {
   return (
     <form onSubmit={submit} className="mt-10 space-y-6" dir="rtl">
       {error ? (
-        <div className="rounded-2xl border border-red-200 bg-red-50 px-6 py-4 text-red-700 font-bold">
-          {error}
-        </div>
+        <div className="rounded-2xl border border-red-200 bg-red-50 px-6 py-4 text-red-700 font-bold">{error}</div>
       ) : null}
 
       {success ? (
@@ -166,11 +164,8 @@ export function RequestDeckForm() {
         disabled={!canSubmit || isSubmitting}
         className="w-full rounded-2xl px-8 py-5 font-black text-lg bg-[#3b82f6] hover:bg-[#2563eb] text-white transition-all shadow-lg shadow-blue-500/20 disabled:opacity-50 active:scale-95"
       >
-        {isSubmitting ? 'שולחים...' : 'שלחו לי את ה-Deck'}
+        {isSubmitting ? "שולחים..." : "שלחו לי את ה-Deck"}
       </button>
     </form>
   );
 }
-
-
-

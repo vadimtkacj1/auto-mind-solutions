@@ -15,7 +15,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 section {
   scroll-margin-top: 80px;
 }
@@ -156,18 +155,35 @@ body {
 }
 
 /* Delay utilities */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
-.delay-600 { animation-delay: 600ms; }
-.delay-700 { animation-delay: 700ms; }
-.delay-800 { animation-delay: 800ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
+.delay-600 {
+  animation-delay: 600ms;
+}
+.delay-700 {
+  animation-delay: 700ms;
+}
+.delay-800 {
+  animation-delay: 800ms;
+}
 
 /* Additional animations */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -178,7 +194,8 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -210,7 +227,8 @@ body {
 }
 
 /* Smooth transitions for interactive elements */
-button, a {
+button,
+a {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -233,7 +251,9 @@ img {
 }
 
 /* Оптимизация рендеринга */
-img, picture, video {
+img,
+picture,
+video {
   max-width: 100%;
   height: auto;
   display: block;
@@ -252,7 +272,9 @@ img, picture, video {
 
 /* Enhanced hover effects */
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {
@@ -269,7 +291,7 @@ img, picture, video {
 }
 
 .gradient-border-wrapper.focused {
-  background: linear-gradient(90deg, #0066FF 0%, #2979FF 50%, #00C6FF 100%);
+  background: linear-gradient(90deg, #0066ff 0%, #2979ff 50%, #00c6ff 100%);
   padding: 1px;
 }
 

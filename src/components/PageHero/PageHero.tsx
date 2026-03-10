@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export function PageHero({
   badge,
@@ -20,7 +20,7 @@ export function PageHero({
         className="absolute inset-0 opacity-90"
         style={{
           background:
-            'radial-gradient(circle at 18% 20%, rgba(0,112,255,0.35), transparent 55%), radial-gradient(circle at 80% 55%, rgba(0,230,144,0.22), transparent 55%), radial-gradient(circle at 50% 120%, rgba(255,255,255,0.08), transparent 55%)',
+            "radial-gradient(circle at 18% 20%, rgba(0,112,255,0.35), transparent 55%), radial-gradient(circle at 80% 55%, rgba(0,230,144,0.22), transparent 55%), radial-gradient(circle at 50% 120%, rgba(255,255,255,0.08), transparent 55%)",
         }}
         aria-hidden="true"
       />
@@ -29,8 +29,8 @@ export function PageHero({
       <div
         className="absolute inset-0 opacity-[0.08]"
         style={{
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px)',
-          backgroundSize: '44px 44px',
+          backgroundImage: "radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
         }}
         aria-hidden="true"
       />
@@ -40,13 +40,9 @@ export function PageHero({
           {badge}
         </div>
 
-        <h1 className="mt-7 text-4xl md:text-7xl font-black tracking-tight text-white leading-[1.03] text-center">
-          {title}
-        </h1>
+        <h1 className="mt-7 text-4xl md:text-7xl font-black tracking-tight text-white leading-[1.03]">{title}</h1>
 
-        <p className="mt-7 text-lg md:text-2xl text-white/70 leading-relaxed font-medium max-w-4xl text-center mx-auto">
-          {subtitle}
-        </p>
+        <p className="mt-7 text-lg md:text-2xl text-white/70 leading-relaxed font-medium max-w-4xl">{subtitle}</p>
 
         {(primaryCta || secondaryCta) && (
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -73,6 +69,3 @@ export function PageHero({
     </section>
   );
 }
-
-
-

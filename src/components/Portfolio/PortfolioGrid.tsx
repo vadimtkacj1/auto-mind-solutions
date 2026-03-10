@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { PortfolioCarousel } from './PortfolioCarousel';
+import React from "react";
+import Link from "next/link";
+import { PortfolioCarousel } from "./PortfolioCarousel";
 
 export function PortfolioGrid({
   showHeader = true,
-  title = 'הפרויקטים שלנו',
-  subtitle = 'כל העבודות במקום אחד — דוגמאות, סגנונות ותוצאות.',
+  title = "הפרויקטים שלנו",
+  subtitle = "כל העבודות במקום אחד — דוגמאות, סגנונות ותוצאות.",
 }: {
   showHeader?: boolean;
   title?: string;
@@ -23,8 +23,8 @@ export function PortfolioGrid({
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{
-            backgroundImage: 'radial-gradient(#000 1px, transparent 1px)',
-            backgroundSize: '46px 46px',
+            backgroundImage: "radial-gradient(#000 1px, transparent 1px)",
+            backgroundSize: "46px 46px",
           }}
           aria-hidden="true"
         />
@@ -37,12 +37,8 @@ export function PortfolioGrid({
               <span className="inline-block px-5 py-1.5 rounded-full bg-white border border-gray-200 text-[var(--color-primary)] text-xs sm:text-sm font-bold shadow-sm mb-8 uppercase tracking-widest">
                 PORTFOLIO • Aiterra
               </span>
-              <h1 className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight text-center">
-                {title}
-              </h1>
-              <p className="mt-5 text-slate-500 text-lg md:text-xl leading-relaxed font-medium text-center">
-                {subtitle}
-              </p>
+              <h1 className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight">{title}</h1>
+              <p className="mt-5 text-slate-500 text-lg md:text-xl leading-relaxed font-medium">{subtitle}</p>
             </div>
 
             <div className="flex items-center gap-3">
@@ -51,7 +47,10 @@ export function PortfolioGrid({
                 className="group inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-black text-slate-900 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 ease-out shadow-sm hover:shadow-md"
               >
                 חזרה לדף הבית
-                <span className="text-slate-800 transition-transform duration-300 group-hover:-translate-x-1" aria-hidden="true">
+                <span
+                  className="text-slate-800 transition-transform duration-300 group-hover:-translate-x-1"
+                  aria-hidden="true"
+                >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path
                       d="M11 5L4 12L11 19"
@@ -80,5 +79,3 @@ export function PortfolioGrid({
     </section>
   );
 }
-
-

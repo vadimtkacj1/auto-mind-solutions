@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface Star {
   x: number;
@@ -18,7 +18,7 @@ export function PortfolioStars() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let frame = 0;
@@ -53,7 +53,7 @@ export function PortfolioStars() {
       ctx.clearRect(0, 0, w, h);
 
       // Draw stars
-      stars.forEach(s => {
+      stars.forEach((s) => {
         const alpha = s.opacity * (0.3 + 0.7 * Math.sin(frame * s.twinkle + s.phase));
         ctx.fillStyle = `rgba(255,255,255,${alpha})`;
         ctx.beginPath();
@@ -67,10 +67,10 @@ export function PortfolioStars() {
     init();
     render();
 
-    window.addEventListener('resize', init);
+    window.addEventListener("resize", init);
     return () => {
       cancelAnimationFrame(animId);
-      window.removeEventListener('resize', init);
+      window.removeEventListener("resize", init);
     };
   }, []);
 
@@ -78,13 +78,13 @@ export function PortfolioStars() {
     <canvas
       ref={canvasRef}
       style={{
-        position: 'absolute',
+        position: "absolute",
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
+        width: "100%",
+        height: "100%",
         zIndex: 0,
-        pointerEvents: 'none',
+        pointerEvents: "none",
       }}
     />
   );

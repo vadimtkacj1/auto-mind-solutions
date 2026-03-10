@@ -3,10 +3,10 @@
  */
 
 export const IMAGE_FORMATS = {
-  AVIF: 'image/avif',
-  WEBP: 'image/webp',
-  JPEG: 'image/jpeg',
-  PNG: 'image/png',
+  AVIF: "image/avif",
+  WEBP: "image/webp",
+  JPEG: "image/jpeg",
+  PNG: "image/png",
 } as const;
 
 export const IMAGE_SIZES = {
@@ -19,9 +19,7 @@ export const IMAGE_SIZES = {
  * Generate responsive image srcset
  */
 export function generateSrcSet(src: string, sizes: number[]): string {
-  return sizes
-    .map((size) => `${src}?w=${size}&q=80 ${size}w`)
-    .join(', ');
+  return sizes.map((size) => `${src}?w=${size}&q=80 ${size}w`).join(", ");
 }
 
 /**
@@ -31,17 +29,17 @@ export function checkImageSupport(): {
   avif: boolean;
   webp: boolean;
 } {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return { avif: false, webp: false };
   }
 
-  const canvas = document.createElement('canvas');
+  const canvas = document.createElement("canvas");
   canvas.width = 1;
   canvas.height = 1;
 
   return {
-    avif: canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0,
-    webp: canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0,
+    avif: canvas.toDataURL("image/avif").indexOf("data:image/avif") === 0,
+    webp: canvas.toDataURL("image/webp").indexOf("data:image/webp") === 0,
   };
 }
 
@@ -50,10 +48,10 @@ export function checkImageSupport(): {
  */
 export function getOptimalImageFormat(originalFormat: string): string {
   const support = checkImageSupport();
-  
+
   if (support.avif) return IMAGE_FORMATS.AVIF;
   if (support.webp) return IMAGE_FORMATS.WEBP;
-  
+
   return originalFormat;
 }
 
@@ -61,21 +59,24 @@ export function getOptimalImageFormat(originalFormat: string): string {
  * Lazy load images with intersection observer
  */
 export function lazyLoadImage(img: HTMLImageElement): void {
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const image = entry.target as HTMLImageElement;
-          if (image.dataset.src) {
-            image.src = image.dataset.src;
-            image.removeAttribute('data-src');
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const image = entry.target as HTMLImageElement;
+            if (image.dataset.src) {
+              image.src = image.dataset.src;
+              image.removeAttribute("data-src");
+            }
+            observer.unobserve(image);
           }
-          observer.unobserve(image);
-        }
-      });
-    }, {
-      rootMargin: '50px',
-    });
+        });
+      },
+      {
+        rootMargin: "50px",
+      },
+    );
 
     observer.observe(img);
   } else {
@@ -89,15 +90,15 @@ export function lazyLoadImage(img: HTMLImageElement): void {
 /**
  * Preload critical images
  */
-export function preloadImage(src: string, priority: 'high' | 'low' = 'low'): void {
-  if (typeof window === 'undefined') return;
+export function preloadImage(src: string, priority: "high" | "low" = "low"): void {
+  if (typeof window === "undefined") return;
 
-  const link = document.createElement('link');
-  link.rel = 'preload';
-  link.as = 'image';
+  const link = document.createElement("link");
+  link.rel = "preload";
+  link.as = "image";
   link.href = src;
-  if (priority === 'high') {
-    link.setAttribute('fetchpriority', 'high');
+  if (priority === "high") {
+    link.setAttribute("fetchpriority", "high");
   }
   document.head.appendChild(link);
 }

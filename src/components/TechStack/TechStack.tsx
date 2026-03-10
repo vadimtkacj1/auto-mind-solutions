@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useMemo } from 'react';
-import { Reveal } from '../ui/Reveal';
+import React, { useMemo } from "react";
+import { Reveal } from "../ui/Reveal";
 
 interface Technology {
   name: string;
@@ -9,18 +9,21 @@ interface Technology {
 }
 
 const technologies: Technology[] = [
-  { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-  { name: 'Next.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
-  { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-  { name: 'Tailwind', logo: 'https://tailwindcss.com/_next/static/media/tailwindcss-mark.96ee6a5a.svg' },
-  { name: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-  { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-  { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-  { name: 'PostgreSQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
-  { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
-  { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
-  { name: 'Firebase', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
-  { name: 'GraphQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' },
+  { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+  { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "Tailwind", logo: "https://tailwindcss.com/_next/static/media/tailwindcss-mark.96ee6a5a.svg" },
+  { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+  { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  {
+    name: "AWS",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+  },
+  { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+  { name: "GraphQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" },
 ];
 
 export function TechStack() {
@@ -29,13 +32,19 @@ export function TechStack() {
   return (
     <section id="tech" className="py-8 sm:py-12 px-4 relative z-30 overflow-hidden bg-[#fafafa]" dir="rtl">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "40px 40px" }}
+      />
 
       <style jsx>{`
         @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-33.33%);
+          }
         }
 
         .marquee-viewport {
@@ -57,7 +66,9 @@ export function TechStack() {
         }
 
         @media (min-width: 640px) {
-          .marquee-track { gap: 2.5rem; }
+          .marquee-track {
+            gap: 2.5rem;
+          }
         }
       `}</style>
 

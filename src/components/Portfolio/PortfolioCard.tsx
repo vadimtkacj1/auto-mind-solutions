@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import type { PortfolioItem } from './portfolioData';
+import React from "react";
+import Image from "next/image";
+import type { PortfolioItem } from "./portfolioData";
 
 export function PortfolioCard({
   item,
@@ -10,8 +10,8 @@ export function PortfolioCard({
 }: {
   item: PortfolioItem;
   index: number;
-  mode?: 'carousel' | 'grid';
-  variant?: 'full' | 'metrics';
+  mode?: "carousel" | "grid";
+  variant?: "full" | "metrics";
 }) {
   return (
     <div data-portfolio-card={index}>
@@ -20,7 +20,7 @@ export function PortfolioCard({
         alt=""
         width={1200}
         height={900}
-        loading={index === 0 ? 'eager' : 'lazy'}
+        loading={index === 0 ? "eager" : "lazy"}
         priority={index === 0}
       />
     </div>

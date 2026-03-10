@@ -1,15 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
+  output: "standalone",
   swcMinify: true,
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === "production",
   },
 
   experimental: {
-    // optimizePackageImports: ['framer-motion'], // Temporarily disabled due to build issues
-    // optimizeCss: true, // Вимкнено - потребує critters dependency
+    optimizePackageImports: ["framer-motion"],
   },
 
   compress: true,
@@ -25,63 +24,63 @@ const nextConfig = {
   },
 
   images: {
-    formats: ['image/avif', 'image/webp'],
+    formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 1080],
     imageSizes: [16, 32, 64, 96, 128],
     minimumCacheTTL: 31536000,
     dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
+    contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [],
     unoptimized: false,
-    loader: 'default',
+    loader: "default",
   },
 
   async headers() {
     // Кеш только в production
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       return [];
     }
 
     return [
       {
-        source: '/images/:all*(svg|jpg|jpeg|png|webp|gif|avif)',
+        source: "/images/:all*(svg|jpg|jpeg|png|webp|gif|avif)",
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
       {
-        source: '/fonts/:all*',
+        source: "/fonts/:all*",
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
       {
-        source: '/_next/static/:path*',
+        source: "/_next/static/:path*",
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
       {
-        source: '/:path((?!api).*)',
+        source: "/:path((?!api).*)",
         headers: [
           {
-            key: 'Vary',
-            value: 'Accept-Encoding',
+            key: "Vary",
+            value: "Accept-Encoding",
           },
         ],
       },
     ];
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
