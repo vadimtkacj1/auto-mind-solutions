@@ -11,8 +11,7 @@ export function HeroButtons() {
       className={styles.container}
     >
       <motion.a
-        href="#contact"
-        onClick={handleSmoothScrollClick}
+        href="/contact"
         whileHover={{ scale: 1.02, y: -2 }}
         whileTap={{ scale: 0.98 }}
         className={`${styles.primaryButton} btn-premium-cta`}

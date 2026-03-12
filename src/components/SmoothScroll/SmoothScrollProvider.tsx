@@ -5,33 +5,52 @@ import Lenis from "lenis";
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Отключить Lenis на мобильных устройствах для лучшей производительности
+    // Lenis отключён — при множестве scroll-анимаций (Hero, Portfolio, PackagesCTA)
+    // нативный скролл даёт лучшую производительность без лагов
+    const ENABLE_LENIS = false;
+    if (!ENABLE_LENIS) return;
+
     const isMobile = window.innerWidth < 1024;
     if (isMobile) return;
 
-    // Отложить инициализацию Lenis до полной загрузки страницы
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+    const connection = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    const saveData = connection?.saveData ?? false;
+    const effectiveType = connection?.effectiveType ?? "";
+    const slowConnection = effectiveType === "slow-2g" || effectiveType === "2g";
+    if (reduceMotion || saveData || slowConnection) return;
+
     const initLenis = () => {
-      // Инициализация Lenis для плавного скроллинга (только на десктопе)
       const lenis = new Lenis({
-        duration: 0.8,
+        duration: 0.4,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
-        wheelMultiplier: 1.0,
-        touchMultiplier: 1.5,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.2,
         infinite: false,
         autoResize: true,
-        lerp: 0.1,
+        lerp: 0.22,
       });
 
-      // Анимационный цикл с requestAnimationFrame
-      function raf(time: number) {
+      // Анимационный цикл с requestAnimationFrame (с корректной отменой)
+      let rafId: number | null = null;
+      const raf = (time: number) => {
         lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
+        rafId = requestAnimationFrame(raf);
+      };
+      rafId = requestAnimationFrame(raf);
 
-      requestAnimationFrame(raf);
+      const onVisibilityChange = () => {
+        if (document.hidden) {
+          if (rafId != null) cancelAnimationFrame(rafId);
+          rafId = null;
+        } else if (rafId == null) {
+          rafId = requestAnimationFrame(raf);
+        }
+      };
+      document.addEventListener("visibilitychange", onVisibilityChange);
 
       // Expose lenis to window for external control
       (window as unknown as { lenis?: Lenis }).lenis = lenis;
@@ -40,6 +59,8 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
       document.documentElement.classList.add("lenis", "lenis-smooth");
 
       return () => {
+        if (rafId != null) cancelAnimationFrame(rafId);
+        document.removeEventListener("visibilitychange", onVisibilityChange);
         lenis.destroy();
         document.documentElement.classList.remove("lenis", "lenis-smooth");
       };

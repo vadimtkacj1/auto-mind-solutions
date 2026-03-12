@@ -38,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/process`,
+      url: `${baseUrl}/about`,
       lastModified: currentDate,
       changeFrequency: "monthly",
       priority: 0.7,
@@ -50,10 +50,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/capabilities`,
+      url: `${baseUrl}/packages`,
       lastModified: currentDate,
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8,
     },
     ...articleUrls,
     {

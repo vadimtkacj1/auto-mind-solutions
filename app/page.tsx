@@ -5,20 +5,22 @@ import dynamic from "next/dynamic";
 // Серверные компоненты
 import { Services } from "@/src/components/Services/Services";
 import { TechStack } from "@/src/components/TechStack/TechStack";
-import { Packages } from "@/src/components/Packages/Packages";
-import { Contact } from "@/src/components/Contact/Contact";
 import { FAQ } from "@/src/components/FAQ/FAQ";
 import { Footer } from "@/src/components/Footer/Footer";
 import { WebVitals } from "@/app/web-vitals";
-import { FeaturedCases } from "@/src/components/Portfolio/FeaturedCases";
 import Header from "@/src/components/Header/Header";
+import { PortfolioCarousel } from "@/src/components/Portfolio/PortfolioCarousel";
+
+import { RocketSpinner } from "@/src/components/RocketSpinner/RocketSpinner";
+import { ContactViewWrapper } from "@/src/components/Contact/ContactViewWrapper";
+import { PackagesCTA } from "@/src/components/PackagesCTA/PackagesCTA";
 
 // Динамический импорт тяжелых компонентов - отключен SSR для быстрой загрузки
 const Hero = dynamic(() => import("@/src/components/hero/Hero"), {
   ssr: false,
   loading: () => (
     <div className="h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      <RocketSpinner />
     </div>
   ),
 });
@@ -127,7 +129,7 @@ export default function HomePage() {
           </Suspense>
 
           <Suspense fallback={<div className="min-h-[400px]" />}>
-            <FeaturedCases limit={2} />
+            <PortfolioCarousel />
           </Suspense>
 
           {/* <Suspense fallback={<div className="min-h-[400px]" />}>
@@ -142,13 +144,7 @@ export default function HomePage() {
             <TechStats />
           </Suspense> */}
 
-          <Suspense fallback={<div className="min-h-[400px]" />}>
-            <Packages />
-          </Suspense>
-
-          <Suspense fallback={<div className="min-h-[400px]" />}>
-            <Contact />
-          </Suspense>
+          <PackagesCTA />
 
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <FAQ />
@@ -156,7 +152,6 @@ export default function HomePage() {
         </main>
         <Footer />
 
-        {/* Клиентские компоненты - загружаются последними */}
         <Suspense fallback={null}>
           <CookiePopup />
         </Suspense>

@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Hebrew } from "next/font/google";
 import "../src/styles/globals.css";
+import "../src/components/Features/features.css";
 import dynamic from "next/dynamic";
 import Script from "next/script";
 import { HashScrollHandler } from "@/src/components/HashScrollHandler";
 import { BodyClassController } from "@/src/components/BodyClassController";
+import { ViewTransitionsProvider } from "@/src/components/ViewTransitions/ViewTransitionsProvider";
+import { AnimatePresenceProvider } from "@/src/components/PageTransitions/AnimatePresenceProvider";
 
 const SmoothScrollProvider = dynamic(() => import("../src/components/SmoothScroll/SmoothScrollProvider"), {
   ssr: false,
@@ -209,7 +212,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-        <script src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js" defer />
         {enablePixel && (
           <>
             <Script id="meta-pixel" strategy="lazyOnload">
@@ -240,10 +242,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body className={`${notoSansHebrew.className} site-main`}>
+        <ViewTransitionsProvider />
         <BodyClassController />
         <SmoothScrollProvider>
           <HashScrollHandler offset={80} />
-          {children}
+          <AnimatePresenceProvider>{children}</AnimatePresenceProvider>
         </SmoothScrollProvider>
       </body>
     </html>

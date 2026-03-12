@@ -28,7 +28,7 @@ export function ReadingProgress() {
   }, []);
 
   return (
-    <div className="fixed left-0 right-0 top-20 h-3 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg" style={{ zIndex: 999999 }}>
+    <div className="fixed left-0 right-0 top-20 w-full h-3 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg" style={{ zIndex: 9998 }}>
       {/* Stars background */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (

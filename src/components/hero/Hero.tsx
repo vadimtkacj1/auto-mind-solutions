@@ -101,7 +101,7 @@ function AnimatedSubtitle({ className }: { className: string }) {
       animate="visible"
       style={{
         direction: "rtl",
-        textAlign: isMobile ? "center" : "right",
+        textAlign: "center",
         display: "block",
       }}
     >
@@ -119,6 +119,7 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isHeroInView, setIsHeroInView] = useState(true);
 
   useEffect(() => {
     setIsMounted(true);
@@ -131,6 +132,19 @@ export default function Hero() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    if (!("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(([entry]) => setIsHeroInView(entry.isIntersecting), {
+      threshold: 0.05,
+      rootMargin: "0px",
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
 
   const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
@@ -141,8 +155,8 @@ export default function Hero() {
 
   const rawMX = useMotionValue(0);
   const rawMY = useMotionValue(0);
-  const mx = useSpring(rawMX, { stiffness: 55, damping: 18 });
-  const my = useSpring(rawMY, { stiffness: 55, damping: 18 });
+  const mx = useSpring(rawMX, { stiffness: 40, damping: 20 });
+  const my = useSpring(rawMY, { stiffness: 40, damping: 20 });
 
   const titleMX = useTransform(mx, [-1, 1], ["-20px", "20px"]);
   const titleMY = useTransform(my, [-1, 1], ["-12px", "12px"]);
@@ -152,13 +166,32 @@ export default function Hero() {
   const btnMY = useTransform(my, [-1, 1], ["-4px", "4px"]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+    if (reduceMotion || isMobile || !isHeroInView) return;
+
+    let rafId: number | null = null;
+    let lastX = 0;
+    let lastY = 0;
+
     const fn = (e: MouseEvent) => {
-      rawMX.set((e.clientX / window.innerWidth - 0.5) * 2);
-      rawMY.set((e.clientY / window.innerHeight - 0.5) * 2);
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          rawMX.set((lastX / window.innerWidth - 0.5) * 2);
+          rawMY.set((lastY / window.innerHeight - 0.5) * 2);
+          rafId = null;
+        });
+      }
     };
-    window.addEventListener("mousemove", fn);
-    return () => window.removeEventListener("mousemove", fn);
-  }, [rawMX, rawMY]);
+    window.addEventListener("mousemove", fn, { passive: true } as AddEventListenerOptions);
+    return () => {
+      window.removeEventListener("mousemove", fn);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, [rawMX, rawMY, isMobile, isHeroInView]);
 
   const handleScrollDown = () => {
     smoothScrollTo("#services", 80);
@@ -192,15 +225,17 @@ export default function Hero() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "flex-start",
-                paddingTop: "60px",
+                justifyContent: "center",
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                gap: "24px",
               }
             : undefined
         }
       >
         {/* Stars background — full screen */}
         <motion.div style={{ position: "absolute", inset: 0, y: starsY }}>
-          {isMounted && <SpaceBackground />}
+          {isMounted && <SpaceBackground enabled={isHeroInView} />}
         </motion.div>
 
         {/* ── MOBILE LAYOUT: globe on top, text below ── */}
@@ -221,7 +256,7 @@ export default function Hero() {
                 display: "block",
                 overflow: "visible",
                 marginTop: "-20px",
-                marginBottom: "-30px",
+                marginBottom: "20px",
               }}
             >
               {isMounted && <OptimizedScene />}

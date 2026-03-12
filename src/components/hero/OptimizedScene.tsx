@@ -38,12 +38,12 @@ function arcOnSphere(R: number, a: [number, number], b: [number, number], steps 
 function buildNeonGlobe(): THREE.Group {
   const group = new THREE.Group();
   const R = 1.0;
-  const SEG = 128;
+  const SEG = 48; // Reduced from 128 for performance
 
-  // Base sphere
+  // Base sphere (reduced segments for performance)
   group.add(
     new THREE.Mesh(
-      new THREE.SphereGeometry(R * 0.994, 64, 64),
+      new THREE.SphereGeometry(R * 0.994, 32, 32),
       new THREE.MeshBasicMaterial({ color: 0x020e28, transparent: true, opacity: 0.85 }),
     ),
   );
@@ -296,7 +296,7 @@ function buildNeonGlobe(): THREE.Group {
   ];
 
   const cityRings: { mesh: THREE.Mesh; phase: number }[] = [];
-  const dg = new THREE.SphereGeometry(0.012, 8, 8);
+  const dg = new THREE.SphereGeometry(0.012, 6, 6);
 
   cities.forEach(([lat, lon]) => {
     const phi = (90 - lat) * (Math.PI / 180);
@@ -324,7 +324,7 @@ function buildNeonGlobe(): THREE.Group {
   // Rim glow
   group.add(
     new THREE.Mesh(
-      new THREE.SphereGeometry(1.08, 64, 64),
+      new THREE.SphereGeometry(1.08, 32, 32), // Reduced for performance
       new THREE.MeshBasicMaterial({
         color: 0x0066ff,
         transparent: true,
@@ -347,6 +347,12 @@ export default function OptimizedScene() {
 
   useEffect(() => {
     if (typeof window === "undefined" || !canvasRef.current) return;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+    const connection = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    const saveData = connection?.saveData ?? false;
+    const effectiveType = connection?.effectiveType ?? "";
+    const slowConnection = effectiveType === "slow-2g" || effectiveType === "2g";
+    if (reduceMotion || saveData || slowConnection) return;
 
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
@@ -365,10 +371,10 @@ export default function OptimizedScene() {
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
-      antialias: window.innerWidth > 1024,
+      antialias: false,
       powerPreference: "high-performance",
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
     scene.add(new THREE.AmbientLight(0xffffff, 1.2));
     const dl = new THREE.DirectionalLight(0xffffff, 2.0);
@@ -391,8 +397,9 @@ export default function OptimizedScene() {
     modelRef.current = globe;
     scene.add(globe);
 
-    // Stars
-    const starPos = new Float32Array(2000 * 3);
+    // Stars (reduced count for performance)
+    const starCount = window.innerWidth < 1024 ? 400 : 800;
+    const starPos = new Float32Array(starCount * 3);
     for (let i = 0; i < starPos.length; i++) starPos[i] = (Math.random() - 0.5) * 120;
     const starGeo = new THREE.BufferGeometry();
     starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
@@ -420,9 +427,17 @@ export default function OptimizedScene() {
       prevY = e.clientY;
       velocityX = velocityY = 0;
     };
+    let mouseMoveRaf: number | null = null;
+    let lastMouseX = 0, lastMouseY = 0;
     const onMouseMove = (e: MouseEvent) => {
-      mouseTarget.x = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseTarget.y = -(e.clientY / window.innerHeight - 0.5) * 2;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      if (mouseMoveRaf != null) return;
+      mouseMoveRaf = requestAnimationFrame(() => {
+        mouseTarget.x = (lastMouseX / window.innerWidth - 0.5) * 2;
+        mouseTarget.y = -(lastMouseY / window.innerHeight - 0.5) * 2;
+        mouseMoveRaf = null;
+      });
       if (!isDragging || !modelRef.current) return;
       velocityX = (e.clientX - prevX) * 0.008;
       velocityY = (e.clientY - prevY) * 0.008;
@@ -461,7 +476,17 @@ export default function OptimizedScene() {
     window.addEventListener("touchend", onTouchEnd);
 
     let t = 0;
+    let isActive = true;
+    let isVisible = true;
+
+    const stop = () => {
+      if (requestRef.current == null) return;
+      cancelAnimationFrame(requestRef.current);
+      requestRef.current = null;
+    };
+
     const animate = () => {
+      if (!isActive) return;
       t += 0.018;
 
       mouseCurrent.x += (mouseTarget.x - mouseCurrent.x) * 0.04;
@@ -490,7 +515,9 @@ export default function OptimizedScene() {
           });
       }
 
-      renderer.render(scene, camera);
+      if (isVisible && !document.hidden) {
+        renderer.render(scene, camera);
+      }
       requestRef.current = requestAnimationFrame(animate);
     };
 
@@ -499,10 +526,34 @@ export default function OptimizedScene() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", updateLayout);
+
+    const observer =
+      "IntersectionObserver" in window
+        ? new IntersectionObserver(
+            ([entry]) => {
+              isVisible = entry.isIntersecting;
+              if (isVisible && requestRef.current == null) {
+                requestRef.current = requestAnimationFrame(animate);
+              } else if (!isVisible) {
+                stop();
+              }
+            },
+            { threshold: 0.05, rootMargin: "200px" },
+          )
+        : null;
+    observer?.observe(canvas);
+
+    const onVisibilityChange = () => {
+      if (document.hidden) stop();
+      else if (isVisible && requestRef.current == null) requestRef.current = requestAnimationFrame(animate);
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     requestRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      isActive = false;
+      stop();
       window.removeEventListener("resize", updateLayout);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);
@@ -511,6 +562,8 @@ export default function OptimizedScene() {
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      observer?.disconnect();
       renderer.dispose();
       if (modelRef.current) {
         modelRef.current.traverse((child) => {

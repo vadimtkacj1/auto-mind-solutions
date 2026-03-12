@@ -5,20 +5,20 @@ import { Footer } from "@/src/components/Footer/Footer";
 import { ArticlesGrid } from "@/src/components/Insights";
 
 export const metadata: Metadata = {
-  title: "Insights",
-  description: "Articles, playbooks and technical deep-dives from Aiterra.",
+  title: "תובנות | Aiterra",
+  description: "מאמרים, פלייבוקים ותובנות מעשיות על צמיחה, SEO, אוטומציה והנדסה.",
   alternates: { canonical: "https://aiterra.agency/insights" },
 };
 
 export default function InsightsPage() {
   return (
-    <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
+    <div className="min-h-screen bg-[#fcfcfd] text-[var(--color-dark)] leading-relaxed">
       <Header />
-      <main className="pt-20">
+      <main className="pt-24 bg-[#fcfcfd]">
         <Suspense fallback={<div className="min-h-[500px]" />}>
           <ArticlesGrid showHeader={true} />
         </Suspense>
-        {/* <StrategicCTA /> */}
+        {/* <CTA /> */}
       </main>
       <Footer />
     </div>

@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
-import { StrategicCTA } from "@/src/components/CTA/StrategicCTA";
+import { CTA } from "@/src/components/CTA/CTA";
 import { portfolioItems } from "@/src/components/Portfolio/portfolioData";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/src/components/ui/Breadcrumb/Breadcrumb";
 
 type Props = {
   params: { slug: string };
@@ -40,12 +49,26 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
       <Header />
       <main className="pt-24">
         <section className="px-6 bg-[#f8fafc]" dir="rtl">
-          <div className="mx-auto max-w-6xl py-12 md:py-16">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white border border-gray-200 px-5 py-1.5 text-[var(--color-primary)] text-xs sm:text-sm font-bold shadow-sm uppercase tracking-widest">
+          <div className="mx-auto max-w-6xl py-8 md:py-10">
+            <Breadcrumb>
+              <BreadcrumbList className="text-slate-500 font-medium">
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/portfolio">תיק עבודות</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="text-slate-900 font-bold">{item.title}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+
+            <div className="inline-flex items-center gap-2 rounded-full bg-white border border-gray-200 px-5 py-1.5 text-[var(--color-primary)] text-xs sm:text-sm font-bold shadow-sm uppercase tracking-widest mt-6">
               CASE STUDY • Aiterra
             </div>
 
-            <h1 className="mt-8 text-4xl md:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight">
+            <h1 className="mt-6 text-4xl md:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight">
               {item.title}
             </h1>
             <p className="mt-6 text-lg md:text-2xl text-slate-600 leading-relaxed font-medium max-w-4xl">
@@ -67,8 +90,8 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
           </div>
         </section>
 
-        <section className="px-6 py-10 md:py-14 bg-[#f8fafc]" dir="rtl">
-          <div className="mx-auto max-w-6xl">
+        <section className="px-4 sm:px-6 py-10 md:py-14 bg-[#f8fafc]" dir="rtl">
+          <div className="mx-auto max-w-[90rem]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={item.image}
@@ -125,7 +148,7 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
           </div>
         </section>
 
-        <StrategicCTA />
+        <CTA />
       </main>
       <Footer />
     </div>

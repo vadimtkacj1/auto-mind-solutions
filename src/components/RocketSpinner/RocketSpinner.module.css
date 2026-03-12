@@ -1,0 +1,218 @@
+/* Rocket Spinner */
+.loader {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  transition: all 2s ease-out;
+  transform: scale(1);
+}
+.loader:hover {
+  transition: all 1s ease-in;
+  transform: scale(1.5);
+}
+
+.loaderWhite .loaderIcon {
+  color: white;
+}
+.loaderWhite .pufs > i::after {
+  animation-name: pufWhite;
+}
+
+.loaderSpined {
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  position: absolute;
+  display: block;
+  animation: orbit 3s linear infinite;
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loaderIcon {
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  margin: 0 auto;
+  font-size: 26px;
+  color: #0d3d6b;
+}
+
+.offset45deg {
+  transform: rotate(45deg);
+}
+
+/* Pufs (smoke) - 45 items, 360/45 = 8deg each */
+.pufs {
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: block;
+  position: absolute;
+}
+.pufs > i {
+  display: block;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  transform: rotate(calc((var(--i) - 1) * 8deg));
+}
+.pufs > i::after {
+  content: "";
+  height: 7px;
+  width: 7px;
+  position: relative;
+  border-radius: 100%;
+  display: block;
+  margin: 0 auto;
+  top: 7px;
+  font-size: 9px;
+  opacity: 0;
+  background: currentColor;
+  animation-name: puf;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  animation-duration: 3s;
+  animation-delay: calc((var(--i) - 1) * 0.0667s);
+}
+.pufs > i:nth-child(odd)::after {
+  margin-top: -1px;
+}
+.pufs > i:nth-child(even)::after {
+  margin-top: 1px;
+}
+
+/* Particles */
+.particles {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.particles > i {
+  display: block;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  transform: rotate(calc((var(--i) - 1) * 8deg));
+}
+.particles > i::after {
+  content: "";
+  height: 7px;
+  width: 7px;
+  position: relative;
+  border-radius: 100%;
+  display: block;
+  margin: 0 auto;
+  top: 7px;
+  font-size: 2px;
+  opacity: 0;
+  background: currentColor;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  animation-duration: 3s;
+  animation-delay: calc((var(--i) - 1) * 0.0667s);
+}
+.particles > i:nth-child(3n)::after {
+  animation-name: particle;
+}
+.particles > i:not(:nth-child(3n))::after {
+  animation-name: particleO;
+}
+
+/* Smoke (default) */
+@keyframes puf {
+  0% {
+    opacity: 1;
+    color: #0d3d6b;
+    transform: scale(1);
+  }
+  10% {
+    color: #3498db;
+    transform: scale(1.5);
+  }
+  60%,
+  100% {
+    opacity: 0;
+    color: grey;
+    transform: scale(0.4);
+  }
+}
+
+/* Smoke (white variant) */
+@keyframes pufWhite {
+  0% {
+    opacity: 1;
+    color: rgba(0, 0, 0, 0.75);
+    transform: scale(1);
+  }
+  10% {
+    color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.5);
+  }
+  60%,
+  100% {
+    opacity: 0;
+    color: rgba(0, 0, 0, 0.3);
+    transform: scale(0.4);
+  }
+}
+
+/* Particle down */
+@keyframes particle {
+  0% {
+    opacity: 1;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 0;
+  }
+  10% {
+    margin-top: 15px;
+  }
+  75% {
+    opacity: 0.5;
+    margin-top: 5px;
+  }
+  100% {
+    opacity: 0;
+    margin-top: 0;
+  }
+}
+
+/* Particle up */
+@keyframes particleO {
+  0% {
+    opacity: 1;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 0;
+  }
+  10% {
+    margin-top: -7px;
+  }
+  75% {
+    opacity: 0.5;
+    margin-top: 0;
+  }
+  100% {
+    opacity: 0;
+    margin-top: 0;
+  }
+}

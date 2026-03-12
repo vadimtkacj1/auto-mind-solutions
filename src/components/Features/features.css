@@ -1,0 +1,65 @@
+/* ═══════════════════════════════════════════════════════════
+   ЛЕВИТАЦИЯ КАРТИНОК (Float Animation)
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes feature-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.feature-image-float {
+  animation: feature-float 4s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────────────────────────
+   ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ RTL
+   ─────────────────────────────────────────────────────────── */
+
+/* Для RTL направления стрелка должна быть слева */
+[dir="rtl"] .feature-image-float {
+  transform-origin: center center;
+}
+
+/* Анимация стрелки при ховере (для RTL - движение влево) */
+[dir="rtl"] a:hover svg {
+  transform: translateX(-4px);
+}
+
+/* ───────────────────────────────────────────────────────────
+   ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ
+   ─────────────────────────────────────────────────────────── */
+
+/* Плавный градиент для фона секции */
+#features {
+  position: relative;
+}
+
+#features::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(148, 163, 184, 0.3),
+    transparent
+  );
+}
+
+/* Тонкая настройка теней для картинок */
+.feature-image-float img {
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+  transition: filter 0.3s ease;
+}
+
+.feature-image-float:hover img {
+  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15));
+}

@@ -10,7 +10,6 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
-  /* Оптимизация производительности */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -27,6 +26,15 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* GPU acceleration hints */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Performance optimizations for animations */
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
 @layer utilities {
