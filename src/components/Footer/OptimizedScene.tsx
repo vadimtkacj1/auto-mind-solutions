@@ -43,7 +43,7 @@ export default function OptimizedScene({ showSphere = true, pointsAmount = "medi
     if (showSphere) {
       const globeGeom = new THREE.SphereGeometry(1.6, 24, 24);
       const globeMat = new THREE.MeshBasicMaterial({
-        color: 0x06b6d4,
+        color: 0x00ddff, // Cyan как в Hero section
         wireframe: true,
         transparent: true,
         opacity: 0.25,
@@ -63,7 +63,7 @@ export default function OptimizedScene({ showSphere = true, pointsAmount = "medi
     pointsGeom.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
     const pointsMat = new THREE.PointsMaterial({
       size: pointsSize,
-      color: 0x00e690,
+      color: 0x00ddff, // Cyan как в Hero section
       transparent: true,
       opacity: pointsOpacity,
     });

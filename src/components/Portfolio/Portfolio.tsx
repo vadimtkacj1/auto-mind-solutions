@@ -10,6 +10,8 @@ export function Portfolio({ limit }: { showViewAll?: boolean; limit?: number }) 
     return portfolioItems;
   }, [limit]);
 
+  
+
   return (
     <section id="portfolio">
       <div>

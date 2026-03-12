@@ -1,40 +1,103 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
 import Header from "../src/components/Header/Header";
 import { Footer } from "../src/components/Footer/Footer";
+import styles from "./not-found.module.css";
 
-export const metadata: Metadata = {
-  title: "דף לא נמצא - 404",
-  description: "הדף שחיפשת לא נמצא",
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+const SpaceBackground = dynamic(() => import("../src/components/hero/SpaceBackground"), { ssr: false });
 
 export default function NotFound() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-[var(--color-gray-50)] text-[var(--color-dark)]">
+    <div className={styles.container}>
+      {/* Stars background */}
+      {isMounted && <SpaceBackground />}
+
       <Header />
-      <main className="flex flex-col items-center justify-center min-h-[70vh] px-4">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-8xl font-bold text-[var(--color-primary)] mb-4">404</h1>
-          <h2 className="text-4xl font-bold mb-6">דף לא נמצא</h2>
-          <p className="text-xl text-gray-600 mb-8">מצטערים, הדף שחיפשת לא קיים או הועבר למיקום אחר.</p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link
-              href="/"
-              className="px-8 py-3 bg-[var(--color-primary)] text-white rounded-full hover:bg-[var(--color-dark)] transition-all shadow-lg"
-            >
-              חזרה לעמוד הראשי
+      <main className={styles.main}>
+        <div className={styles.content}>
+          <motion.h1
+            className={styles.title}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            404
+          </motion.h1>
+
+          <motion.h2
+            className={styles.subtitle}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            דף לא נמצא
+          </motion.h2>
+
+          <motion.p
+            className={styles.description}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            מצטערים, הדף שחיפשת לא קיים או הועבר למיקום אחר.
+          </motion.p>
+
+          <motion.div
+            className={styles.buttonRow}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <Link href="/" className={styles.btnMain}>
+              <span>חזרה לעמוד הראשי</span>
+              <svg
+                className={styles.arrow}
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13.5 10H6.5M10 6.5L13.5 10L10 13.5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </Link>
-            <Link
-              href="/#contact"
-              className="px-8 py-3 bg-white text-[var(--color-dark)] border-2 border-[var(--color-dark)] rounded-full hover:bg-[var(--color-dark)] hover:text-white transition-all"
-            >
-              צור קשר
+
+            <Link href="/contact" className={styles.btnAlt}>
+              <span>צור קשר</span>
+              <svg
+                className={styles.arrow}
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13.5 10H6.5M10 6.5L13.5 10L10 13.5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </main>
       <Footer />

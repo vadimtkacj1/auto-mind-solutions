@@ -4,6 +4,7 @@ import type { FormEvent } from "react";
 import type { ContactFormData } from "@/types";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, CheckCircle2, Phone, User } from "lucide-react";
+import { SmartVideo } from "../ui/SmartVideo";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -15,7 +16,16 @@ function VideoCharacter() {
   return (
     <div className="relative w-full max-w-[450px] aspect-square flex items-center justify-center lg:justify-start">
       <div className="w-full h-full">
-        <video src="/videos/contact.mp4" autoPlay loop muted playsInline className="w-full h-full object-contain" />
+        <SmartVideo
+          src="/videos/contact.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-contain"
+          aria-label="Contact animation"
+        />
       </div>
     </div>
   );

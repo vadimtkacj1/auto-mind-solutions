@@ -27,7 +27,6 @@ function drawRider(ctx: CanvasRenderingContext2D, f: Floater, w: number, h: numb
   const px = f.x * w,
     py = f.y * h;
   const s = f.size;
-  const as = s * 0.9;
   const bob = Math.sin(t * 0.035 + f.bobPhase) * s * 0.06;
 
   ctx.save();
@@ -91,119 +90,6 @@ function drawRider(ctx: CanvasRenderingContext2D, f: Floater, w: number, h: numb
   ctx.ellipse(s * 0.95, 0, s * 0.5, s * 0.24, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Astronaut on top
-  ctx.save();
-  ctx.translate(s * 0.05, -s * 0.55);
-
-  // Legs
-  ctx.strokeStyle = "#dde8f5";
-  ctx.lineWidth = as * 0.28;
-  ctx.lineCap = "round";
-  ctx.beginPath();
-  ctx.moveTo(-as * 0.2, as * 0.5);
-  ctx.quadraticCurveTo(-as * 0.55, as * 0.85, -as * 0.5, as * 1.3);
-  ctx.stroke();
-  ctx.fillStyle = "#9aabb5";
-  ctx.beginPath();
-  ctx.ellipse(-as * 0.5, as * 1.32, as * 0.22, as * 0.13, -0.3, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(as * 0.2, as * 0.5);
-  ctx.quadraticCurveTo(as * 0.55, as * 0.85, as * 0.5, as * 1.3);
-  ctx.stroke();
-  ctx.fillStyle = "#9aabb5";
-  ctx.beginPath();
-  ctx.ellipse(as * 0.5, as * 1.32, as * 0.22, as * 0.13, 0.3, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Suit body
-  ctx.fillStyle = "#dde8f5";
-  ctx.beginPath();
-  ctx.roundRect(-as * 0.5, -as * 0.5, as * 1.0, as * 1.1, as * 0.28);
-  ctx.fill();
-  ctx.fillStyle = "rgba(0,0,0,0.1)";
-  ctx.beginPath();
-  ctx.roundRect(-as * 0.5, as * 0.3, as * 1.0, as * 0.35, [0, 0, as * 0.28, as * 0.28]);
-  ctx.fill();
-  ctx.fillStyle = "rgba(255,255,255,0.18)";
-  ctx.beginPath();
-  ctx.roundRect(-as * 0.3, -as * 0.44, as * 0.28, as * 0.45, as * 0.12);
-  ctx.fill();
-
-  // Backpack
-  ctx.fillStyle = "#b0bec5";
-  ctx.beginPath();
-  ctx.roundRect(as * 0.38, -as * 0.32, as * 0.26, as * 0.62, as * 0.1);
-  ctx.fill();
-
-  // Left arm
-  ctx.strokeStyle = "#dde8f5";
-  ctx.lineWidth = as * 0.26;
-  ctx.beginPath();
-  ctx.moveTo(-as * 0.48, -as * 0.15);
-  ctx.quadraticCurveTo(-as * 0.85, -as * 0.45, -as * 0.55, -as * 0.72);
-  ctx.stroke();
-  ctx.fillStyle = "#c8d4e4";
-  ctx.beginPath();
-  ctx.arc(-as * 0.55, -as * 0.72, as * 0.17, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Right arm waving
-  ctx.strokeStyle = "#dde8f5";
-  ctx.lineWidth = as * 0.26;
-  ctx.beginPath();
-  ctx.moveTo(as * 0.48, -as * 0.15);
-  ctx.quadraticCurveTo(as * 1.0, -as * 0.55, as * 0.9, -as * 0.95);
-  ctx.stroke();
-  ctx.fillStyle = "#c8d4e4";
-  ctx.beginPath();
-  ctx.arc(as * 0.9, -as * 0.95, as * 0.17, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.strokeStyle = "#aabbcc";
-  ctx.lineWidth = 1.2;
-  for (let i = 0; i < 4; i++) {
-    const angle = -Math.PI * 0.8 + i * 0.28;
-    ctx.beginPath();
-    ctx.moveTo(as * 0.9, -as * 0.95);
-    ctx.lineTo(as * 0.9 + Math.cos(angle) * as * 0.22, -as * 0.95 + Math.sin(angle) * as * 0.22);
-    ctx.stroke();
-  }
-
-  // Helmet
-  ctx.fillStyle = "#e8eff8";
-  ctx.beginPath();
-  ctx.arc(0, -as * 0.72, as * 0.44, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = "rgba(255,200,60,0.38)";
-  ctx.beginPath();
-  ctx.ellipse(0, -as * 0.72, as * 0.3, as * 0.22, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.strokeStyle = "rgba(255,180,40,0.55)";
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.ellipse(0, -as * 0.72, as * 0.3, as * 0.22, 0, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.fillStyle = "rgba(255,255,255,0.22)";
-  ctx.beginPath();
-  ctx.ellipse(-as * 0.1, -as * 0.8, as * 0.1, as * 0.06, -0.4, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.strokeStyle = "#b0bec5";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(0, -as * 0.72, as * 0.44, 0, Math.PI * 2);
-  ctx.stroke();
-
-  // Chest patch
-  ctx.fillStyle = "rgba(30,80,180,0.5)";
-  ctx.beginPath();
-  ctx.roundRect(-as * 0.22, -as * 0.1, as * 0.44, as * 0.3, as * 0.07);
-  ctx.fill();
-  ctx.fillStyle = "rgba(255,255,255,0.75)";
-  ctx.font = `bold ${as * 0.13}px monospace`;
-  ctx.textAlign = "center";
-  ctx.fillText("NASA", 0, 0);
-
-  ctx.restore();
   ctx.restore();
 }
 
@@ -227,11 +113,22 @@ function spawnRider(): Floater {
 // Height of the top strip as fraction of viewport height — above the globe
 const STRIP_FRACTION = 0.18;
 
-export default function SpaceBackground() {
+export default function SpaceBackground({ enabled = true, fps }: { enabled?: boolean; fps?: number }) {
   const starsCanvasRef = useRef<HTMLCanvasElement>(null);
   const floatCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (!enabled) {
+      // If disabled, clear any previous frame and skip RAF loop.
+      const starsCanvas = starsCanvasRef.current;
+      const floatCanvas = floatCanvasRef.current;
+      const sCtx = starsCanvas?.getContext("2d");
+      const fCtx = floatCanvas?.getContext("2d");
+      if (starsCanvas && sCtx) sCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+      if (floatCanvas && fCtx) fCtx.clearRect(0, 0, floatCanvas.width, floatCanvas.height);
+      return;
+    }
+
     const starsCanvas = starsCanvasRef.current;
     const floatCanvas = floatCanvasRef.current;
     if (!starsCanvas || !floatCanvas) return;
@@ -240,8 +137,12 @@ export default function SpaceBackground() {
     const fCtx = floatCanvas.getContext("2d");
     if (!sCtx || !fCtx) return;
 
-    let frame = 0,
-      animId: number;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+    const effectiveFps = fps ?? (isMobile ? 15 : 24);
+
+    let frame = 0;
+    let animId: number;
+    let lastDraw = 0;
     const stars: Star[] = [];
     // Exactly ONE rider, starts immediately
     let rider: Floater | null = null;
@@ -250,13 +151,14 @@ export default function SpaceBackground() {
     const init = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
+      const mobile = w < 1024;
       starsCanvas.width = w;
       starsCanvas.height = h;
-      // Float canvas covers only the top strip — so rider can NEVER appear below
       floatCanvas.width = w;
       floatCanvas.height = Math.round(h * STRIP_FRACTION);
       stars.length = 0;
-      for (let i = 0; i < 220; i++) {
+      const starCount = mobile ? 50 : 100;
+      for (let i = 0; i < starCount; i++) {
         stars.push({
           x: Math.random(),
           y: Math.random(),
@@ -268,7 +170,15 @@ export default function SpaceBackground() {
       }
     };
 
-    const render = () => {
+    const render = (time: number) => {
+      // Cap FPS to reduce CPU usage.
+      const frameBudget = 1000 / Math.max(1, effectiveFps);
+      if (time - lastDraw < frameBudget) {
+        animId = requestAnimationFrame(render);
+        return;
+      }
+      lastDraw = time;
+
       const sw = starsCanvas.width,
         sh = starsCanvas.height;
       const fw = floatCanvas.width,
@@ -311,13 +221,13 @@ export default function SpaceBackground() {
     };
 
     init();
-    render();
+    animId = requestAnimationFrame(render);
     window.addEventListener("resize", init);
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", init);
     };
-  }, []);
+  }, [enabled, fps]);
 
   return (
     <>

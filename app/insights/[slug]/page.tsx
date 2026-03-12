@@ -79,7 +79,7 @@ export default function ArticlePage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#fcfcfd]">
       <ReadingProgress />
       <ScrollToTop />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -89,9 +89,9 @@ export default function ArticlePage({ params }: Props) {
           <div className="flex justify-end mb-8">
             <Link
               href="/insights"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 transition-colors"
             >
-              Back to Insights
+              חזרה לתובנות
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7-7 7" />
               </svg>
@@ -187,7 +187,7 @@ export default function ArticlePage({ params }: Props) {
                   opportunities.
                 </p>
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Schedule Strategy Call
@@ -200,7 +200,7 @@ export default function ArticlePage({ params }: Props) {
           )}
         </article>
       </main>
-      {/* <StrategicCTA /> */}
+      {/* <CTA /> */}
       <Footer />
     </div>
   );

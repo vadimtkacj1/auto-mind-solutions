@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/src/components/Header/Header";
-import { StrategicCTA } from "@/src/components/CTA/StrategicCTA";
+import { CTA } from "@/src/components/CTA/CTA";
 import { Footer } from "@/src/components/Footer/Footer";
 import { PageHero } from "@/src/components/PageHero/PageHero";
 
@@ -148,7 +148,7 @@ export default function IndustriesPage() {
               for search engines and user experience.
             </>
           }
-          primaryCta={{ label: "Schedule Strategy Call", href: "/#contact" }}
+          primaryCta={{ label: "Schedule Strategy Call", href: "/contact" }}
           secondaryCta={{ label: "View Portfolio", href: "/portfolio" }}
         />
 
@@ -294,7 +294,7 @@ export default function IndustriesPage() {
           </div>
         </section>
 
-        <StrategicCTA />
+        <CTA />
       </main>
       <Footer />
     </div>

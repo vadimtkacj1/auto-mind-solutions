@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Header from '@/src/components/Header/Header';
 import { Packages } from '@/src/components/Packages/Packages';
-import { StrategicCTA } from '@/src/components/CTA/StrategicCTA';
+import { CTA } from '@/src/components/CTA/CTA';
 import { Footer } from '@/src/components/Footer/Footer';
 import { PageHero } from '@/src/components/PageHero/PageHero';
 
@@ -13,10 +13,11 @@ export const metadata: Metadata = {
 
 export default function PackagesPage() {
   return (
-    <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
+    <div className="min-h-screen bg-white text-[var(--color-dark)] leading-relaxed">
       <Header />
-      <main>
+      <main className="bg-white">
         <PageHero
+          variant="light"
           badge="PACKAGES • Aiterra"
           title={
             <>
@@ -29,14 +30,14 @@ export default function PackagesPage() {
               כל חבילה מותאמת במיוחד כדי להביא לכם תוצאות מקסימליות.
             </>
           }
-          primaryCta={{ label: 'התייעצות חינם', href: '/#contact' }}
+          primaryCta={{ label: 'התייעצות חינם', href: '/contact' }}
           secondaryCta={{ label: 'צפו בפורטפוליו', href: '/portfolio' }}
         />
 
         <Packages />
-        <StrategicCTA />
+        <CTA variant="light" />
       </main>
-      <Footer />
+      <Footer variant="light" />
     </div>
   );
 }

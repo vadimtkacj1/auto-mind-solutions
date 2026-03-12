@@ -67,7 +67,7 @@
   html.site-main {
     scroll-behavior: auto; /* Lenis will handle smooth scrolling */
     scroll-padding-top: 100px;
-    overflow-x: hidden;
+    overflow-x: clip;
     background-color: #080a0c;
   }
 
@@ -102,7 +102,6 @@
     right: 0 !important;
     width: 100% !important;
     z-index: 99999 !important;
-    transform: translate3d(0, 0, 0) !important;
     will-change: transform, background-color, box-shadow;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -117,7 +116,7 @@
     background: #080a0c;
     color: var(--color-dark);
     direction: rtl;
-    overflow-x: hidden;
+    overflow-x: clip;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -127,28 +126,21 @@
     opacity: 1;
   }
 
+  /* scroll-snap отключён — вызывает лаги при скролле */
   html.site-main {
-    scroll-snap-type: y proximity;
+    scroll-snap-type: none;
   }
 
   body.site-main section {
-    scroll-snap-align: start;
     scroll-margin-top: 0;
-    will-change: transform;
+    /* will-change убран — слишком много слоёв GPU на всех секциях вызывало лаги */
     display: flex;
     flex-direction: column;
-    justify-content: center;
   }
 
   /* Mobile: make scrolling feel "normal" */
   @media (max-width: 768px) {
-    html.site-main {
-      scroll-snap-type: none;
-    }
-
     body.site-main section {
-      scroll-snap-align: none;
-      will-change: auto;
       display: block;
     }
   }
@@ -300,6 +292,89 @@
   ::selection {
     background: var(--color-primary);
     color: white;
+  }
+}
+
+/* ---------------------------------------------
+   View Transitions API (page transitions)
+   --------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .vt-page {
+    view-transition-name: page;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 260ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  ::view-transition-old(root) {
+    animation-name: vt-fade-out;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: vt-fade-in;
+  }
+
+  ::view-transition-old(page),
+  ::view-transition-new(page) {
+    animation-duration: 340ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  ::view-transition-old(page) {
+    animation-name: vt-page-out;
+  }
+
+  ::view-transition-new(page) {
+    animation-name: vt-page-in;
+  }
+}
+
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vt-page-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+    filter: blur(6px);
+  }
+}
+
+@keyframes vt-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
   }
 }
 

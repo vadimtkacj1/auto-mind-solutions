@@ -6,11 +6,10 @@ export type NavItem = {
 export const MAIN_NAV_ITEMS: NavItem[] = [
   { label: "ראשי", href: "/" },
   { label: "שירותים", href: "/services" },
-  { label: "תחומי התמחות", href: "/industries" },
+  { label: "חבילות", href: "/packages" },
   { label: "תיק עבודות", href: "/portfolio" },
-  { label: "תהליך העבודה", href: "/process" },
+  { label: "אודותינו", href: "/about" },
   { label: "מאמרים", href: "/insights" },
-  { label: "יכולות", href: "/capabilities" },
 ];
 
 export const FOOTER_LINK_GROUPS: Array<{ title: string; links: NavItem[] }> = [
@@ -18,8 +17,9 @@ export const FOOTER_LINK_GROUPS: Array<{ title: string; links: NavItem[] }> = [
     title: "חברה",
     links: [
       { label: "שירותים", href: "/services" },
+      { label: "חבילות", href: "/packages" },
       { label: "פורטפוליו", href: "/portfolio" },
-      { label: "תהליך", href: "/process" },
+      { label: "אודותינו", href: "/about" },
       { label: "תובנות", href: "/insights" },
     ],
   },
@@ -28,7 +28,6 @@ export const FOOTER_LINK_GROUPS: Array<{ title: string; links: NavItem[] }> = [
     links: [
       { label: "תנאי שימוש", href: "/terms" },
       { label: "פרטיות", href: "/privacy" },
-      { label: "Capabilities Deck", href: "/capabilities" },
     ],
   },
 ];

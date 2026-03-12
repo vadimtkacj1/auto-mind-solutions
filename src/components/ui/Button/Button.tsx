@@ -10,6 +10,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        brand:
+          "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)] shadow-lg shadow-[rgba(0,112,255,0.22)] active:scale-95",
+        cta: "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-white shadow-lg shadow-[rgba(0,112,255,0.18)] hover:brightness-110 active:scale-95",
+        brandOutline:
+          "border border-slate-300 bg-transparent text-slate-900 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] active:scale-95",
+        brandGlass:
+          "border border-white/15 bg-white/[0.06] text-white hover:bg-white/[0.1] active:scale-95",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -22,6 +29,9 @@ const buttonVariants = cva(
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        nav: "h-12 rounded-2xl px-8 text-lg font-extrabold",
+        hero: "h-auto rounded-2xl px-8 py-5 text-lg font-black",
+        pill: "h-11 rounded-2xl px-8 text-base font-extrabold",
         icon: "size-9 rounded-md",
       },
     },

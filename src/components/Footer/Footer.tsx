@@ -75,7 +75,7 @@ export function Footer({ variant = "dark" }: { variant?: "dark" | "light" }) {
     >
       {isDark && (
         <div className="absolute inset-0 z-0 opacity-90 pointer-events-none">
-          <OptimizedScene showSphere={false} pointsAmount="high" />
+          <OptimizedScene showSphere={false} pointsAmount="low" />
         </div>
       )}
 
