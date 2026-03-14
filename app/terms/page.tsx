@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Header from "../../src/components/Header/Header";
 import { Footer } from "../../src/components/Footer/Footer";
 import { ContactCTA } from "../../src/components/CTA/ContactCTA";
-import { ContactCTA } from "../../src/components/CTA/ContactCTA";
 
 const Terms = dynamic(() => import("../../src/components/Terms/Terms").then((mod) => ({ default: mod.Terms })), {
   ssr: true,

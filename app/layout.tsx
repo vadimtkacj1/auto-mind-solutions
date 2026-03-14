@@ -242,7 +242,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body className={`${notoSansHebrew.className} site-main`}>
-        <ViewTransitionsProvider />
+        {/* <ViewTransitionsProvider /> */}
         <BodyClassController />
         <SmoothScrollProvider>
           <HashScrollHandler offset={80} />
