@@ -1,99 +1,53 @@
 import type { Metadata } from "next";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
-import { PageHero } from "@/src/components/PageHero/PageHero";
-import { CTA } from "@/src/components/CTA/CTA";
-import { TechStack } from "@/src/components/TechStack/TechStack";
+import { AboutHero } from "@/src/components/AboutAiterra/AboutHero";
+import { TechStackInline } from "@/src/components/TechStack/TechStackInline";
+import { WebDevServices } from "@/src/components/Services/WebDevServices";
+import { WebDevProcess } from "@/src/components/Services/WebDevProcess";
 import { FAQ } from "@/src/components/FAQ/FAQ";
+import { ContactCTA } from "@/src/components/CTA/ContactCTA";
+import { WEB_DEV_FAQ_ITEMS } from "@/src/components/Services/WebDevFAQ";
 
 export const metadata: Metadata = {
-  title: "Web Development - הנדסת תוכנה ואתרים | Aiterra",
+  title: "בניית אתרים | שירותי בניית אתרים לעסק | פיתוח אתרים מקצועי - Aiterra",
   description:
-    "בניית אתרים ומערכות בהתאמה אישית מלאה, הכוללת אינטגרציות API מורכבות וארכיטקטורה סקילבילית. ביצועים מקסימליים מהיום הראשון.",
+    "בניית אתרים מקצועית: אתרי תדמית, בניית אתר מכירות (איקומרס), חנות וירטואלית ופיתוח Custom. בניית אתר אינטרנט עם UX מנצחת, קידום אורגני ואחסון אתרים. מחיר בניית אתר שקוף. בניית אתרים לעסקים קטנים וגדולים.",
   alternates: { canonical: "https://aiterra.agency/services/web-development" },
+  openGraph: {
+    title: "בניית אתרים מקצועית | שירותי בניית אתרים לעסק - Aiterra",
+    description: "בניית אתרים בהתאמה אישית: אתרי תדמית, איקומרס, מערכות ניהול. פיתוח אתר אינטרנט עם טכנולוגיות מתקדמות.",
+    type: "website",
+    locale: "he_IL",
+  },
 };
 
 export default function WebDevelopmentPage() {
   return (
     <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
       <Header />
-      <main>
-        <PageHero
-          badge="WEB DEVELOPMENT • Aiterra"
-          title={
-            <>
-              הנדסת תוכנה <span className="text-[var(--color-primary)]">ואתרים</span>
-            </>
-          }
-          subtitle={
-            <>
-              בניית אתרים ומערכות בהתאמה אישית מלאה, הכוללת אינטגרציות API מורכבות וארכיטקטורה סקילבילית (ניתנת
-              להרחבה). אנו שמים דגש על ביצועים מקסימליים מהיום הראשון, כדי להבטיח חווית משתמש חלקה שעומדת בעומסי תנועה
-              ובסטנדרטים הטכנולוגיים הגבוהים ביותר.
-            </>
-          }
-          primaryCta={{ label: "התחל פרויקט", href: "/contact" }}
-          secondaryCta={{ label: "צפו בפורטפוליו", href: "/portfolio" }}
+      <main className="bg-transparent">
+        <AboutHero
+          title="בניית אתרים: שירותי בניית אתרים לעסק ופיתוח טכנולוגי מתקדם"
+          subtitle="האתר שלכם הוא איש המכירות היחיד שעובד 24/7. כשהוא איטי, מיושן או לא מותאם למובייל, אתם מפסידים לקוחות למתחרים בכל שנייה שעוברת. ב-Aiterra, בתור חברה לבניית אתרים וסוכנות טכנולוגית, אנחנו לא רק מעצבים עמודים יפים – אנחנו בונים תשתיות לצמיחה. תהליך בניית אתר אינטרנט אצלנו משלב טכנולוגיות צד-שרת מתקדמות, חוויית משתמש (UX) מנצחת והכנה מושלמת לקידום במנועי החיפוש. באמצעות עיצוב ובניית אתרים ברמה הגבוהה ביותר, נהפוך את הנוכחות הדיגיטלית שלכם לנכס המכניס ביותר בחברה."
+          hideCtas
         />
 
-        <section className="px-6 py-14 md:py-20 bg-[#f8fafc]" dir="rtl">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-12 text-center">מה אנחנו מציעים</h2>
+        <WebDevServices />
+        <WebDevProcess />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              {[
-                {
-                  title: "אתרים מותאמים אישית",
-                  desc: "פיתוח אתרי אינטרנט מותאמים בצורה מושלמת לצרכי העסק שלך, עם עיצוב ייחודי וקוד נקי.",
-                  gradient: "from-blue-600 to-cyan-500",
-                },
-                {
-                  title: "אינטגרציות API",
-                  desc: "חיבור מלא למערכות חיצוניות - CRM, ERP, תשלומים, משלוחים ועוד.",
-                  gradient: "from-purple-600 to-pink-500",
-                },
-                {
-                  title: "ארכיטקטורה סקילבילית",
-                  desc: "מבנה טכני שמאפשר צמיחה וגדילה ללא הגבלות, מוכן לעתיד.",
-                  gradient: "from-green-600 to-teal-500",
-                },
-                {
-                  title: "ביצועים מקסימליים",
-                  desc: "אופטימיזציה מלאה למהירות טעינה, SEO טכני וחוויית משתמש מושלמת.",
-                  gradient: "from-orange-600 to-red-500",
-                },
-              ].map((item) => (
-                <div key={item.title} className="p-8">
-                  <h3 className={`text-2xl font-black mb-4 bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-600 text-lg leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="bg-white rounded-[2.5rem] p-10 md:p-16 shadow-2xl">
-              <h3 className="text-2xl md:text-4xl font-black text-slate-900 mb-8 text-center">
-                הטכנולוגיות שאנחנו משתמשים בהן
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                {["React", "Next.js", "TypeScript", "Node.js", "Tailwind CSS", "PostgreSQL", "MongoDB", "AWS"].map(
-                  (tech) => (
-                    <div key={tech} className="p-4 bg-slate-50 rounded-xl">
-                      <span className="text-lg font-bold text-slate-700">{tech}</span>
-                    </div>
-                  )
-                )}
-              </div>
-            </div>
+        <section className="py-20 md:py-32 bg-white">
+          <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <TechStackInline />
           </div>
         </section>
 
-        <TechStack />
-        <FAQ />
-        <CTA />
+        <ContactCTA />
+        <FAQ items={WEB_DEV_FAQ_ITEMS} title="שאלות נפוצות" />
+
       </main>
       <Footer />
     </div>
   );
 }
+

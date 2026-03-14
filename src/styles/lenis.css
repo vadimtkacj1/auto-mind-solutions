@@ -26,11 +26,9 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Ultra Performance Optimization */
+/* Performance - без transform/will-change, щоб не приховувати секції при скролі */
 .lenis {
   -webkit-overflow-scrolling: touch;
-  transform: translateZ(0);
-  will-change: scroll-position;
 }
 
 /* Custom scrollbar for smooth scroll - Яркий дизайн */

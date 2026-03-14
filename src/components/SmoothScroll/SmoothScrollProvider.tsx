@@ -5,8 +5,6 @@ import Lenis from "lenis";
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Lenis отключён — при множестве scroll-анимаций (Hero, Portfolio, PackagesCTA)
-    // нативный скролл даёт лучшую производительность без лагов
     const ENABLE_LENIS = false;
     if (!ENABLE_LENIS) return;
 

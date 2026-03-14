@@ -8,7 +8,7 @@ const nextConfig = {
   },
 
   experimental: {
-    optimizePackageImports: ["framer-motion"],
+    // optimizePackageImports: ["framer-motion"], // temporarily disabled - may cause SWC parsing issues
   },
 
   compress: true,
@@ -31,7 +31,13 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+    ],
     unoptimized: false,
     loader: "default",
   },

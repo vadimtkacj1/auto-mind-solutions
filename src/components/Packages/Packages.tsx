@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
 
 // --- TYPES ---
 interface PackagePlan {
@@ -12,13 +13,15 @@ interface PackagePlan {
   features: string[];
   highlighted?: boolean;
   badge?: string;
-  buttonText: string;
 }
+
+const FEATURES_VISIBLE_DEFAULT = 3;
 
 // --- DATA ---
 const plans: PackagePlan[] = [
   {
     name: "Launch Starter",
+    slug: "launch-starter",
     description: "פתרון מהיר לעסקים שרוצים להתחיל להביא לידים",
     features: [
       "דף נחיתה ממיר מקצועי",
@@ -27,12 +30,11 @@ const plans: PackagePlan[] = [
       "3 גרפיקות סטטיות מקצועיות למודעות",
       "עיצוב מודרני ואופטימיזציה בסיסית",
     ],
-    slug: "launch-starter",
-    buttonText: "למידע נוסף",
   },
   {
     name: "Growth Landing System",
     description: "מערכת דפי נחיתה לבדיקת קמפיינים והגדלת לידים",
+    slug: "growth-landing-system",
     features: [
       "3 דפי נחיתה שונים לקמפיינים שונים",
       "3 גרפיקות מקצועיות לכל דף נחיתה (סה״כ 9 מודעות)",
@@ -40,12 +42,13 @@ const plans: PackagePlan[] = [
       "עיצוב ממוקד המרות",
       "פתרון שיווקי מתקדם במחיר נגיש",
     ],
-    slug: "growth-landing-system",
-    buttonText: "למידע נוסף",
   },
   {
     name: "Business Presence Pro",
     description: "אתר עסקי מלא + מערכת שיווק",
+    slug: "business-presence-pro",
+    highlighted: true,
+    badge: "פופולרי",
     features: [
       "אתר תדמית מקצועי לעסק",
       "סרטוני AI להצגת השירותים",
@@ -54,14 +57,11 @@ const plans: PackagePlan[] = [
       "תוכנית SEO אסטרטגית",
       "3 מודעות סטטיות מקצועיות",
     ],
-    highlighted: true,
-    slug: "business-presence-pro",
-    badge: "פופולרי",
-    buttonText: "למידע נוסף",
   },
   {
     name: "Digital Commerce Elite",
     description: "מערכת מכירה מלאה לעסקים מתקדמים",
+    slug: "digital-commerce-elite",
     features: [
       "אתר מתקדם עם מערכת CMS לניהול תוכן",
       "חנות אינטרנטית מלאה",
@@ -71,88 +71,142 @@ const plans: PackagePlan[] = [
       "מודעות מקצועיות לרשתות חברתיות",
       "תשתית מלאה להגדלת מכירות אונליין",
     ],
-    slug: "digital-commerce-elite",
-    buttonText: "למידע נוסף",
   },
 ];
 
 // --- MAIN COMPONENT ---
 export function Packages() {
   const containerRef = useRef<HTMLElement>(null);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   return (
     <section
       ref={containerRef}
       id="packages"
-      className="relative bg-white overflow-visible z-20 py-20 md:py-28"
+      dir="rtl"
+      className="relative overflow-visible rounded-t-[2rem] md:rounded-t-[2.5rem] py-20 md:py-28"
+      style={{
+        background: "linear-gradient(180deg, #fafbff 0%, #ffffff 30%, #ffffff 100%)",
+      }}
     >
-      <div className="w-full flex items-center justify-center z-10 px-6 py-10">
-        <div className="relative z-20 w-full max-w-7xl mx-auto flex flex-col items-center">
-          {/* Header */}
-          <div className="text-center mb-14 lg:mb-20">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight" dir="rtl">
-              החבילות{" "}
-              <span className="text-[var(--color-primary)]">שלנו</span>
-            </h2>
-          </div>
+      <div className="relative z-10 w-full mx-auto max-w-4xl px-6">
+        {/* Header - חבילות */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1, margin: "0px 0px 80px 0px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 md:mb-20"
+        >
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900">
+            חבילות שלנו
+          </h1>
+          <p className="mt-5 text-slate-500 text-lg md:text-xl font-medium max-w-xl mx-auto leading-relaxed">
+            בחרו את החבילה שמתאימה לצרכים העסקיים שלכם
+          </p>
+        </motion.div>
 
-          {/* Packages Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8 w-full items-stretch">
-            {plans.map((plan, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 24 }}
+        {/* Vertical stack - one package under another */}
+        <div className="flex flex-col gap-6 md:gap-8">
+          {plans.map((plan, index) => {
+            const isExpanded = expanded[plan.slug] ?? false;
+            const hasMore = plan.features.length > FEATURES_VISIBLE_DEFAULT;
+            const visibleFeatures = hasMore && !isExpanded
+              ? plan.features.slice(0, FEATURES_VISIBLE_DEFAULT)
+              : plan.features;
+
+            return (
+              <motion.article
+                key={plan.slug}
+                initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                dir="rtl"
-                className={`group relative flex flex-col h-full rounded-3xl p-8 lg:p-10 border transition-all duration-300
-                ${
-                  plan.highlighted
-                    ? "bg-white border-2 border-[var(--color-primary)] shadow-[0_24px_48px_-12px_rgba(0,112,255,0.15)] lg:scale-[1.02] z-30"
-                    : "bg-white border border-slate-200 hover:border-slate-300 hover:shadow-[0_12px_48px_-8px_rgba(0,0,0,0.08)] z-10"
-                }`}
-              >
-                {plan.badge && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--color-primary)] text-white text-[11px] font-bold px-5 py-1.5 rounded-full z-50 whitespace-nowrap tracking-wider">
-                    {plan.badge}
-                  </div>
-                )}
-
-                <div className="mb-6">
-                  <h3 className={`text-xl font-black mb-3 ${plan.highlighted ? "text-[var(--color-primary)]" : "text-slate-900"}`}>
-                    {plan.name}
-                  </h3>
-                  <p className="text-slate-500 text-[15px] leading-relaxed">{plan.description}</p>
-                </div>
-
-                <div className={`h-px w-full mb-6 ${plan.highlighted ? "bg-slate-200" : "bg-slate-100"}`} />
-
-                <ul className="space-y-4 mb-8 flex-grow">
-                  {plan.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex items-start gap-3">
-                      <div className="mt-0.5 p-1 rounded-full shrink-0 bg-slate-100 group-hover:bg-[var(--color-primary)]/10 transition-colors">
-                        <Check className={plan.highlighted ? "text-[var(--color-primary)]" : "text-slate-600"} size={14} strokeWidth={3} />
-                      </div>
-                      <span className="text-slate-700 text-[15px] leading-snug">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href={`/packages/${plan.slug}`}
-                  className={`w-full py-4 rounded-2xl font-bold text-base text-center transition-all duration-300
+                viewport={{ once: true, amount: 0.1, margin: "0px 0px 80px 0px" }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+                className={`group block w-full rounded-[1.5rem] md:rounded-[1.75rem] transition-all duration-400 overflow-hidden relative
                   ${
                     plan.highlighted
-                      ? "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)] shadow-lg shadow-[rgba(0,112,255,0.2)]"
-                      : "bg-slate-900 text-white hover:bg-slate-800 border border-slate-800"
+                      ? "border border-[var(--color-primary)]/20 bg-white shadow-[0_4px_24px_-4px_rgba(0,112,255,0.15),0_8px_40px_-8px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_40px_-8px_rgba(0,112,255,0.2),0_16px_56px_-12px_rgba(0,0,0,0.1)] hover:-translate-y-1"
+                      : "border border-slate-200/80 bg-white shadow-[0_2px_12px_-2px_rgba(0,0,0,0.05),0_8px_32px_-8px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.08),0_12px_40px_-8px_rgba(0,0,0,0.1)] hover:border-slate-300/80 hover:-translate-y-0.5"
                   }`}
-                >
-                  {plan.buttonText}
-                </a>
-              </motion.div>
-            ))}
-          </div>
+              >
+                <div className="p-6 md:p-8 lg:p-10 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                  {/* Content: name + description + features */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-4 flex-wrap">
+                      {plan.badge && (
+                        <span className="inline-flex rounded-full px-4 py-1.5 text-[11px] font-bold tracking-wider shrink-0 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-white shadow-sm">
+                          {plan.badge}
+                        </span>
+                      )}
+                      <h2
+                        className={`text-xl md:text-2xl font-black tracking-tight ${
+                          plan.highlighted ? "text-[var(--color-primary)]" : "text-slate-900"
+                        }`}
+                      >
+                        {plan.name}
+                      </h2>
+                    </div>
+                    <p className="mt-3 text-slate-500 text-base md:text-lg leading-relaxed">
+                      {plan.description}
+                    </p>
+
+                    <ul className="mt-6 space-y-3">
+                      {visibleFeatures.map((f, i) => (
+                        <li key={i} className="flex items-start gap-3 text-slate-600 text-[15px] leading-snug">
+                          <span className={`shrink-0 mt-0.5 flex h-5 w-5 items-center justify-center rounded-full ${
+                            plan.highlighted ? "bg-[var(--color-primary)]/15" : "bg-slate-100"
+                          }`}>
+                            <Check
+                              className={plan.highlighted ? "text-[var(--color-primary)]" : "text-slate-500"}
+                              size={12}
+                              strokeWidth={3}
+                            />
+                          </span>
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {hasMore && (
+                      <button
+                        type="button"
+                        onClick={() => setExpanded((prev) => ({ ...prev, [plan.slug]: !prev[plan.slug] }))}
+                        className="mt-5 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[var(--color-primary)] font-bold text-sm border border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5 hover:bg-[var(--color-primary)]/10 hover:border-[var(--color-primary)]/30 transition-all duration-200"
+                      >
+                        {isExpanded ? (
+                          <>
+                            הצג פחות
+                            <ChevronUp className="w-4 h-4" aria-hidden />
+                          </>
+                        ) : (
+                          <>
+                            הצג עוד ({plan.features.length - FEATURES_VISIBLE_DEFAULT})
+                            <ChevronDown className="w-4 h-4" aria-hidden />
+                          </>
+                        )}
+                      </button>
+                    )}
+                  </div>
+
+                  {/* CTA button - צור קשר */}
+                  <div className="shrink-0">
+                    <Link
+                      href="/contact"
+                      className={`inline-flex items-center gap-2 rounded-lg font-bold text-base px-7 py-4 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]
+                        ${
+                          plan.highlighted
+                            ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/25 hover:bg-[var(--color-primary-dark)] hover:shadow-xl"
+                            : "bg-slate-900 text-white shadow-md hover:bg-slate-800 hover:shadow-lg border-2 border-transparent"
+                        }`}
+                    >
+                      צור קשר
+                      <ArrowLeft className="w-4 h-4" aria-hidden />
+                    </Link>
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

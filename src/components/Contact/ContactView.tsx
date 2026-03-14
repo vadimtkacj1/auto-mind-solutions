@@ -55,9 +55,9 @@ export function ContactView({
   onSuccessPopupChange,
 }: ContactViewProps) {
   return (
-    <section id="contact" className="py-8 md:py-16 px-6 bg-white relative overflow-hidden z-10" dir="rtl">
+    <section id="contact" className="pt-28 md:pt-36 pb-8 md:pb-12 px-6 bg-white relative overflow-hidden z-10" dir="rtl">
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
           <div className="flex flex-col items-center lg:items-start">
             <VideoCharacter />
             <div className="mt-10 text-center lg:text-right">
@@ -71,7 +71,7 @@ export function ContactView({
           </div>
 
           <div className="w-full max-w-xl mx-auto relative z-20">
-            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 mb-10 sm:mb-12 text-center lg:text-right tracking-tighter">
+            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 mb-4 sm:mb-6 text-center lg:text-right tracking-tighter">
               בואו נדבר <span className="text-purple-600 italic">תכלס.</span>
             </h2>
 
@@ -85,7 +85,7 @@ export function ContactView({
                 boxShadow: "0 20px 60px -10px rgba(15, 23, 42, 0.25), 0 10px 30px -5px rgba(15, 23, 42, 0.15)",
               }}
             >
-              <div className="space-y-10">
+              <div className="flex flex-col space-y-10">
                 {errorMessage && (
                   <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-2xl text-center font-semibold text-base sm:text-lg">
                     {errorMessage}
@@ -131,7 +131,7 @@ export function ContactView({
                 <button
                   type="submit"
                   disabled={isSubmitDisabled}
-                  className="w-full py-5 sm:py-7 text-white rounded-[2rem] font-black text-xl sm:text-2xl hover:opacity-90 transition-all shadow-xl flex items-center justify-center gap-4 group disabled:opacity-50 active:scale-95"
+                  className="w-fit self-start py-3 sm:py-4 px-6 sm:px-8 text-white rounded-2xl font-black text-base sm:text-lg hover:opacity-90 transition-all shadow-xl flex items-center gap-3 group disabled:opacity-50 active:scale-95"
                   style={{
                     background: "#2563eb",
                     boxShadow: "0 4px 14px 0 rgba(37, 99, 235, 0.5)",

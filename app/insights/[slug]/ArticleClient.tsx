@@ -11,7 +11,8 @@ export function ReadingProgress() {
     const updateProgress = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollProgress = (scrollTop / docHeight) * 100;
+      const scrollProgress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
       setProgress(scrollProgress);
       ticking = false;
     };
@@ -28,7 +29,7 @@ export function ReadingProgress() {
   }, []);
 
   return (
-    <div className="fixed left-0 right-0 top-20 w-full h-3 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg" style={{ zIndex: 9998 }}>
+    <div className="relative w-full h-3 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg">
       {/* Stars background */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import { Reveal } from "../ui/Reveal";
 
 interface Technology {
@@ -9,100 +9,106 @@ interface Technology {
 }
 
 const technologies: Technology[] = [
-  { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-  { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-  { name: "Tailwind", logo: "https://tailwindcss.com/_next/static/media/tailwindcss-mark.96ee6a5a.svg" },
   { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-  { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+  { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   {
     name: "AWS",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
   },
-  { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
-  { name: "GraphQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" },
+  { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+  { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
 ];
 
 export function TechStack() {
-  const scrollerItems = useMemo(() => [...technologies, ...technologies, ...technologies], []);
+  // Duplicate technologies for infinite scroll effect
+  const duplicatedTechs = [...technologies, ...technologies, ...technologies];
 
   return (
-    <section id="tech" className="py-8 sm:py-12 px-4 relative z-30 overflow-hidden bg-[#fafafa]" dir="rtl">
-      {/* Background Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "40px 40px" }}
-      />
-
-      <style jsx>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-33.33%);
-          }
-        }
-
-        .marquee-viewport {
-          width: 100%;
-          overflow: hidden;
-          position: relative;
-          direction: ltr;
-          mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-          -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        }
-
-        .marquee-track {
-          display: flex;
-          width: max-content;
-          gap: 1.5rem;
-          padding: 2rem 0;
-          animation: scroll 35s linear infinite;
-          will-change: transform;
-        }
-
-        @media (min-width: 640px) {
-          .marquee-track {
-            gap: 2.5rem;
-          }
-        }
-      `}</style>
-
-      <div className="max-w-7xl mx-auto relative z-10 w-full text-center">
-        <div className="mb-8 md:mb-12">
+    <section id="tech" className="py-16 sm:py-20 relative z-30 bg-gradient-to-b from-white to-slate-50" dir="rtl">
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="mb-12 md:mb-16">
           <Reveal>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-center">
-              הטכנולוגיות שלנו
-            </h1>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight tracking-tight text-slate-900 text-center mb-3">
+              הטכנולוגיות שאנחנו משתמשים בהן
+            </h2>
           </Reveal>
         </div>
 
-        <div className="marquee-viewport">
-          <div className="marquee-track">
-            {scrollerItems.map((tech, index) => (
+        {/* Desktop: Grid layout */}
+        <div className="hidden sm:grid grid-cols-4 gap-6 sm:gap-8 md:gap-10">
+          {technologies.map((tech, index) => (
+            <Reveal key={tech.name} delay={index * 0.05}>
+              <div className="flex flex-col items-center justify-center gap-4 p-6 transition-transform duration-300 hover:scale-105">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={tech.logo}
+                  alt={tech.name}
+                  loading="lazy"
+                  className="w-20 h-20 md:w-24 md:h-24 object-contain"
+                  style={{
+                    filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08))'
+                  }}
+                />
+                <span className="text-base font-bold text-slate-700 text-center">
+                  {tech.name}
+                </span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Mobile: Infinite carousel */}
+        <div className="sm:hidden overflow-hidden relative">
+          <div className="flex animate-infinite-scroll hover:pause-animation">
+            {duplicatedTechs.map((tech, index) => (
               <div
                 key={`${tech.name}-${index}`}
-                className="flex flex-col items-center justify-center w-24 sm:w-32 md:w-36"
+                className="flex flex-col items-center justify-center gap-3 p-5 min-w-[140px] flex-shrink-0"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={tech.logo}
                   alt={tech.name}
                   loading="lazy"
-                  className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain grayscale-[0.2]"
+                  className="w-16 h-16 object-contain"
+                  style={{
+                    filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08))'
+                  }}
                 />
-                <span className="mt-2 text-xs sm:text-sm font-bold text-slate-400 tracking-widest uppercase">
+                <span className="text-sm font-bold text-slate-700 text-center">
                   {tech.name}
                 </span>
               </div>
             ))}
           </div>
+
+          {/* Gradient overlays for smooth edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none z-10" />
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes infinite-scroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-33.333%);
+          }
+        }
+
+        .animate-infinite-scroll {
+          animation: infinite-scroll 25s linear infinite;
+        }
+
+        .pause-animation:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
   );
 }

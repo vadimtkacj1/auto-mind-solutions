@@ -9,6 +9,7 @@ export type PortfolioItem = {
   description: string;
   image: string;
   href: string;
+  externalUrl?: string;
   tags?: string[];
   results?: PortfolioResult[];
 };
@@ -20,6 +21,7 @@ export const portfolioItems: PortfolioItem[] = [
     description: "עיצוב מודרני, טעינה מהירה, חוויית משתמש חדה ו-SEO טכני מהיום הראשון.",
     image: "/images/1.png",
     href: "/portfolio/premium-corporate-site",
+    externalUrl: "https://aiterra.agency",
     tags: ["Web Design", "SEO", "Performance"],
   },
   {
@@ -47,3 +49,4 @@ export const portfolioItems: PortfolioItem[] = [
     tags: ["Branding", "Product", "Motion"],
   },
 ];
+

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
 import { ServicesElastic } from "@/src/components/Services/ServicesElastic";
-import { CTA } from "@/src/components/CTA/CTA";
+import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 
 export const metadata: Metadata = {
   title: "שירותים | Aiterra",
@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-[#fcfcfd] leading-relaxed">
+    <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
       <Header />
-      <main>
+      <main className="bg-white">
         <ServicesElastic />
-        <CTA variant="light" />
+        <ContactCTA />
       </main>
       <Footer />
     </div>

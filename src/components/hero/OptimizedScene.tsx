@@ -381,12 +381,18 @@ export default function OptimizedScene() {
     dl.position.set(5, 5, 5);
     scene.add(dl);
 
-    // ── ИЗМЕНЕНИЕ: мобильный масштаб увеличен с 2.0 до 3.4, позиция центрирована ──
+    // ── Mobile scale increased for better visibility ──
     const applyLayout = (obj: THREE.Group) => {
-      if (window.innerWidth < 1024) {
+      if (window.innerWidth < 768) {
+        // Extra small mobile (iPhone SE, etc)
+        obj.position.set(0, -1, 0);
+        obj.scale.set(6.5, 6.5, 6.5);
+      } else if (window.innerWidth < 1024) {
+        // Tablet
         obj.position.set(0, 0, 0);
-        obj.scale.set(4.2, 4.2, 4.2);
+        obj.scale.set(5.0, 5.0, 5.0);
       } else {
+        // Desktop
         obj.position.set(-9, 0, 0);
         obj.scale.set(4.5, 4.5, 4.5);
       }
@@ -497,7 +503,7 @@ export default function OptimizedScene() {
       camera.position.x += (mouseCurrent.x * (isMob ? 0.4 : 0.8) - camera.position.x) * 0.06;
       camera.position.y +=
         (mouseCurrent.y * (isMob ? 0.3 : 0.5) - scrollRatio * (isMob ? 1.0 : 1.8) - camera.position.y) * 0.06;
-      camera.position.z = isMob ? 12 : 18;
+      camera.position.z = isMob ? 10 : 18;
 
       if (modelRef.current) {
         if (!isDragging) {
@@ -521,8 +527,14 @@ export default function OptimizedScene() {
       requestRef.current = requestAnimationFrame(animate);
     };
 
+    // Throttled scroll handler - only update once per frame
+    let scrollRaf: number | null = null;
     const handleScroll = () => {
-      scrollYRef.current = window.scrollY;
+      if (scrollRaf !== null) return;
+      scrollRaf = requestAnimationFrame(() => {
+        scrollYRef.current = window.scrollY;
+        scrollRaf = null;
+      });
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", updateLayout);
@@ -554,6 +566,8 @@ export default function OptimizedScene() {
     return () => {
       isActive = false;
       stop();
+      if (scrollRaf !== null) cancelAnimationFrame(scrollRaf);
+      if (mouseMoveRaf !== null) cancelAnimationFrame(mouseMoveRaf);
       window.removeEventListener("resize", updateLayout);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);

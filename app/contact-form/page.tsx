@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
-
 const services = [
   "אתר מאפס",
   "עיצוב UX/UI",
@@ -38,9 +37,9 @@ export default function ContactFormPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
       <Header />
-      <main className="pt-24 pb-20">
+      <main className="pt-24 bg-[#080a0c] min-h-screen">
         <div className="max-w-4xl mx-auto px-6">
           {/* Header */}
           <div className="mb-16 text-right" dir="rtl">

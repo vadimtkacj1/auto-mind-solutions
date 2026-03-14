@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
 import { PageHero } from "@/src/components/PageHero/PageHero";
-import { CTA } from "@/src/components/CTA/CTA";
+import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { Check } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -63,10 +63,7 @@ export default function LaunchStarterPage() {
           </div>
         </section>
 
-        <CTA
-          title="מוכנים להתחיל?"
-          description="בואו נבנה לכם דף נחיתה שממיר ומביא לידים איכותיים"
-        />
+        <ContactCTA />
       </main>
       <Footer />
     </div>

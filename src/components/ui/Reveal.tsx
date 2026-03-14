@@ -87,7 +87,7 @@ export function Reveal({
       className={className}
       initial={initial}
       whileInView={animate}
-      viewport={{ once, amount: 0.2 }}
+      viewport={{ once, amount: 0.1, margin: "0px 0px 80px 0px" }}
       transition={{
         duration,
         delay,

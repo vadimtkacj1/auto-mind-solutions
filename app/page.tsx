@@ -12,7 +12,6 @@ import Header from "@/src/components/Header/Header";
 import { PortfolioCarousel } from "@/src/components/Portfolio/PortfolioCarousel";
 
 import { RocketSpinner } from "@/src/components/RocketSpinner/RocketSpinner";
-import { ContactViewWrapper } from "@/src/components/Contact/ContactViewWrapper";
 import { PackagesCTA } from "@/src/components/PackagesCTA/PackagesCTA";
 
 // Динамический импорт тяжелых компонентов - отключен SSR для быстрой загрузки
@@ -118,15 +117,16 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <WebVitals />
       <Header />
-      <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
+      <div className="min-h-screen text-[var(--color-dark)] leading-relaxed" style={{ background: "#0a0a0a" }}>
         <main id="home" itemScope itemType="https://schema.org/WebPage">
           <Suspense fallback={<div className="h-screen" />}>
             <Hero />
           </Suspense>
 
-          <Suspense fallback={<div className="min-h-[400px]" />}>
-            <Services />
-          </Suspense>
+          <div style={{ position: "relative", zIndex: 30 }}>
+            <Suspense fallback={<div className="min-h-[400px]" />}>
+              <Services />
+            </Suspense>
 
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <PortfolioCarousel />
@@ -149,6 +149,7 @@ export default function HomePage() {
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <FAQ />
           </Suspense>
+          </div>
         </main>
         <Footer />
 

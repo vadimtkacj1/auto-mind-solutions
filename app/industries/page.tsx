@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/src/components/Header/Header";
-import { CTA } from "@/src/components/CTA/CTA";
+import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { Footer } from "@/src/components/Footer/Footer";
 import { PageHero } from "@/src/components/PageHero/PageHero";
 
@@ -294,7 +294,7 @@ export default function IndustriesPage() {
           </div>
         </section>
 
-        <CTA />
+        <ContactCTA />
       </main>
       <Footer />
     </div>

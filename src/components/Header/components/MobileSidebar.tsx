@@ -14,7 +14,7 @@ export function MobileSidebar({ pathname, isOpen, onClose }: MobileSidebarProps)
     <aside
       dir="rtl"
       className={cn(
-        "fixed top-4 right-4 bottom-4 w-[340px] max-w-[calc(100vw-2rem)] bg-white z-[9998] transform transition-transform duration-300 ease-in-out lg:hidden border border-slate-200 shadow-[0_30px_80px_rgba(15,23,42,0.18)] rounded-[28px] overflow-hidden",
+        "fixed top-0 right-0 bottom-0 w-[340px] max-w-[calc(100vw-1rem)] bg-[#050a15] z-[9998] transform transition-transform duration-300 ease-in-out lg:hidden border border-white/10 border-r-0 shadow-[0_30px_80px_rgba(15,23,42,0.6)] rounded-l-[28px] overflow-hidden",
         isOpen ? "translate-x-0" : "translate-x-[120%]",
       )}
     >
@@ -25,7 +25,7 @@ export function MobileSidebar({ pathname, isOpen, onClose }: MobileSidebarProps)
           <button
             type="button"
             onClick={onClose}
-            className="h-10 w-10 rounded-2xl border border-slate-200 text-slate-900 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors inline-flex items-center justify-center"
+            className="h-10 w-10 rounded-2xl border border-white/15 text-white hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors inline-flex items-center justify-center"
             aria-label="סגירת תפריט"
           >
             <X className="h-5 w-5" />
@@ -33,7 +33,7 @@ export function MobileSidebar({ pathname, isOpen, onClose }: MobileSidebarProps)
         </div>
 
         {/* Label */}
-        <div className="mt-8 text-[11px] font-black tracking-[0.28em] uppercase text-slate-400" dir="ltr">
+        <div className="mt-8 text-[11px] font-black tracking-[0.28em] uppercase text-white/50" dir="ltr">
           תפריט
         </div>
 
@@ -45,7 +45,7 @@ export function MobileSidebar({ pathname, isOpen, onClose }: MobileSidebarProps)
               item={item}
               pathname={pathname}
               onClick={onClose}
-              className="py-2 text-3xl font-black tracking-tight text-slate-900 w-fit"
+              className="py-2 text-3xl font-black tracking-tight text-white w-fit"
               activeClassName="underline underline-offset-8 decoration-2 decoration-[var(--color-primary)]"
               inactiveClassName="hover:underline hover:underline-offset-8 hover:decoration-2 hover:decoration-[var(--color-primary)]"
             />
@@ -54,20 +54,20 @@ export function MobileSidebar({ pathname, isOpen, onClose }: MobileSidebarProps)
 
         {/* Bottom */}
         <div className="mt-auto pt-10">
-          <div className="text-[11px] font-black tracking-[0.28em] uppercase text-slate-400" dir="ltr">
+          <div className="text-[11px] font-black tracking-[0.28em] uppercase text-white/50" dir="ltr">
             צור קשר
           </div>
           <div className="mt-4 flex items-center justify-between gap-6" dir="ltr">
             <a
               href={`mailto:${CONTACT_INFO.email}`}
-              className="text-sm font-extrabold text-slate-900 underline underline-offset-4 hover:text-[var(--color-primary)] transition-colors"
+              className="text-sm font-extrabold text-white underline underline-offset-4 hover:text-[var(--color-primary)] transition-colors"
             >
               {CONTACT_INFO.email}
             </a>
             <Link
               href="/about"
               onClick={onClose}
-              className="text-sm font-extrabold text-slate-900 underline underline-offset-4 hover:text-[var(--color-primary)] transition-colors"
+              className="text-sm font-extrabold text-white underline underline-offset-4 hover:text-[var(--color-primary)] transition-colors"
             >
               אודותינו
             </Link>

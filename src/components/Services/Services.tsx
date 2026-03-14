@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Code2, TrendingUp, Workflow } from "lucide-react";
 import { motion } from "framer-motion";
 import { Reveal } from "../ui/Reveal";
 import { Button } from "../ui/Button/Button";
@@ -9,41 +9,55 @@ import { SmartVideo } from "../ui/SmartVideo";
 
 const services = [
   {
-    title: "הנדסת תוכנה ואתרים",
+    tag: "פיתוח ועיצוב אתרים",
+    title: "פיתוח ועיצוב אתרים",
     description:
       "בניית אתרים ומערכות בהתאמה אישית מלאה, הכוללת אינטגרציות API מורכבות וארכיטקטורה סקילבילית (ניתנת להרחבה). אנו שמים דגש על ביצועים מקסימליים מהיום הראשון, כדי להבטיח חווית משתמש חלקה שעומדת בעומסי תנועה ובסטנדרטים הטכנולוגיים הגבוהים ביותר.",
+    icon: Code2,
+    color: "#1e40af",
     video: "/videos/GIF_DEV.mp4",
     link: "/services/web-development",
   },
   {
-    title: "Growth Marketing & SEO",
+    tag: "קידום אתרים (SEO)",
+    title: "קידום אתרים (SEO)",
     description:
       "אנחנו דואגים שהלקוחות ימצאו אתכם בדיוק כשהם מחפשים. השירות כולל מחקר מילות מפתח מעמיק, אופטימיזציה טכנית (Technical SEO), שיפור יחס המרה (CRO) וניהול אסטרטגיית תוכן חכמה. הכל מבוסס על דאטה ויעדים עסקיים מדידים כדי להביא תנועה אורגנית איכותית.",
+    icon: TrendingUp,
+    color: "#4f46e5",
     video: "/videos/GIF_SEO.mp4",
     link: "/services/seo-marketing",
   },
   {
-    title: "אוטומציה עסקית וחיבור מערכות (PPC & Tech)",
+    tag: "קידום ממומן ואוטומציה",
+    title: "קידום ממומן ואוטומציה",
     description:
-      "מקסום תקציבי הפרסום שלכם באמצעות קמפיינים ממומנים מבוססי תוצאות, תוך חיבור מלא למערכות ה-CRM/ERP של העסק. אנחנו יוצרים תהליכי מכירה ודיווח אוטומטיים שהופכים תנועה ללידים ולעסקאות, ללא עבודה ידנית מיותרת ובדיוק מקסימלי.",
+      "אוטומציה עסקית וחיבור מערכות (PPC & Tech), מקסום תקציבי הפרסום שלכם באמצעות קמפיינים ממומנים מבוססי תוצאות, תוך חיבור מלא למערכות ה-CRM/ERP של העסק. אנחנו יוצרים תהליכי מכירה ודיווח אוטומטיים שהופכים תנועה ללידים ולעסקאות, ללא עבודה ידנית מיותרת ובדיוק מקסימלי.",
+    icon: Workflow,
+    color: "#059669",
     video: "/videos/GIF_PPC.mp4",
     link: "/services/automation",
   },
-] as const;
+];
 
-export function Services({ standalone = false }: { standalone?: boolean }) {
+export function Services({ standalone: _standalone = false }: { standalone?: boolean }) {
   return (
     <section
       id="services"
       dir="rtl"
       style={{
         position: "relative",
-        zIndex: 20,
-        background: "#fcfcfd",
-        borderRadius: standalone ? "0" : "48px 48px 0 0",
-        paddingTop: "64px",
-        paddingBottom: "64px",
+        zIndex: 30,
+        background: "linear-gradient(185deg, #f1f5f9 0%, #f8fafc 3%, #fefefe 10%, #ffffff 18%, #ffffff 100%)",
+        borderRadius: "48px 48px 0 0",
+        paddingTop: "80px",
+        paddingBottom: "80px",
         overflow: "hidden",
+        marginTop: "-20px",
+        boxShadow:
+          "0 -2px 0 rgba(255,255,255,0.8) inset, 0 2px 0 rgba(0,0,0,0.04), 0 -6px 12px -3px rgba(0,0,0,0.08), 0 -16px 32px -8px rgba(0,0,0,0.12), 0 -32px 64px -16px rgba(0,0,0,0.18)",
+        isolation: "isolate",
+        transform: "translateZ(0)",
       }}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">

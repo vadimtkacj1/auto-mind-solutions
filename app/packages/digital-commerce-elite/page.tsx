@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
 import { PageHero } from "@/src/components/PageHero/PageHero";
-import { CTA } from "@/src/components/CTA/CTA";
+import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { Check } from "lucide-react";
 
 export const metadata: Metadata = {
