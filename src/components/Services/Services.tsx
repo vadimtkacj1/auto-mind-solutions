@@ -40,7 +40,7 @@ const services = [
   },
 ];
 
-export function Services({ standalone: _standalone = false }: { standalone?: boolean }) {
+export function Services() {
   return (
     <section
       id="services"

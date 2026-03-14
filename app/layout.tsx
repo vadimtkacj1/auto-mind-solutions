@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import { HashScrollHandler } from "@/src/components/HashScrollHandler";
 import { BodyClassController } from "@/src/components/BodyClassController";
-import { ViewTransitionsProvider } from "@/src/components/ViewTransitions/ViewTransitionsProvider";
 import { AnimatePresenceProvider } from "@/src/components/PageTransitions/AnimatePresenceProvider";
 
 const SmoothScrollProvider = dynamic(() => import("../src/components/SmoothScroll/SmoothScrollProvider"), {
