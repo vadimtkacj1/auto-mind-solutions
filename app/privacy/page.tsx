@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Header from "../../src/components/Header/Header";
 import { Footer } from "../../src/components/Footer/Footer";
 import { ContactCTA } from "../../src/components/CTA/ContactCTA";
-import { ContactCTA } from "../../src/components/CTA/ContactCTA";
 
 const PrivacyPolicy = dynamic(
   () => import("../../src/components/PrivacyPolicy/PrivacyPolicy").then((mod) => ({ default: mod.PrivacyPolicy })),
