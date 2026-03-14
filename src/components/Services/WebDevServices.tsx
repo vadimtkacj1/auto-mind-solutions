@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Building2, ShoppingCart, Briefcase, Code2 } from "lucide-react";
 
 const SERVICES = [
@@ -37,14 +36,8 @@ const SERVICES = [
 ];
 
 export function WebDevServices() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
   return (
-    <section ref={sectionRef} className="py-20 md:py-32 bg-white" dir="rtl">
+    <section className="py-20 md:py-32 bg-white" dir="rtl">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <motion.div
@@ -67,14 +60,7 @@ export function WebDevServices() {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-          {SERVICES.map((service, i) => {
-            const imageY = useTransform(
-              scrollYProgress,
-              [0.2 + i * 0.1, 0.5 + i * 0.1, 1],
-              [-40, 0, 40]
-            );
-
-            return (
+          {SERVICES.map((service, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -89,7 +75,7 @@ export function WebDevServices() {
 
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden">
-                  <motion.div style={{ y: imageY }} className="absolute inset-0">
+                  <div className="absolute inset-0">
                     <Image
                       src={service.image}
                       alt={service.title}
@@ -99,7 +85,7 @@ export function WebDevServices() {
                     />
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
-                  </motion.div>
+                  </div>
 
                   {/* Icon */}
                   <div className="absolute top-6 right-6 w-16 h-16 bg-white/90 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -120,8 +106,7 @@ export function WebDevServices() {
                   <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[var(--color-primary)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               </motion.div>
-            );
-          })}
+          ))}
         </div>
       </div>
     </section>
