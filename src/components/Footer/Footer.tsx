@@ -60,17 +60,13 @@ function LegalDocDownload({ href, label, isDark }: { href: string; label: string
   );
 }
 
-export function Footer({ variant = "dark" }: { variant?: "dark" | "light" }) {
+export function Footer() {
   const currentYear = new Date().getFullYear();
-  const isDark = variant === "dark";
+  const isDark = true; // Footer always dark on all pages
 
   return (
     <footer
-      className={`relative w-full overflow-hidden border-t z-10 ${
-        isDark
-          ? "border-white/5 bg-[#080a0c]/80 backdrop-blur-md"
-          : "border-gray-200 bg-white"
-      }`}
+      className="relative w-full overflow-hidden border-t border-white/5 bg-[#080a0c]/80 backdrop-blur-md z-10"
       dir="rtl"
     >
       {isDark && (

@@ -2,7 +2,7 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section
-      className="pt-4 pb-8 md:pb-20 flex items-center rounded-bl-[40px] rounded-br-[40px] overflow-hidden"
+      className="pt-4 pb-8 flex items-center rounded-bl-[40px] rounded-br-[40px] overflow-hidden"
       style={{
         background: "linear-gradient(180deg, #F4F9FF 0%, #E3F0FF 50%, #CFE6FF 100%)",
       }}

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
-import { CTA } from "@/src/components/CTA/CTA";
+import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { portfolioItems } from "@/src/components/Portfolio/portfolioData";
 import {
   Breadcrumb,
@@ -47,24 +47,24 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
   return (
     <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
       <Header />
-      <main className="pt-24">
-        <section className="px-6 bg-[#f8fafc]" dir="rtl">
-          <div className="mx-auto max-w-6xl py-8 md:py-10">
+      <main className="pt-24 bg-[#080a0c] min-h-screen">
+        <section className="px-6 py-8 md:py-10" dir="rtl">
+          <div className="mx-auto max-w-6xl bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100">
             <Breadcrumb>
               <BreadcrumbList className="text-slate-500 font-medium">
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
-                    <Link href="/portfolio">תיק עבודות</Link>
+                    <Link href="/portfolio" className="hover:text-slate-900">תיק עבודות</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator />
+                <BreadcrumbSeparator className="text-slate-400" />
                 <BreadcrumbItem>
                   <BreadcrumbPage className="text-slate-900 font-bold">{item.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
 
-            <div className="inline-flex items-center gap-2 rounded-full bg-white border border-gray-200 px-5 py-1.5 text-[var(--color-primary)] text-xs sm:text-sm font-bold shadow-sm uppercase tracking-widest mt-6">
+            <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 border border-slate-200 px-5 py-1.5 text-[var(--color-primary)] text-xs sm:text-sm font-bold shadow-sm uppercase tracking-widest mt-6">
               CASE STUDY • Aiterra
             </div>
 
@@ -80,7 +80,7 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
                 {tags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-full bg-white border border-slate-200 px-4 py-2 text-[11px] font-black tracking-widest uppercase text-slate-700 shadow-sm"
+                    className="rounded-full bg-slate-100 border border-slate-200 px-4 py-2 text-[11px] font-black tracking-widest uppercase text-slate-700 shadow-sm"
                   >
                     {t}
                   </span>
@@ -90,13 +90,13 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
           </div>
         </section>
 
-        <section className="px-4 sm:px-6 py-10 md:py-14 bg-[#f8fafc]" dir="rtl">
-          <div className="mx-auto max-w-[90rem]">
+        <section className="px-4 sm:px-6 py-10 md:py-14" dir="rtl">
+          <div className="mx-auto max-w-[90rem] bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={item.image}
               alt={item.title}
-              className="w-full h-auto rounded-[2.8rem] border border-slate-100 shadow-[0_30px_80px_rgba(15,23,42,0.10)]"
+              className="w-full h-auto rounded-[2rem] border border-slate-100"
               loading="eager"
             />
           </div>
@@ -104,10 +104,10 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
 
         <section className="px-6 py-16 md:py-24" dir="rtl">
           <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 rounded-[2.8rem] border border-slate-100 bg-white p-10 md:p-12 shadow-[0_30px_60px_rgba(15,23,42,0.06)]">
-              <div className="text-[11px] font-black tracking-[3px] uppercase text-slate-400">Summary</div>
-              <h2 className="mt-3 text-3xl md:text-5xl font-black text-slate-900 tracking-tight">מה עשינו בפועל</h2>
-              <p className="mt-6 text-slate-600 text-lg md:text-xl font-medium leading-relaxed">
+            <div className="lg:col-span-2 rounded-[2.8rem] border border-white/10 bg-white/[0.04] backdrop-blur-sm p-10 md:p-12">
+              <div className="text-[11px] font-black tracking-[3px] uppercase text-white/50">Summary</div>
+              <h2 className="mt-3 text-3xl md:text-5xl font-black text-white tracking-tight">מה עשינו בפועל</h2>
+              <p className="mt-6 text-white/70 text-lg md:text-xl font-medium leading-relaxed">
                 כאן ייכנסו הפרטים המלאים של הקייס (Strategy → UX → Engineering → Growth). כרגע זה תבנית — ואתה תוכל
                 להחליף את הטקסטים לפי כל פרויקט.
               </p>
@@ -119,28 +119,28 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
                   "Growth: SEO/CRO/Tracking",
                 ].map((b) => (
                   <li key={b} className="flex items-start gap-3">
-                    <span className="mt-2 h-2.5 w-2.5 rounded-full bg-blue-600 shrink-0" aria-hidden="true" />
+                    <span className="mt-2 h-2.5 w-2.5 rounded-full bg-[var(--color-primary)] shrink-0" aria-hidden="true" />
                     <span className="leading-relaxed">{b}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <aside className="rounded-[2.8rem] border border-slate-100 bg-white p-10 md:p-12 shadow-[0_30px_60px_rgba(15,23,42,0.06)]">
-              <div className="text-[11px] font-black tracking-[3px] uppercase text-slate-400">Results</div>
-              <h3 className="mt-3 text-2xl md:text-3xl font-black text-slate-900 tracking-tight">תוצאות</h3>
+            <aside className="rounded-[2.8rem] border border-white/10 bg-white/[0.04] backdrop-blur-sm p-10 md:p-12">
+              <div className="text-[11px] font-black tracking-[3px] uppercase text-white/50">Results</div>
+              <h3 className="mt-3 text-2xl md:text-3xl font-black text-white tracking-tight">תוצאות</h3>
 
               {item.results?.length ? (
                 <div className="mt-8 grid grid-cols-2 gap-3" dir="ltr">
                   {item.results.slice(0, 4).map((r) => (
-                    <div key={r.label} className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3">
-                      <div className="text-[11px] font-black tracking-[3px] uppercase text-slate-400">{r.label}</div>
-                      <div className="mt-1 text-lg font-black text-slate-900">{r.value}</div>
+                    <div key={r.label} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                      <div className="text-[11px] font-black tracking-[3px] uppercase text-white/50">{r.label}</div>
+                      <div className="mt-1 text-lg font-black text-white">{r.value}</div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="mt-6 text-slate-600 font-medium leading-relaxed">
+                <p className="mt-6 text-white/60 font-medium leading-relaxed">
                   נוסיף כאן KPI/ROI ברגע שהנתונים יהיו מוכנים.
                 </p>
               )}
@@ -148,7 +148,7 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
           </div>
         </section>
 
-        <CTA />
+        <ContactCTA />
       </main>
       <Footer />
     </div>

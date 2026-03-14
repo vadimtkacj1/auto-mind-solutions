@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { HeaderView } from "./HeaderView";
@@ -8,7 +9,11 @@ import { useHeaderState } from "./useHeaderState";
 const DELTA_THRESHOLD_PX = 8;
 const HIDE_AFTER_PX = 120;
 
-export default function Header() {
+type HeaderProps = {
+  underHeaderSlot?: ReactNode;
+};
+
+export default function Header({ underHeaderSlot }: HeaderProps) {
   const { pathname, mobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useHeaderState();
   const { scrollY } = useScroll();
 
@@ -40,8 +45,9 @@ export default function Header() {
       isScrolled={!isTop}
       isHidden={isHidden}
       mobileMenuOpen={mobileMenuOpen}
-      onToggleMobileMenu={toggleMobileMenu}
-      onCloseMobileMenu={closeMobileMenu}
+      onToggleMobileMenuAction={toggleMobileMenu}
+      onCloseMobileMenuAction={closeMobileMenu}
+      underHeaderSlot={underHeaderSlot}
     />
   );
 }

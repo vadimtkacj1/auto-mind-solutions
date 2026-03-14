@@ -37,7 +37,7 @@
   -webkit-animation: blink 1s infinite;
   animation: blink 1s infinite;
   bottom: 6%;
-  content: "Loading...";
+  content: "טוען…";
   font-size: 12px;
   left: 0;
   position: absolute;
@@ -52,7 +52,7 @@
   animation: moveRocket 2s linear infinite;
   /* Background gradient */
   background: lightgray;
-  background: linear-gradient(#990000, red, #990000);
+  background: linear-gradient(#001a66, #0066cc, #001a66);
   /* Border and positioning */
   border-left: 3px solid rgba(0, 0, 0, 0.4);
   border-radius: 50%/30%;
@@ -78,7 +78,7 @@
   animation: rotateFins 1s infinite;
   /* Background gradient */
   background: #bababa;
-  background: linear-gradient(#990000, red, #990000);
+  background: linear-gradient(#001a66, #0066cc, #001a66);
   /* Border and positioning */
   border: 2px solid transparent;
   border-radius: 0 50% 50% 0;
@@ -138,8 +138,8 @@
 /* Pseudo-element after rocket extras */
 .rocket-extras::after {
   /* Background and border */
-  background: #cc0000;
-  border-top: 1px solid #660000;
+  background: #0066cc;
+  border-top: 1px solid #003366;
   /* Positioning */
   height: 1px;
   left: -10px;
@@ -236,8 +236,8 @@
   }
 
   50% {
-    border-top: 2px solid #660000;
-    border-bottom: 2px solid #660000;
+    border-top: 2px solid #003366;
+    border-bottom: 2px solid #003366;
     height: 110%;
   }
 }
@@ -249,8 +249,8 @@
   }
 
   50% {
-    border-top: 2px solid #660000;
-    border-bottom: 2px solid #660000;
+    border-top: 2px solid #003366;
+    border-bottom: 2px solid #003366;
     height: 110%;
   }
 }

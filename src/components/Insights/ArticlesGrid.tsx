@@ -48,34 +48,30 @@ export function ArticlesGrid({ showHeader = false }: ArticlesGridProps) {
             <p className="mt-4 text-base sm:text-lg md:text-xl text-slate-600 font-medium">
               תובנות, מדריכים ותוכן פרקטי על עיצוב, פיתוח וצמיחה.
             </p>
-
-            {/* Category tabs */}
-            <div className="mt-10 flex items-center justify-center gap-7 sm:gap-10 overflow-x-auto no-scrollbar px-2" dir="ltr">
-              {categories.map((key) => {
-                const isActive = key === active;
-                const label = CATEGORY_LABELS[String(key)] ?? String(key);
-
-                return (
-                  <button
-                    key={String(key)}
-                    type="button"
-                    onClick={() => setActive(key)}
-                    className={`text-sm sm:text-base font-semibold text-slate-900 whitespace-nowrap ${
-                      isActive ? "underline underline-offset-8 decoration-2 decoration-[var(--color-primary)]" : "opacity-70 hover:opacity-100"
-                    }`}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
-            </div>
           </div>
         ) : null}
+
+        {showHeader && (
+          <div className="mt-8 flex flex-wrap justify-center gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActive(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+                  active === cat ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }`}
+              >
+                {CATEGORY_LABELS[cat] ?? cat}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className={`${showHeader ? "mt-16" : ""} grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12`}>
           {filtered.map((article) => (
             <Link key={article.slug} href={`/insights/${article.slug}`} className="group">
-              <div className="relative w-full aspect-[16/9] rounded-[28px] overflow-hidden bg-slate-100 border border-slate-200">
+              <div className="relative w-full aspect-[16/9] rounded-[28px] overflow-hidden">
                 <Image
                   src={article.image}
                   alt={article.title}
@@ -88,15 +84,11 @@ export function ArticlesGrid({ showHeader = false }: ArticlesGridProps) {
               </div>
 
               <div className="mt-6" dir="rtl">
-                <div className="inline-flex items-center rounded-full border border-slate-200 px-4 py-1.5 text-[11px] font-black tracking-[0.22em] uppercase text-slate-700">
-                  {CATEGORY_LABELS[article.category] ?? article.category}
-                </div>
-
-                <h2 className="mt-5 text-3xl md:text-4xl font-black tracking-tight text-slate-900 leading-[1.1] group-hover:text-[var(--color-primary)] transition-colors">
+                <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 leading-[1.1] group-hover:text-[var(--color-primary)] transition-colors">
                   {article.title}
                 </h2>
 
-                <div className="mt-5 text-sm font-semibold text-slate-500" dir="ltr">
+                <div className="mt-4 text-sm font-semibold text-slate-500" dir="ltr">
                   {formatDate(article.publishDate)}
                 </div>
               </div>

@@ -133,9 +133,8 @@
 
   body.site-main section {
     scroll-margin-top: 0;
-    /* will-change убран — слишком много слоёв GPU на всех секциях вызывало лаги */
-    display: flex;
-    flex-direction: column;
+    display: block;
+    min-height: min-content; /* не колапсувати секції при скролі */
   }
 
   /* Mobile: make scrolling feel "normal" */
@@ -446,6 +445,13 @@
   filter: brightness(1.1);
 }
 
+/* Headings: no mid-word breaks, wrap whole words */
+.heading-no-break {
+  overflow-wrap: break-word;
+  white-space: normal;
+  hyphens: none;
+}
+
 .bg-gradient-primary {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
 }
@@ -505,25 +511,12 @@
 
 /* Premium CTA Button */
 .btn-premium-cta {
-  background: linear-gradient(135deg, #00e690 0%, #0070ff 100%);
+  background: var(--color-primary);
   position: relative;
   overflow: hidden;
-  box-shadow:
-    0 0 25px rgba(0, 230, 144, 0.5),
-    0 0 45px rgba(0, 112, 255, 0.35),
-    0 4px 20px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 112, 255, 0.35);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-premium-cta::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(135deg, #00e690, #0070ff);
-  border-radius: inherit;
-  z-index: -1;
-  filter: blur(10px);
-  opacity: 0.75;
 }
 
 .btn-premium-cta::after {
@@ -533,16 +526,14 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.6s ease;
 }
 
 .btn-premium-cta:hover {
+  background: var(--color-primary-dark);
   transform: translateY(-3px) scale(1.02);
-  box-shadow:
-    0 0 35px rgba(0, 230, 144, 0.65),
-    0 0 65px rgba(0, 112, 255, 0.45),
-    0 8px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 30px rgba(0, 112, 255, 0.45);
 }
 
 .btn-premium-cta:hover::after {
@@ -623,13 +614,15 @@
 
 /* Button Base Styles */
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background: var(--color-primary);
   color: white;
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
 }
 
 .btn-primary:hover {
+  background: var(--color-primary-dark);
   box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
   transform: translateY(-2px);
 }
@@ -638,6 +631,7 @@
   background: transparent;
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -697,4 +691,14 @@
 /* Hide scrollbar for portfolio carousel */
 .portfolio-carousel::-webkit-scrollbar {
   display: none;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
 }

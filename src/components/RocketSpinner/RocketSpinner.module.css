@@ -47,7 +47,8 @@
   line-height: 25px;
   margin: 0 auto;
   font-size: 26px;
-  color: #0d3d6b;
+  /* головний колір ракети – синій під бренд сайту */
+  color: var(--color-primary);
 }
 
 .offset45deg {
@@ -143,17 +144,19 @@
 @keyframes puf {
   0% {
     opacity: 1;
-    color: #0d3d6b;
+    /* старт диму – насичений синій */
+    color: var(--color-primary);
     transform: scale(1);
   }
   10% {
-    color: #3498db;
+    /* пік – світліший синій / акцент */
+    color: var(--color-accent);
     transform: scale(1.5);
   }
   60%,
   100% {
     opacity: 0;
-    color: grey;
+    color: rgba(15, 23, 42, 0.35);
     transform: scale(0.4);
   }
 }

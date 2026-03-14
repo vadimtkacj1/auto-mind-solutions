@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import Header from '@/src/components/Header/Header';
 import { Packages } from '@/src/components/Packages/Packages';
-import { CTA } from '@/src/components/CTA/CTA';
+import { ContactCTA } from '@/src/components/CTA/ContactCTA';
 import { Footer } from '@/src/components/Footer/Footer';
-import { PageHero } from '@/src/components/PageHero/PageHero';
 
 export const metadata: Metadata = {
   title: 'חבילות שיווק דיגיטלי - Packages',
@@ -13,31 +12,13 @@ export const metadata: Metadata = {
 
 export default function PackagesPage() {
   return (
-    <div className="min-h-screen bg-white text-[var(--color-dark)] leading-relaxed">
+    <div className="min-h-screen text-[var(--color-dark)] leading-relaxed bg-[#080a0c]">
       <Header />
-      <main className="bg-white">
-        <PageHero
-          variant="light"
-          badge="PACKAGES • Aiterra"
-          title={
-            <>
-              חבילות שיווק <span className="text-[var(--color-primary)]">מותאמות אישית</span>
-            </>
-          }
-          subtitle={
-            <>
-              בחרו את החבילה המתאימה לעסק שלכם - מדף נחיתה פשוט ועד מערכת מסחר מלאה.
-              כל חבילה מותאמת במיוחד כדי להביא לכם תוצאות מקסימליות.
-            </>
-          }
-          primaryCta={{ label: 'התייעצות חינם', href: '/contact' }}
-          secondaryCta={{ label: 'צפו בפורטפוליו', href: '/portfolio' }}
-        />
-
+      <main className="bg-[#080a0c]">
         <Packages />
-        <CTA variant="light" />
+        <ContactCTA />
       </main>
-      <Footer variant="light" />
+      <Footer />
     </div>
   );
 }

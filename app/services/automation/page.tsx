@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
-import { PageHero } from "@/src/components/PageHero/PageHero";
-import { CTA } from "@/src/components/CTA/CTA";
+import { AboutHero } from "@/src/components/AboutAiterra/AboutHero";
 import { FAQ } from "@/src/components/FAQ/FAQ";
+import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 
 export const metadata: Metadata = {
   title: "Business Automation - אוטומציה עסקית | Aiterra",
@@ -16,23 +16,15 @@ export default function AutomationPage() {
   return (
     <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
       <Header />
-      <main>
-        <PageHero
-          badge="AUTOMATION • Aiterra"
+      <main className="bg-transparent">
+        <AboutHero
           title={
             <>
               אוטומציה עסקית <span className="text-[var(--color-primary)]">וחיבור מערכות</span>
             </>
           }
-          subtitle={
-            <>
-              מקסום תקציבי הפרסום שלכם באמצעות קמפיינים ממומנים מבוססי תוצאות, תוך חיבור מלא למערכות ה-CRM/ERP של העסק.
-              אנחנו יוצרים תהליכי מכירה ודיווח אוטומטיים שהופכים תנועה ללידים ולעסקאות, ללא עבודה ידנית מיותרת ובדיוק
-              מקסימלי.
-            </>
-          }
-          primaryCta={{ label: "התחל אוטומציה", href: "/contact" }}
-          secondaryCta={{ label: "כל השירותים", href: "/#services" }}
+          subtitle="מקסום תקציבי הפרסום שלכם באמצעות קמפיינים ממומנים מבוססי תוצאות, תוך חיבור מלא למערכות ה-CRM/ERP של העסק. אנחנו יוצרים תהליכי מכירה ודיווח אוטומטיים שהופכים תנועה ללידים ולעסקאות, ללא עבודה ידנית מיותרת ובדיוק מקסימלי."
+          hideCtas
         />
 
         <section className="px-6 py-14 md:py-20 bg-[#f8fafc]" dir="rtl">
@@ -120,8 +112,9 @@ export default function AutomationPage() {
           </div>
         </section>
 
+        <ContactCTA />
+
         <FAQ />
-        <CTA />
       </main>
       <Footer />
     </div>

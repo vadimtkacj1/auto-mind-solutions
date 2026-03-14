@@ -8,6 +8,7 @@ export function PageHero({
   primaryCta,
   secondaryCta,
   variant = "dark",
+  dir = "rtl",
 }: {
   badge: string;
   title: React.ReactNode;
@@ -15,13 +16,14 @@ export function PageHero({
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   variant?: "dark" | "light";
+  dir?: "ltr" | "rtl";
 }) {
   const isLight = variant === "light";
 
   return (
     <section
       className={`relative overflow-hidden pt-28 pb-16 md:pt-32 md:pb-24 ${isLight ? "bg-white" : "bg-[#080a0c]"}`}
-      dir="rtl"
+      dir={dir}
     >
       {!isLight ? (
         <>
@@ -67,7 +69,7 @@ export function PageHero({
         </div>
 
         <h1
-          className={`mt-7 text-4xl md:text-7xl font-black tracking-tight leading-[1.03] ${
+          className={`heading-no-break mt-7 text-4xl md:text-7xl font-black tracking-tight leading-[1.03] ${
             isLight ? "text-slate-900" : "text-white"
           }`}
         >

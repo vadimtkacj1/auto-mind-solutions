@@ -1,4 +1,5 @@
 import type { NavItem } from "@/lib/navigation";
+import type { ReactNode } from "react";
 
 export type HeaderNavLinkProps = {
   item: NavItem;
@@ -54,8 +55,9 @@ export type HeaderViewProps = {
   isScrolled: boolean;
   isHidden: boolean;
   mobileMenuOpen: boolean;
-  onToggleMobileMenu: () => void;
-  onCloseMobileMenu: () => void;
+  onToggleMobileMenuAction: () => void;
+  onCloseMobileMenuAction: () => void;
+  underHeaderSlot?: ReactNode;
 };
 
 export type UseHeaderStateResult = {

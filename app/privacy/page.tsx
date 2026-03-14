@@ -3,6 +3,8 @@ import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Header from "../../src/components/Header/Header";
 import { Footer } from "../../src/components/Footer/Footer";
+import { ContactCTA } from "../../src/components/CTA/ContactCTA";
+import { ContactCTA } from "../../src/components/CTA/ContactCTA";
 
 const PrivacyPolicy = dynamic(
   () => import("../../src/components/PrivacyPolicy/PrivacyPolicy").then((mod) => ({ default: mod.PrivacyPolicy })),
@@ -32,7 +34,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[var(--color-gray-50)] text-[var(--color-dark)]">
+    <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
       <Header />
       <main>
         <div className="pt-24">
@@ -40,6 +42,7 @@ export default function PrivacyPage() {
             <PrivacyPolicy />
           </Suspense>
         </div>
+        <ContactCTA />
       </main>
       <Footer />
     </div>

@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import styles from "./Hero.module.css";
 import { smoothScrollTo } from "@/src/utils/smoothScroll";
 
@@ -10,7 +10,7 @@ const OptimizedScene = dynamic(() => import("./OptimizedScene"), { ssr: false })
 const SpaceBackground = dynamic(() => import("./SpaceBackground"), { ssr: false });
 
 function AnimatedTitle({ className, accentClass }: { className: string; accentClass: string }) {
-  const accentWords = ["שיווק", "דיגיטלי"];
+  const accentWords = ["דיגיטלי", "ביצועים"];
   const words = ["שיווק", "דיגיטלי", "שמביא", "ביצועים"];
 
   const [isMobile, setIsMobile] = useState(false);
@@ -49,7 +49,7 @@ function AnimatedTitle({ className, accentClass }: { className: string; accentCl
         perspective: 800,
         display: "flex",
         flexWrap: "wrap",
-        gap: isMobile ? "0.15em" : "0.28em",
+        gap: isMobile ? "0.2em" : "0.35em",
         justifyContent: "center",
         alignItems: "baseline",
         textAlign: "center",
@@ -95,15 +95,16 @@ function AnimatedSubtitle({ className }: { className: string }) {
 
   return (
     <motion.p
-      className={className}
-      variants={container}
-      initial="hidden"
-      animate="visible"
       style={{
+        gap: isMobile ? "0.2em" : "0.4em",
         direction: "rtl",
         textAlign: "center",
         display: "block",
       }}
+      className={className}
+      variants={container}
+      initial="hidden"
+      animate="visible"
     >
       {words.map((w, i) => (
         <motion.span key={i} variants={wordVariant} style={{ display: "inline", whiteSpace: "pre-wrap" }}>
@@ -145,25 +146,21 @@ export default function Hero() {
     return () => observer.disconnect();
   }, []);
 
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
-  const starsY = useTransform(scrollYProgress, [0, 1], ["0px", "-80px"]);
-  const globeY = useTransform(scrollYProgress, [0, 1], ["0px", "-170px"]);
-  const titleY = useTransform(scrollYProgress, [0, 1], ["0px", "-270px"]);
-  const subtitleY = useTransform(scrollYProgress, [0, 1], ["0px", "-240px"]);
+  // Optimized: fewer transforms, group similar animations
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.7], [1, 0.97]);
 
-  const rawMX = useMotionValue(0);
-  const rawMY = useMotionValue(0);
-  const mx = useSpring(rawMX, { stiffness: 40, damping: 20 });
-  const my = useSpring(rawMY, { stiffness: 40, damping: 20 });
+  // Group Y transforms by similar values to reduce calculations
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 200]); // For title, subtitle, buttons
+  const globeY = useTransform(scrollYProgress, [0, 1], [0, 150]);
 
-  const titleMX = useTransform(mx, [-1, 1], ["-20px", "20px"]);
-  const titleMY = useTransform(my, [-1, 1], ["-12px", "12px"]);
-  const subMX = useTransform(mx, [-1, 1], ["-12px", "12px"]);
-  const subMY = useTransform(my, [-1, 1], ["-7px", "7px"]);
-  const btnMX = useTransform(mx, [-1, 1], ["-7px", "7px"]);
-  const btnMY = useTransform(my, [-1, 1], ["-4px", "4px"]);
+  // Simplified mouse parallax with throttling for better performance
+  const mouseParallaxRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -171,27 +168,23 @@ export default function Hero() {
     if (reduceMotion || isMobile || !isHeroInView) return;
 
     let rafId: number | null = null;
-    let lastX = 0;
-    let lastY = 0;
 
     const fn = (e: MouseEvent) => {
-      lastX = e.clientX;
-      lastY = e.clientY;
+      if (rafId !== null) return; // Throttle to one update per frame
 
-      if (rafId === null) {
-        rafId = requestAnimationFrame(() => {
-          rawMX.set((lastX / window.innerWidth - 0.5) * 2);
-          rawMY.set((lastY / window.innerHeight - 0.5) * 2);
-          rafId = null;
-        });
-      }
+      rafId = requestAnimationFrame(() => {
+        mouseParallaxRef.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseParallaxRef.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
+        rafId = null;
+      });
     };
+
     window.addEventListener("mousemove", fn, { passive: true } as AddEventListenerOptions);
     return () => {
       window.removeEventListener("mousemove", fn);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, [rawMX, rawMY, isMobile, isHeroInView]);
+  }, [isMobile, isHeroInView]);
 
   const handleScrollDown = () => {
     smoothScrollTo("#services", 80);
@@ -202,7 +195,7 @@ export default function Hero() {
   };
 
   const handleSecondaryCta = () => {
-    smoothScrollTo("#packages", 80);
+    smoothScrollTo("#contact", 80);
   };
 
   const popIn = {
@@ -216,11 +209,12 @@ export default function Hero() {
   };
 
   return (
-    <div className={styles.mainWrapper} ref={containerRef} style={{ position: "relative", zIndex: 10 }}>
-      <section
+    <div className={styles.mainWrapper} ref={containerRef} style={{ position: "relative", zIndex: 2 }}>
+      <motion.section
         className={styles.container}
-        style={
-          isMobile
+        style={{
+          scale,
+          ...(isMobile
             ? {
                 display: "flex",
                 flexDirection: "column",
@@ -230,11 +224,17 @@ export default function Hero() {
                 paddingBottom: "40px",
                 gap: "24px",
               }
-            : undefined
-        }
+            : undefined),
+        }}
       >
         {/* Stars background — full screen */}
-        <motion.div style={{ position: "absolute", inset: 0, y: starsY }}>
+        <motion.div
+          style={{
+            position: "absolute",
+            inset: 0,
+            transform: "translateZ(0)", // GPU acceleration
+          }}
+        >
           {isMounted && <SpaceBackground enabled={isHeroInView} />}
         </motion.div>
 
@@ -265,54 +265,74 @@ export default function Hero() {
             {/* Text + buttons — below globe */}
             <div className={styles.contentContainer} style={{ position: "relative", zIndex: 3 }}>
               <div className={styles.textBox}>
-                <motion.div style={{ y: titleY }}>
+                <motion.div style={{ y: contentY }}>
                   <AnimatedTitle className={styles.title} accentClass={styles.titleAccent} />
                 </motion.div>
 
-                <motion.div style={{ y: subtitleY }}>
+                <motion.div style={{ y: contentY }}>
                   <AnimatedSubtitle className={styles.subtitle} />
                 </motion.div>
 
-                <motion.div className={styles.buttonRow} variants={popIn} initial="hidden" animate="visible">
+                <motion.div className={styles.buttonRow} style={{ y: contentY }} variants={popIn} initial="hidden" animate="visible">
                   <button className={styles.btnMain} onClick={handlePrimaryCta}>
-                    קביעת שיחת אסטרטגיה
+                    צרו קשר
                   </button>
                   <button className={styles.btnAlt} onClick={handleSecondaryCta}>
-                    צפו בחבילות מעטפת
+                    השאירו פרטים
                   </button>
                 </motion.div>
               </div>
             </div>
           </>
         ) : (
-          /* ── DESKTOP LAYOUT: original behaviour ── */
+          /* ── DESKTOP LAYOUT: optimized for performance ── */
           <>
-            <motion.div className={styles.sceneWrapper} style={{ opacity, y: globeY }}>
+            <motion.div
+              className={styles.sceneWrapper}
+              style={{
+                opacity,
+                y: globeY,
+                transform: "translateZ(0)", // GPU acceleration
+              }}
+            >
               {isMounted && <OptimizedScene />}
             </motion.div>
 
             <div className={styles.contentContainer}>
               <div className={styles.textBox}>
-                <motion.div style={{ y: titleY, x: titleMX, translateY: titleMY }}>
+                <motion.div
+                  style={{
+                    y: contentY,
+                    willChange: isHeroInView ? "transform" : "auto",
+                  }}
+                >
                   <AnimatedTitle className={styles.title} accentClass={styles.titleAccent} />
                 </motion.div>
 
-                <motion.div style={{ y: subtitleY, x: subMX, translateY: subMY }}>
+                <motion.div
+                  style={{
+                    y: contentY,
+                    willChange: isHeroInView ? "transform" : "auto",
+                  }}
+                >
                   <AnimatedSubtitle className={styles.subtitle} />
                 </motion.div>
 
                 <motion.div
                   className={styles.buttonRow}
-                  style={{ x: btnMX, translateY: btnMY }}
+                  style={{
+                    y: contentY,
+                    willChange: isHeroInView ? "transform" : "auto",
+                  }}
                   variants={popIn}
                   initial="hidden"
                   animate="visible"
                 >
                   <button className={styles.btnMain} onClick={handlePrimaryCta}>
-                    קביעת שיחת אסטרטגיה
+                    צרו קשר
                   </button>
                   <button className={styles.btnAlt} onClick={handleSecondaryCta}>
-                    צפו בחבילות מעטפת
+                    השאירו פרטים
                   </button>
                 </motion.div>
               </div>
@@ -323,14 +343,7 @@ export default function Hero() {
         <motion.button
           className={styles.scrollIndicator}
           onClick={handleScrollDown}
-          style={{
-            opacity,
-            ...(isMobile && {
-              position: "fixed",
-              bottom: "24px",
-              zIndex: 20,
-            }),
-          }}
+          style={{ opacity }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.2, duration: 0.6 }}
@@ -341,7 +354,7 @@ export default function Hero() {
           </div>
           <span className={styles.scrollText}>גללו למטה</span>
         </motion.button>
-      </section>
+      </motion.section>
     </div>
   );
 }

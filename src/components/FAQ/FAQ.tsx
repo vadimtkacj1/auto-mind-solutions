@@ -94,23 +94,25 @@ function FaqRow({
     </div>
   );
 }
-export function FAQ() {
+type FaqItem = { question: string; answer: string };
+
+export function FAQ({ items, title = "שאלות נפוצות" }: { items?: FaqItem[]; title?: string } = {}) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const list = items ?? faqs;
 
   return (
     <section id="faq" className="bg-white py-16 md:py-24 px-4 sm:px-6 lg:px-12">
       <div className="max-w-5xl mx-auto">
         <Reveal>
-          {/* Добавлен класс text-center в div ниже */}
           <div className="mb-10 sm:mb-14 text-center">
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[1.05]">
-              שאלות נפוצות
+              {title}
             </h2>
           </div>
         </Reveal>
 
         <div className="border-t border-slate-200/70">
-          {faqs.map((faq, index) => (
+          {list.map((faq, index) => (
             <Reveal key={faq.question} delay={0.03 * index}>
               <FaqRow
                 question={faq.question}
