@@ -121,7 +121,7 @@ export default function SeoMarketingPage() {
                 { title: "יצירת סמכות (Off-Page SEO)", desc: "בניית פרופיל קישורים חזק ואיכותי מאתרים מובילים שישדר לגוגל שאתם האוטוריטה בתחום שלכם.", img: SEO_IMAGES.links },
                 { title: "קידום מקומי (Local SEO)", desc: "יש לכם עסק שנותן שירות באזור מסוים? אנחנו נדאג שתשלטו בתוצאות המקומיות ובמפות של גוגל, כדי למשוך לקוחות שקרובים אליכם גיאוגרפית.", img: SEO_IMAGES.local },
               ].map((item) => (
-                <div key={item.title} className="bg-white rounded-xl overflow-hidden">
+                <div key={item.title} className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-lg">
                   <div className="relative h-48">
                     <Image src={item.img} alt={item.title} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>

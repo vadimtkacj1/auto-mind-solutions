@@ -6,7 +6,7 @@ import { TechStack } from "@/src/components/TechStack/TechStack";
 import { WebDevServices } from "@/src/components/Services/WebDevServices";
 import { WebDevProcess } from "@/src/components/Services/WebDevProcess";
 import { FAQ } from "@/src/components/FAQ/FAQ";
-import { ContactCTA } from "@/src/components/CTA/ContactCTA";
+import { CTA } from "@/src/components/CTA/CTA";
 import { WEB_DEV_FAQ_ITEMS } from "@/src/components/Services/WebDevFAQ";
 import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
 import { StructuredData, getProfessionalServicePageSchema } from "@/src/components/StructuredData";
@@ -69,7 +69,12 @@ export default function WebDevelopmentPage() {
           <TechStack />
         </section>
 
-        <ContactCTA />
+        <CTA
+          variant="minimal"
+          title="אל תתפשרו על הנוכחות הדיגיטלית שלכם"
+          description="תהליך חכם של בניית אתרים בהתאמה אישית הוא הצעד הראשון להפיכת העסק שלכם למעצמה דיגיטלית שמייצרת עבודה באופן שוטף"
+          primaryCta={{ label: "ליצור קשר", href: "/contact" }}
+        />
         <FAQ items={WEB_DEV_FAQ_ITEMS} title="שאלות נפוצות" />
 
       </main>
