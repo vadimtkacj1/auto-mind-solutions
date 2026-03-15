@@ -14,7 +14,7 @@ const OptimizedScene = dynamic(() => import("./OptimizedScene"), {
 function FooterLinksGroup({ title, links, isDark }: { title: string; links: NavItem[]; isDark: boolean }) {
   return (
     <div>
-      <h4 className={`text-xs font-bold tracking-[3px] uppercase mb-8 ${isDark ? "text-white/40" : "text-gray-500"}`}>
+      <h4 className={`text-sm font-bold mb-8 ${isDark ? "text-white/40" : "text-gray-500"}`}>
         {title}
       </h4>
       <ul className="space-y-5">
@@ -116,7 +116,7 @@ export function Footer() {
           <div className="w-full mb-16 px-4">
             <div className="max-w-3xl mx-auto">
               <h4
-                className={`text-xs font-bold tracking-[3px] uppercase mb-6 text-center ${
+                className={`text-sm font-bold mb-6 text-center ${
                   isDark ? "text-white/40" : "text-gray-500"
                 }`}
               >
@@ -148,7 +148,7 @@ export function Footer() {
 
             {/* Origin Badge */}
             <div
-              className={`flex items-center gap-3 px-6 py-2.5 rounded-full border text-[12px] uppercase tracking-widest ${
+              className={`flex items-center gap-3 px-6 py-2.5 rounded-full border text-sm ${
                 isDark
                   ? "bg-white/[0.04] border-white/10 text-white/50"
                   : "bg-gray-50 border-gray-200 text-gray-600"
