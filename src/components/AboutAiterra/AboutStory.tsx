@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "../ui/Button/Button";
 
@@ -29,7 +29,7 @@ export function AboutStory() {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center mb-16 md:mb-20"
         >
-          <span className="text-[18px] md:text-[24px] font-black tracking-[0.2em] uppercase text-[var(--color-primary)]">
+          <span className="text-[18px] md:text-[24px] font-black tracking-[0.2em] uppercase text-slate-800">
             הסיפור שלנו
           </span>
         </motion.div>
@@ -61,7 +61,7 @@ export function AboutStory() {
             
             <Button asChild variant="brand" size="pill" className="px-10 py-7 text-lg shadow-xl hover:scale-105 transition-all">
               <Link href="/services" className="flex items-center gap-3">
-                מה אנחנו עושים <ArrowRight className="w-5 h-5" />
+                <ArrowLeft className="w-5 h-5" /> מה אנחנו עושים
               </Link>
             </Button>
           </motion.div>

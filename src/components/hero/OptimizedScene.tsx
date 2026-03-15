@@ -38,12 +38,12 @@ function arcOnSphere(R: number, a: [number, number], b: [number, number], steps 
 function buildNeonGlobe(): THREE.Group {
   const group = new THREE.Group();
   const R = 1.0;
-  const SEG = 48; // Reduced from 128 for performance
+  const SEG = 24; // Optimized for performance
 
-  // Base sphere (reduced segments for performance)
+  // Base sphere (optimized segments)
   group.add(
     new THREE.Mesh(
-      new THREE.SphereGeometry(R * 0.994, 32, 32),
+      new THREE.SphereGeometry(R * 0.994, 16, 16),
       new THREE.MeshBasicMaterial({ color: 0x020e28, transparent: true, opacity: 0.85 }),
     ),
   );
@@ -53,8 +53,8 @@ function buildNeonGlobe(): THREE.Group {
     group.add(new THREE.Line(geo, new THREE.LineBasicMaterial({ color, transparent: true, opacity })));
   };
 
-  // Latitude circles
-  for (let i = 1; i < 18; i++) {
+  // Latitude circles (reduced count)
+  for (let i = 1; i < 12; i++) {
     const lat = -90 + i * 10;
     const phi = (90 - lat) * (Math.PI / 180);
     const r = R * Math.sin(phi),
@@ -68,8 +68,8 @@ function buildNeonGlobe(): THREE.Group {
     addLine(pts, isEq ? 0x00ddff : 0x006699, isEq ? 1.0 : 0.45);
   }
 
-  // Longitude lines
-  for (let i = 0; i < 36; i++) {
+  // Longitude lines (reduced count)
+  for (let i = 0; i < 24; i++) {
     const theta = (i / 36) * Math.PI * 2;
     const pts: THREE.Vector3[] = [];
     for (let s = 0; s <= SEG; s++) {
@@ -321,10 +321,10 @@ function buildNeonGlobe(): THREE.Group {
     cityRings.push({ mesh: ring, phase: Math.random() * Math.PI * 2 });
   });
 
-  // Rim glow
+  // Rim glow (optimized)
   group.add(
     new THREE.Mesh(
-      new THREE.SphereGeometry(1.08, 32, 32), // Reduced for performance
+      new THREE.SphereGeometry(1.08, 16, 16),
       new THREE.MeshBasicMaterial({
         color: 0x0066ff,
         transparent: true,
@@ -365,7 +365,8 @@ export default function OptimizedScene() {
     const mouseTarget = { x: 0, y: 0 };
     const mouseCurrent = { x: 0, y: 0 };
 
-    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    const safeAspect = canvas.clientWidth && canvas.clientHeight ? canvas.clientWidth / canvas.clientHeight : 1;
+    const camera = new THREE.PerspectiveCamera(45, safeAspect, 0.1, 1000);
     camera.position.z = 18;
 
     const renderer = new THREE.WebGLRenderer({
@@ -373,24 +374,26 @@ export default function OptimizedScene() {
       alpha: true,
       antialias: false,
       powerPreference: "high-performance",
+      stencil: false,
+      depth: false,
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.2));
 
     scene.add(new THREE.AmbientLight(0xffffff, 1.2));
     const dl = new THREE.DirectionalLight(0xffffff, 2.0);
     dl.position.set(5, 5, 5);
     scene.add(dl);
 
-    // ── Mobile scale increased for better visibility ──
+    // ── Mobile: sphere size — visible but fits viewport ──
     const applyLayout = (obj: THREE.Group) => {
       if (window.innerWidth < 768) {
-        // Extra small mobile (iPhone SE, etc)
-        obj.position.set(0, -1, 0);
-        obj.scale.set(6.5, 6.5, 6.5);
-      } else if (window.innerWidth < 1024) {
-        // Tablet
+        const mobileScale = window.innerWidth < 400 ? 3.0 : 3.8;
         obj.position.set(0, 0, 0);
-        obj.scale.set(5.0, 5.0, 5.0);
+        obj.scale.set(mobileScale, mobileScale, mobileScale);
+      } else if (window.innerWidth < 1024) {
+        // Tablet — scale fits in viewport (FOV 45°, camera z≈10)
+        obj.position.set(0, 0, 0);
+        obj.scale.set(4.0, 4.0, 4.0);
       } else {
         // Desktop
         obj.position.set(-9, 0, 0);
@@ -403,8 +406,8 @@ export default function OptimizedScene() {
     modelRef.current = globe;
     scene.add(globe);
 
-    // Stars (reduced count for performance)
-    const starCount = window.innerWidth < 1024 ? 400 : 800;
+    // Stars (minimal for performance)
+    const starCount = window.innerWidth < 1024 ? 100 : 200;
     const starPos = new Float32Array(starCount * 3);
     for (let i = 0; i < starPos.length; i++) starPos[i] = (Math.random() - 0.5) * 120;
     const starGeo = new THREE.BufferGeometry();
@@ -426,6 +429,12 @@ export default function OptimizedScene() {
       if (modelRef.current) applyLayout(modelRef.current);
     };
     updateLayout();
+
+    // Re-run layout when canvas gets real dimensions (e.g. after mobile layout)
+    const ro = new ResizeObserver(() => {
+      requestAnimationFrame(updateLayout);
+    });
+    ro.observe(canvas);
 
     const onMouseDown = (e: MouseEvent) => {
       isDragging = true;
@@ -484,6 +493,8 @@ export default function OptimizedScene() {
     let t = 0;
     let isActive = true;
     let isVisible = true;
+    let visibleRatioRef = 1;
+    let frameSkip = 0;
 
     const stop = () => {
       if (requestRef.current == null) return;
@@ -503,7 +514,7 @@ export default function OptimizedScene() {
       camera.position.x += (mouseCurrent.x * (isMob ? 0.4 : 0.8) - camera.position.x) * 0.06;
       camera.position.y +=
         (mouseCurrent.y * (isMob ? 0.3 : 0.5) - scrollRatio * (isMob ? 1.0 : 1.8) - camera.position.y) * 0.06;
-      camera.position.z = isMob ? 10 : 18;
+      camera.position.z = isMob ? (window.innerWidth < 768 ? 10 : 8) : 18;
 
       if (modelRef.current) {
         if (!isDragging) {
@@ -521,7 +532,15 @@ export default function OptimizedScene() {
           });
       }
 
-      if (isVisible && !document.hidden) {
+      // Skip render when barely visible or when scrolling (reduces scroll lag)
+      const scrollY = scrollYRef.current;
+      const vh = window.innerHeight;
+      const isScrollingAway = scrollY > 20;
+      // Aggressive skip when scrolling: 15fps when near, 10fps when far to keep scroll smooth
+      const skipRate = scrollY > vh * 0.25 ? 4 : 3;
+      const shouldSkipFrame = isScrollingAway && frameSkip++ % skipRate !== 0;
+      const minVisible = visibleRatioRef > 0.08;
+      if (isVisible && !document.hidden && minVisible && !shouldSkipFrame) {
         renderer.render(scene, camera);
       }
       requestRef.current = requestAnimationFrame(animate);
@@ -543,14 +562,16 @@ export default function OptimizedScene() {
       "IntersectionObserver" in window
         ? new IntersectionObserver(
             ([entry]) => {
-              isVisible = entry.isIntersecting;
+              const ratio = entry.intersectionRatio;
+              visibleRatioRef = ratio;
+              isVisible = ratio > 0.02;
               if (isVisible && requestRef.current == null) {
                 requestRef.current = requestAnimationFrame(animate);
               } else if (!isVisible) {
                 stop();
               }
             },
-            { threshold: 0.05, rootMargin: "200px" },
+            { threshold: [0, 0.02, 0.1, 0.3, 0.5, 1], rootMargin: "0px" },
           )
         : null;
     observer?.observe(canvas);
@@ -566,6 +587,7 @@ export default function OptimizedScene() {
     return () => {
       isActive = false;
       stop();
+      ro.disconnect();
       if (scrollRaf !== null) cancelAnimationFrame(scrollRaf);
       if (mouseMoveRaf !== null) cancelAnimationFrame(mouseMoveRaf);
       window.removeEventListener("resize", updateLayout);

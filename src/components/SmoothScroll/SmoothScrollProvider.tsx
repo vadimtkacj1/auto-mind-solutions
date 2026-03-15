@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -18,7 +17,10 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
     const slowConnection = effectiveType === "slow-2g" || effectiveType === "2g";
     if (reduceMotion || saveData || slowConnection) return;
 
-    const initLenis = () => {
+    let cleanup: (() => void) | undefined;
+
+    const initLenis = async () => {
+      const { default: Lenis } = await import("lenis");
       const lenis = new Lenis({
         duration: 0.4,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -51,7 +53,7 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
       document.addEventListener("visibilitychange", onVisibilityChange);
 
       // Expose lenis to window for external control
-      (window as unknown as { lenis?: Lenis }).lenis = lenis;
+      (window as unknown as { lenis?: unknown }).lenis = lenis;
 
       // Добавляем класс к html для стилизации
       document.documentElement.classList.add("lenis", "lenis-smooth");
@@ -65,12 +67,11 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
     };
 
     // Инициализировать после полной загрузки страницы или после задержки
-    let cleanup: (() => void) | undefined;
-
     if (document.readyState === "complete") {
-      // Страница уже загружена, добавить небольшую задержку
       const timeoutId = setTimeout(() => {
-        cleanup = initLenis();
+        void initLenis().then((fn) => {
+          cleanup = fn;
+        });
       }, 500);
 
       return () => {
@@ -78,9 +79,10 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
         cleanup?.();
       };
     } else {
-      // Подождать полной загрузки страницы
       const handleLoad = () => {
-        cleanup = initLenis();
+        void initLenis().then((fn) => {
+          cleanup = fn;
+        });
       };
 
       window.addEventListener("load", handleLoad);

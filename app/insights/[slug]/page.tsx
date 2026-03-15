@@ -7,6 +7,9 @@ import { ArticleCTA } from "@/src/components/ArticleCTA/ArticleCTA";
 import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { articles } from "@/src/components/Insights";
 import { ReadingProgress, ScrollToTop } from "./ArticleClient";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { StructuredData, getArticleSchema, getBreadcrumbSchema } from "@/src/components/StructuredData";
+import { buildCanonical, getAbsoluteOgImage, BRAND_NAME } from "@/src/lib/seo";
 
 type Props = {
   params: { slug: string };
@@ -20,27 +23,35 @@ export function generateMetadata({ params }: Props): Metadata {
   const article = articles.find((a) => a.slug === params.slug);
   if (!article) return { title: "Article" };
 
+  const canonicalUrl = buildCanonical(`/insights/${article.slug}`);
+  const imageUrl =
+    article.image?.startsWith("http") || article.image?.startsWith("data:")
+      ? article.image
+      : article.image
+        ? getAbsoluteOgImage(article.image)
+        : null;
+
   return {
-    title: `${article.title} | Aiterra`,
+    title: article.title,
     description: article.description,
     keywords: article.tags?.join(", "),
-    authors: [{ name: "Aiterra Agency" }],
-    alternates: { canonical: `https://aiterra.agency/insights/${article.slug}` },
+    authors: [{ name: `${BRAND_NAME} Agency` }],
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: article.title,
       description: article.description,
       type: "article",
-      url: `https://aiterra.agency/insights/${article.slug}`,
-      images: article.image ? [{ url: article.image, width: 1200, height: 630 }] : [],
+      url: canonicalUrl,
+      images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630 }] : [],
       publishedTime: article.publishDate,
-      authors: ["Aiterra Agency"],
-      siteName: "Aiterra",
+      authors: [`${BRAND_NAME} Agency`],
+      siteName: BRAND_NAME,
     },
     twitter: {
       card: "summary_large_image",
       title: article.title,
       description: article.description,
-      images: article.image ? [article.image] : [],
+      images: imageUrl ? [imageUrl] : [],
     },
   };
 }
@@ -50,42 +61,34 @@ export default function ArticlePage({ params }: Props) {
   if (!article) notFound();
 
   const tags = article.tags ?? [];
+  const canonicalUrl = buildCanonical(`/insights/${article.slug}`);
 
-  // JSON-LD structured data for SEO
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
+  const articleSchema = getArticleSchema({
     headline: article.title,
     description: article.description,
     image: article.image,
     datePublished: article.publishDate,
-    dateModified: article.publishDate,
-    author: {
-      "@type": "Organization",
-      name: "Aiterra Agency",
-      url: "https://aiterra.agency",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Aiterra",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://aiterra.agency/logo.png",
-      },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://aiterra.agency/insights/${article.slug}`,
-    },
-    keywords: tags.join(", "),
-  };
+    url: canonicalUrl,
+    keywords: tags,
+  });
+
+  const breadcrumbSchema = getBreadcrumbSchema(
+    [
+      { name: "תובנות", item: "/insights" },
+      { name: article.title, item: `/insights/${article.slug}` },
+    ]
+  );
 
   return (
     <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
       <ScrollToTop />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <StructuredData data={[articleSchema, breadcrumbSchema]} />
       <Header underHeaderSlot={<ReadingProgress />} />
-      <main className="pt-24 bg-white min-h-screen">
+      <main id="main-content" className="pt-24 bg-white min-h-screen">
+        <PageBreadcrumbs
+          items={[{ label: "בלוג", href: "/insights" }, { label: article.title }]}
+          className="py-6"
+        />
         <article className="mx-auto max-w-7xl px-6 py-16">
             <div className="flex justify-end mb-8">
             <Link
@@ -181,24 +184,34 @@ export default function ArticlePage({ params }: Props) {
                 </div>
               </div>
 
-              {/* <div className="mt-16 p-8 bg-blue-50 rounded-2xl border border-blue-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Ready to Transform Your Digital Presence?</h3>
-                <p className="text-gray-700 mb-6">
-                  At Aiterra, we specialize in turning insights into results. Let&apos;s discuss your challenges and
-                  opportunities.
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Schedule Strategy Call
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div> */}
             </>
           )}
+
+          <nav className="mt-12 pt-8 border-t border-slate-200" aria-label="קישורים רלוונטיים">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">קישורים רלוונטיים</h2>
+            <ul className="flex flex-wrap gap-4">
+              <li>
+                <Link href="/services" className="text-blue-600 hover:underline font-medium">
+                  שירותים
+                </Link>
+              </li>
+              <li>
+                <Link href="/packages" className="text-blue-600 hover:underline font-medium">
+                  חבילות
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-blue-600 hover:underline font-medium">
+                  צור קשר
+                </Link>
+              </li>
+              <li>
+                <Link href="/insights" className="text-blue-600 hover:underline font-medium">
+                  עוד תובנות
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </article>
       </main>
       <ArticleCTA />

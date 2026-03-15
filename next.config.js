@@ -1,15 +1,47 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
   swcMinify: true,
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    removeConsole: process.env.NODE_ENV === "production" ? {
+      exclude: ['error', 'warn'],
+    } : false,
+    reactRemoveProperties: process.env.NODE_ENV === "production",
   },
 
+  // Production optimizations
+  productionBrowserSourceMaps: false,
+
   experimental: {
-    // optimizePackageImports: ["framer-motion"], // temporarily disabled - may cause SWC parsing issues
+    optimizePackageImports: [
+      "lucide-react",
+      "react-icons",
+      "@radix-ui/react-accordion",
+      "@radix-ui/react-alert-dialog",
+      "@radix-ui/react-aspect-ratio",
+      "@radix-ui/react-avatar",
+      "@radix-ui/react-slot",
+    ],
+    webVitalsAttribution: ["CLS", "LCP", "FCP", "FID", "TTFB", "INP"],
+    optimizeCss: true,
+    scrollRestoration: true,
   },
+
+
+  // Оптимізація bundle
+  modularizeImports: {
+    "react-icons": {
+      transform: "react-icons/{{member}}",
+    },
+  },
+
+  // Відключити x-powered-by header
+  poweredByHeader: false,
 
   compress: true,
   poweredByHeader: false,
@@ -25,8 +57,8 @@ const nextConfig = {
 
   images: {
     formats: ["image/avif", "image/webp"],
-    deviceSizes: [640, 750, 1080],
-    imageSizes: [16, 32, 64, 96, 128],
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    imageSizes: [16, 32, 48, 64, 96],
     minimumCacheTTL: 31536000,
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
@@ -37,9 +69,20 @@ const nextConfig = {
         hostname: "images.unsplash.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.jsdelivr.net",
+        pathname: "/**",
+      },
     ],
     unoptimized: false,
     loader: "default",
+  },
+
+  // Додаткові оптимізації для продуктивності
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
   },
 
   async headers() {
@@ -77,11 +120,23 @@ const nextConfig = {
         ],
       },
       {
-        source: "/:path((?!api).*)",
+        source: "/:path*",
         headers: [
           {
-            key: "Vary",
-            value: "Accept-Encoding",
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "origin-when-cross-origin",
           },
         ],
       },
@@ -89,4 +144,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);

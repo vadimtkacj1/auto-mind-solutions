@@ -1,20 +1,52 @@
 import type { Metadata } from "next";
-import Header from "@/src/components/Header/Header";
-import { Footer } from "@/src/components/Footer/Footer";
-import { AboutHero } from "@/src/components/AboutAiterra/AboutHero";
-import { FAQ } from "@/src/components/FAQ/FAQ";
-import { ContactCTA } from "@/src/components/CTA/ContactCTA";
+import dynamic from "next/dynamic";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { StructuredData, getProfessionalServicePageSchema } from "@/src/components/StructuredData";
+import { InternalLinksBlock } from "@/src/components/InternalLinksBlock";
+import { buildCanonical, getAbsoluteOgImage, DEFAULT_OG_IMAGE, BRAND_NAME } from "@/src/lib/seo";
+
+const Header = dynamic(() => import("@/src/components/Header/Header"), { ssr: false });
+const Footer = dynamic(() => import("@/src/components/Footer/Footer").then(m => ({ default: m.Footer })), { ssr: false });
+const AboutHero = dynamic(() => import("@/src/components/AboutAiterra/AboutHero").then(m => ({ default: m.AboutHero })), { ssr: false });
+const FAQ = dynamic(() => import("@/src/components/FAQ/FAQ").then(m => ({ default: m.FAQ })), { ssr: false });
+const ContactCTA = dynamic(() => import("@/src/components/CTA/ContactCTA").then(m => ({ default: m.ContactCTA })), { ssr: false });
+
+const SERVICE_BACKLINKS = [
+  { label: "קידום אתרים SEO", href: "/services/seo-marketing" },
+  { label: "פרסום ממומן PPC", href: "/services/ppc" },
+  { label: "בניית אתרים", href: "/services/web-development" },
+  { label: "כל השירותים", href: "/services" },
+  { label: "חבילות", href: "/packages" },
+  { label: "צור קשר", href: "/contact" },
+];
 
 export const metadata: Metadata = {
-  title: "Business Automation - אוטומציה עסקית | Aiterra",
+  title: "Business Automation - אוטומציה עסקית",
   description:
     "מקסום תקציבי הפרסום שלכם באמצעות קמפיינים ממומנים מבוססי תוצאות, תוך חיבור מלא למערכות ה-CRM/ERP. תהליכי מכירה ודיווח אוטומטיים.",
-  alternates: { canonical: "https://aiterra.agency/services/automation" },
+  alternates: { canonical: buildCanonical("/services/automation") },
+  openGraph: {
+    title: "אוטומציה עסקית וחיבור מערכות",
+    description: "חיבור מלא ל-CRM/ERP, תהליכי מכירה ודיווח אוטומטיים.",
+    url: buildCanonical("/services/automation"),
+    type: "website",
+    siteName: BRAND_NAME,
+    images: [{ url: getAbsoluteOgImage(DEFAULT_OG_IMAGE.url), width: DEFAULT_OG_IMAGE.width, height: DEFAULT_OG_IMAGE.height, alt: DEFAULT_OG_IMAGE.alt }],
+  },
+  twitter: { card: "summary_large_image", title: "אוטומציה עסקית", description: "חיבור מלא ל-CRM/ERP, תהליכי מכירה ודיווח אוטומטיים." },
 };
+
+const serviceSchema = getProfessionalServicePageSchema({
+  name: "אוטומציה עסקית וחיבור מערכות",
+  description: "חיבור מלא ל-CRM/ERP, תהליכי מכירה ודיווח אוטומטיים.",
+  url: buildCanonical("/services/automation"),
+  serviceType: "Business Automation",
+});
 
 export default function AutomationPage() {
   return (
     <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
+      <StructuredData data={serviceSchema} />
       <Header />
       <main className="bg-transparent">
         <AboutHero
@@ -25,6 +57,10 @@ export default function AutomationPage() {
           }
           subtitle="מקסום תקציבי הפרסום שלכם באמצעות קמפיינים ממומנים מבוססי תוצאות, תוך חיבור מלא למערכות ה-CRM/ERP של העסק. אנחנו יוצרים תהליכי מכירה ודיווח אוטומטיים שהופכים תנועה ללידים ולעסקאות, ללא עבודה ידנית מיותרת ובדיוק מקסימלי."
           hideCtas
+        />
+        <PageBreadcrumbs
+          items={[{ label: "שירותים", href: "/services" }, { label: "אוטומציה" }]}
+          className="py-6 bg-white"
         />
 
         <section className="px-6 py-14 md:py-20 bg-[#f8fafc]" dir="rtl">
@@ -111,6 +147,8 @@ export default function AutomationPage() {
             </div>
           </div>
         </section>
+
+        <InternalLinksBlock title="שירותים וקישורים נוספים" links={SERVICE_BACKLINKS} variant="dark" />
 
         <ContactCTA />
 

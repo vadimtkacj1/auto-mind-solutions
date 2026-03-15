@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
+import { buildCanonical } from "@/src/lib/seo";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
 import { PageHero } from "@/src/components/PageHero/PageHero";
 import { CTA } from "@/src/components/CTA/CTA";
 import { Check } from "lucide-react";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { InternalLinksBlock } from "@/src/components/InternalLinksBlock";
+
+const PACKAGE_BACKLINKS = [
+  { label: "Launch Starter", href: "/packages/launch-starter" },
+  { label: "Growth Landing System", href: "/packages/growth-landing-system" },
+  { label: "Business Presence Pro", href: "/packages/business-presence-pro" },
+  { label: "כל החבילות", href: "/packages" },
+  { label: "שירותים", href: "/services" },
+  { label: "צור קשר", href: "/contact" },
+];
 
 export const metadata: Metadata = {
   title: "Digital Commerce Elite - מערכת מכירה מלאה | Aiterra",
   description: "מערכת מכירה מלאה לעסקים מתקדמים. חנות אינטרנטית, CMS, סליקה, ניהול מלאי ועד 300 מוצרים.",
-  alternates: { canonical: "https://aiterra.agency/packages/digital-commerce-elite" },
+  alternates: { canonical: buildCanonical("/packages/digital-commerce-elite") },
 };
 
 const features = [
@@ -36,6 +48,11 @@ export default function DigitalCommerceElitePage() {
           subtitle={<>מערכת מכירה מתקדמת לעסקים שרוצים למכור אונליין - חנות מלאה עם כל הכלים שצריך</>}
           primaryCta={{ label: "קבלו הצעת מחיר", href: "/contact" }}
           secondaryCta={{ label: "כל החבילות", href: "/packages" }}
+        />
+        <PageBreadcrumbs
+          items={[{ label: "חבילות", href: "/packages" }, { label: "Digital Commerce Elite" }]}
+          className="py-6 bg-[#080a0c]"
+          variant="dark"
         />
 
         <section className="px-6 py-14 md:py-20 bg-[#080a0c]" dir="rtl">
@@ -87,6 +104,8 @@ export default function DigitalCommerceElitePage() {
             </div>
           </div>
         </section>
+
+        <InternalLinksBlock title="חבילות וקישורים נוספים" links={PACKAGE_BACKLINKS} variant="light" />
 
         <CTA
           title="מוכנים למכור אונליין?"

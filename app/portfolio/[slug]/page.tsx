@@ -13,6 +13,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/src/components/ui/Breadcrumb/Breadcrumb";
+import { StructuredData, getCreativeWorkSchema, getBreadcrumbSchema } from "@/src/components/StructuredData";
+import { buildCanonical, getAbsoluteOgImage, BRAND_NAME } from "@/src/lib/seo";
 
 type Props = {
   params: { slug: string };
@@ -26,14 +28,26 @@ export function generateMetadata({ params }: Props): Metadata {
   const item = portfolioItems.find((p) => p.slug === params.slug);
   if (!item) return { title: "Case Study" };
 
+  const canonicalUrl = buildCanonical(`/portfolio/${item.slug}`);
+  const imageUrl = item.image.startsWith("http") ? item.image : getAbsoluteOgImage(item.image);
+
   return {
     title: item.title,
     description: item.description,
-    alternates: { canonical: `https://aiterra.agency/portfolio/${item.slug}` },
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: item.title,
       description: item.description,
-      images: [{ url: item.image }],
+      url: canonicalUrl,
+      type: "website",
+      siteName: BRAND_NAME,
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: item.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: item.title,
+      description: item.description,
+      images: [imageUrl],
     },
   };
 }
@@ -43,9 +57,23 @@ export default function PortfolioCaseStudyPage({ params }: Props) {
   if (!item) notFound();
 
   const tags = item.tags ?? [];
+  const canonicalUrl = buildCanonical(`/portfolio/${item.slug}`);
+
+  const creativeWorkSchema = getCreativeWorkSchema({
+    name: item.title,
+    description: item.description,
+    image: item.image,
+    url: canonicalUrl,
+  });
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "תיק עבודות", item: "/portfolio" },
+    { name: item.title, item: `/portfolio/${item.slug}` },
+  ]);
 
   return (
     <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
+      <StructuredData data={[creativeWorkSchema, breadcrumbSchema]} />
       <Header />
       <main className="pt-24 bg-[#080a0c] min-h-screen">
         <section className="px-6 py-8 md:py-10" dir="rtl">

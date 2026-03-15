@@ -1,9 +1,9 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Code2, TrendingUp, Workflow } from "lucide-react";
-import { motion } from "framer-motion";
-import { Reveal } from "../ui/Reveal";
+import { ArrowRight, Code2, TrendingUp, Workflow } from "lucide-react";
+import { RevealCSS as Reveal } from "../ui/RevealCSS";
 import { Button } from "../ui/Button/Button";
 import { SmartVideo } from "../ui/SmartVideo";
 
@@ -40,7 +40,7 @@ const services = [
   },
 ];
 
-export function Services() {
+export const Services = React.memo(function Services() {
   return (
     <section
       id="services"
@@ -83,7 +83,7 @@ export function Services() {
               <Reveal key={service.title}>
                 <div className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} gap-8 md:gap-16 items-center`}>
                   <div className="w-full md:w-1/2">
-                    <motion.div whileHover={{ scale: 1.02 }} className="relative overflow-hidden">
+                    <div className="relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
                       <SmartVideo
                         src={service.video}
                         autoPlay
@@ -94,7 +94,7 @@ export function Services() {
                         className="w-full h-auto object-contain"
                         aria-label={service.title}
                       />
-                    </motion.div>
+                    </div>
                   </div>
 
                   <div className="w-full md:w-1/2 text-center md:text-right">
@@ -108,7 +108,7 @@ export function Services() {
                       <Button asChild variant="brand" size="pill">
                         <Link href={service.link}>
                           למידע נוסף
-                          <ArrowLeft className="w-4 h-4" />
+                          <ArrowRight className="w-4 h-4" />
                         </Link>
                       </Button>
                     </div>
@@ -121,4 +121,4 @@ export function Services() {
       </div>
     </section>
   );
-}
+});

@@ -3,7 +3,7 @@
 import type { FormEvent } from "react";
 import type { ContactFormData } from "@/types";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, CheckCircle2, Phone, User } from "lucide-react";
+import { ArrowRight, CheckCircle2, Phone, User } from "lucide-react";
 import { SmartVideo } from "../ui/SmartVideo";
 import {
   AlertDialog,
@@ -142,7 +142,7 @@ export function ContactView({
                   ) : (
                     <>
                       <span>שלחו הודעה ונחזור אליכם</span>
-                      <ArrowLeft className="group-hover:-translate-x-2 transition-transform duration-300" />
+                      <ArrowRight className="group-hover:-translate-x-2 transition-transform duration-300" />
                     </>
                   )}
                 </button>

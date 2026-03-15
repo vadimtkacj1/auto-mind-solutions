@@ -4,6 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { articles } from "./articlesData";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/src/components/ui/Breadcrumb/Breadcrumb";
 
 interface ArticlesGridProps {
   showHeader?: boolean;
@@ -12,25 +20,12 @@ interface ArticlesGridProps {
 type Category = (typeof articles)[number]["category"];
 type CategoryKey = "all" | Category;
 
-const CATEGORY_LABELS: Record<string, string> = {
-  all: "הכל",
-  "Technical SEO": "SEO טכני",
-  "Conversion & UX": "המרה ו-UX",
-  Automation: "אוטומציה",
-  Engineering: "הנדסה",
-};
-
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString("he-IL", { year: "numeric", month: "2-digit", day: "2-digit" });
 }
 
 export function ArticlesGrid({ showHeader = false }: ArticlesGridProps) {
-  const [active, setActive] = useState<CategoryKey>("all");
-
-  const categories = useMemo(() => {
-    const unique = Array.from(new Set(articles.map((a) => a.category)));
-    return ["all", ...unique] as CategoryKey[];
-  }, []);
+  const [active] = useState<CategoryKey>("all");
 
   const filtered = useMemo(() => {
     if (active === "all") return articles;
@@ -41,32 +36,31 @@ export function ArticlesGrid({ showHeader = false }: ArticlesGridProps) {
     <section className="px-6 py-16 md:py-24" dir="rtl">
       <div className="mx-auto max-w-6xl">
         {showHeader ? (
-          <div className="text-center">
-            <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-slate-900 leading-[0.95]">
-              בלוג
-            </h1>
-            <p className="mt-4 text-base sm:text-lg md:text-xl text-slate-600 font-medium">
-              תובנות, מדריכים ותוכן פרקטי על עיצוב, פיתוח וצמיחה.
-            </p>
-          </div>
-        ) : null}
+          <>
+            <div className="text-center">
+              <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-slate-900 leading-[0.95]">
+                בלוג
+              </h1>
+              <p className="mt-4 text-base sm:text-lg md:text-xl text-slate-600 font-medium">
+                תובנות, מדריכים ותוכן פרקטי על עיצוב, פיתוח וצמיחה.
+              </p>
+            </div>
 
-        {showHeader && (
-          <div className="mt-8 flex flex-wrap justify-center gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setActive(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
-                  active === cat ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                }`}
-              >
-                {CATEGORY_LABELS[cat] ?? cat}
-              </button>
-            ))}
-          </div>
-        )}
+            <Breadcrumb className="mt-8 flex justify-center">
+              <BreadcrumbList dir="rtl">
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">דף הבית</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>בלוג</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </>
+        ) : null}
 
         <div className={`${showHeader ? "mt-16" : ""} grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12`}>
           {filtered.map((article) => (

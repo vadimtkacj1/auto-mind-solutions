@@ -142,6 +142,55 @@
     body.site-main section {
       display: block;
     }
+
+    /* Reduce blur effects on mobile - very expensive */
+    [class*="blur-"] {
+      filter: none !important;
+    }
+  }
+
+  /* Performance: Reduce animations for low-end devices */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Performance optimization: content-visibility for sections */
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+
+  /* Prevent layout shifts */
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Optimize rendering performance */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* GPU acceleration only when needed */
+  @media (hover: hover) and (pointer: fine) {
+    [class*="hover\\:scale"],
+    [class*="hover\\:translate"] {
+      will-change: transform;
+    }
+  }
+
+  /* Reduce paint areas */
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
 
   footer {

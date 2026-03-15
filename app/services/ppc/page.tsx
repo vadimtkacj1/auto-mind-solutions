@@ -5,12 +5,34 @@ import { Footer } from "@/src/components/Footer/Footer";
 import { AboutHero } from "@/src/components/AboutAiterra/AboutHero";
 import { FAQ } from "@/src/components/FAQ/FAQ";
 import { ContactCTA } from "@/src/components/CTA/ContactCTA";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { StructuredData, getProfessionalServicePageSchema } from "@/src/components/StructuredData";
+import { InternalLinksBlock } from "@/src/components/InternalLinksBlock";
+import { buildCanonical, getAbsoluteOgImage, DEFAULT_OG_IMAGE, BRAND_NAME } from "@/src/lib/seo";
+
+const SERVICE_BACKLINKS = [
+  { label: "קידום אתרים SEO", href: "/services/seo-marketing" },
+  { label: "בניית אתרים", href: "/services/web-development" },
+  { label: "אוטומציה עסקית", href: "/services/automation" },
+  { label: "כל השירותים", href: "/services" },
+  { label: "חבילות", href: "/packages" },
+  { label: "צור קשר", href: "/contact" },
+];
 
 export const metadata: Metadata = {
-  title: "פרסום בגוגל וניהול קמפיינים | שיווק דיגיטלי | Aiterra",
+  title: "פרסום בגוגל וניהול קמפיינים | שיווק דיגיטלי",
   description:
     "פרסום ממומן בגוגל וברשתות החברתיות שמביא לידים חמים. אסטרטגיית שיווק דיגיטלי, דפי נחיתה מהירים וחיבור CRM. ROI חיובי.",
-  alternates: { canonical: "https://aiterra.agency/services/ppc" },
+  alternates: { canonical: buildCanonical("/services/ppc") },
+  openGraph: {
+    title: "פרסום ממומן PPC | שיווק דיגיטלי",
+    description: "פרסום ממומן בגוגל וברשתות החברתיות שמביא לידים חמים. ROI חיובי.",
+    url: buildCanonical("/services/ppc"),
+    type: "website",
+    siteName: BRAND_NAME,
+    images: [{ url: getAbsoluteOgImage(DEFAULT_OG_IMAGE.url), width: DEFAULT_OG_IMAGE.width, height: DEFAULT_OG_IMAGE.height, alt: DEFAULT_OG_IMAGE.alt }],
+  },
+  twitter: { card: "summary_large_image", title: "פרסום ממומן PPC", description: "פרסום ממומן בגוגל וברשתות שמביא לידים חמים." },
 };
 
 const PPC_IMAGES = {
@@ -19,15 +41,27 @@ const PPC_IMAGES = {
   landing: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800",
 };
 
+const serviceSchema = getProfessionalServicePageSchema({
+  name: "פרסום ממומן PPC",
+  description: "פרסום ממומן בגוגל וברשתות החברתיות שמביא לידים חמים. ROI חיובי.",
+  url: buildCanonical("/services/ppc"),
+  serviceType: "PPC",
+});
+
 export default function PpcPage() {
   return (
     <div className="min-h-screen text-[var(--color-dark)] leading-relaxed" dir="rtl">
+      <StructuredData data={serviceSchema} />
       <Header />
       <main className="bg-white">
         <AboutHero
           title="פרסום בגוגל וניהול קמפיינים: שיווק דיגיטלי שמביא לידים חמים"
           subtitle="אתם משקיעים כסף, אבל האם אתם באמת רואים תוצאות? בתור משרד פרסום טכנולוגי, הגישה שלנו ב-Aiterra היא פשוטה: כל שקל שיוצא על פרסום חייב לחזור אליכם עם רווח. בעוד שקידום אורגני בונה סמכות לטווח הארוך, תהליך מקצועי של פרסום ממומן בגוגל או ברשתות החברתיות נועד להביא לידים לעסקים כאן ועכשיו. אנחנו בונים אסטרטגיית שיווק דיגיטלי לעסקים שעוצרת את הדימום התקציבי, ממקסמת את אחוזי ההמרה, והופכת את תקציב השיווק שלכם למנוע צמיחה."
           hideCtas
+        />
+        <PageBreadcrumbs
+          items={[{ label: "שירותים", href: "/services" }, { label: "פרסום ממומן PPC" }]}
+          className="py-6 bg-white"
         />
 
         <section className="px-6 py-16 md:py-24">
@@ -115,6 +149,8 @@ export default function PpcPage() {
             </div>
           </div>
         </section>
+
+        <InternalLinksBlock title="שירותים וקישורים נוספים" links={SERVICE_BACKLINKS} variant="dark" />
 
         <ContactCTA />
 

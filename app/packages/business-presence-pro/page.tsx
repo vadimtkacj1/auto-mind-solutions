@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
+import { buildCanonical } from "@/src/lib/seo";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
 import { PageHero } from "@/src/components/PageHero/PageHero";
 import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { Check } from "lucide-react";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { InternalLinksBlock } from "@/src/components/InternalLinksBlock";
+
+const PACKAGE_BACKLINKS = [
+  { label: "Launch Starter", href: "/packages/launch-starter" },
+  { label: "Growth Landing System", href: "/packages/growth-landing-system" },
+  { label: "Digital Commerce Elite", href: "/packages/digital-commerce-elite" },
+  { label: "כל החבילות", href: "/packages" },
+  { label: "שירותים", href: "/services" },
+  { label: "צור קשר", href: "/contact" },
+];
 
 export const metadata: Metadata = {
   title: "Business Presence Pro - אתר עסקי מלא | Aiterra",
   description: "אתר עסקי מלא + מערכת שיווק. סרטוני AI, SEO, קמפיין Facebook & Instagram ועוד.",
-  alternates: { canonical: "https://aiterra.agency/packages/business-presence-pro" },
+  alternates: { canonical: buildCanonical("/packages/business-presence-pro") },
 };
 
 const features = [
@@ -35,6 +47,11 @@ export default function BusinessPresenceProPage() {
           subtitle={<>אתר עסקי מקצועי + מערכת שיווק משולבת - הפתרון המושלם לעסקים שרוצים נוכחות דיגיטלית חזקה</>}
           primaryCta={{ label: "קבלו הצעת מחיר", href: "/contact" }}
           secondaryCta={{ label: "כל החבילות", href: "/packages" }}
+        />
+        <PageBreadcrumbs
+          items={[{ label: "חבילות", href: "/packages" }, { label: "Business Presence Pro" }]}
+          className="py-6 bg-[#080a0c]"
+          variant="dark"
         />
 
         <section className="px-6 py-14 md:py-20 bg-[#080a0c]" dir="rtl">
@@ -89,6 +106,8 @@ export default function BusinessPresenceProPage() {
             </div>
           </div>
         </section>
+
+        <InternalLinksBlock title="חבילות וקישורים נוספים" links={PACKAGE_BACKLINKS} variant="light" />
 
         <ContactCTA />
       </main>

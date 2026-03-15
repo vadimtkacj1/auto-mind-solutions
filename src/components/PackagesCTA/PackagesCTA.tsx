@@ -1,12 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/Button/Button";
-import { StarsBackground } from "./StarsBackground";
-import { SatelliteScene } from "./SatelliteScene";
+
+const StarsBackground = dynamic(
+  () => import("./StarsBackground").then((m) => ({ default: m.StarsBackground })),
+  { ssr: false }
+);
+
+const SatelliteScene = dynamic(
+  () => import("./SatelliteScene").then((m) => ({ default: m.SatelliteScene })),
+  { ssr: false }
+);
 
 export function PackagesCTA() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -119,7 +128,7 @@ export function PackagesCTA() {
           <Button asChild variant="cta" size="hero">
             <Link href="/contact" className="flex items-center gap-2">
               <span>בואו נתחיל</span>
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5" />
             </Link>
           </Button>
         </motion.div>

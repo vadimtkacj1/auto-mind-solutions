@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { SITE_URL } from "@/src/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -12,7 +13,6 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "Googlebot",
         allow: "/",
         disallow: ["/api/", "/admin/"],
-        crawlDelay: 0,
       },
       {
         userAgent: "Googlebot-Image",
@@ -22,10 +22,9 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "Bingbot",
         allow: "/",
         disallow: ["/api/", "/admin/"],
-        crawlDelay: 0,
       },
     ],
-    sitemap: "https://aiterra.agency/sitemap.xml",
-    host: "https://aiterra.agency",
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }
