@@ -35,7 +35,7 @@ export default function ServicesPage() {
       <StructuredData data={breadcrumbSchema} />
       <Header />
       <main id="main-content" className="bg-white">
-        <PageBreadcrumbs items={[{ label: "שירותים" }]} className="pt-28 pb-6" />
+        <PageBreadcrumbs items={[{ label: "שירותים" }]} className="pt-24 pb-4" />
         <ServicesElastic />
         <ContactCTA />
       </main>

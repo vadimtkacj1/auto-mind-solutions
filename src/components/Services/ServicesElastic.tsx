@@ -33,10 +33,10 @@ export function ServicesElastic() {
     <section id="services" dir="rtl" className="bg-white">
 
       {/* ── ALL CONTENT IN ONE WHITE BLOCK ─────────────────────────────────── */}
-      <div className="pt-24 px-6 sm:px-10 lg:px-16">
+      <div className="pt-8 px-6 sm:px-10 lg:px-16">
         <div className="bg-white rounded-2xl md:rounded-3xl p-8 md:p-14 max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12 md:mb-16">
+          <div className="text-center mb-8 md:mb-10">
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.92]">
               השירותים שלנו
             </h1>

@@ -23,7 +23,7 @@ export function CTA({
       <section
         className="relative overflow-hidden py-8 md:py-10"
         style={{ background: "linear-gradient(180deg, #e8f4fc 0%, #d4ebf7 100%)" }}
-        dir="ltr"
+        dir="rtl"
       >
         <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
           <h2 className="heading-no-break text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-800 leading-[1.3]">
