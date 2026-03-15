@@ -1,6 +1,5 @@
 import { MetadataRoute } from "next";
 import { articles } from "@/src/components/Insights";
-import { portfolioItems } from "@/src/components/Portfolio/portfolioData";
 import { SITE_URL } from "@/src/lib/seo";
 
 const staticRoutes: { path: string; changeFrequency: "daily" | "weekly" | "monthly" | "yearly"; priority: number }[] = [
@@ -10,15 +9,10 @@ const staticRoutes: { path: string; changeFrequency: "daily" | "weekly" | "month
   { path: "/services/ppc", changeFrequency: "monthly", priority: 0.8 },
   { path: "/services/web-development", changeFrequency: "monthly", priority: 0.8 },
   { path: "/services/automation", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/industries", changeFrequency: "monthly", priority: 0.9 },
   { path: "/portfolio", changeFrequency: "weekly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/insights", changeFrequency: "weekly", priority: 0.8 },
   { path: "/packages", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/packages/launch-starter", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/packages/growth-landing-system", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/packages/digital-commerce-elite", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/packages/business-presence-pro", changeFrequency: "monthly", priority: 0.7 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.8 },
   { path: "/site-map", changeFrequency: "monthly", priority: 0.6 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
@@ -42,12 +36,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const portfolioUrls: MetadataRoute.Sitemap = portfolioItems.map((item) => ({
-    url: `${SITE_URL}/portfolio/${item.slug}`,
-    lastModified: currentDate,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
-
-  return [...staticEntries, ...articleUrls, ...portfolioUrls];
+  return [...staticEntries, ...articleUrls];
 }

@@ -163,8 +163,6 @@ export default function SeoMarketingPage() {
           </div>
         </section>
 
-        <InternalLinksBlock title="שירותים וקישורים נוספים" links={SERVICE_BACKLINKS} variant="dark" />
-
         <ContactCTA />
 
         <FAQ

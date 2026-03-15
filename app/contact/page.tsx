@@ -33,8 +33,8 @@ export default function ContactPage() {
     <div className="min-h-screen flex flex-col">
       <StructuredData data={breadcrumbSchema} />
       <Header />
-      <main id="main-content" className="flex-1 bg-[#080a0c]">
-        <PageBreadcrumbs items={[{ label: "צור קשר" }]} className="pt-28 pb-6" variant="dark" />
+      <main id="main-content" className="flex-1 bg-white">
+        <PageBreadcrumbs items={[{ label: "צור קשר" }]} className="pt-24 pb-4" variant="light" />
         <Contact />
       </main>
       <Footer />

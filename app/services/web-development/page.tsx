@@ -69,8 +69,6 @@ export default function WebDevelopmentPage() {
           <TechStack />
         </section>
 
-        <InternalLinksBlock title="שירותים וקישורים נוספים" links={SERVICE_BACKLINKS} variant="dark" />
-
         <ContactCTA />
         <FAQ items={WEB_DEV_FAQ_ITEMS} title="שאלות נפוצות" />
 

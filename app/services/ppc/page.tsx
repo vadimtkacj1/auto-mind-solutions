@@ -150,8 +150,6 @@ export default function PpcPage() {
           </div>
         </section>
 
-        <InternalLinksBlock title="שירותים וקישורים נוספים" links={SERVICE_BACKLINKS} variant="dark" />
-
         <ContactCTA />
 
         <FAQ
