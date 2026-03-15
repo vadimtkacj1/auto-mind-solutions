@@ -39,7 +39,7 @@ export function ArticlesGrid({ showHeader = false }: ArticlesGridProps) {
           <>
             <div className="text-center">
               <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-slate-900 leading-[0.95]">
-                בלוג
+                הבלוג שלנו
               </h1>
               <p className="mt-4 text-base sm:text-lg md:text-xl text-slate-600 font-medium">
                 תובנות, מדריכים ותוכן פרקטי על עיצוב, פיתוח וצמיחה.

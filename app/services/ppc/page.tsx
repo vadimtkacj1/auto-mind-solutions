@@ -9,6 +9,7 @@ import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs"
 import { StructuredData, getProfessionalServicePageSchema } from "@/src/components/StructuredData";
 import { InternalLinksBlock } from "@/src/components/InternalLinksBlock";
 import { buildCanonical, getAbsoluteOgImage, DEFAULT_OG_IMAGE, BRAND_NAME } from "@/src/lib/seo";
+import { CTA } from "@/src/components/CTA/CTA";
 
 const SERVICE_BACKLINKS = [
   { label: "קידום אתרים SEO", href: "/services/seo-marketing" },
@@ -104,7 +105,7 @@ export default function PpcPage() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">פרסום בפייסבוק ו-פרסום באינסטגרם</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">פרסום בפייסבוק ופרסום באינסטגרם</h3>
                   <p className="text-slate-600 leading-relaxed">
                     כשאנחנו רוצים לייצר את הביקוש, לעורר צורך ולהגיע לקהלים חדשים, הרשתות החברתיות מאפשרות לנו לטרגט גולשים בדיוק לפי הגיל, תחומי העניין והמיקום שלהם.
                   </p>
@@ -119,7 +120,7 @@ export default function PpcPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div className="order-2 lg:order-1">
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-tight">
-                  הסוד של Aiterra: מחברים את ה-ממומן לטכנולוגיה
+                  הסוד של Aiterra: מחברים את הממומן לטכנולוגיה
                 </h2>
                 <div className="space-y-6 text-slate-700 leading-relaxed">
                   <p>
@@ -150,7 +151,12 @@ export default function PpcPage() {
           </div>
         </section>
 
-        <ContactCTA />
+        <CTA
+        variant = "minimal"
+        title="תפסיקו לממן את המתחרים שלכם"
+        description="הגיע הזמן לעבור לניהול קמפיינים חכם, שקוף ומבוסס דאטה."
+        contactCTA="רוצים לדעת כמה יעלה להביא את הלקוח הבא שלכם? השאירו פרטים למטה, והמומחים שלנו ב-Aiterra יבנו לכם תחזית ביצועים מותאמת אישית."
+        />
 
         <FAQ
           title="שאלות נפוצות לפני שמתחילים"
