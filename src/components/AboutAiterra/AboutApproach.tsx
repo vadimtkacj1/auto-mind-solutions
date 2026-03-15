@@ -57,26 +57,7 @@ function AboutApproachContent({
       <div className="absolute inset-0 z-0">
         {isInView && <SpaceBackground enabled />}
       </div>
-      <div
-        className="absolute inset-0 z-0 opacity-[0.08]"
-        style={{
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
-        aria-hidden
-      />
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.08, margin: "0px 0px 150px 0px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16 md:mb-20"
-        >
-          <span className="text-[18px] md:text-[24px] font-black tracking-[0.2em] uppercase text-[var(--color-primary)]">
-            הגישה שלנו
-          </span>
-        </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           <div className="order-2 lg:order-1">
             <motion.div

@@ -35,16 +35,6 @@ export function AboutQuote() {
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[var(--color-primary)]/20 rounded-full blur-[150px]" />
       <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] bg-[var(--color-accent)]/20 rounded-full blur-[150px]" />
 
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px)",
-          backgroundSize: "50px 50px",
-        }}
-        aria-hidden
-      />
-
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -54,16 +44,6 @@ export function AboutQuote() {
           className="flex flex-col items-center text-center"
           dir="rtl"
         >
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-[18px] md:text-[24px] font-black tracking-[0.2em] uppercase text-[var(--color-primary)] mb-12 inline-block"
-          >
-            החזון שלנו
-          </motion.span>
-
           <motion.blockquote
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

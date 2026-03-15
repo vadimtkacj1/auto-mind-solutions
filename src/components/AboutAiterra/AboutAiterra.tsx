@@ -10,12 +10,11 @@ import { AboutTeam } from "./AboutTeam";
 export function AboutAiterra() {
   return (
     <div className="bg-white overflow-visible" dir="ltr">
-      <AboutStats />
+      {/* <AboutStats /> */}
       <AboutStory />
       <AboutApproach />
       <AboutValues />
       <AboutQuote />
-      <AboutTeam />
     </div>
   );
 }
