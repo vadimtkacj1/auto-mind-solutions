@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { articles } from "./articlesData";
+import { ImageWithFallback } from "@/src/components/ImageWithFallback/ImageWithFallback";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -66,14 +66,10 @@ export function ArticlesGrid({ showHeader = false }: ArticlesGridProps) {
           {filtered.map((article) => (
             <Link key={article.slug} href={`/insights/${article.slug}`} className="group">
               <div className="relative w-full aspect-[16/9] rounded-[28px] overflow-hidden">
-                <Image
+                <ImageWithFallback
                   src={article.image}
                   alt={article.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
-                  unoptimized={article.image.startsWith("data:")}
-                  priority={false}
+                  className="object-cover w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
                 />
               </div>
 

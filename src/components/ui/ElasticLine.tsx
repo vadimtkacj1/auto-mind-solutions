@@ -13,8 +13,8 @@ export function ElasticLine({ className, height = 56, strokeWidth = 1.5 }: Elast
   const x = useMotionValue(500);
   const y = useMotionValue(50);
 
-  const springX = useSpring(x, { stiffness: 400, damping: 30, mass: 1 });
-  const springY = useSpring(y, { stiffness: 400, damping: 30, mass: 1 });
+  const springX = useSpring(x, { stiffness: 200, damping: 50, mass: 1 });
+  const springY = useSpring(y, { stiffness: 200, damping: 50, mass: 1 });
 
   const path = useMotionTemplate`M 0 50 Q ${springX} ${springY} 1000 50`;
 

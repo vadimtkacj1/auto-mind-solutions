@@ -9,6 +9,8 @@ import { ReadingProgress, ScrollToTop } from "./ArticleClient";
 import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
 import { StructuredData, getArticleSchema, getBreadcrumbSchema } from "@/src/components/StructuredData";
 import { buildCanonical, getAbsoluteOgImage, BRAND_NAME } from "@/src/lib/seo";
+import { CTA } from "@/src/components/CTA/CTA";
+import { ImageWithFallback } from "@/src/components/ImageWithFallback/ImageWithFallback";
 
 type Props = {
   params: { slug: string };
@@ -129,8 +131,7 @@ export default function ArticlePage({ params }: Props) {
 
           {article.image && (
             <div className="my-12 rounded-2xl overflow-hidden border border-slate-200">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={article.image} alt={article.title} className="w-full h-auto" />
+              <ImageWithFallback src={article.image} alt={article.title} className="w-full h-auto" />
             </div>
           )}
 
@@ -165,8 +166,7 @@ export default function ArticlePage({ params }: Props) {
                     )}
                     {section.image && (
                       <div className="my-8 rounded-lg overflow-hidden">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <ImageWithFallback
                           src={section.image}
                           alt={section.imageAlt || section.heading}
                           className="w-full h-auto"
@@ -176,44 +176,20 @@ export default function ArticlePage({ params }: Props) {
                     )}
                   </section>
                 ))}
-
-                <div className="mt-12 pt-8 border-t border-slate-200">
-                  <h2 className="text-3xl font-bold text-slate-900 mb-4">Summary</h2>
-                  <p className="text-lg text-slate-600 leading-relaxed">{article.content.conclusion}</p>
-                </div>
               </div>
 
             </>
           )}
-
-          <nav className="mt-12 pt-8 border-t border-slate-200" aria-label="קישורים רלוונטיים">
-            <h2 className="text-xl font-bold text-slate-900 mb-4">קישורים רלוונטיים</h2>
-            <ul className="flex flex-wrap gap-4">
-              <li>
-                <Link href="/services" className="text-blue-600 hover:underline font-medium">
-                  שירותים
-                </Link>
-              </li>
-              <li>
-                <Link href="/packages" className="text-blue-600 hover:underline font-medium">
-                  חבילות
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-blue-600 hover:underline font-medium">
-                  צור קשר
-                </Link>
-              </li>
-              <li>
-                <Link href="/insights" className="text-blue-600 hover:underline font-medium">
-                  עוד תובנות
-                </Link>
-              </li>
-            </ul>
-          </nav>
         </article>
       </main>
-      <ArticleCTA />
+      {article.cta && (
+        <CTA
+          variant="minimal"
+          title={article.cta.title}
+          description={article.cta.description}
+          primaryCta={{ label: "דברו איתנו", href: "/contact" }}
+        />
+      )}
       <Footer />
     </div>
   );
