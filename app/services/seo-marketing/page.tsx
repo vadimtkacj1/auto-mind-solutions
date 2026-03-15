@@ -9,6 +9,7 @@ import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs"
 import { StructuredData, getProfessionalServicePageSchema } from "@/src/components/StructuredData";
 import { InternalLinksBlock } from "@/src/components/InternalLinksBlock";
 import { buildCanonical, getAbsoluteOgImage, DEFAULT_OG_IMAGE, BRAND_NAME } from "@/src/lib/seo";
+import { CTA } from "@/src/components/CTA/CTA";
 
 const SERVICE_BACKLINKS = [
   { label: "פרסום ממומן PPC", href: "/services/ppc" },
@@ -163,7 +164,12 @@ export default function SeoMarketingPage() {
           </div>
         </section>
 
-        <ContactCTA />
+        <CTA
+        variant = "minimal"
+        title="מוכנים לכבוש את העמוד הראשון?"
+        description = "השקעה בתהליך קידום אורגני היא ההשקעה עם החזר ההשקעה (ROI) הגבוה ביותר בעולם הדיגיטל. במקום לשלם על כל קליק, בואו לבנות נכס שמייצר לכם תנועה בחינם לאורך שנים."
+        contactCTA = "השאירו פרטים עכשיו, והצוות שלנו יחזור אליכם לשיחת ייעוץ מקצועית ולתכנון אסטרטגיית ה-SEO המנצחת שלכם."
+        />
 
         <FAQ
           title="שאלות נפוצות לפני שיוצאים לדרך"

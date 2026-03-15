@@ -8,8 +8,9 @@ export function ContactCTA() {
   return (
     <CTA
       variant="minimal"
-      title="צרו איתנו קשר — נשמח לעזור ולענות על כל שאלה"
-      primaryCta={{ label: "ליצור קשר", href: "/contact" }}
+      title="מוכנים להשאיר את המתחרים מאחור? בואו נדבר תכל'ס."
+      description="השאירו פרטים והצוות שלנו יבנה לכם אסטרטגיה דיגיטלית מושחזת שמייצרת תוצאות"
+      primaryCta={{ label: "צרו קשר", href: "/contact" }}
     />
   );
 }

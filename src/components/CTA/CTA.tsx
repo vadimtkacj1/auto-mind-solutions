@@ -3,13 +3,15 @@ import { Button } from "../ui/Button/Button";
 
 export function CTA({
   title = "מוכנים להעלות את הבשלות הדיגיטלית שלכם?",
-  description = "בואו נבדוק יחד איפה הכסף “נוזל” בפאנל, איפה הטכנולוגיה מעכבת, ואיך הופכים דיגיטל למנוע הכנסות.",
+  description = "ביחד ניצור לכם אסטרטגיה מנצחת שתעלה אתכם לפסגה",
+  contactCTA = "",
   primaryCta = { label: "צרו קשר", href: "/contact" },
   secondaryCta = { label: "השאירו פרטים", href: "/contact" },
   variant = "dark",
 }: {
   title?: string;
   description?: string;
+  contactCTA?: string;
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   variant?: "dark" | "light" | "packages" | "minimal";
@@ -32,6 +34,11 @@ export function CTA({
           {description && (
             <p className="mt-4 text-base md:text-lg leading-relaxed text-slate-700 max-w-2xl mx-auto">
               {description}
+            </p>
+          )}
+          {contactCTA && (
+            <p className="mt-4 text-base md:text-lg leading-relaxed text-slate-700 max-w-2xl mx-auto">
+              {contactCTA}
             </p>
           )}
           <div className="mt-4 flex justify-center">
