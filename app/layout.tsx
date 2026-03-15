@@ -7,31 +7,37 @@ import Script from "next/script";
 import { HashScrollHandler } from "@/src/components/HashScrollHandler";
 import { BodyClassController } from "@/src/components/BodyClassController";
 import { AnimatePresenceProvider } from "@/src/components/PageTransitions/AnimatePresenceProvider";
+import { StructuredData } from "@/src/components/StructuredData";
+import { getOrganizationWebsiteSchema } from "@/src/components/StructuredData/schema";
+import { SITE_URL, BRAND_NAME, DEFAULT_OG_IMAGE, getAbsoluteOgImage } from "@/src/lib/seo";
 
 const SmoothScrollProvider = dynamic(() => import("../src/components/SmoothScroll/SmoothScrollProvider"), {
   ssr: false,
 });
 
+// display: "swap" для швидкого показу тексту
 const notoSansHebrew = Noto_Sans_Hebrew({
-  subsets: ["hebrew", "latin"],
-  weight: ["400", "700", "800"],
+  subsets: ["hebrew"],
+  weight: ["400", "700"],
   display: "swap",
   variable: "--font-noto-sans-hebrew",
   preload: true,
+  adjustFontFallback: true,
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
-const baseUrl = "https://aiterra.agency";
+const defaultTitle = `${BRAND_NAME} - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל`;
+const defaultDescription =
+  "סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript. שירותי פיתוח אתרים, אוטומציה שיווקית ופרסום דיגיטלי.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(SITE_URL),
 
-  // Основные SEO теги
   title: {
-    default: "Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל",
-    template: "%s | Aiterra",
+    default: defaultTitle,
+    template: `%s | ${BRAND_NAME}`,
   },
-  description:
-    "סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript. שירותי פיתוח אתרים, אוטומציה שיווקית ופרסום דיגיטלי.",
+  description: defaultDescription,
 
   keywords: [
     "עיצוב אתרים",
@@ -48,39 +54,36 @@ export const metadata: Metadata = {
     "digital marketing",
   ],
 
-  authors: [{ name: "Aiterra" }],
-  creator: "Aiterra",
-  publisher: "Aiterra",
+  authors: [{ name: BRAND_NAME }],
+  creator: BRAND_NAME,
+  publisher: BRAND_NAME,
 
-  // Канонический URL
   alternates: {
-    canonical: baseUrl,
+    canonical: SITE_URL,
   },
 
-  // Open Graph (Facebook, LinkedIn)
   openGraph: {
     type: "website",
     locale: "he_IL",
-    url: baseUrl,
-    siteName: "Aiterra",
-    title: "Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי מוביל בישראל",
-    description: "סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות עם React, Next.js, TypeScript.",
+    url: SITE_URL,
+    siteName: BRAND_NAME,
+    title: defaultTitle,
+    description: defaultDescription,
     images: [
       {
-        url: "/images/Aittera_2.png",
-        width: 1200,
-        height: 630,
-        alt: "Aiterra Logo",
+        url: getAbsoluteOgImage(DEFAULT_OG_IMAGE.url),
+        width: DEFAULT_OG_IMAGE.width,
+        height: DEFAULT_OG_IMAGE.height,
+        alt: DEFAULT_OG_IMAGE.alt,
       },
     ],
   },
 
-  // Twitter Cards
   twitter: {
     card: "summary_large_image",
-    title: "Aiterra - עיצוב אתרים, SEO ופיתוח דיגיטלי",
+    title: `${BRAND_NAME} - עיצוב אתרים ופיתוח דיגיטלי`,
     description: "סוכנות עיצוב ו-SEO מובילה בישראל. בונים חוויות דיגיטליות מתקדמות.",
-    images: ["/images/Aittera_2.png"],
+    images: [getAbsoluteOgImage(DEFAULT_OG_IMAGE.url)],
     creator: "@automindstudio",
   },
 
@@ -103,10 +106,8 @@ export const metadata: Metadata = {
     yandex: "your-yandex-verification-code",
   },
 
-  // Manifest для PWA
-  manifest: "/manifest.json",
+  manifest: "/manifest.webmanifest",
 
-  // Icons
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
@@ -115,102 +116,36 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://aiterra.agency/#organization",
-        name: "Aiterra",
-        url: "https://aiterra.agency",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://aiterra.agency/images/Aittera_2.png",
-          width: 250,
-          height: 60,
-        },
-        description: "סוכנות עיצוב ו-SEO מובילה בישראל",
-        address: {
-          "@type": "PostalAddress",
-          addressCountry: "IL",
-          addressLocality: "Israel",
-        },
-        contactPoint: {
-          "@type": "ContactPoint",
-          contactType: "customer support",
-          availableLanguage: ["he", "en"],
-        },
-        sameAs: [
-          "https://facebook.com/automindstudio",
-          "https://twitter.com/automindstudio",
-          "https://linkedin.com/company/automindstudio",
-        ],
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://aiterra.agency/#website",
-        url: "https://aiterra.agency",
-        name: "Aiterra",
-        description: "חבילת שיווק דיגיטלית מלאה לעסקים קטנים ובינוניים בישראל",
-        publisher: {
-          "@id": "https://aiterra.agency/#organization",
-        },
-        inLanguage: "he",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: "https://aiterra.agency/search?q={search_term_string}",
-          "query-input": "required name=search_term_string",
-        },
-      },
-      {
-        "@type": "ProfessionalService",
-        "@id": "https://aiterra.agency/#service",
-        name: "Aiterra",
-        url: "https://aiterra.agency",
-        image: "https://aiterra.agency/images/Aittera_2.png",
-        priceRange: "₪₪₪",
-        address: {
-          "@type": "PostalAddress",
-          addressCountry: "IL",
-        },
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: 31.0461,
-          longitude: 34.8516,
-        },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "5",
-          reviewCount: "48",
-        },
-        areaServed: {
-          "@type": "Country",
-          name: "Israel",
-        },
-        serviceType: ["Web Design", "SEO", "Digital Marketing", "Web Development"],
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://aiterra.agency/#breadcrumb",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: "https://aiterra.agency",
-          },
-        ],
-      },
-    ],
-  };
-
   const enablePixel = process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_ENABLE_META_PIXEL === "true";
 
   return (
     <html lang="he" dir="rtl" className="site-main">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+        <link rel="alternate" type="application/rss+xml" title="RSS - תובנות" href="/feed.xml" />
+
+        {/* Critical Resource Hints */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+
+        {/* Disable font preload - let it load async */}
+
+        <StructuredData data={getOrganizationWebsiteSchema()} />
+        {/* Ultra-minimal Critical CSS */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            *{box-sizing:border-box;margin:0;padding:0}
+            html{background:#080a0c;overflow-x:clip}
+            body{background:#080a0c;color:#fff;font-family:system-ui,sans-serif;line-height:1.5}
+            #main-content{min-height:100vh}
+            h1{font-size:clamp(2rem,6vw,3.5rem);font-weight:700;line-height:1.2}
+            button{cursor:pointer;border:none}
+            a{text-decoration:none;color:inherit}
+          `,
+          }}
+        />
         {enablePixel && (
           <>
             <Script id="meta-pixel" strategy="lazyOnload">
@@ -241,7 +176,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body className={`${notoSansHebrew.className} site-main`}>
-        {/* <ViewTransitionsProvider /> */}
+        <a
+          href="#main-content"
+          className="fixed left-2 top-2 z-[9999] rounded bg-slate-900 px-4 py-2 text-sm font-medium text-white no-underline opacity-0 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          דלג לתוכן הראשי
+        </a>
         <BodyClassController />
         <SmoothScrollProvider>
           <HashScrollHandler offset={80} />

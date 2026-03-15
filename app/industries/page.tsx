@@ -3,6 +3,8 @@ import Header from "@/src/components/Header/Header";
 import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { Footer } from "@/src/components/Footer/Footer";
 import { PageHero } from "@/src/components/PageHero/PageHero";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { buildCanonical, getAbsoluteOgImage, DEFAULT_OG_IMAGE, BRAND_NAME } from "@/src/lib/seo";
 
 export const metadata: Metadata = {
   title: "Industries & Expertise | Frontend, Backend, SEO Development",
@@ -10,13 +12,17 @@ export const metadata: Metadata = {
     "Comprehensive software development services: Frontend development with React, Vue, Angular; Backend engineering with Node.js, Python, PHP; Technical SEO optimization and digital marketing solutions.",
   keywords:
     "frontend development, backend development, SEO optimization, React development, Vue.js, Angular, Node.js, Python, PHP, web development, technical SEO, digital marketing",
-  alternates: { canonical: "https://aiterra.agency/industries" },
+  alternates: { canonical: buildCanonical("/industries") },
   openGraph: {
     title: "Industries & Expertise | Frontend, Backend, SEO Development",
     description:
       "Expert software development across frontend, backend, and SEO. Building scalable web applications with modern technologies.",
+    url: buildCanonical("/industries"),
     type: "website",
+    siteName: BRAND_NAME,
+    images: [{ url: getAbsoluteOgImage(DEFAULT_OG_IMAGE.url), width: DEFAULT_OG_IMAGE.width, height: DEFAULT_OG_IMAGE.height, alt: DEFAULT_OG_IMAGE.alt }],
   },
+  twitter: { card: "summary_large_image", title: "Industries & Expertise", description: "Expert software development across frontend, backend, and SEO." },
 };
 
 const industries = [
@@ -151,6 +157,7 @@ export default function IndustriesPage() {
           primaryCta={{ label: "Schedule Strategy Call", href: "/contact" }}
           secondaryCta={{ label: "View Portfolio", href: "/portfolio" }}
         />
+        <PageBreadcrumbs items={[{ label: "Industries" }]} className="py-6 bg-white" />
 
         {/* Industries Overview */}
         <section className="px-6 py-14 md:py-20 bg-white">

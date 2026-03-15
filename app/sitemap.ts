@@ -1,72 +1,53 @@
 import { MetadataRoute } from "next";
 import { articles } from "@/src/components/Insights";
+import { portfolioItems } from "@/src/components/Portfolio/portfolioData";
+import { SITE_URL } from "@/src/lib/seo";
+
+const staticRoutes: { path: string; changeFrequency: "daily" | "weekly" | "monthly" | "yearly"; priority: number }[] = [
+  { path: "", changeFrequency: "daily", priority: 1.0 },
+  { path: "/services", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/services/seo-marketing", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/services/ppc", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/services/web-development", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/services/automation", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/industries", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/portfolio", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/about", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/insights", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/packages", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/packages/launch-starter", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/packages/growth-landing-system", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/packages/digital-commerce-elite", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/packages/business-presence-pro", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/contact", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/site-map", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://aiterra.agency";
   const currentDate = new Date();
 
-  const articleUrls = articles.map((article) => ({
-    url: `${baseUrl}/insights/${article.slug}`,
+  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
+    url: `${SITE_URL}${route.path}`,
+    lastModified: currentDate,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
+  }));
+
+  const articleUrls: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `${SITE_URL}/insights/${article.slug}`,
     lastModified: new Date(article.publishDate),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/industries`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/portfolio`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/insights`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/packages`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    ...articleUrls,
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: currentDate,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: currentDate,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-  ];
+  const portfolioUrls: MetadataRoute.Sitemap = portfolioItems.map((item) => ({
+    url: `${SITE_URL}/portfolio/${item.slug}`,
+    lastModified: currentDate,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticEntries, ...articleUrls, ...portfolioUrls];
 }

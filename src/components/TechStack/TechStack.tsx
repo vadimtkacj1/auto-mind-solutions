@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { memo } from "react";
 import { Reveal } from "../ui/Reveal";
 
 interface Technology {
@@ -22,12 +22,12 @@ const technologies: Technology[] = [
   { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
 ];
 
-export function TechStack() {
+export const TechStack = memo(function TechStack() {
   // Duplicate technologies for infinite scroll effect
   const duplicatedTechs = [...technologies, ...technologies, ...technologies];
 
   return (
-    <section id="tech" className="py-16 sm:py-20 relative z-30 bg-gradient-to-b from-white to-slate-50" dir="rtl">
+    <section id="tech" className="py-16 sm:py-20 relative z-30 bg-white" dir="rtl">
       <div className="max-w-5xl mx-auto px-4">
         <div className="mb-12 md:mb-16">
           <Reveal>
@@ -61,8 +61,8 @@ export function TechStack() {
         </div>
 
         {/* Mobile: Infinite carousel */}
-        <div className="sm:hidden overflow-hidden relative">
-          <div className="flex animate-infinite-scroll hover:pause-animation">
+        <div className="flex sm:hidden overflow-hidden relative" style={{ direction: "ltr" }}>
+          <div className="flex justify-end animate-infinite-scroll pause-animation ">
             {duplicatedTechs.map((tech, index) => (
               <div
                 key={`${tech.name}-${index}`}
@@ -85,30 +85,39 @@ export function TechStack() {
             ))}
           </div>
 
-          {/* Gradient overlays for smooth edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none z-10" />
         </div>
       </div>
 
       <style jsx>{`
         @keyframes infinite-scroll {
           from {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
           }
           to {
-            transform: translateX(-33.333%);
+            transform: translate3d(-33.333%, 0, 0);
+          }
+        }
+
+        @-webkit-keyframes infinite-scroll {
+          from {
+            -webkit-transform: translate3d(0, 0, 0);
+          }
+          to {
+            -webkit-transform: translate3d(-33.333%, 0, 0);
           }
         }
 
         .animate-infinite-scroll {
-          animation: infinite-scroll 25s linear infinite;
+          animation: infinite-scroll 15s linear infinite;
+          -webkit-animation: infinite-scroll 15s linear infinite;
+          will-change: transform;
         }
 
         .pause-animation:hover {
           animation-play-state: paused;
+          -webkit-animation-play-state: paused;
         }
       `}</style>
     </section>
   );
-}
+});

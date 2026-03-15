@@ -48,10 +48,7 @@ export function AboutStats() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 md:mb-20"
         >
-          <span className="text-[18px] md:text-[24px] font-black tracking-[0.2em] uppercase text-[var(--color-primary)] mb-4 inline-block">
-            במספרים
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 mt-4" dir="rtl">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900" dir="rtl">
             Aiterra ב{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-blue-600">מספרים</span>
           </h2>
@@ -62,7 +59,7 @@ export function AboutStats() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0, margin: "0px 0px 100px 0px" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto"
         >
           {STATS.map((stat, i) => (
             <motion.div
@@ -70,10 +67,9 @@ export function AboutStats() {
               variants={blockVariants}
               whileHover={{
                 y: -8,
-                boxShadow: "0 20px 60px -12px rgba(0, 112, 255, 0.25)",
                 transition: { duration: 0.3 },
               }}
-              className={`relative bg-white rounded-3xl p-8 md:p-10 shadow-lg transition-all duration-300 overflow-hidden group cursor-default`}
+              className={`relative bg-white rounded-2xl md:rounded-3xl p-6 md:p-10 transition-all duration-300 overflow-hidden group cursor-default text-center`}
             >
               {/* Gradient background on hover */}
               <div className={`absolute inset-0 bg-gradient-to-br ${gradients[i]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />

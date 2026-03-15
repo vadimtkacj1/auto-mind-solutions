@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
+import { buildCanonical } from "@/src/lib/seo";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
 import { PageHero } from "@/src/components/PageHero/PageHero";
 import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { Check } from "lucide-react";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { InternalLinksBlock } from "@/src/components/InternalLinksBlock";
+
+const PACKAGE_BACKLINKS = [
+  { label: "Growth Landing System", href: "/packages/growth-landing-system" },
+  { label: "Digital Commerce Elite", href: "/packages/digital-commerce-elite" },
+  { label: "Business Presence Pro", href: "/packages/business-presence-pro" },
+  { label: "כל החבילות", href: "/packages" },
+  { label: "שירותים", href: "/services" },
+  { label: "צור קשר", href: "/contact" },
+];
 
 export const metadata: Metadata = {
   title: "Launch Starter - פתרון מהיר להתחלה | Aiterra",
   description: "דף נחיתה ממיר מקצועי לעסקים שרוצים להתחיל להביא לידים. מבנה שיווקי ממוקד המרות.",
-  alternates: { canonical: "https://aiterra.agency/packages/launch-starter" },
+  alternates: { canonical: buildCanonical("/packages/launch-starter") },
 };
 
 const features = [
@@ -34,6 +46,11 @@ export default function LaunchStarterPage() {
           subtitle={<>פתרון מהיר לעסקים שרוצים להתחיל להביא לידים עם דף נחיתה ממיר מקצועי</>}
           primaryCta={{ label: "קבלו הצעת מחיר", href: "/contact" }}
           secondaryCta={{ label: "כל החבילות", href: "/packages" }}
+        />
+        <PageBreadcrumbs
+          items={[{ label: "חבילות", href: "/packages" }, { label: "Launch Starter" }]}
+          className="py-6 bg-[#080a0c]"
+          variant="dark"
         />
 
         <section className="px-6 py-14 md:py-20 bg-[#080a0c]" dir="rtl">
@@ -62,6 +79,8 @@ export default function LaunchStarterPage() {
             </div>
           </div>
         </section>
+
+        <InternalLinksBlock title="חבילות וקישורים נוספים" links={PACKAGE_BACKLINKS} variant="light" />
 
         <ContactCTA />
       </main>

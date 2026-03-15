@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import styles from "./Hero.module.css";
 import { smoothScrollTo } from "@/src/utils/smoothScroll";
 
@@ -26,16 +26,15 @@ function AnimatedTitle({ className, accentClass }: { className: string; accentCl
 
   const container = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
+    visible: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
   };
   const word = {
-    hidden: { opacity: 0, y: 40, rotateX: -60, filter: "blur(8px)" },
+    hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
     visible: {
       opacity: 1,
       y: 0,
-      rotateX: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
     },
   };
 
@@ -77,11 +76,11 @@ function AnimatedSubtitle({ className }: { className: string }) {
 
   const container = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.06, delayChildren: 0.85 } },
+    visible: { transition: { staggerChildren: 0.03, delayChildren: 0.4 } },
   };
   const wordVariant = {
     hidden: { opacity: 0, y: 8 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" as const } },
   };
 
   const [isMobile, setIsMobile] = useState(false);
@@ -119,12 +118,35 @@ function AnimatedSubtitle({ className }: { className: string }) {
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [showHeavyScene, setShowHeavyScene] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isHeroInView, setIsHeroInView] = useState(true);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Defer 3D/canvas until after LCP to improve performance score
+  useEffect(() => {
+    if (!isMounted) return;
+    // Wait for user interaction or 3s delay
+    const t = setTimeout(() => setShowHeavyScene(true), 3000);
+
+    const handleInteraction = () => {
+      setShowHeavyScene(true);
+      clearTimeout(t);
+    };
+
+    window.addEventListener('scroll', handleInteraction, { once: true, passive: true });
+    window.addEventListener('click', handleInteraction, { once: true });
+
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('click', handleInteraction);
+    };
+  }, [isMounted]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -138,10 +160,10 @@ export default function Hero() {
     if (!el) return;
     if (!("IntersectionObserver" in window)) return;
 
-    const observer = new IntersectionObserver(([entry]) => setIsHeroInView(entry.isIntersecting), {
-      threshold: 0.05,
-      rootMargin: "0px",
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsHeroInView(entry.intersectionRatio > 0.15),
+      { threshold: [0, 0.15, 0.5, 1], rootMargin: "0px" }
+    );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -164,8 +186,8 @@ export default function Hero() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
-    if (reduceMotion || isMobile || !isHeroInView) return;
+    const prefersReduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+    if (prefersReduceMotion || reduceMotion || isMobile || !isHeroInView) return;
 
     let rafId: number | null = null;
 
@@ -184,7 +206,7 @@ export default function Hero() {
       window.removeEventListener("mousemove", fn);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, [isMobile, isHeroInView]);
+  }, [isMobile, isHeroInView, reduceMotion]);
 
   const handleScrollDown = () => {
     smoothScrollTo("#services", 80);
@@ -199,18 +221,19 @@ export default function Hero() {
   };
 
   const popIn = {
-    hidden: { opacity: 0, scale: 0.86, y: 14 },
+    hidden: { opacity: 0, scale: 0.9, y: 10 },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
-      transition: { duration: 0.65, ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number], delay: 1.6 },
+      transition: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number], delay: 0.6 },
     },
   };
 
   return (
     <div className={styles.mainWrapper} ref={containerRef} style={{ position: "relative", zIndex: 2 }}>
       <motion.section
+        layout={false}
         className={styles.container}
         style={{
           scale,
@@ -220,9 +243,9 @@ export default function Hero() {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                paddingTop: "40px",
-                paddingBottom: "40px",
-                gap: "24px",
+                paddingTop: "32px",
+                paddingBottom: "32px",
+                gap: "16px",
               }
             : undefined),
         }}
@@ -235,7 +258,7 @@ export default function Hero() {
             transform: "translateZ(0)", // GPU acceleration
           }}
         >
-          {isMounted && <SpaceBackground enabled={isHeroInView} />}
+          {showHeavyScene && <SpaceBackground enabled={isHeroInView} />}
         </motion.div>
 
         {/* ── MOBILE LAYOUT: globe on top, text below ── */}
@@ -249,17 +272,18 @@ export default function Hero() {
                 position: "relative",
                 zIndex: 2,
                 width: "100%",
-                height: "72vw",
-                minHeight: "260px",
-                maxHeight: "360px",
+                height: "38vw",
+                minHeight: "140px",
+                maxHeight: "200px",
                 flexShrink: 0,
-                display: "block",
-                overflow: "visible",
-                marginTop: "-20px",
-                marginBottom: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "0",
+                marginBottom: "16px",
               }}
             >
-              {isMounted && <OptimizedScene />}
+              {showHeavyScene && <OptimizedScene />}
             </motion.div>
 
             {/* Text + buttons — below globe */}
@@ -295,7 +319,7 @@ export default function Hero() {
                 transform: "translateZ(0)", // GPU acceleration
               }}
             >
-              {isMounted && <OptimizedScene />}
+              {showHeavyScene && <OptimizedScene />}
             </motion.div>
 
             <div className={styles.contentContainer}>
@@ -340,20 +364,22 @@ export default function Hero() {
           </>
         )}
 
-        <motion.button
-          className={styles.scrollIndicator}
-          onClick={handleScrollDown}
-          style={{ opacity }}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.2, duration: 0.6 }}
-          aria-label="Scroll to services"
-        >
-          <div className={styles.mouse}>
-            <div className={styles.wheel} />
-          </div>
-          <span className={styles.scrollText}>גללו למטה</span>
-        </motion.button>
+        <div className={styles.scrollIndicatorWrapper}>
+          <motion.button
+            className={styles.scrollIndicator}
+            onClick={handleScrollDown}
+            style={{ opacity }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.2, duration: 0.6 }}
+            aria-label="Scroll to services"
+          >
+            <div className={styles.mouse}>
+              <div className={styles.wheel} />
+            </div>
+            <span className={styles.scrollText}>גללו למטה</span>
+          </motion.button>
+        </div>
       </motion.section>
     </div>
   );

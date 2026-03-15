@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/Button/Button";
 import { StarsBackground } from "../PackagesCTA/StarsBackground";
 
@@ -62,7 +62,7 @@ export function ArticleCTA() {
           <Button asChild variant="cta" size="pill">
             <Link href="/contact" className="flex items-center gap-2">
               <span>בואו נדבר</span>
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
         </motion.div>

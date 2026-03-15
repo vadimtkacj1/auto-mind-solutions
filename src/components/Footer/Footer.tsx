@@ -1,10 +1,15 @@
 "use client";
 
 import type { SVGProps } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { FaHeart } from "react-icons/fa";
 import { FOOTER_LEGAL_DOCS, FOOTER_LINK_GROUPS, type NavItem } from "@/lib/navigation";
-import OptimizedScene from "./OptimizedScene";
+
+const OptimizedScene = dynamic(() => import("./OptimizedScene"), {
+  ssr: false,
+  loading: () => <div className="absolute inset-0" aria-hidden />,
+});
 
 function FooterLinksGroup({ title, links, isDark }: { title: string; links: NavItem[]; isDark: boolean }) {
   return (

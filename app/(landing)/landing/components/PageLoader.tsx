@@ -37,7 +37,7 @@ export default function PageLoader({ assets = [], maxWaitMs = 20000 }: PageLoade
     };
 
     const start = Date.now();
-    const minDisplayTime = 500; // Minimum 500ms display time
+    const minDisplayTime = 280; // Shorter for snappier feel
 
     const finish = () => {
       if (finished) return;

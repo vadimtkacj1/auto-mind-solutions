@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Link from "next/link";
 
 type ServiceCTAProps = {
@@ -5,7 +6,7 @@ type ServiceCTAProps = {
   buttonText?: string;
 };
 
-export function ServiceCTA({
+export const ServiceCTA = memo(function ServiceCTA({
   title,
   buttonText = "השאירו פרטים",
 }: ServiceCTAProps) {
@@ -28,4 +29,4 @@ export function ServiceCTA({
       </div>
     </section>
   );
-}
+});

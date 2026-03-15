@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
+import { buildCanonical } from "@/src/lib/seo";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
 import { PageHero } from "@/src/components/PageHero/PageHero";
 import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { Check } from "lucide-react";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { InternalLinksBlock } from "@/src/components/InternalLinksBlock";
+
+const PACKAGE_BACKLINKS = [
+  { label: "Launch Starter", href: "/packages/launch-starter" },
+  { label: "Digital Commerce Elite", href: "/packages/digital-commerce-elite" },
+  { label: "Business Presence Pro", href: "/packages/business-presence-pro" },
+  { label: "כל החבילות", href: "/packages" },
+  { label: "שירותים", href: "/services" },
+  { label: "צור קשר", href: "/contact" },
+];
 
 export const metadata: Metadata = {
   title: "Growth Landing System - מערכת דפי נחיתה | Aiterra",
   description: "מערכת דפי נחיתה לבדיקת קמפיינים והגדלת לידים. 3 דפי נחיתה שונים + 9 מודעות מקצועיות.",
-  alternates: { canonical: "https://aiterra.agency/packages/growth-landing-system" },
+  alternates: { canonical: buildCanonical("/packages/growth-landing-system") },
 };
 
 const features = [
@@ -34,6 +46,11 @@ export default function GrowthLandingSystemPage() {
           subtitle={<>מערכת דפי נחיתה לבדיקת קמפיינים והגדלת לידים - 3 דפים שונים למקסימום תוצאות</>}
           primaryCta={{ label: "קבלו הצעת מחיר", href: "/contact" }}
           secondaryCta={{ label: "כל החבילות", href: "/packages" }}
+        />
+        <PageBreadcrumbs
+          items={[{ label: "חבילות", href: "/packages" }, { label: "Growth Landing System" }]}
+          className="py-6 bg-[#080a0c]"
+          variant="dark"
         />
 
         <section className="px-6 py-14 md:py-20 bg-[#080a0c]" dir="rtl">
@@ -74,6 +91,8 @@ export default function GrowthLandingSystemPage() {
             </div>
           </div>
         </section>
+
+        <InternalLinksBlock title="חבילות וקישורים נוספים" links={PACKAGE_BACKLINKS} variant="light" />
 
         <ContactCTA />
       </main>

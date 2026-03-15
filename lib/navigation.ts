@@ -21,6 +21,8 @@ export const FOOTER_LINK_GROUPS: Array<{ title: string; links: NavItem[] }> = [
       { label: "פורטפוליו", href: "/portfolio" },
       { label: "אודותינו", href: "/about" },
       { label: "תובנות", href: "/insights" },
+      { label: "מפת אתר", href: "/site-map" },
+      { label: "Sitemap XML", href: "/sitemap.xml" },
     ],
   },
   {

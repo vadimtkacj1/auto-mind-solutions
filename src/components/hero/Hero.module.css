@@ -7,10 +7,11 @@
   height: 100svh;
   z-index: 2;
   isolation: isolate;
-  /* GPU acceleration for smooth scrolling */
+  /* GPU acceleration + paint containment for smooth scroll */
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  contain: paint;
 }
 
 /* ── Scene container ─────────────────────────────────────────────────────── */
@@ -299,11 +300,15 @@
 }
 
 /* ── Scroll indicator (in flow, scrolls with page) ───────────────────────── */
-.scrollIndicator {
+.scrollIndicatorWrapper {
   position: absolute;
   bottom: 36px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 60;
+  direction: ltr; /* Force LTR for correct centering in RTL layout */
+}
+.scrollIndicator {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -415,7 +420,7 @@
   .mainWrapper {
     height: 100vh;
     height: 100svh;
-    min-height: 600px;
+    min-height: 560px;
   }
 
   .container {
@@ -424,10 +429,11 @@
     align-items: center !important;
     height: 100vh !important;
     height: 100svh !important;
-    min-height: 600px;
-    padding-top: 60px !important;
-    padding-bottom: 60px !important;
-    overflow: hidden !important;
+    min-height: 560px;
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+    overflow-x: clip !important;
+    overflow-y: visible !important;
     gap: 0 !important;
   }
 
@@ -439,8 +445,8 @@
     height: 100vh !important;
     height: 100svh !important;
     z-index: 1;
-    opacity: 0.3 !important;
-    transform: scale(0.7) translateY(-10%) !important;
+    opacity: 0.4 !important;
+    transform: scale(1.3) translateY(-5%) !important;
   }
 
   .contentContainer {
@@ -523,8 +529,7 @@
     margin-top: 24px !important;
   }
 
-  .scrollIndicator {
-    display: flex !important;
+  .scrollIndicatorWrapper {
     bottom: 20px !important;
   }
 
@@ -552,8 +557,8 @@
   }
 
   .sceneWrapper {
-    opacity: 0.25 !important;
-    transform: scale(0.6) translateY(-15%) !important;
+    opacity: 0.35 !important;
+    transform: scale(1.1) translateY(-10%) !important;
   }
 
   .title {
@@ -583,7 +588,7 @@
     border-radius: 8px !important;
   }
 
-  .scrollIndicator {
+  .scrollIndicatorWrapper {
     bottom: 16px !important;
   }
 

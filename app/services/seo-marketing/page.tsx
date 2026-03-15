@@ -5,12 +5,34 @@ import { Footer } from "@/src/components/Footer/Footer";
 import { AboutHero } from "@/src/components/AboutAiterra/AboutHero";
 import { FAQ } from "@/src/components/FAQ/FAQ";
 import { ContactCTA } from "@/src/components/CTA/ContactCTA";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { StructuredData, getProfessionalServicePageSchema } from "@/src/components/StructuredData";
+import { InternalLinksBlock } from "@/src/components/InternalLinksBlock";
+import { buildCanonical, getAbsoluteOgImage, DEFAULT_OG_IMAGE, BRAND_NAME } from "@/src/lib/seo";
+
+const SERVICE_BACKLINKS = [
+  { label: "פרסום ממומן PPC", href: "/services/ppc" },
+  { label: "בניית אתרים", href: "/services/web-development" },
+  { label: "אוטומציה עסקית", href: "/services/automation" },
+  { label: "כל השירותים", href: "/services" },
+  { label: "חבילות", href: "/packages" },
+  { label: "צור קשר", href: "/contact" },
+];
 
 export const metadata: Metadata = {
-  title: "שירותי קידום אתרים: להגיע למקום הראשון עם קידום אורגני | Aiterra",
+  title: "שירותי קידום אתרים: להגיע למקום הראשון עם קידום אורגני",
   description:
     "שירותי SEO מקצועיים שמביאים תוצאות. שילוב של מומחיות טכנית בקידום אתרים עם ידע בפיתוח לדירוגים אורגניים שמניעים צמיחה עסקית אמיתית.",
-  alternates: { canonical: "https://aiterra.agency/services/seo-marketing" },
+  alternates: { canonical: buildCanonical("/services/seo-marketing") },
+  openGraph: {
+    title: "שירותי קידום אתרים SEO",
+    description: "שירותי SEO מקצועיים שמביאים תוצאות. קידום אורגני שמניע צמיחה עסקית.",
+    url: buildCanonical("/services/seo-marketing"),
+    type: "website",
+    siteName: BRAND_NAME,
+    images: [{ url: getAbsoluteOgImage(DEFAULT_OG_IMAGE.url), width: DEFAULT_OG_IMAGE.width, height: DEFAULT_OG_IMAGE.height, alt: DEFAULT_OG_IMAGE.alt }],
+  },
+  twitter: { card: "summary_large_image", title: "שירותי קידום אתרים SEO", description: "שירותי SEO מקצועיים שמביאים תוצאות." },
 };
 
 const SEO_IMAGES = {
@@ -22,15 +44,27 @@ const SEO_IMAGES = {
   local: "https://images.unsplash.com/photo-1524660988542-c440de9c0fde?w=600",
 };
 
+const serviceSchema = getProfessionalServicePageSchema({
+  name: "שירותי קידום אתרים SEO",
+  description: "שירותי SEO מקצועיים שמביאים תוצאות. קידום אורגני שמניע צמיחה עסקית.",
+  url: buildCanonical("/services/seo-marketing"),
+  serviceType: "SEO",
+});
+
 export default function SeoMarketingPage() {
   return (
     <div className="min-h-screen text-[var(--color-dark)] leading-relaxed" dir="rtl">
+      <StructuredData data={serviceSchema} />
       <Header />
       <main className="bg-white">
         <AboutHero
           title="שירותי קידום אתרים: להגיע למקום הראשון עם קידום אורגני שמביא תוצאות"
           subtitle="בעידן שבו כולם מחפשים הכל ברשת, להחזיק אתר יפה זה פשוט לא מספיק. אם הלקוחות שלכם לא מוצאים אתכם כשהם מקלידים את השירות שלכם, אתם משאירים כסף על הרצפה. במחלקת ה-SEO של Aiterra, אנחנו לא מסתפקים בדירוגים יפים – אנחנו מתמקדים בשורת הרווח שלכם. תהליך קידום אתרים אורגני נכון הופך את האתר שלכם מנכס פסיבי למכונת לידים שעובדת 24/7. בעזרת קידום אורגני חכם, טכנולוגיה מתקדמת ואסטרטגיה מבוססת נתונים, אנחנו נדאג שהעסק שלכם ישלוט בתוצאות החיפוש. אנו מציעים שירות של קידום אתרים מקצועי שמותאם בדיוק למידות ולמטרות שלכם."
           hideCtas
+        />
+        <PageBreadcrumbs
+          items={[{ label: "שירותים", href: "/services" }, { label: "קידום אתרים SEO" }]}
+          className="py-6 bg-white"
         />
 
         <section className="px-6 py-16 md:py-24">
@@ -128,6 +162,8 @@ export default function SeoMarketingPage() {
             </div>
           </div>
         </section>
+
+        <InternalLinksBlock title="שירותים וקישורים נוספים" links={SERVICE_BACKLINKS} variant="dark" />
 
         <ContactCTA />
 

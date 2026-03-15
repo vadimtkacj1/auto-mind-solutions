@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/Button/Button";
 import { SmartVideo } from "../ui/SmartVideo";
 
@@ -182,7 +182,7 @@ export function FeatureBlock({
           <Button asChild variant="brand" size="pill">
             <Link href={link}>
               {buttonText}
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
         </div>

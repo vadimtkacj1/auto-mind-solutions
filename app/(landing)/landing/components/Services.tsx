@@ -155,8 +155,7 @@ function ServiceCard({ service, isMobile = false }: { service: Service; isMobile
           style={{ objectFit: "cover", objectPosition: "top" }}
           loading="lazy"
           fetchPriority="low"
-          quality={70}
-          unoptimized
+          quality={75}
         />
       </div>
     </div>

@@ -5,18 +5,37 @@ import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
 import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { portfolioItems } from "@/src/components/Portfolio/portfolioData";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
+import { StructuredData, getBreadcrumbSchema } from "@/src/components/StructuredData";
+import { buildCanonical, getAbsoluteOgImage, DEFAULT_OG_IMAGE, BRAND_NAME } from "@/src/lib/seo";
 
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: "Portfolio projects by Aiterra",
-  alternates: { canonical: "https://aiterra.agency/portfolio" },
+  description: "Portfolio projects - case studies in web design, SEO, automation, and digital marketing.",
+  alternates: { canonical: buildCanonical("/portfolio") },
+  openGraph: {
+    title: "Portfolio",
+    description: "Portfolio projects - case studies in web design, SEO, automation, and digital marketing.",
+    url: buildCanonical("/portfolio"),
+    type: "website",
+    siteName: BRAND_NAME,
+    images: [{ url: getAbsoluteOgImage(DEFAULT_OG_IMAGE.url), width: DEFAULT_OG_IMAGE.width, height: DEFAULT_OG_IMAGE.height, alt: DEFAULT_OG_IMAGE.alt }],
+  },
+  twitter: { card: "summary_large_image", title: "Portfolio", description: "Portfolio projects by Aiterra." },
 };
+
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: "ראשי", item: "/" },
+  { name: "תיק עבודות", item: "/portfolio" },
+]);
 
 export default function PortfolioPage() {
   return (
     <div className="min-h-screen text-[var(--color-dark)] leading-relaxed">
+      <StructuredData data={breadcrumbSchema} />
       <Header />
-      <main className="pt-24 bg-white min-h-screen">
+      <main id="main-content" className="pt-24 bg-white min-h-screen">
+        <PageBreadcrumbs items={[{ label: "תיק עבודות" }]} className="py-6" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6" dir="rtl">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
             {portfolioItems.map((item) => {
