@@ -46,19 +46,21 @@ export function ArticlesGrid({ showHeader = false }: ArticlesGridProps) {
               </p>
             </div>
 
-            <Breadcrumb className="mt-8 flex justify-center">
-              <BreadcrumbList dir="rtl">
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href="/">דף הבית</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>בלוג</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <div className="mt-8 flex justify-start">
+              <Breadcrumb>
+                <BreadcrumbList dir="rtl">
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link href="/">דף הבית</Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>בלוג</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
           </>
         ) : null}
 

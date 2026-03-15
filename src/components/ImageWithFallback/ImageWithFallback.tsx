@@ -22,6 +22,6 @@ export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElemen
     </div>
   ) : (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt={alt} className={className} style={style} {...rest} onError={handleError} />
+    <img src={src} alt={alt} className={className} style={style} crossOrigin="anonymous" {...rest} onError={handleError} />
   );
 }
