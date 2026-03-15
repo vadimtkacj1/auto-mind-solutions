@@ -187,6 +187,7 @@ export default function ArticlePage({ params }: Props) {
           variant="minimal"
           title={article.cta.title}
           description={article.cta.description}
+          contactCTA={article.cta.contactCTA}
           primaryCta={{ label: "דברו איתנו", href: "/contact" }}
         />
       )}
