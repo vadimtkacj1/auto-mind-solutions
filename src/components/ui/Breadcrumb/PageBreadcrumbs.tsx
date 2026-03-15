@@ -47,7 +47,7 @@ export function PageBreadcrumbs({ items, className = "", variant = "light" }: Pa
   return (
     <div className={`w-full ${className}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-[1600px] w-full px-6 sm:px-8 lg:px-12 xl:px-16">
         <Breadcrumb>
           <BreadcrumbList dir="rtl" className={textColor}>
             <BreadcrumbItem>

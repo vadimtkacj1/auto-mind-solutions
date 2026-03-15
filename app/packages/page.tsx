@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Header from "@/src/components/Header/Header";
+import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
 import { StructuredData, getBreadcrumbSchema } from "@/src/components/StructuredData";
 import { buildCanonical, getAbsoluteOgImage, DEFAULT_OG_IMAGE, BRAND_NAME } from "@/src/lib/seo";
 
@@ -50,6 +51,11 @@ export default function PackagesPage() {
       <Header />
       <main id="main-content" className="bg-[#080a0c] pt-20">
         <div className="bg-white">
+          <PageBreadcrumbs
+            items={[{ label: "חבילות" }]}
+            className="py-6 bg-white"
+            variant="light"
+          />
           <Packages />
         </div>
         <ContactCTA />
