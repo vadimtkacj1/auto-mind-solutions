@@ -52,7 +52,7 @@ export default function PackagesPage() {
       <main id="main-content" className="bg-[#080a0c] pt-20">
         <div className="bg-white">
           <PageBreadcrumbs
-            items={[{ label: "ראשי", href: "/" }, { label: "חבילות" }]}
+            items={[{ label: "חבילות" }]}
             className="py-6 bg-white"
             variant="light"
           />
