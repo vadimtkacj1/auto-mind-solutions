@@ -29,6 +29,11 @@ export function CTA({
           <h2 className="heading-no-break text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-800 leading-[1.3]">
             {title}
           </h2>
+          {description && (
+            <p className="mt-4 text-base md:text-lg leading-relaxed text-slate-700 max-w-2xl mx-auto">
+              {description}
+            </p>
+          )}
           <div className="mt-4 flex justify-center">
             <Link
               href={primaryCta.href}
