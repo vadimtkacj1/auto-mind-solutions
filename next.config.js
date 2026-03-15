@@ -28,8 +28,6 @@ const nextConfig = {
       "@radix-ui/react-slot",
     ],
     webVitalsAttribution: ["CLS", "LCP", "FCP", "FID", "TTFB", "INP"],
-    optimizeCss: true,
-    scrollRestoration: true,
   },
 
 
