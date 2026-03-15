@@ -32,7 +32,7 @@ export function AboutHeroShell() {
             לצמיחה עסקית
           </h1>
           <p className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto px-2">
-            מאז 2010 אנחנו בונים אתרים ומוצרים דיגיטליים שמחברים אסטרטגיה, עיצוב וטכנולוגיה לתוצאות מדידות.
+            אנחנו בונים אתרים ומוצרים דיגיטליים שמחברים אסטרטגיה, עיצוב וטכנולוגיה לתוצאות בשטח.
             אנחנו מגשרים על הפער בין אוטומציה, בינה מלאכותית ותוצאות עסקיות אמיתיות.
           </p>
           <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
