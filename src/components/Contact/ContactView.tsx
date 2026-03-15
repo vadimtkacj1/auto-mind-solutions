@@ -55,7 +55,7 @@ export function ContactView({
   onSuccessPopupChange,
 }: ContactViewProps) {
   return (
-    <section id="contact" className="pt-28 md:pt-36 pb-8 md:pb-12 px-6 bg-white relative overflow-hidden z-10" dir="rtl">
+    <section id="contact" className="pt-8 md:pt-12 pb-8 md:pb-12 px-6 bg-white relative overflow-hidden z-10" dir="rtl">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
           <div className="flex flex-col items-center lg:items-start">

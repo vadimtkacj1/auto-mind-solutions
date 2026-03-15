@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 
 // Lazy load icons
 const Check = dynamic(() => import("lucide-react").then(m => ({ default: m.Check })), { ssr: true });
-const ArrowRight = dynamic(() => import("lucide-react").then(m => ({ default: m.ArrowRight })), { ssr: true });
+const ArrowLeft = dynamic(() => import("lucide-react").then(m => ({ default: m.ArrowLeft })), { ssr: true });
 const Rocket = dynamic(() => import("lucide-react").then(m => ({ default: m.Rocket })), { ssr: true });
 const TrendingUp = dynamic(() => import("lucide-react").then(m => ({ default: m.TrendingUp })), { ssr: true });
 const Building2 = dynamic(() => import("lucide-react").then(m => ({ default: m.Building2 })), { ssr: true });
@@ -186,7 +186,7 @@ export function Packages() {
                     }`}
                   >
                     צור קשר
-                    <ArrowRight className="w-4 h-4" aria-hidden />
+                    <ArrowLeft className="w-4 h-4" aria-hidden />
                   </Link>
                 </div>
               </article>

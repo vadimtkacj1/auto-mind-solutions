@@ -132,6 +132,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Disable font preload - let it load async */}
 
         <StructuredData data={getOrganizationWebsiteSchema()} />
+
+        {/* Google Analytics */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-RHFV447RM1" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RHFV447RM1');
+          `}
+        </Script>
+
         {/* Ultra-minimal Critical CSS */}
         <style
           dangerouslySetInnerHTML={{
