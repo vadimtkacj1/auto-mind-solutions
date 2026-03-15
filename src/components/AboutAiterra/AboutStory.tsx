@@ -1,98 +1,72 @@
 "use client";
 
-import { useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowLeft } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Button } from "../ui/Button/Button";
-
 export function AboutStory() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  
-  const imageY = useTransform(scrollYProgress, [0, 0.4, 0.8, 1], [-40, 0, 0, 40]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.2], [0.6, 1]);
-
   return (
-    <section ref={sectionRef} className="py-20 md:py-32 overflow-visible bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section className="relative py-24 md:py-40 overflow-x-clip overflow-y-visible">
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-slate-50/80 via-white to-slate-50/60" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-400/6 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-400/5 rounded-full blur-[100px]" />
+      </div>
 
-        {/* --- SECTION TITLE --- */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.08, margin: "0px 0px 150px 0px" }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center mb-16 md:mb-20"
-        >
-          <span className="text-[18px] md:text-[24px] font-black tracking-[0.2em] uppercase text-slate-800">
-            הסיפור שלנו
-          </span>
-        </motion.div>
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-12">
+        <div className="space-y-20 text-right" dir="rtl">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
-          
-          {/* --- ЛІВА КОЛОНКА --- */}
-          <motion.div
-            initial={{ opacity: 1, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.08, margin: "0px 0px 150px 0px" }}
-            transition={{ duration: 0.8 }}
-            className="space-y-10 text-right"
-            dir="rtl"
-          >
-            {/* Оптимальний розмір, щоб текст не розривався */}
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-black leading-[1.1] tracking-tight" dir="rtl">
-              מאז 2010 אנחנו <span className="text-[var(--color-primary)]">בונים</span> את העתיד הדיגיטלי
-            </h2>
-
-            <div className="space-y-6 max-w-xl" dir="rtl">
-              <p className="text-xl md:text-2xl text-slate-800 leading-relaxed font-medium">
-                Aiterra החלה באמונה פשוטה: טכנולוגיה מורכבת צריכה להעצים עסקים.
+          <div className="space-y-8">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.15] tracking-tight">
+              קצת עלינו: <span className="text-transparent bg-clip-text bg-gradient-to-l from-blue-600 to-indigo-600">Aiterra</span> – מחברים טכנולוגיית קצה לתוצאות בשטח
+            </h1>
+            <div className="space-y-6">
+              <p className="text-xl md:text-2xl text-slate-700 leading-relaxed font-medium">
+                במציאות של היום, לא מספיק שיהיה לכם אתר יפה. הוא חייב להיות מהיר, ממיר, ובעיקר – כזה שהלקוחות שלכם מוצאים בקלות. אנחנו ב-Aiterra לא עוד סוכנות דיגיטל רגילה; אנחנו סיירת של אנשי טכנולוגיה, פיתוח ושיווק.
               </p>
-              <p className="text-lg text-slate-500 leading-relaxed">
-                אנחנו עוזרים ללקוחות למצוא פתרונות יוצאי דופן — בניית אתרים בלתי נשכחים, מערכות אוטומציה ומוצרים מבוססי בינה מלאכותית. כל פרויקט מעוצב בדיוק לפי הדרישות.
+              <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
+                מאחורי Aiterra עומד צוות שחי ונושם את הדיגיטל מכל הזוויות: החל מארכיטקטורת תוכנה, דרך עיצוב חוויית משתמש ועד לאנליזה ואופטימיזציה של נתונים. הקמנו את הסוכנות מתוך הבנה ברורה: כדי להצליח באמת, אי אפשר להפריד בין תשתית טכנולוגית חזקה לאסטרטגיית שיווק מנצחת.
               </p>
             </div>
-            
-            <Button asChild variant="brand" size="pill" className="px-10 py-7 text-lg shadow-xl hover:scale-105 transition-all">
-              <Link href="/services" className="flex items-center gap-3">
-                <ArrowLeft className="w-5 h-5" /> מה אנחנו עושים
-              </Link>
-            </Button>
-          </motion.div>
+          </div>
 
-          {/* --- ПРАВА КОЛОНКА (ЗОБРАЖЕННЯ) --- */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.08, margin: "0px 0px 150px 0px" }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[320px] lg:h-[420px] rounded-[3rem] overflow-hidden shadow-2xl shadow-slate-900/10 bg-slate-50 border border-slate-200/50"
-          >
-            <motion.div
-              style={{ y: imageY, opacity: imageOpacity }}
-              className="absolute inset-0"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=1200&fit=crop"
-                alt="Team collaboration"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-              />
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-primary)]/10 via-transparent to-blue-500/10 mix-blend-overlay" />
-            </motion.div>
+          <div className="space-y-6">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
+              הסטנדרט הטכנולוגי: קוד נקי, ביצועים קיצוניים
+            </h2>
+            <div className="space-y-6">
+              <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
+                הכל מתחיל בבסיס. אנחנו מאמינים שכל תהליך של פיתוח אתר חייב להישען על ארכיטקטורה יציבה. כסוכנות שמתמחה בטכנולוגיות המתקדמות ביותר בעולם (כמו Next.js, React ו-Python), אנחנו מציעים שירותי עיצוב ופיתוח אתרים ברמה של חברות הייטק, ללא התפשרות על מהירות טעינה ואבטחה.
+              </p>
+              <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
+                הגישה שלנו אל עיצוב אתרים שמה את הגולש במרכז. אנחנו מבינים שפרויקטים שונים דורשים פתרונות שונים; בין אם הפרויקט שלכם מצריך עבודה ממוקדת של מעצבת אתרים בדגש על חוויית משתמש (UX) בוטיקית, או שילוב כוחות של צוות מעצבי אתרים שלם למערכות פורטל ואיקומרס מורכבות – אנחנו ערוכים לספק אתר שלם, מלוטש ורספונסיבי.
+              </p>
+            </div>
+          </div>
 
-            {/* Decorative corner accent */}
-            <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-[var(--color-primary)]/20 to-transparent" />
-          </motion.div>
+          <div className="space-y-6">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
+              המדע שמאחורי השיווק: טראפיק שהופך להכנסה
+            </h2>
+            <div className="space-y-6">
+              <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
+                אתר מהיר הוא כלי נשק, אבל הוא חייב תחמושת – טראפיק איכותי. בתור חברת קידום אתרים שנושמת אלגוריתמים, אנחנו מבצעים קידום אתרים מקצועי שנשען על נתונים ולא על ניחושים. המחלקה שלנו מתמחה בתהליכי קידום אתרים הוליסטיים, עם מומחיות עמוקה בכל מה שנוגע אל קידום אורגני שמבטיח יציבות עסקית לאורך שנים.
+              </p>
+              <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
+                אנחנו יודעים שכל פעולה של קידום אתרים אורגני צריכה בסופו של יום להחזיר לכם את ההשקעה. לכן, כשאנחנו לוקחים על עצמנו פרויקט של קידום אורגני בגוגל, אנחנו משלבים את יתרון הפיתוח שלנו. מתיקוני קוד מתקדמים (Technical SEO), ועד ליצירת מערך תוכן סמכותי – שירות הקידום אתרים (SEO) שלנו דואג למעטפת המלאה. המטרה שלנו ברורה: לעשות קידום אתר בגוגל שיביא אתכם למקום הראשון ויזרים אליכם לידים חמים.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
+              השותפים שלכם לדרך
+            </h2>
+            <div className="space-y-6">
+              <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-medium">
+                אנחנו כאן כדי להיות הזרוע הטכנולוגית והשיווקית שלכם לטווח הארוך. בשקיפות מלאה, בעבודה קשה, ועם מטרה אחת – להגדיל את שורת הרווח של העסק שלכם.
+              </p>
+              <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
+                מוכנים לקחת את הנוכחות הדיגיטלית שלכם צעד אחד קדימה? דברו איתנו, ונשמח להכיר.
+              </p>
+            </div>
+          </div>
 
         </div>
       </div>

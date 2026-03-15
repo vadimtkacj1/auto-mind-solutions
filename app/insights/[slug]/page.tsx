@@ -4,7 +4,6 @@ import Link from "next/link";
 import Header from "@/src/components/Header/Header";
 import { Footer } from "@/src/components/Footer/Footer";
 import { ArticleCTA } from "@/src/components/ArticleCTA/ArticleCTA";
-import { ContactCTA } from "@/src/components/CTA/ContactCTA";
 import { articles } from "@/src/components/Insights";
 import { ReadingProgress, ScrollToTop } from "./ArticleClient";
 import { PageBreadcrumbs } from "@/src/components/ui/Breadcrumb/PageBreadcrumbs";
@@ -215,7 +214,6 @@ export default function ArticlePage({ params }: Props) {
         </article>
       </main>
       <ArticleCTA />
-      <ContactCTA />
       <Footer />
     </div>
   );

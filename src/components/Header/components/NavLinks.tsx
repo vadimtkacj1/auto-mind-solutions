@@ -7,7 +7,7 @@ import { HeaderNavLink } from "./HeaderNavLink";
 const STYLES = {
   desktop: {
     className: "text-lg font-bold transition-colors",
-    activeClassName: "text-white border-b-2 border-[#3b82f6]",
+    activeClassName: "text-white font-extrabold",
     inactiveClassName: "text-white/80 hover:text-white",
   },
   mobile: {

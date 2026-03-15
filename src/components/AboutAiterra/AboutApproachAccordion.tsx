@@ -34,7 +34,7 @@ export function AboutApproachAccordion({ items, openIndex, setOpenIndex }: Props
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : i)}
-              className="w-full flex items-center gap-4 px-5 py-4 md:px-6 md:py-5 text-left bg-white/[0.06] hover:bg-white/[0.09] border border-white/[0.08] hover:border-[var(--color-primary)]/40 transition-all duration-300 group"
+              className="w-full flex items-center gap-4 px-5 py-4 md:px-6 md:py-5 text-left bg-white/[0.06] hover:bg-white/[0.12] rounded-xl transition-all duration-300 group shadow-none hover:shadow-[0_0_30px_rgba(0,112,255,0.08)]"
             >
               <Icon
                 className="w-5 h-5 md:w-6 md:h-6 text-[var(--color-primary)] shrink-0"
@@ -61,7 +61,7 @@ export function AboutApproachAccordion({ items, openIndex, setOpenIndex }: Props
                   transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="overflow-hidden"
                 >
-                  <div className="px-5 py-4 md:px-6 md:py-5 bg-white/[0.03] border-x border-b border-white/[0.08]">
+                  <div className="px-5 py-4 md:px-6 md:py-5 bg-white/[0.03] rounded-b-xl">
                     <p className="text-white/70 text-sm md:text-base leading-relaxed pl-10 md:pl-12">
                       {item.desc}
                     </p>

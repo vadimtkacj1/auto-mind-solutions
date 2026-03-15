@@ -14,7 +14,7 @@ export function MobileSidebar({ pathname, isOpen, onClose }: MobileSidebarProps)
     <aside
       dir="rtl"
       className={cn(
-        "fixed top-0 right-0 bottom-0 w-[340px] max-w-[calc(100vw-1rem)] bg-[#050a15] z-[9998] transform transition-transform duration-300 ease-in-out lg:hidden border border-white/10 border-r-0 shadow-[0_30px_80px_rgba(15,23,42,0.6)] rounded-l-[28px] overflow-hidden",
+        "fixed top-0 right-0 bottom-0 w-[340px] max-w-[calc(100vw-1rem)] bg-[#050a15] z-[9998] transform transition-transform duration-300 ease-in-out lg:hidden border-r-0 shadow-[0_30px_80px_rgba(15,23,42,0.6)] rounded-l-[28px] overflow-hidden",
         isOpen ? "translate-x-0" : "translate-x-[120%]",
       )}
     >

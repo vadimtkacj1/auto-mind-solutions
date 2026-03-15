@@ -42,8 +42,8 @@ export function HeaderView({
             backgroundColor: isSolid ? "rgba(5, 10, 21, 0.95)" : "transparent",
           }}
           className={cn(
-            "w-full transition-all duration-500 ease-in-out pointer-events-auto",
-            isSolid ? "backdrop-blur-md border-b border-white/10 shadow-2xl" : "border-b border-transparent shadow-none",
+            "w-full transition-all duration-500 ease-in-out pointer-events-auto border-none",
+            isSolid ? "backdrop-blur-md shadow-none" : "shadow-none",
           )}
         >
           <div className="h-20 flex items-center">

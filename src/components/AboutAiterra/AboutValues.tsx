@@ -52,8 +52,8 @@ export function AboutValues() {
   ];
 
   return (
-    <section className="py-20 md:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section className="py-20 md:py-32 bg-gradient-to-b from-slate-50/50 via-white to-white relative">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,9 +61,6 @@ export function AboutValues() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-[18px] md:text-[24px] font-black tracking-[0.2em] uppercase text-[var(--color-primary)] mb-4 inline-block">
-            הערכים שלנו
-          </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 leading-tight">
             מה מניע אותנו קדימה
           </h2>
@@ -80,11 +77,10 @@ export function AboutValues() {
             <motion.div
               key={i}
               variants={itemVariants}
-              className="relative bg-white rounded-3xl p-8 md:p-10 border border-slate-200/80 shadow-xl shadow-slate-200/40 flex flex-col group cursor-default overflow-hidden"
+              className="relative bg-white rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-200/30 flex flex-col group cursor-default overflow-hidden"
               whileHover={{
                 y: -8,
                 boxShadow: "0 20px 60px -12px rgba(0, 112, 255, 0.25)",
-                borderColor: "rgba(0, 112, 255, 0.4)",
                 transition: { duration: 0.3 },
               }}
             >
@@ -93,12 +89,12 @@ export function AboutValues() {
 
               {/* Icon at the top with gradient background */}
               <motion.div
-                className="relative mb-6 w-20 h-20 rounded-2xl bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-primary)]/5 flex items-center justify-center"
+                className="relative mb-6 w-20 h-20 rounded-2xl bg-slate-100 flex items-center justify-center"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <item.Icon
-                  className="w-10 h-10 text-[var(--color-primary)]"
+                  className="w-10 h-10 text-slate-700"
                   strokeWidth={1.5}
                   aria-hidden
                 />

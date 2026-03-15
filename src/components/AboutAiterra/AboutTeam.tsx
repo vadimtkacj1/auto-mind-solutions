@@ -13,7 +13,7 @@ const TEAM = [
 export function AboutTeam() {
   return React.createElement(
     "section",
-    { className: "py-20 md:py-32 bg-white" },
+    { className: "relative py-20 md:py-32 overflow-hidden" },
     React.createElement(
       "div",
       { className: "max-w-7xl mx-auto px-6 lg:px-12" },
@@ -26,11 +26,6 @@ export function AboutTeam() {
           transition: { duration: 0.6 },
           className: "text-center mb-16",
         },
-        React.createElement(
-          "span",
-          { className: "text-[18px] md:text-[24px] font-black tracking-[0.2em] uppercase text-[var(--color-primary)] mb-6 inline-block" },
-          "הצוות שלנו"
-        ),
         React.createElement(
           "h2",
           { className: "text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 mt-4" },
@@ -56,7 +51,7 @@ export function AboutTeam() {
             React.createElement(
               motion.div,
               {
-                className: "overflow-hidden rounded-3xl aspect-square bg-slate-100 shadow-xl shadow-slate-900/10 border border-slate-200/50 relative",
+                className: "overflow-hidden rounded-3xl aspect-square bg-slate-100 shadow-xl shadow-slate-900/10 relative",
                 whileHover: { y: -8, boxShadow: "0 20px 60px -12px rgba(0, 112, 255, 0.25)" },
                 transition: { duration: 0.3 },
               },

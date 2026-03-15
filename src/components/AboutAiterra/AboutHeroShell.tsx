@@ -1,14 +1,27 @@
 /**
  * Static hero shell for /about — instant LCP, no JS.
  */
+import Image from "next/image";
 import Link from "next/link";
 
 export function AboutHeroShell() {
   return (
     <section
-      className="relative min-h-[75vh] sm:min-h-[85vh] flex items-center bg-[#0a0e1a]"
+      className="relative min-h-[75vh] sm:min-h-[85vh] flex items-center bg-[#0a0e1a] overflow-hidden"
       aria-label="About Hero"
     >
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop"
+          alt=""
+          fill
+          className="object-cover opacity-25"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a]/90 via-[#0a0e1a]/70 to-[#0a0e1a]" />
+      </div>
       <div className="relative z-10 w-full pt-24 pb-16 md:pt-36 md:pb-28">
         <div className="mx-auto max-w-5xl px-5 sm:px-6 w-full text-center" dir="rtl">
           <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] sm:leading-[1.05]">
@@ -31,7 +44,7 @@ export function AboutHeroShell() {
             </Link>
             <Link
               href="/services"
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/40 text-white font-bold rounded-full hover:border-white/60 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition-colors backdrop-blur-sm"
             >
               השירותים שלנו
             </Link>
