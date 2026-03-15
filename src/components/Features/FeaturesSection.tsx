@@ -44,8 +44,10 @@ export function FeaturesSection() {
     >
       {/* HEADER */}
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 mb-20 text-center">
-        <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 leading-tight">
-          מערכת <span className="text-blue-600">360°</span> לצמיחה דיגיטלית
+        <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 leading-tight" style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>
+          מערכת <span className="text-blue-600 inline-block">360°</span>{' '}
+          <span className="inline-block">לצמיחה</span>{' '}
+          <span className="inline-block">דיגיטלית</span>
         </h2>
         <p className="mt-6 text-xl text-slate-600 font-medium max-w-3xl mx-auto leading-relaxed">
           אנו מלווים אתכם בכל שלבי המחזור הדיגיטלי – מאסטרטגיה ו-UX ועד פיתוח, הטמעה וצמיחה. המטרה שלנו היא להפוך את

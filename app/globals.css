@@ -30,6 +30,15 @@ body {
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
+  /* Перенос целых слов без разрыва */
+  word-break: normal;
+  overflow-wrap: normal;
+  word-wrap: normal;
+  white-space: normal;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
 }
 
 /* Performance optimizations for animations */
@@ -40,6 +49,15 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .no-word-break {
+    word-break: normal;
+    overflow-wrap: normal;
+    word-wrap: normal;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
   }
 
   .animate-spin {

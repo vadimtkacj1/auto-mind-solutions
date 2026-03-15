@@ -26,7 +26,7 @@ function SimpleTitle({ className, accentClass }: { className: string; accentClas
       style={{
         display: "flex",
         flexWrap: "wrap",
-        gap: "0.35em",
+        gap: "0.15em",
         justifyContent: "center",
         alignItems: "baseline",
         textAlign: "center",

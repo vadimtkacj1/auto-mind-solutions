@@ -63,8 +63,10 @@ export const Services = React.memo(function Services() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
         <div className="max-w-4xl mx-auto text-center px-4 mb-16">
           <Reveal>
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-tight tracking-tighter text-center">
-              מערכת <span className="text-blue-600">360°</span> לצמיחה דיגיטלית
+            <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-tight tracking-tighter text-center" style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>
+              מערכת <span className="text-blue-600 inline-block">360°</span>{' '}
+              <span className="inline-block">לצמיחה</span>{' '}
+              <span className="inline-block">דיגיטלית</span>
             </h1>
           </Reveal>
           <Reveal>
