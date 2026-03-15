@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Code2, TrendingUp, Workflow } from "lucide-react";
+import { ArrowLeft, Code2, TrendingUp, Workflow } from "lucide-react";
 import { RevealCSS as Reveal } from "../ui/RevealCSS";
 import { Button } from "../ui/Button/Button";
 import { SmartVideo } from "../ui/SmartVideo";
@@ -101,7 +101,7 @@ export const Services = React.memo(function Services() {
 
                   <div className="w-full md:w-1/2 text-center md:text-right">
                     <div className="space-y-6">
-                      <h3 className="text-3xl md:text-5xl font-black bg-gradient-to-r from-orange-500 via-pink-500 to-rose-600 bg-clip-text text-transparent tracking-tight leading-tight">
+                      <h3 className="text-3xl md:text-5xl font-black bg-gradient-to-r from-sky-400 via-blue-600 to-violet-600 bg-clip-text text-transparent tracking-tight leading-tight">
                         {service.title}
                       </h3>
                       <p className="text-slate-600 text-base md:text-lg leading-relaxed font-medium max-w-xl mx-auto md:mx-0">
@@ -110,7 +110,7 @@ export const Services = React.memo(function Services() {
                       <Button asChild variant="brand" size="pill">
                         <Link href={service.link}>
                           למידע נוסף
-                          <ArrowRight className="w-4 h-4" />
+                          <ArrowLeft className="w-4 h-4" />
                         </Link>
                       </Button>
                     </div>

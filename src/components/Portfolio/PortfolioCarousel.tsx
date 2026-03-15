@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion, useTransform, useScroll } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Loader2 } from "lucide-react";
 import { portfolioItems, type PortfolioItem } from "./portfolioData";
 
 export function PortfolioCarousel() {
@@ -10,7 +11,7 @@ export function PortfolioCarousel() {
     <div className="bg-white overflow-visible m-0 p-0">
       <div className="text-center py-10 sm:py-16">
         <h2
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-600 bg-clip-text text-transparent"
           dir="rtl"
         >
           הפרויקטים שלנו
@@ -43,11 +44,18 @@ const HorizontalScrollCarousel = () => {
 };
 
 const Card = ({ card }: { card: PortfolioItem }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <div
       key={card.slug}
-      className="relative h-[45vh] w-[45vh] sm:h-[55vh] sm:w-[55vh] md:h-[65vh] md:w-[65vh] flex-shrink-0"
+      className="relative h-[45vh] w-[45vh] sm:h-[55vh] sm:w-[55vh] md:h-[65vh] md:w-[65vh] flex-shrink-0 bg-slate-100 rounded-lg overflow-hidden"
     >
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center z-10 bg-slate-100">
+          <Loader2 className="w-10 h-10 text-slate-400 animate-spin" aria-hidden />
+        </div>
+      )}
       <Image
         src={card.image}
         alt={card.title}
@@ -55,6 +63,7 @@ const Card = ({ card }: { card: PortfolioItem }) => {
         sizes="(max-width: 640px) 45vh, (max-width: 768px) 55vh, 65vh"
         className="object-contain rounded-lg"
         loading="lazy"
+        onLoad={() => setIsLoading(false)}
       />
     </div>
   );

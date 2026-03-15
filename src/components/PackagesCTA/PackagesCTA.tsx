@@ -4,17 +4,29 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "../ui/Button/Button";
 
 const StarsBackground = dynamic(
   () => import("./StarsBackground").then((m) => ({ default: m.StarsBackground })),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => (
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050a15] to-[#0a1628] animate-pulse" />
+    )
+  }
 );
 
 const SatelliteScene = dynamic(
   () => import("./SatelliteScene").then((m) => ({ default: m.SatelliteScene })),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => (
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-16 h-16 border-4 border-white/20 border-t-white/60 rounded-full animate-spin" />
+      </div>
+    )
+  }
 );
 
 export function PackagesCTA() {
@@ -128,7 +140,7 @@ export function PackagesCTA() {
           <Button asChild variant="cta" size="hero">
             <Link href="/contact" className="flex items-center gap-2">
               <span>בואו נתחיל</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowLeft className="w-5 h-5" />
             </Link>
           </Button>
         </motion.div>
