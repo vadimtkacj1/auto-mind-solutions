@@ -2,6 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(find app:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\vadim\\Downloads\\auto-mind-solutions\\app\\portfolio\\[slug]"
     ]
   }
 }

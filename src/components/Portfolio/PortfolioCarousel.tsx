@@ -49,10 +49,10 @@ const Card = ({ card }: { card: PortfolioItem }) => {
   return (
     <div
       key={card.slug}
-      className="relative h-[45vh] w-[45vh] sm:h-[55vh] sm:w-[55vh] md:h-[65vh] md:w-[65vh] flex-shrink-0 bg-slate-100 rounded-lg overflow-hidden"
+      className="relative h-[45vh] w-[45vh] sm:h-[55vh] sm:w-[55vh] md:h-[65vh] md:w-[65vh] flex-shrink-0 rounded-lg overflow-hidden"
     >
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center z-10 bg-slate-100">
+        <div className="absolute inset-0 flex items-center justify-center z-10">
           <Loader2 className="w-10 h-10 text-slate-400 animate-spin" aria-hidden />
         </div>
       )}

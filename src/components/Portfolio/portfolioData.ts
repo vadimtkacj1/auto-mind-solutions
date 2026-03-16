@@ -21,7 +21,7 @@ export const portfolioItems: PortfolioItem[] = [
     description: "עיצוב מודרני, טעינה מהירה, חוויית משתמש חדה ו-SEO טכני מהיום הראשון.",
     image: "/images/1.png",
     href: "/portfolio/premium-corporate-site",
-    externalUrl: "https://aiterra.agency",
+    externalUrl: "https://olie6.com/?srsltid=AfmBOoplSojZjiEjDhGBLVegGqFWT1cehFUP5RgZxWBf5LXFFpXXRJ2d",
     tags: ["Web Design", "SEO", "Performance"],
   },
   {
@@ -30,6 +30,7 @@ export const portfolioItems: PortfolioItem[] = [
     description: "פוקוס על קופי, היררכיית תוכן ונקודות אמון — כדי להוציא יותר מכל שקל.",
     image: "/images/2.png",
     href: "/portfolio/high-converting-landing",
+    externalUrl: "https://avi-mashkanta.com/",
     tags: ["Landing", "CRO", "PPC"],
   },
   {
@@ -38,6 +39,7 @@ export const portfolioItems: PortfolioItem[] = [
     description: "זרימת עבודה חלקה, אוטומציות, והתאמה מלאה למובייל — עם חוויית משתמש ממכרת.",
     image: "/images/3.png",
     href: "/portfolio/smart-booking-automation",
+    externalUrl: "https://ram-haim.co.il/",
     tags: ["Automation", "Mobile UX", "Integrations"],
   },
   {
@@ -46,6 +48,7 @@ export const portfolioItems: PortfolioItem[] = [
     description: "שפה ויזואלית נקייה, אנימציות עדינות וסיפור מוצר שמוכר — בלי רעש מיותר.",
     image: "/images/4.png",
     href: "/portfolio/product-site-branding",
+    externalUrl: "https://naturallyrefreshing.store/",
     tags: ["Branding", "Product", "Motion"],
   },
 ];
