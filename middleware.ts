@@ -2,6 +2,19 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
+  const hostname = request.headers.get("host") || "";
+  const pathname = request.nextUrl.pathname;
+
+  // Redirect aiterra.co.il to /in-construction (except the page itself and static assets)
+  if (
+    (hostname === "aiterra.co.il" || hostname === "www.aiterra.co.il") &&
+    pathname !== "/in-construction" &&
+    !pathname.startsWith("/_next/") &&
+    !pathname.match(/\.(jpg|jpeg|png|gif|svg|webp|avif|ico|woff|woff2|ttf|otf|eot|js|css)$/)
+  ) {
+    return NextResponse.redirect(new URL("/in-construction", request.url));
+  }
+
   const response = NextResponse.next();
 
   // Security headers
@@ -17,8 +30,6 @@ export function middleware(request: NextRequest) {
   }
 
   // Cache control for different routes
-  const pathname = request.nextUrl.pathname;
-
   // Static assets - aggressive caching
   if (
     pathname.startsWith("/_next/static/") ||
