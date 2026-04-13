@@ -25,16 +25,32 @@ export default function OptimizedScene({ showSphere = true, pointsAmount = "medi
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Check WebGL support before THREE.js tries (THREE logs errors internally before throwing)
+    const ctxAttribs: WebGLContextAttributes = { alpha: true, antialias: false, powerPreference: "high-performance" };
+    let gl: WebGLRenderingContext | WebGL2RenderingContext | null = null;
+    try {
+      gl = canvas.getContext("webgl2", ctxAttribs) || canvas.getContext("webgl", ctxAttribs);
+    } catch {
+      return;
+    }
+    if (!gl) return;
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 5;
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      alpha: true,
-      antialias: false,
-      powerPreference: "high-performance",
-    });
+    let renderer: THREE.WebGLRenderer | null = null;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        context: gl,
+        alpha: true,
+        antialias: false,
+        powerPreference: "high-performance",
+      });
+    } catch {
+      return;
+    }
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -83,7 +99,7 @@ export default function OptimizedScene({ showSphere = true, pointsAmount = "medi
       if (!sceneState.current.stop) {
         if (globe) globe.rotation.y += 0.0012;
         points.rotation.y += 0.0003;
-        renderer.render(scene, camera);
+        renderer?.render(scene, camera);
       }
       requestRef.current = requestAnimationFrame(animate);
     };
@@ -108,7 +124,7 @@ export default function OptimizedScene({ showSphere = true, pointsAmount = "medi
       }
       pointsGeom.dispose();
       pointsMat.dispose();
-      renderer.dispose();
+      renderer?.dispose();
     };
   }, [showSphere, pointsAmount]);
 

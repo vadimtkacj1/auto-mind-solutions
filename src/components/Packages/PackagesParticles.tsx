@@ -15,16 +15,45 @@ export default function PackagesParticles() {
     const slowConnection = effectiveType === "slow-2g" || effectiveType === "2g";
     if (reduceMotion || saveData || slowConnection) return;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvasRef.current,
-      alpha: true,
-      antialias: false, // аопптимизация: ллא אנטי אליאסינג לביצועים טובים
-      powerPreference: "high-performance",
-    });
+    const canvas = canvasRef.current;
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    // If WebGL is unavailable/blocked, don't crash the app.
+    let gl: WebGLRenderingContext | WebGL2RenderingContext | null = null;
+    try {
+      gl =
+        canvas.getContext("webgl2", { alpha: true, antialias: false, powerPreference: "high-performance" }) ||
+        canvas.getContext("webgl", { alpha: true, antialias: false, powerPreference: "high-performance" });
+    } catch {
+      return;
+    }
+    if (!gl) return;
+
+    const scene = new THREE.Scene();
+    const getCanvasSize = () => {
+      const parent = canvas.parentElement;
+      const rect = (parent ?? canvas).getBoundingClientRect();
+      return {
+        width: Math.max(1, Math.floor(rect.width || window.innerWidth)),
+        height: Math.max(1, Math.floor(rect.height || window.innerHeight)),
+      };
+    };
+
+    const { width: initialW, height: initialH } = getCanvasSize();
+    const camera = new THREE.PerspectiveCamera(75, initialW / initialH, 0.1, 1000);
+
+    let renderer: THREE.WebGLRenderer | null = null;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: false, // аопптимизация: ллא אנטי אליאסינג לביצועים טובים
+        powerPreference: "high-performance",
+      });
+    } catch {
+      return;
+    }
+
+    renderer.setSize(initialW, initialH);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // הגבלת pixelRatio
     camera.position.z = 5;
 
@@ -65,16 +94,17 @@ export default function PackagesParticles() {
       if (isVisible && !document.hidden) {
         points.rotation.y += 0.0002;
         points.rotation.x += 0.0001;
-        renderer.render(scene, camera);
+        renderer?.render(scene, camera);
       }
       rafId = requestAnimationFrame(animate);
     };
     rafId = requestAnimationFrame(animate);
 
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const { width, height } = getCanvasSize();
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer?.setSize(width, height);
     };
 
     window.addEventListener("resize", handleResize);
@@ -82,7 +112,14 @@ export default function PackagesParticles() {
       window.removeEventListener("resize", handleResize);
       if (rafId != null) cancelAnimationFrame(rafId);
       observer?.disconnect();
-      renderer.dispose();
+      if (renderer) {
+        try {
+          renderer.forceContextLoss();
+        } catch {
+          // ignore
+        }
+        renderer.dispose();
+      }
       pointsGeom.dispose();
       pointsMat.dispose();
       scene.clear();
